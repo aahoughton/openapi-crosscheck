@@ -971,6 +971,65 @@ export function disagreements(
 }
 
 /**
+ * The verdict splits where the field parted most evenly, for a reader who has
+ * just arrived.
+ *
+ * A rule rather than a hand-picked list, so nobody chooses which disagreements
+ * look interesting. Evenness first: a case eight libraries answered one way and
+ * one the other is a near-consensus with an outlier, and one they halve is a
+ * question the field has not settled. Then the number that answered, because a
+ * split among ten is more of the field than the same split among three. Then
+ * the case id, so the list is stable.
+ *
+ * Only verdict splits. A value split is a disagreement about what a caller
+ * receives rather than about what the request means, and mixing the two would
+ * put them in one order as if they were the same quantity.
+ *
+ * One entry per coordinate, versions collapsed. A case and its mirror in the
+ * other specification version are the same question asked twice, and a list of
+ * four that shows two of them twice is a list of two.
+ *
+ * Nothing here reads a library's name. The order is a property of the case.
+ */
+export function sharpestSplits(
+  found: readonly Disagreement[],
+  limit: number,
+): readonly { disagreement: Disagreement; accepted: number; rejected: number }[] {
+  return found
+    .filter((one) => one.kind === "verdict")
+    .map((disagreement) => ({
+      disagreement,
+      accepted: disagreement.answers.filter((a) => a.verdict === "accepted").length,
+      rejected: disagreement.answers.filter((a) => a.verdict === "rejected").length,
+    }))
+    .sort((one, other) => {
+      const evenness = (split: { accepted: number; rejected: number }): number =>
+        Math.min(split.accepted, split.rejected) / (split.accepted + split.rejected);
+      return (
+        evenness(other) - evenness(one) ||
+        other.disagreement.answers.length - one.disagreement.answers.length ||
+        (one.disagreement.caseId < other.disagreement.caseId ? -1 : 1)
+      );
+    })
+    .filter(dedupeByCoordinate())
+    .slice(0, limit);
+}
+
+/**
+ * Keeps the first entry for each case coordinate, which is the case id with the
+ * specification version it was asked under taken off the end.
+ */
+function dedupeByCoordinate(): (split: { disagreement: Disagreement }) => boolean {
+  const seen = new Set<string>();
+  return (split) => {
+    const coordinate = split.disagreement.caseId.replace(/-oas\d+$/, "");
+    if (seen.has(coordinate)) return false;
+    seen.add(coordinate);
+    return true;
+  };
+}
+
+/**
  * What changed between two measurements of the same library.
  *
  * Only produced for entries sharing a package name, because that is when a

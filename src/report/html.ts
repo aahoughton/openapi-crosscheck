@@ -10,6 +10,7 @@ import {
   corpusAgreement,
   coverage,
   disagreements,
+  sharpestSplits,
   divergenceGrid,
   orderEntries,
   matrixFileName,
@@ -217,6 +218,9 @@ export function renderHtml(
 
   const verdictSplits = splits.filter((split) => split.kind === "verdict");
   const valueSplits = splits.filter((split) => split.kind === "value");
+  // What a reader who has just arrived is shown first. Four because the block
+  // has to stay shorter than the thing it points at.
+  const lead = sharpestSplits(splits, 4);
 
   /**
    * A band naming the parameter location the following rows share.
@@ -263,14 +267,34 @@ ${
     <span><b>corpus</b> ${escape(agreement.digests[0]?.slice(0, 19) ?? "none")}</span>
   </div>
   <p class="lede">Every library below was handed the same OpenAPI documents and the same HTTP requests, and this page is what each one answered. They do not all do the same job, so what each one can be asked differs, and the page says where.</p>
-  <dl class="terms">
-    <dt>case</dt><dd>One document, one request, and one question about how the specification says that request should be read. There are ${String(view.conformance + view.divergence)} of them, and the whole set is the corpus.</dd>
-    <dt>library</dt><dd>A request validator someone published. Nothing here compares them on speed, size or anything but what they answered.</dd>
-    <dt>adapter</dt><dd>How one library gets asked. Each library is installed in a container of its own with a small program that speaks this harness's protocol on one side and that library's own API on the other. Nothing above that layer knows which library is running, which is what keeps the questions identical.</dd>
-    <dt>configuration</dt><dd>How one library was constructed and driven: which published call the adapter made, with what options, and which locations it was handed already split. A library rejecting everything may be misconfigured rather than strict, so every result carries one. Each card below names its own, and <code>libraries/&lt;name&gt;.json</code> writes it out in full.</dd>
-    <dt>measurement</dt><dd>One library's answers to the whole corpus, stored on its own and readable without the others.</dd>
-    <dt>stage</dt><dd>A step of the work: matching the route, splitting the query string, applying a style, checking the schema. A library performs some of these and expects its caller to have done the rest, and a case is only put to a library that performs the step that case is about.</dd>
-  </dl>
+${
+  entries.length < 2
+    ? ""
+    : `  <div class="readout">
+    <h2>Where the answers differed</h2>
+    <div class="readout-counts">
+      <a href="#split-verdicts"><b>${String(verdictSplits.length)}</b> split verdicts</a>
+      <a href="#value-splits"><b>${String(valueSplits.length)}</b> same verdict, different values</a>
+    </div>
+    <p class="readout-note">Cases more than one library reached a verdict on and answered differently. A library that was never asked is absent rather than counted as a dissenting opinion.</p>
+${
+  lead.length === 0
+    ? ""
+    : `    <ol class="readout-lead">
+${lead
+  .map(
+    (split) => `      <li><a href="#${escape(split.disagreement.caseId)}"><code>${escape(
+      split.disagreement.caseId,
+    )}</code></a><span class="split">${String(split.accepted)} accepted &middot; ${String(
+      split.rejected,
+    )} rejected</span><span class="q">${escape(split.disagreement.title)}</span></li>`,
+  )
+  .join("\n")}
+    </ol>
+    <p class="readout-note">The evenest splits, by how nearly the libraries that answered halved. Every one of them is below.</p>`
+}
+  </div>`
+}
   <p class="lede">The cases come in two kinds and the difference is the point of the whole exercise. <b>Conformance</b> cases are ones the specification settles: there is one required answer, so a different answer is a failure attributable to the library. <b>Divergence</b> cases are ones the specification leaves open: libraries may differ and none of them is failing, so those are reported and never scored. Conformance comes first below.</p>
   <p class="lede">This page trades depth for scannability. It leaves out the raw result behind each cell and the specification text each case rests on. The markdown reading of the same run keeps both: ${matrixNames} quotes every rule in full beside its case, and <code>libraries/&lt;name&gt;.md</code> reads each library on its own. ${
     companions.markdown
@@ -323,6 +347,21 @@ ${STAGE_SLOTS.map(
   )
   .join("\n")}
   </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>The words the tables use</h2>
+    <p>Six of them, and the rest of the page assumes them. A reader who already knows what an adapter and a stage are can scroll past.</p>
+  </div>
+  <dl class="terms">
+    <dt>case</dt><dd>One document, one request, and one question about how the specification says that request should be read. There are ${String(view.conformance + view.divergence)} of them, and the whole set is the corpus.</dd>
+    <dt>library</dt><dd>A request validator someone published. Nothing here compares them on speed, size or anything but what they answered.</dd>
+    <dt>adapter</dt><dd>How one library gets asked. Each library is installed in a container of its own with a small program that speaks this harness's protocol on one side and that library's own API on the other. Nothing above that layer knows which library is running, which is what keeps the questions identical.</dd>
+    <dt>configuration</dt><dd>How one library was constructed and driven: which published call the adapter made, with what options, and which locations it was handed already split. A library rejecting everything may be misconfigured rather than strict, so every result carries one. Each card below names its own, and <code>libraries/&lt;name&gt;.json</code> writes it out in full.</dd>
+    <dt>measurement</dt><dd>One library's answers to the whole corpus, stored on its own and readable without the others.</dd>
+    <dt>stage</dt><dd>A step of the work: matching the route, splitting the query string, applying a style, checking the schema. A library performs some of these and expects its caller to have done the rest, and a case is only put to a library that performs the step that case is about.</dd>
+  </dl>
 </section>
 
 <section>
@@ -437,11 +476,12 @@ ${delta.moved
 
 <section>
   <div class="section-head">
-    <h2>Where the answers differed</h2>
+    <h2>Every case where the answers differed</h2>
     <p>Cases more than one measurement reached a verdict on and answered differently. A measurement that was never asked is absent rather than counted as a dissenting opinion.</p>${filterChips}
   </div>
   ${splitTable(
     "Split verdicts",
+    "split-verdicts",
     "One accepted where another rejected.",
     verdictSplits,
     caseCell,
@@ -450,6 +490,7 @@ ${delta.moved
   )}
   ${splitTable(
     "Same verdict, different values",
+    "value-splits",
     "Every measurement agreed on the verdict and handed its caller something different. This is the disagreement a verdict column cannot show.",
     valueSplits,
     caseCell,
@@ -626,6 +667,7 @@ function provenance(state: RunSidecarState): string {
 
 function splitTable(
   heading: string,
+  anchor: string,
   blurb: string,
   splits: readonly {
     caseId: string;
@@ -642,13 +684,13 @@ function splitTable(
     // facts, and only one of them is about the libraries. A run holding one
     // measurement is the ordinary path rather than a comparison that came back
     // empty, so it says so.
-    return `<div class="callout"><h3>${escape(heading)}</h3><p>${
+    return `<div class="callout" id="${anchor}"><h3>${escape(heading)}</h3><p>${
       comparable
         ? "None in this run."
         : "This run holds one measurement, so there is nothing for it to differ from."
     }</p></div>`;
   }
-  return `<div class="callout"><h3>${escape(heading)} &middot; ${String(splits.length)}</h3><p>${escape(blurb)}</p></div>
+  return `<div class="callout" id="${anchor}"><h3>${escape(heading)} &middot; ${String(splits.length)}</h3><p>${escape(blurb)}</p></div>
   <div class="scroll">
     <table>
       <thead><tr><th>case</th><th>tier</th><th>answers</th></tr></thead>
@@ -656,7 +698,7 @@ function splitTable(
 ${splits
   .map(
     (split) =>
-      `        <tr${rowClass(split.caseId)}>${caseCell(split.caseId)}<td>${escape(split.tier)}</td><td class="w">${split.answers
+      `        <tr id="${escape(split.caseId)}"${rowClass(split.caseId)}>${caseCell(split.caseId)}<td>${escape(split.tier)}</td><td class="w">${split.answers
         .map(
           (answer) =>
             `<span class="ans"><b>${escape(answer.label)}</b> ${escape(answer.verdict)} <code>${escape(answer.values)}</code></span>`,
@@ -716,6 +758,20 @@ section{display:flex;flex-direction:column;gap:1.1rem}
 .lede{color:var(--muted);font-size:.9rem;line-height:1.6;margin:1rem 0 0}
 .meta{display:flex;flex-wrap:wrap;gap:.45rem 1.5rem;font-family:var(--mono);font-size:.76rem;color:var(--faint);padding-top:1rem;border-top:1px solid var(--rule)}
 .meta b{color:var(--muted);font-weight:500}
+.readout{margin-top:1.4rem;padding:1.05rem 1.15rem 1.15rem;background:var(--surface);border:1px solid var(--rule);border-radius:3px}
+.readout h2{font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 .8rem;font-weight:600}
+.readout-counts{display:flex;flex-wrap:wrap;gap:.5rem 2rem}
+.readout-counts a{display:flex;align-items:baseline;gap:.45rem;color:var(--muted);text-decoration:none;font-size:.85rem}
+.readout-counts a:hover{color:var(--fg)}
+.readout-counts b{font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--fg);line-height:1.1}
+.readout-note{color:var(--faint);font-size:.78rem;line-height:1.55;margin:.75rem 0 0}
+.readout-lead{list-style:none;margin:.9rem 0 0;padding:.85rem 0 0;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:.5rem}
+.readout-lead li{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem .7rem;font-size:.8rem}
+.readout-lead code{font-size:.78rem}
+.readout-lead a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
+.readout-lead a:hover{border-bottom-color:var(--accent)}
+.readout-lead .split{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
+.readout-lead .q{color:var(--faint);flex:1 1 14rem;min-width:0}
 .libs{display:flex;flex-direction:column;gap:1.1rem}
 .lib{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:1.05rem 1.15rem 1.2rem}
 .lib-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .9rem;margin-bottom:.85rem}

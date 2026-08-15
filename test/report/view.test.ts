@@ -15,8 +15,10 @@ import {
   orderSources,
   placeContentCases,
   resolveLabels,
+  sharpestSplits,
   roster,
   versionDeltas,
+  type Disagreement,
   type Entry,
 } from "../../src/report/view";
 
@@ -184,6 +186,63 @@ function measurement(
     answers: Object.entries(answers).map(([caseId, result]) => ({ caseId, result })),
   };
 }
+
+describe("what a reader who has just arrived is shown first", () => {
+  function split(caseId: string, accepted: number, rejected: number): Disagreement {
+    return {
+      caseId,
+      title: caseId,
+      tier: "divergence",
+      kind: "verdict",
+      answers: [
+        ...Array.from({ length: accepted }, (_, i) => ({
+          label: `a${String(i)}`,
+          verdict: "accepted",
+          values: "",
+        })),
+        ...Array.from({ length: rejected }, (_, i) => ({
+          label: `r${String(i)}`,
+          verdict: "rejected",
+          values: "",
+        })),
+      ],
+    };
+  }
+
+  it("puts the evenest split first, then the one more of the field answered", () => {
+    const found = [
+      split("lopsided-oas31", 8, 1),
+      split("even-small-oas31", 2, 2),
+      split("even-large-oas31", 5, 5),
+    ];
+    expect(sharpestSplits(found, 3).map((one) => one.disagreement.caseId)).toEqual([
+      "even-large-oas31",
+      "even-small-oas31",
+      "lopsided-oas31",
+    ]);
+  });
+
+  it("counts the two verdicts it reports", () => {
+    const [first] = sharpestSplits([split("c-oas31", 6, 3)], 1);
+    expect(first?.accepted).toBe(6);
+    expect(first?.rejected).toBe(3);
+  });
+
+  it("shows one version of a case rather than both", () => {
+    // The mirror in the other specification version is the same question asked
+    // twice, and a list of two that shows one of them twice is a list of one.
+    const found = [split("c-oas30", 5, 5), split("c-oas31", 5, 5), split("d-oas31", 4, 4)];
+    expect(sharpestSplits(found, 2).map((one) => one.disagreement.caseId)).toEqual([
+      "c-oas30",
+      "d-oas31",
+    ]);
+  });
+
+  it("leaves a value split out of an order about verdicts", () => {
+    const value: Disagreement = { ...split("v-oas31", 0, 0), kind: "value" };
+    expect(sharpestSplits([value], 4)).toEqual([]);
+  });
+});
 
 describe("a content case that sends no representation fills no cell", () => {
   // The condition axis has two halves, and both mean something arrived. An
