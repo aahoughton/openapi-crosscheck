@@ -266,7 +266,7 @@ ${
     <span><b>divergence</b> ${String(view.divergence)}</span>
     <span><b>corpus</b> ${escape(agreement.digests[0]?.slice(0, 19) ?? "none")}</span>
   </div>
-  <p class="lede">Every library below was handed the same OpenAPI documents and the same HTTP requests, and this page is what each one answered. They do not all do the same job, so what each one can be asked differs, and the page says where.</p>
+  <p class="lede">Every library below got the same OpenAPI documents and the same HTTP requests, and this page is what each one answered. They don't all do the same job, so what each one can be asked differs, and the page says where.</p>
 ${
   entries.length < 2
     ? ""
@@ -276,7 +276,7 @@ ${
       <a href="#split-verdicts"><b>${String(verdictSplits.length)}</b> split verdicts</a>
       <a href="#value-splits"><b>${String(valueSplits.length)}</b> same verdict, different values</a>
     </div>
-    <p class="readout-note">Cases more than one library reached a verdict on and answered differently. A library that was never asked is absent rather than counted as a dissenting opinion.</p>
+    <p class="readout-note">Cases where more than one library reached a verdict and they didn't match. A library that wasn't asked is left out rather than counted as a dissenting opinion.</p>
 ${
   lead.length === 0
     ? ""
@@ -291,12 +291,12 @@ ${lead
   )
   .join("\n")}
     </ol>
-    <p class="readout-note">The evenest splits, by how nearly the libraries that answered halved. Every one of them is below.</p>`
+    <p class="readout-note">The evenest ones, where the libraries that answered came closest to halving. They're all in the tables below.</p>`
 }
   </div>`
 }
-  <p class="lede">The cases come in two kinds and the difference is the point of the whole exercise. <b>Conformance</b> cases are ones the specification settles: there is one required answer, so a different answer is a failure attributable to the library. <b>Divergence</b> cases are ones the specification leaves open: libraries may differ and none of them is failing, so those are reported and never scored. Conformance comes first below.</p>
-  <p class="lede">This page trades depth for scannability. It leaves out the raw result behind each cell and the specification text each case rests on. The markdown reading of the same run keeps both: ${matrixNames} quotes every rule in full beside its case, and <code>libraries/&lt;name&gt;.md</code> reads each library on its own. ${
+  <p class="lede">Cases come in two kinds, and the difference is the point of the whole exercise. <b>Conformance</b> cases are ones the specification settles: there's one required answer, so a different answer is a failure attributable to the library. <b>Divergence</b> cases are ones it leaves open: libraries can differ and none of them is failing, so those are reported and never scored. Conformance comes first below.</p>
+  <p class="lede">This page trades depth for scannability: it leaves out the raw result behind each cell and the specification text each case rests on. The markdown reading of the same run keeps both: ${matrixNames} quotes every rule in full beside its case, and <code>libraries/&lt;name&gt;.md</code> reads each library on its own. ${
     companions.markdown
       ? "Both sit beside this file."
       : "Neither exists in this directory yet; running <code>pnpm render-md</code> on it writes them."
@@ -313,7 +313,7 @@ ${lead
 <section>
   <div class="section-head">
     <h2>The roster</h2>
-    <p>What each measured library does for itself, and what its caller supplies. Nothing here is ranked: owning fewer stages is a different shape. The source link on a card is where that library's container says its source lives, which is a claim by whoever wrote the container and not something this run checked.</p>
+    <p>What each library does for itself, and what its caller supplies. Nothing here is ranked: owning fewer stages is a different shape. The source link on a card is where that library's container says its source lives, which is a claim by whoever wrote the container and something this run never checked.</p>
   </div>
 ${stageLegend()}
   <div class="libs">
@@ -352,7 +352,7 @@ ${STAGE_SLOTS.map(
 <section>
   <div class="section-head">
     <h2>The words the tables use</h2>
-    <p>Six of them, and the rest of the page assumes them. A reader who already knows what an adapter and a stage are can scroll past.</p>
+    <p>Six of them, and the rest of the page assumes them. If you already know what an adapter and a stage are, scroll past.</p>
   </div>
   <dl class="terms">
     <dt>case</dt><dd>One document, one request, and one question about how the specification says that request should be read. There are ${String(view.conformance + view.divergence)} of them, and the whole set is the corpus.</dd>
@@ -367,7 +367,7 @@ ${STAGE_SLOTS.map(
 <section>
   <div class="section-head">
     <h2>Conformance</h2>
-    <p><b>What the specification settles.</b> ${String(view.conformance)} cases where it requires one answer, so a different answer is a failure attributable to the library. Every case is listed against every measurement. Nothing is totalled: measurements are asked different numbers of cases, so a count per measurement would have a denominator of its own and read as a rank against denominators it does not share.</p>${filterChips}
+    <p><b>What the specification settles.</b> ${String(view.conformance)} cases where it requires one answer, so a different answer is a failure attributable to the library. Every case is listed against every measurement. Nothing is totalled: measurements are asked different numbers of cases, so a count per measurement would carry its own denominator and read as a rank against denominators it doesn't share.</p>${filterChips}
   </div>
   <div class="scroll">
     <table>
@@ -389,7 +389,7 @@ ${grid
   </div>
   <div class="callout">
     <h3>Reading a cell</h3>
-    <p>A case id with a dotted underline carries the corpus entry it came from. Hover it: the note opens with a plain-language line saying what the case sends and what it is watching for, then the request itself, the expected verdict, and the argument for that verdict. The rules are named at the end, and ${matrixNames} quotes them in full. The same hover works in every table on this page.</p>
+    <p>A case id with a dotted underline carries the corpus entry it came from. Hover it: the note opens with a plain line saying what the case sends and what it's watching for, then the request itself, the expected verdict, and the argument for it. The rules are named at the end, and ${matrixNames} quotes them in full. The same hover works in every table on this page.</p>
     <dl class="stages">
 ${CONFORMANCE_OUTCOMES.map(
   (outcome) =>
@@ -402,8 +402,8 @@ ${CONFORMANCE_OUTCOMES.map(
 <section>
   <div class="section-head">
     <h2>Divergence</h2>
-    <p><b>What the specification leaves open.</b> ${String(view.divergence)} cases where it requires no particular answer, so libraries may differ here and none of them is failing. There is no expected answer and no failure: the table reports what each measurement returned, including the cases every measurement answered alike, which is a finding of its own about a question the specification left open.</p>${filterChips}
-    <p>Each cell holds two things: the verdict that library reached, and under it the values it handed back, or a note where it hands none back.</p>
+    <p><b>What the specification leaves open.</b> ${String(view.divergence)} cases where it requires no particular answer, so libraries can differ here and none of them is failing. With no expected answer there's nothing to fail: the table reports what each measurement returned, including the cases they all answered alike, which is a finding of its own about a question the specification left open.</p>${filterChips}
+    <p>Each cell holds two things: the verdict that library reached, and under it the values it handed back, or a note where it hands none.</p>
   </div>
   <div class="scroll">
     <table>
@@ -428,14 +428,14 @@ ${divergence
     <p>Each cell holds two separate results: the verdict the library reached, and what it handed back.</p>
     <dl class="stages">
       <dt>accepted / rejected</dt><dd>The verdict the library reached on the request.</dd>
-      <dt>raised, no verdict</dt><dd>It threw instead of answering. Attributable to the library, and not a rejection: an application would have seen an exception.</dd>
-      <dt>not asked</dt><dd>It was never given this case, because it does not perform the stage the case probes. The reason is on the cell and in <code>capabilities.md</code>.</dd>
+      <dt>raised, no verdict</dt><dd>It threw instead of answering, so an application would have seen an exception. Attributable to the library, and a different thing from a rejection.</dd>
+      <dt>not asked</dt><dd>It was never given this case, because it doesn't perform the stage the case probes. The reason is on the cell and in <code>capabilities.md</code>.</dd>
       <dt>harness error</dt><dd>An error in the adapter or the harness rather than an answer from the library.</dd>
       <dt><code>{"p":"blue"}</code></dt><dd>The values the library handed back, as it returned them. The vantage they were read from is recorded with every answer in <code>libraries/&lt;slug&gt;.json</code>, because a value handed to a handler and a value read from a validator are different observations.</dd>
-      <dt>not exposed by this library</dt><dd>It reached a verdict, and publishes no call that returns deserialized values. A fact about the library rather than about this request.</dd>
-      <dt>none reached</dt><dd>It does expose values, and produced none here.</dd>
+      <dt>not exposed by this library</dt><dd>It reached a verdict, and publishes no call that returns deserialized values. That's a fact about the library rather than about this request.</dd>
+      <dt>none reached</dt><dd>It exposes values, and produced none here.</dd>
     </dl>
-    <p>${divergence.some((line) => line.answeredInValues) ? `A case marked <span class="tag">answered in values</span> is one the verdict cannot carry: every reading of the specification accepts the request, and what separates them is what comes back. A library exposing no values reaches a verdict on such a case and answers nothing by it, so read those rows down the value line alone.` : `No case in this run is marked <span class="tag">answered in values</span>, which would mean a case the verdict cannot carry.`}</p>
+    <p>${divergence.some((line) => line.answeredInValues) ? `A case marked <span class="tag">answered in values</span> is one the verdict can't carry: every reading of the specification accepts the request, and what separates them is what comes back. A library exposing no values reaches a verdict on such a case and answers nothing by it, so read those rows down the value line alone.` : `No case in this run is marked <span class="tag">answered in values</span>, which would mean a case the verdict can't carry.`}</p>
   </div>
 </section>
 
@@ -470,14 +470,14 @@ ${delta.moved
 <section>
   <div class="section-head">
     <h2>About the corpus, not the libraries</h2>
-    <p>The tables above are the results: what each library answered, case by case. The three below are about the questions instead. Two of them summarise where the answers parted company, which is a reading of the same results rather than a new measurement, and the third is what the corpus does and does not ask, which is true of this list of cases whoever runs it.</p>
+    <p>The tables above are the results: what each library answered, case by case. The three below are about the questions instead. Two summarise where the answers parted company, which is a reading of the same results rather than a new measurement. The third is what the corpus does and doesn't ask, which stays true of this list of cases whoever runs it.</p>
   </div>
 </section>
 
 <section>
   <div class="section-head">
     <h2>Every case where the answers differed</h2>
-    <p>Cases more than one measurement reached a verdict on and answered differently. A measurement that was never asked is absent rather than counted as a dissenting opinion.</p>${filterChips}
+    <p>Cases where more than one measurement reached a verdict and they didn't match. A measurement that wasn't asked is left out rather than counted as a dissenting opinion.</p>${filterChips}
   </div>
   ${splitTable(
     "Split verdicts",
@@ -491,7 +491,7 @@ ${delta.moved
   ${splitTable(
     "Same verdict, different values",
     "value-splits",
-    "Every measurement agreed on the verdict and handed its caller something different. This is the disagreement a verdict column cannot show.",
+    "Every measurement agreed on the verdict and handed its caller something different. This is the disagreement a verdict column can't show.",
     valueSplits,
     caseCell,
     rowClass,
@@ -658,10 +658,10 @@ function provenance(state: RunSidecarState): string {
   <dl class="facts">${facts
     .map(([term, value]) => `<dt>${escape(term)}</dt><dd>${escape(value)}</dd>`)
     .join("")}</dl>
-  ${sidecar.harnessDirty === null ? "" : "<p>A dirty harness had uncommitted changes on top of that revision, so the revision alone does not identify the code that ran.</p>"}
+  ${sidecar.harnessDirty === null ? "" : "<p>A dirty harness had uncommitted changes on top of that revision, so the revision alone doesn't identify the code that ran.</p>"}
   <p>The corpus digest is of every field of every case, so it moves when a case is reworded as well as when one is rewritten, and two runs either side of a typo fix no longer compare. It is written when a run is measured and never rechecked, so it names the corpus the harness held at the time rather than proving the <code>corpus.json</code> in this directory is still that one.</p>
   <p><code>run.json</code> records the run. It names no measurement file and no measurement file names it, so nothing ties what is above to any particular library's answers: a measurement copied into this directory from another run would still be listed under it.</p>
-  <p>It also says when these answers were recorded rather than whether they are still right. Only running the containers again settles that, and no file in this directory records when that last happened.</p>
+  <p>It also says when these answers were recorded rather than whether they're still right. Only running the containers again settles that, and no file in this directory records when that last happened.</p>
 </div>`;
 }
 
@@ -687,7 +687,7 @@ function splitTable(
     return `<div class="callout" id="${anchor}"><h3>${escape(heading)}</h3><p>${
       comparable
         ? "None in this run."
-        : "This run holds one measurement, so there is nothing for it to differ from."
+        : "This run holds one measurement, so there's nothing for it to differ from."
     }</p></div>`;
   }
   return `<div class="callout" id="${anchor}"><h3>${escape(heading)} &middot; ${String(splits.length)}</h3><p>${escape(blurb)}</p></div>
