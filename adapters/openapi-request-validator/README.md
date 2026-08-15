@@ -31,11 +31,17 @@ request target.
 Routing is caller-owned because the constructor receives only the operation's
 parameter list.
 
-Path, query, header and cookie splitting are caller-owned because
-`validateRequest` receives location records rather than a raw request target.
-Every value in those records is a string, so a query pair the harness supplies
-with no `=` at all is answered as an adapter limitation rather than handed over
-as an empty value.
+Path, query and header splitting are caller-owned because `validateRequest`
+receives location records rather than a raw request target. Every value in
+those records is a string, so a query pair the harness supplies with no `=` at
+all is answered as an adapter limitation rather than handed over as an empty
+value.
+
+Cookie splitting is caller-owned for a stronger reason: the call takes
+`{ params, query, headers }` and there is no cookie position in it, so a cookie
+value is never put to the library at all. Nothing here relies on that being
+noticed, because every stage a cookie case travels through is caller-owned too
+and the runner asks none of them.
 
 Style and explode are caller-owned because the library expects values in the
 shape the schema should validate. A comma-joined array value is rejected as a
