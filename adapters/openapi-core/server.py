@@ -13,7 +13,7 @@ from openapi_core import OpenAPI
 from openapi_core.datatypes import RequestParameters
 from werkzeug.datastructures import ImmutableMultiDict
 
-PROTOCOL_VERSION = 1
+PROTOCOL_VERSION = 2
 LIBRARY = "openapi-core"
 # Where this library's source lives. Stated by this container, not resolved.
 LIBRARY_SOURCE = "https://github.com/python-openapi/openapi-core"
@@ -146,23 +146,53 @@ def json_safe(value: Any) -> Any:
     return {"type": type(value).__name__, "repr": repr(value)}
 
 
+class UnspellableInputError(Exception):
+    """The harness supplied an input this library's request shape cannot carry.
+
+    Raised rather than approximated. Handing the library the nearest thing it
+    can hold would publish its verdict on a request the case did not send.
+    """
+
+
 def build_request(message: Mapping[str, Any]) -> ProtocolRequest:
     wire = message["request"]
     target = base64.b64decode(wire["targetBase64"]).decode("utf-8", errors="surrogateescape")
     path = target.split("?", 1)[0]
 
     preparsed = message.get("preparsed") or {}
-    query_pairs: list[tuple[str, str]] = [
-        (str(pair[0]), str(pair[1]))
+    # A pair whose value is null carried no `=` on the wire. Every value in a
+    # MultiDict is a string, so `?p` cannot be spelled apart from `?p=` here and
+    # the case is refused rather than answered on the other request.
+    raw_query = [
+        pair
         for pair in preparsed.get("query") or []
         if isinstance(pair, list) and len(pair) == 2
     ]
+    if any(pair[1] is None for pair in raw_query):
+        raise UnspellableInputError(
+            "a query pair arrived with no `=`, and the Request protocol takes query "
+            "values as strings, so `?p` cannot be handed over apart from `?p=`"
+        )
+    query_pairs: list[tuple[str, str]] = [(str(pair[0]), str(pair[1])) for pair in raw_query]
 
     headers: dict[str, str] = {}
     for name, value in wire.get("headers", []):
         headers[name] = value if name not in headers else f"{headers[name]},{value}"
 
-    cookies = dict(preparsed.get("cookies") or {})
+    # A repeated cookie name survives the trip. The library documents this
+    # field as a MultiDict and reads repeats out of one, so collapsing the
+    # pairs here would answer the exploded-cookie cases on its behalf.
+    raw_cookies = [
+        pair
+        for pair in preparsed.get("cookies") or []
+        if isinstance(pair, list) and len(pair) == 2
+    ]
+    if any(pair[1] is None for pair in raw_cookies):
+        raise UnspellableInputError(
+            "a cookie crumb arrived with no `=`, and the Request protocol takes cookie "
+            "values as strings, so `p` cannot be handed over apart from `p=`"
+        )
+    cookie_pairs: list[tuple[str, str]] = [(str(pair[0]), str(pair[1])) for pair in raw_cookies]
 
     return ProtocolRequest(
         host_url="http://harness.invalid",
@@ -171,7 +201,7 @@ def build_request(message: Mapping[str, Any]) -> ProtocolRequest:
         parameters=RequestParameters(
             query=ImmutableMultiDict(query_pairs),
             header=headers,
-            cookie=cookies,
+            cookie=ImmutableMultiDict(cookie_pairs),
             path={},
         ),
     )
@@ -206,6 +236,15 @@ def run(message: Mapping[str, Any]) -> Answer:
     scope = "the RequestParameters object handed to unmarshal_request"
     try:
         request = build_request(message)
+    except UnspellableInputError as error:
+        # Ours, not the library's: the request never reached it.
+        return Answer(
+            outcome="unsupported",
+            reason="adapterLimitation",
+            detail=str(error),
+        )
+
+    try:
         before = copy.deepcopy(request.parameters)
         result = api.unmarshal_request(request)
         mutation = input_mutation(before, request.parameters, scope)

@@ -33,6 +33,9 @@ parameter list.
 
 Path, query, header and cookie splitting are caller-owned because
 `validateRequest` receives location records rather than a raw request target.
+Every value in those records is a string, so a query pair the harness supplies
+with no `=` at all is answered as an adapter limitation rather than handed over
+as an empty value.
 
 Style and explode are caller-owned because the library expects values in the
 shape the schema should validate. A comma-joined array value is rejected as a

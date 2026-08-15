@@ -13,9 +13,9 @@ import { matchTemplate, templatesOf } from "./pathTemplate";
  */
 export interface PreparsedRequest {
   readonly params: Record<string, string> | null;
-  readonly query: ReadonlyArray<readonly [name: string, value: string]> | null;
+  readonly query: ReadonlyArray<readonly [name: string, value: string | null]> | null;
   readonly headers: Record<string, string | string[]> | null;
-  readonly cookies: Record<string, string> | null;
+  readonly cookies: ReadonlyArray<readonly [name: string, value: string | null]> | null;
 }
 
 /** Which locations the harness must split, because the library does not. */
@@ -44,34 +44,41 @@ export function preparse(
   const rawPath = question === -1 ? request.target : request.target.slice(0, question);
   const rawQuery = question === -1 ? "" : request.target.slice(question + 1);
 
-  let query: ReadonlyArray<readonly [name: string, value: string]> | null = null;
+  let query: ReadonlyArray<readonly [name: string, value: string | null]> | null = null;
   if (delegated.query) {
     query = rawQuery === "" ? [] : rawQuery.split("&").map(splitQueryPair);
   }
 
   let headers: Record<string, string | string[]> | null = null;
   if (delegated.header) {
-    headers = {};
+    // Accumulated in a `Map` and materialised at the end. A header name is
+    // whatever the wire carried, including `toString`, and asking a plain
+    // object whether it holds that key answers about its prototype: the fold
+    // would report a duplicate of a header that arrived once. `fromEntries`
+    // defines own properties, so a name of `__proto__` is a name here too
+    // rather than an assignment that sets the prototype and loses the value.
+    const folded = new Map<string, string | string[]>();
     for (const [name, value] of request.headers) {
       const key = name.toLowerCase();
-      const existing = headers[key];
-      if (existing === undefined) headers[key] = value;
+      const existing = folded.get(key);
+      if (existing === undefined) folded.set(key, value);
       else if (Array.isArray(existing)) existing.push(value);
-      else headers[key] = [existing, value];
+      else folded.set(key, [existing, value]);
     }
+    headers = Object.fromEntries(folded);
   }
 
-  let cookies: Record<string, string> | null = null;
+  let cookies: ReadonlyArray<readonly [name: string, value: string | null]> | null = null;
   if (delegated.cookie) {
-    cookies = {};
+    const crumbs: (readonly [name: string, value: string | null])[] = [];
     for (const [name, value] of request.headers) {
       if (name.toLowerCase() !== "cookie") continue;
       for (const crumb of value.split(";")) {
-        const separator = crumb.indexOf("=");
-        if (separator === -1) continue;
-        cookies[crumb.slice(0, separator).trim()] = crumb.slice(separator + 1).trim();
+        const pair = splitCookieCrumb(crumb);
+        if (pair !== null) crumbs.push(pair);
       }
     }
+    cookies = crumbs;
   }
 
   return {
@@ -138,8 +145,8 @@ export function describePreparse(preparsed: PreparsedRequest): Preparse {
     result["headers"] = preparsed.headers;
   }
   if (preparsed.cookies !== null) {
-    supplied.push("cookie pairs");
-    result["cookies"] = preparsed.cookies;
+    supplied.push("raw cookie pairs");
+    result["cookies"] = preparsed.cookies.map(([name, value]) => [name, value]);
   }
   return {
     performedBy: "harness",
@@ -150,8 +157,35 @@ export function describePreparse(preparsed: PreparsedRequest): Preparse {
   };
 }
 
-function splitQueryPair(pair: string): readonly [string, string] {
+/**
+ * One `Cookie` crumb, as a name and a raw value.
+ *
+ * The delimiter between crumbs is a semicolon and the space that may follow it,
+ * so that leading space is dropped and nothing else is. A crumb carrying no `=`
+ * gets a `null` value, the same as a query pair that carried none. An empty crumb names
+ * no cookie and is dropped.
+ */
+function splitCookieCrumb(crumb: string): readonly [name: string, value: string | null] | null {
+  let start = 0;
+  while (start < crumb.length && (crumb[start] === " " || crumb[start] === "\t")) start += 1;
+  const rest = crumb.slice(start);
+  // Nothing at all between two semicolons, which names no cookie to report.
+  if (rest === "") return null;
+  const separator = rest.indexOf("=");
+  if (separator === -1) return [rest, null];
+  return [rest.slice(0, separator), rest.slice(separator + 1)];
+}
+
+/**
+ * One query pair, as a name and a raw value.
+ *
+ * `null` where the pair carried no `=` at all. `?p` and `?p=` are different
+ * requests: one sends a name with no value, the other sends an empty one, and
+ * whether a library treats them alike is its answer to give rather than a
+ * distinction to lose on the way in.
+ */
+function splitQueryPair(pair: string): readonly [name: string, value: string | null] {
   const separator = pair.indexOf("=");
-  if (separator === -1) return [pair, ""];
+  if (separator === -1) return [pair, null];
   return [pair.slice(0, separator), pair.slice(separator + 1)];
 }

@@ -23,7 +23,7 @@ import java.util.TreeSet;
 
 public final class Server {
 
-  private static final int PROTOCOL_VERSION = 1;
+  private static final int PROTOCOL_VERSION = 2;
   // The Maven coordinate rather than the bare artifact name, because the bare
   // name collides with an unrelated npm package already in this roster. Two
   // different libraries sharing a name across ecosystems is exactly what a
@@ -187,6 +187,19 @@ public final class Server {
       return body;
     }
 
+    if (hasValuelessQueryPair(message)) {
+      ObjectNode body = JSON.createObjectNode();
+      body.put("protocol", PROTOCOL_VERSION);
+      body.put("outcome", "unsupported");
+      body.put("reason", "adapterLimitation");
+      body.put(
+          "detail",
+          "a query pair arrived with no `=`, and withQueryParam takes a list of string "
+              + "values, so `?p` cannot be handed over apart from `?p=`; answering either way "
+              + "would report a verdict on the other request");
+      return body;
+    }
+
     SimpleRequest request = buildRequest(message);
     String scope = "the method, path, query parameters and headers of the SimpleRequest "
         + "handed to validateRequest";
@@ -259,6 +272,22 @@ public final class Server {
       built.append("|h ").append(name).append('=').append(request.getHeaderValues(name));
     }
     return built.toString();
+  }
+
+  /**
+   * Whether the harness supplied a query pair that carried no `=`.
+   *
+   * The builder takes query values as strings, so such a pair has no spelling
+   * here at all: handing over an empty value would put the library's verdict on
+   * `?p=` where the case sent `?p`.
+   */
+  private static boolean hasValuelessQueryPair(JsonNode message) {
+    JsonNode query = message.path("preparsed").path("query");
+    if (!query.isArray()) return false;
+    for (JsonNode pair : query) {
+      if (pair.isArray() && pair.size() == 2 && pair.get(1).isNull()) return true;
+    }
+    return false;
   }
 
   private static SimpleRequest buildRequest(JsonNode message) {

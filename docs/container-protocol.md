@@ -1,4 +1,4 @@
-# Container protocol, version 1
+# Container protocol, version 2
 
 Every library under test runs in its own container and answers this protocol.
 The harness speaks only this protocol, so adding a library in any language means
@@ -48,7 +48,7 @@ Called once, before any case. Answers what the library can be asked.
 
 ```json
 {
-  "protocol": 1,
+  "protocol": 2,
   "library": "@oaverify/core",
   "libraryVersion": "7.0.0",
   "librarySource": "https://github.com/oaverify/oaverify",
@@ -164,7 +164,7 @@ Called once per case.
 
 ```json
 {
-  "protocol": 1,
+  "protocol": 2,
   "caseId": "path-matrix-scalar-canonical-oas31",
   "document": { "openapi": "3.1.0", "...": "the case's document, verbatim" },
   "request": {
@@ -185,7 +185,7 @@ values itself:
   "params": null,
   "query": [["p", "blue"], ["p", "black"]],
   "headers": null,
-  "cookies": null
+  "cookies": [["p", "blue"], ["p", "black"]]
 }
 ```
 
@@ -196,9 +196,20 @@ protocol could detect it.
 Query preparse is raw and ordered. The harness splits the request target at the
 first `?`, then splits the query string on `&` and the first `=` in each pair.
 It does not percent-decode, does not turn `+` into space, does not apply a
-style, and does not collapse duplicate names. A pair without `=` has an empty
-value. This keeps percent encoding and duplicate-name handling attributable to
+style, and does not collapse duplicate names. A pair that carried no `=` has a
+`null` value, because `?p` and `?p=` are different requests and a container
+decides for itself whether its library's input shape can tell them apart. This keeps percent encoding and duplicate-name handling attributable to
 the library or to the adapter boundary that its public API requires.
+
+Cookie preparse is raw and ordered for the same reasons. The harness splits
+each `Cookie` header on `;`, drops the optional space that follows the
+semicolon, and splits each crumb at its first `=`. Nothing else is trimmed, so
+whitespace inside or after a value arrives as it was sent, and a repeated cookie
+name arrives twice in the order it was sent. A crumb carrying no `=` has a
+`null` value, the same as a query pair that carried none; a crumb with nothing
+in it at all, which is what a trailing semicolon leaves, names no cookie and is
+dropped. Cookie pairs are a list rather than an object because a repeated name
+is a probe dimension the corpus varies, and an object holds one value per key.
 
 Some libraries expose only a framework-shaped request API, such as a decoded or
 mapped query object. An adapter for such a library may convert the raw pairs
@@ -222,7 +233,7 @@ with any other container's.
 
 ```json
 {
-  "protocol": 1,
+  "protocol": 2,
   "outcome": "accepted",
   "deserialized": {
     "kind": "observed",
@@ -349,9 +360,12 @@ are both describing themselves accurately. They are displayed, never compared.
 
 ## Protocol version
 
-`protocol` is `1` on every message in both directions. The harness refuses a
+`protocol` is `2` on every message in both directions. The harness refuses a
 container answering a different number rather than guessing at compatibility. A
 change that would alter what a cell means is a version bump.
+
+[protocol-changelog.md](protocol-changelog.md) says what changed in each
+version and what a container written against an older one has to do.
 
 ## Adding a library
 

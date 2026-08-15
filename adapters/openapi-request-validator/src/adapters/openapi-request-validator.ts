@@ -44,7 +44,9 @@ const configuration: Configuration = {
     "new OpenAPIRequestValidator({ parameters }) with the operation's parameters, " +
     "called with { params, query, headers }. Query arrives from the harness as raw " +
     "name/value pairs with no percent decoding, then this adapter collapses duplicate " +
-    "raw names into the object shape validateRequest accepts. It is told which " +
+    "raw names into the object shape validateRequest accepts. That shape holds a " +
+    "string per name, so a query pair that arrived with no `=` is answered as an " +
+    "adapter limitation rather than as an empty value. It is told which " +
     "operation applies, because it has no routing of its own. " +
     "Values are read from a write-back channel: validateRequest returns errors only, " +
     "and its schema engine writes coerced values and schema defaults onto the params, " +
@@ -108,9 +110,22 @@ export function createAdapter(): LibraryAdapter {
         };
       }
 
+      const query = queryRecord(preparsed.query);
+      if (query === null && preparsed.query !== null) {
+        return {
+          ...base,
+          outcome: "unsupported",
+          reason: "adapterLimitation",
+          detail:
+            "a query pair arrived with no `=`, and the object shape validateRequest " +
+            "accepts holds a string per name, so `?p` cannot be spelled apart from " +
+            "`?p=`; answering either way would report a verdict on the other request",
+        };
+      }
+
       const libraryRequest = {
         params: preparsed.params,
-        query: queryRecord(preparsed.query),
+        query,
         headers: preparsed.headers,
       };
       const before = snapshotInput(libraryRequest);
@@ -195,8 +210,11 @@ function deserializedObservation(
  * schema engine produced rather than the strings this adapter put there.
  */
 function atPosition(request: LibraryRequest, parameter: ParameterObject): unknown {
+  // `Object.hasOwn` before reading: a parameter declared as `toString` would
+  // otherwise read back the prototype's function and be reported as a value the
+  // library produced.
   const record = (holder: Record<string, unknown> | null, key: string): unknown =>
-    holder === null ? undefined : holder[key];
+    holder !== null && Object.hasOwn(holder, key) ? holder[key] : undefined;
   if (parameter.in === "path") return record(request.params, parameter.name);
   if (parameter.in === "query") return record(request.query, parameter.name);
   // Preparse folds header names to lower case, so the declared name is folded
@@ -204,16 +222,28 @@ function atPosition(request: LibraryRequest, parameter: ParameterObject): unknow
   return record(request.headers, parameter.name.toLowerCase());
 }
 
+/**
+ * The harness's query pairs in the object shape `validateRequest` accepts, or
+ * `null` where they have no spelling in it.
+ *
+ * Every value in that object is a string, so a pair that arrived with no `=` at
+ * all has nowhere to go: writing `""` would hand the library `?p=` where the
+ * request was `?p`, and the row would still read as the library's answer.
+ */
 function queryRecord(
-  query: ReadonlyArray<readonly [name: string, value: string]> | null,
+  query: ReadonlyArray<readonly [name: string, value: string | null]> | null,
 ): Record<string, string | string[]> | null {
   if (query === null) return null;
-  const record: Record<string, string | string[]> = {};
+  // Collected in a `Map`, then materialised: a parameter named `toString` is a
+  // name like any other on the wire, and asking a plain object whether it holds
+  // that key answers about its prototype.
+  const collected = new Map<string, string | string[]>();
   for (const [name, value] of query) {
-    const existing = record[name];
-    if (existing === undefined) record[name] = value;
+    if (value === null) return null;
+    const existing = collected.get(name);
+    if (existing === undefined) collected.set(name, value);
     else if (Array.isArray(existing)) existing.push(value);
-    else record[name] = [existing, value];
+    else collected.set(name, [existing, value]);
   }
-  return record;
+  return Object.fromEntries(collected);
 }

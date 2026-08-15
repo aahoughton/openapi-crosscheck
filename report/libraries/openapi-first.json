@@ -106,11 +106,14 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {
-            "p": "blue"
-          }
+          "cookies": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
         }
       },
       "accepted": {
@@ -707,7 +710,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-first",
-    "imageId": "sha256:37e829a1b62d957b8be392d92701796dad08136c8e03fc9b936a2724e1999405",
+    "imageId": "sha256:3887153f2558a770d89be6e689804184e593a545453caae68c5c0e0a41e7efe7",
     "ecosystem": "rubygems"
   },
   "answers": [

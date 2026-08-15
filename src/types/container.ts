@@ -12,7 +12,7 @@ import type { OpenApiDocument } from "./openapi";
  * rows that mean the same thing as any other container's, whatever language it
  * is written in.
  */
-export const PROTOCOL_VERSION = 1;
+export const PROTOCOL_VERSION = 2;
 
 /**
  * A request as it crosses the boundary.
@@ -41,12 +41,23 @@ export interface WireMessage {
  * must not read a location it declared it owns: doing so would measure the
  * harness's splitting while the declaration says otherwise, and nothing in the
  * protocol could detect it.
+ *
+ * A query pair's value is `null` where the pair carried no `=`. `?p` and `?p=`
+ * are different requests, and a container decides for itself whether its
+ * library's input shape can tell them apart.
+ *
+ * `cookies` is an ordered list of pairs for the same reason `query` and the
+ * wire's `headers` are. A repeated name is a probe dimension the corpus varies,
+ * and a JSON object holds one value per key, so a record here would drop a
+ * crumb before the container saw it and publish the library's verdict on what
+ * survived. Collapsing repeats is a choice about what a library's request shape
+ * can carry, which belongs to the container that knows that shape.
  */
 export interface PreparsedMessage {
   readonly params: Record<string, string> | null;
-  readonly query: ReadonlyArray<readonly [name: string, value: string]> | null;
+  readonly query: ReadonlyArray<readonly [name: string, value: string | null]> | null;
   readonly headers: Record<string, string | string[]> | null;
-  readonly cookies: Record<string, string> | null;
+  readonly cookies: ReadonlyArray<readonly [name: string, value: string | null]> | null;
 }
 
 export interface DescribeResponse {

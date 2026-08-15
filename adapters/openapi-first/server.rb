@@ -8,7 +8,7 @@ require "webrick"
 
 require "openapi_first"
 
-PROTOCOL_VERSION = 1
+PROTOCOL_VERSION = 2
 LIBRARY = "openapi_first"
 # Where this library's source lives. Stated by this container.
 LIBRARY_SOURCE = "https://github.com/ahx/openapi_first"

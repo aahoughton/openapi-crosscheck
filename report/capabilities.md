@@ -62,7 +62,7 @@ never reached that point at all.
 | `github.com/getkin/kin-openapi` | 158 | 2 | 156 | 0 | 8 | 0 |
 | `github.com/pb33f/libopenapi-validator` | 166 | 0 | 166 | 0 | 0 | 0 |
 | `league/openapi-psr7-validator` | 158 | 0 | 158 | 0 | 0 | 8 |
-| `@oaverify/core` | 162 | 162 | 0 | 0 | 4 | 0 |
+| `@oaverify/core` | 160 | 160 | 0 | 0 | 6 | 0 |
 | `openapi-backend` | 157 | 157 | 0 | 0 | 4 | 5 |
 | `openapi-core` | 153 | 153 | 0 | 0 | 10 | 3 |
 | `openapi-request-validator` | 18 | 2 | 16 | 0 | 148 | 0 |
@@ -85,12 +85,12 @@ a failure.
 | `github.com/pb33f/libopenapi-validator` | rejected | 0 | 18 | 0 | none |
 | `league/openapi-psr7-validator` | accepted | 0 | 84 | 0 | none |
 | `league/openapi-psr7-validator` | rejected | 0 | 74 | 0 | none |
-| `@oaverify/core` | accepted | 136 | 0 | 0 | validated only, so an absent name failed its schema |
+| `@oaverify/core` | accepted | 134 | 0 | 0 | validated only, so an absent name failed its schema |
 | `@oaverify/core` | rejected | 26 | 0 | 0 | validated only, so an absent name failed its schema |
 | `openapi-backend` | accepted | 74 | 0 | 0 | parsed before validation |
 | `openapi-backend` | rejected | 83 | 0 | 0 | parsed before validation |
-| `openapi-core` | accepted | 85 | 0 | 0 | validated only, so an absent name failed its schema |
-| `openapi-core` | rejected | 68 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-core` | accepted | 87 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-core` | rejected | 66 | 0 | 0 | validated only, so an absent name failed its schema |
 | `openapi-request-validator` | accepted | 2 | 4 | 0 | parsed before validation |
 | `openapi-request-validator` | rejected | 0 | 12 | 0 | none |
 | `openapi_first` | accepted | 140 | 0 | 0 | parsed before validation |
@@ -121,7 +121,7 @@ failure.
 | `github.com/getkin/kin-openapi` | yes | 2 | 156 | 0 |
 | `github.com/pb33f/libopenapi-validator` | no | 0 | 166 | 0 |
 | `league/openapi-psr7-validator` | no | 0 | 158 | 0 |
-| `@oaverify/core` | yes | 0 | 162 | 0 |
+| `@oaverify/core` | yes | 0 | 160 | 0 |
 | `openapi-backend` | yes | 0 | 157 | 0 |
 | `openapi-core` | yes | 58 | 95 | 0 |
 | `openapi-request-validator` | yes | 2 | 16 | 0 |
@@ -572,7 +572,7 @@ an unbacked claim rather than treated as false.
 
 ### `@oaverify/core`
 
-`request-return-values`: createValidator(document, { returnValues: true }), driven through validateRequest, which the library documents as its per-call HTTP entry point and validateFetchRequest as a convenience wrapper over. The path is handed over with its query string still in it, because the library documents that it reads the query out of the path when the query field is unset, so splitting the query stays its work. Headers are handed over as its request shape spells them, one entry per name with repeats collected, and with their case as the wire carried it, so matching a header name to the declaration stays its work too. Cookies are the harness's split, which this configuration declares. Reading its values: the library documents that a parameter appears in the value channel when this call reached it, deserialized it, and its schema accepted the result. So an empty value cell on a rejected row means the parameter did not pass, which is a different fact from a library that reports a coerced value alongside its own rejection.
+`request-return-values`: createValidator(document, { returnValues: true }), driven through validateRequest, which the library documents as its per-call HTTP entry point and validateFetchRequest as a convenience wrapper over. The path is handed over with its query string still in it, because the library documents that it reads the query out of the path when the query field is unset, so splitting the query stays its work. Headers are handed over as its request shape spells them, one entry per name with repeats collected, and with their case as the wire carried it, so matching a header name to the declaration stays its work too. Cookies are the harness's split, which this configuration declares, and the request shape holds one string per cookie name, so a case sending a name twice or a crumb with no `=` is answered as an adapter limitation rather than on what survived. Reading its values: the library documents that a parameter appears in the value channel when this call reached it, deserialized it, and its schema accepted the result. So an empty value cell on a rejected row means the parameter did not pass, which is a different fact from a library that reports a coerced value alongside its own rejection.
 
 ### `openapi-backend`
 
@@ -584,7 +584,7 @@ an unbacked claim rather than treated as false.
 
 ### `openapi-request-validator`
 
-`parameters-only`: new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. It is told which operation applies, because it has no routing of its own. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
+`parameters-only`: new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. That shape holds a string per name, so a query pair that arrived with no `=` is answered as an adapter limitation rather than as an empty value. It is told which operation applies, because it has no routing of its own. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 
 ### `openapi_first`
 

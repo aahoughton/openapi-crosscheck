@@ -114,11 +114,14 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {
-            "p": "blue"
-          }
+          "cookies": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
         }
       },
       "accepted": {
@@ -778,7 +781,7 @@
   "provenance": {
     "kind": "container",
     "slug": "libopenapi-validator",
-    "imageId": "sha256:de70dcd4d7aa23d9f367c83aacbba947aa7b49adea4ac8cc7fdaa763de79886b",
+    "imageId": "sha256:ca943bced3f06fb0e11e88af9fe796f3df97a0c244d5ba1ecbd3e81d09dd2978",
     "ecosystem": "go"
   },
   "answers": [

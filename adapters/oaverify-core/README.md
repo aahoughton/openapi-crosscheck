@@ -10,7 +10,8 @@ with `createValidator(document, { returnValues: true })` and calls
 
 The request path is passed with its query string attached. Headers are passed as
 the library's request shape spells them, preserving wire casing and collecting
-repeated names as arrays. Cookies come from the harness preparse.
+repeated names as arrays. Cookies come from the harness preparse, which supplies
+them as pairs.
 
 ## Stage Claims
 
@@ -39,7 +40,9 @@ Header splitting is claimed because the adapter preserves header casing and
 repeat structure, leaving name matching to the library.
 
 Cookie splitting is caller-owned because this request shape accepts cookies as a
-mapping.
+mapping. That mapping holds one string per name, unlike the header and query
+fields beside it, so a case sending the same cookie name twice cannot be handed
+over as sent and is answered `unsupported` with `adapterLimitation`.
 
 Style and explode are claimed because the library converts raw parameter values
 according to their declared serialization.

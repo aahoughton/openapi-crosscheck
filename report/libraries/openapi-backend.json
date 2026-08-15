@@ -160,15 +160,18 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "headers": {
             "host": "harness.invalid",
             "cookie": "p=blue"
           },
-          "cookies": {
-            "p": "blue"
-          }
+          "cookies": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
         }
       },
       "accepted": {
@@ -1354,7 +1357,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-backend",
-    "imageId": "sha256:e8502e7cf78a8b4e715d7bbcef567b907a5a741a01a98b538083fba88f5fc903",
+    "imageId": "sha256:deeb7e4ad62348bed743f94b10fcc53a52138fa67d93c6575958d374a2ab7b00",
     "ecosystem": "npm"
   },
   "answers": [

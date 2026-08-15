@@ -108,11 +108,14 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {
-            "p": "blue"
-          }
+          "cookies": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
         }
       },
       "accepted": {
@@ -772,7 +775,7 @@
   "provenance": {
     "kind": "container",
     "slug": "kin-openapi",
-    "imageId": "sha256:4d25abce30af9904bec1c4b224dfaf30c3a82f15e2f49d04f79c868b570dcdd0",
+    "imageId": "sha256:a09cf56b1c0616c2c39fd0c046327e4d346278bbe84f8eed340e802cd4d43eaf",
     "ecosystem": "go"
   },
   "answers": [

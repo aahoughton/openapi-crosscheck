@@ -42,7 +42,10 @@ const configuration: Configuration = {
     "so splitting the query stays its work. Headers are handed over as its request " +
     "shape spells them, one entry per name with repeats collected, and with their case " +
     "as the wire carried it, so matching a header name to the declaration stays its " +
-    "work too. Cookies are the harness's split, which this configuration declares. " +
+    "work too. Cookies are the harness's split, which this configuration declares, and " +
+    "the request shape holds one string per cookie name, so a case sending a name twice " +
+    "or a crumb with no `=` is answered as an adapter limitation rather than on what " +
+    "survived. " +
     "Reading its values: the library documents that a parameter appears in the " +
     "value channel when this call reached it, deserialized it, and its schema " +
     "accepted the result. So an empty value cell on a rejected row means the " +
@@ -84,11 +87,25 @@ export function createAdapter(): LibraryAdapter {
         };
       }
 
+      const cookies = cookieMap(preparsed.cookies ?? []);
+      if (cookies === null) {
+        return {
+          ...base,
+          outcome: "unsupported",
+          reason: "adapterLimitation",
+          detail:
+            "the request shape holds one string per cookie name, so neither a repeated " +
+            "name nor a crumb that carried no `=` has a spelling in it; handing over " +
+            "what survived would put the library's verdict on an input the case did " +
+            "not send",
+        };
+      }
+
       const libraryRequest = {
         method: request.method,
         path: request.target,
         headers: headerMap(request),
-        cookies: preparsed.cookies ?? {},
+        cookies,
       };
       const before = snapshotInput(libraryRequest);
 
@@ -130,14 +147,43 @@ export function createAdapter(): LibraryAdapter {
  * and the library has no reason to read it.
  */
 function headerMap(request: WireRequest): Record<string, string | string[]> {
-  const headers: Record<string, string | string[]> = {};
+  // Collected in a `Map`, then materialised. A header named `toString` is a
+  // name like any other on the wire, and asking a plain object whether it holds
+  // that key answers about its prototype instead.
+  const headers = new Map<string, string | string[]>();
   for (const [name, value] of request.headers) {
-    const existing = headers[name];
-    if (existing === undefined) headers[name] = value;
+    const existing = headers.get(name);
+    if (existing === undefined) headers.set(name, value);
     else if (Array.isArray(existing)) existing.push(value);
-    else headers[name] = [existing, value];
+    else headers.set(name, [existing, value]);
   }
-  return headers;
+  return Object.fromEntries(headers);
+}
+
+/**
+ * The harness's cookie pairs as this library's request shape spells them, or
+ * `null` when they cannot be spelled at all.
+ *
+ * `cookies` is `Record<string, string>` here, one value per name, while
+ * `headers` and `query` take an array too. So a repeated cookie name has
+ * nowhere to go, and picking one crumb would hand the library a request the
+ * case did not send while the row still read as its answer.
+ */
+function cookieMap(
+  pairs: ReadonlyArray<readonly [name: string, value: string | null]>,
+): Record<string, string> | null {
+  // A `Map` rather than the record being built: a cookie named `toString` is a
+  // name like any other on the wire, and asking a plain object whether it holds
+  // that key answers about its prototype.
+  const cookies = new Map<string, string>();
+  for (const [name, value] of pairs) {
+    // A crumb that carried no `=` has no spelling here either: every value in
+    // this record is a string, so `p` would go in as `p=`.
+    if (value === null) return null;
+    if (cookies.has(name)) return null;
+    cookies.set(name, value);
+  }
+  return Object.fromEntries(cookies);
 }
 
 function returnedValues(testCase: AdapterCase, values: RequestValues): DeserializedValues {
@@ -152,6 +198,11 @@ function returnedValues(testCase: AdapterCase, values: RequestValues): Deseriali
           : parameter.in === "header"
             ? values.headers
             : values.cookies;
+    // Own properties only: a parameter declared as `toString` would otherwise
+    // read back the prototype's function and be reported as a returned value.
+    // A key the library left `undefined` is still skipped, because a value cell
+    // reading null and one reading nothing are different facts about it.
+    if (!Object.hasOwn(source, parameter.name)) continue;
     const value = source[parameter.name];
     if (value !== undefined) returned[parameter.name] = toJsonValue(value);
   }

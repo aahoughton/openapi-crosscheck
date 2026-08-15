@@ -114,11 +114,14 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {
-            "p": "blue"
-          }
+          "cookies": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
         }
       },
       "accepted": {
@@ -883,7 +886,7 @@
   "provenance": {
     "kind": "container",
     "slug": "league-openapi-psr7-validator",
-    "imageId": "sha256:35078f69c8dced56579e780abdb580007d42ae44ea19b3aae5084bde2af36b77",
+    "imageId": "sha256:596d1e0eede492c40c0bc7458eca55444cf3303c7ba3ea758bf4a4eebb4d5819",
     "ecosystem": "packagist"
   },
   "answers": [

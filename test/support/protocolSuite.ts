@@ -169,6 +169,31 @@ export function protocolSuite(what: string, adapters: readonly Adapter[]): void 
           }
         }
       });
+      it(`${adapter.library} answers a query pair that carried no value`, async () => {
+        // `?flag` and `?flag=` are different requests, so preparse hands over a
+        // null value for the first. A container that reads preparsed query
+        // pairs has to do something with that: answer, or say its library's
+        // input shape cannot spell it. What it must not do is break on a legal
+        // message, which is what reading the null as the text "null" or as an
+        // empty value looks like from here.
+        const request: WireRequest = {
+          method: "GET",
+          target: "/t/blue?flag",
+          headers: [["Host", "harness.invalid"]],
+        };
+
+        const result = await adapter.run(
+          PROBE,
+          request,
+          preparse(PROBE.document, request, delegatedSplits(adapter.capabilities)),
+        );
+
+        expect(["accepted", "rejected", "unsupported", "libraryError"]).toContain(result.outcome);
+        if (result.outcome === "unsupported") {
+          expect(UNSUPPORTED_REASONS).toContain(result.reason);
+          expect(result.detail.length).toBeGreaterThan(0);
+        }
+      });
     }
   });
 }

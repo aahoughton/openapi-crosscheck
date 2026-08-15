@@ -75,16 +75,16 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:acc0b238b3f9ca27655fd6d7307d8f69534f6f03faf03c4df94978a515abc75c` |
-| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:d33a5b983a5abf9176bb78c1d5ec389aa8cce4d3e01ed63947c920ab91414c56` |
-| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:4d25abce30af9904bec1c4b224dfaf30c3a82f15e2f49d04f79c868b570dcdd0` |
-| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:de70dcd4d7aa23d9f367c83aacbba947aa7b49adea4ac8cc7fdaa763de79886b` |
-| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:35078f69c8dced56579e780abdb580007d42ae44ea19b3aae5084bde2af36b77` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:7e32dacf03ef97b77079bd5e7853917cc047d0ab75f16f219fb143a5621faa18` |
-| `openapi-backend` | `adapters/openapi-backend/` | `sha256:e8502e7cf78a8b4e715d7bbcef567b907a5a741a01a98b538083fba88f5fc903` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:3dfa3ec15d07c63a12e66e3412c6e1be870cb169405a034eaa59bd32d5608fc4` |
-| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:f6b417a8128dc2424bc558c1f2e73775ab183c3607965733438bb0e16ac3f5d8` |
-| `openapi_first` | `adapters/openapi-first/` | `sha256:37e829a1b62d957b8be392d92701796dad08136c8e03fc9b936a2724e1999405` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:7a62361984f531d6c578fe69b4063a3cae8ddd15cea46526de8325056f46b660` |
+| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:5da16316f9f76fb538eff2c303cfbac7b429b257427c9061e14fdc1d1f050216` |
+| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:a09cf56b1c0616c2c39fd0c046327e4d346278bbe84f8eed340e802cd4d43eaf` |
+| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:ca943bced3f06fb0e11e88af9fe796f3df97a0c244d5ba1ecbd3e81d09dd2978` |
+| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:596d1e0eede492c40c0bc7458eca55444cf3303c7ba3ea758bf4a4eebb4d5819` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:b6d06b47bf542cab7c07e851bbfd869994052057ef8100ee50b5e5cdcb2aa87d` |
+| `openapi-backend` | `adapters/openapi-backend/` | `sha256:deeb7e4ad62348bed743f94b10fcc53a52138fa67d93c6575958d374a2ab7b00` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:233931fdebf3c48522c9487c699960021097a9a21fffdb8012538f3572fa9d0d` |
+| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:7f26d80aae158c16e6d48b7ba09eccdcd2a733c653ef7822bcab2b361aea0a95` |
+| `openapi_first` | `adapters/openapi-first/` | `sha256:3887153f2558a770d89be6e689804184e593a545453caae68c5c0e0a41e7efe7` |
 
 ## Conformance
 
@@ -1720,9 +1720,9 @@ The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.1.1.
 | `github.com/getkin/kin-openapi` | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
-| `@oaverify/core` | accepted | `{"p":["black"]}` (validated only, so an absent name failed its schema) |
+| `@oaverify/core` | not asked (adapterLimitation) | - |
 | `openapi-backend` | rejected | `{"p":"blue"}` (parsed before validation) |
-| `openapi-core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `openapi-core` | accepted | `{"p":["blue","black"]}` (validated only, so an absent name failed its schema) |
 | `openapi-request-validator` | not asked (stageNotOwned) | - |
 | `openapi_first` | accepted | `{"p":["blue"]}` (parsed before validation) |
 

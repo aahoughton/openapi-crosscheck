@@ -38,9 +38,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -177,11 +177,14 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {
-            "p": "blue"
-          }
+          "cookies": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
         }
       },
       "accepted": {
@@ -246,9 +249,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -313,13 +316,13 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "headers": {
             "host": "harness.invalid",
             "p": "blue"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -384,9 +387,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -451,12 +454,12 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {
             "p": "blue"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -521,9 +524,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -588,7 +591,7 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
@@ -596,7 +599,7 @@
               "blue"
             ]
           ],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -661,9 +664,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -733,9 +736,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -805,9 +808,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -877,9 +880,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -946,9 +949,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -1013,9 +1016,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -1080,9 +1083,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -1145,9 +1148,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -1210,9 +1213,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -1275,9 +1278,9 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -1336,7 +1339,7 @@
   ],
   "configuration": {
     "id": "request-return-values",
-    "description": "createValidator(document, { returnValues: true }), driven through validateRequest, which the library documents as its per-call HTTP entry point and validateFetchRequest as a convenience wrapper over. The path is handed over with its query string still in it, because the library documents that it reads the query out of the path when the query field is unset, so splitting the query stays its work. Headers are handed over as its request shape spells them, one entry per name with repeats collected, and with their case as the wire carried it, so matching a header name to the declaration stays its work too. Cookies are the harness's split, which this configuration declares. Reading its values: the library documents that a parameter appears in the value channel when this call reached it, deserialized it, and its schema accepted the result. So an empty value cell on a rejected row means the parameter did not pass, which is a different fact from a library that reports a coerced value alongside its own rejection.",
+    "description": "createValidator(document, { returnValues: true }), driven through validateRequest, which the library documents as its per-call HTTP entry point and validateFetchRequest as a convenience wrapper over. The path is handed over with its query string still in it, because the library documents that it reads the query out of the path when the query field is unset, so splitting the query stays its work. Headers are handed over as its request shape spells them, one entry per name with repeats collected, and with their case as the wire carried it, so matching a header name to the declaration stays its work too. Cookies are the harness's split, which this configuration declares, and the request shape holds one string per cookie name, so a case sending a name twice or a crumb with no `=` is answered as an adapter limitation rather than on what survived. Reading its values: the library documents that a parameter appears in the value channel when this call reached it, deserialized it, and its schema accepted the result. So an empty value cell on a rejected row means the parameter did not pass, which is a different fact from a library that reports a coerced value alongside its own rejection.",
     "options": {
       "returnValues": true
     }
@@ -1344,7 +1347,7 @@
   "provenance": {
     "kind": "container",
     "slug": "oaverify-core",
-    "imageId": "sha256:7e32dacf03ef97b77079bd5e7853917cc047d0ab75f16f219fb143a5621faa18",
+    "imageId": "sha256:b6d06b47bf542cab7c07e851bbfd869994052057ef8100ee50b5e5cdcb2aa87d",
     "ecosystem": "npm"
   },
   "answers": [
@@ -1356,11 +1359,14 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {
-              "p": "blue,black"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue,black"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1405,11 +1411,14 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {
-              "p": "blue,black"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue,black"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1454,43 +1463,23 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {
-              "p": "black"
-            }
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": [
-              "black"
-            ]
-          },
-          "nativeTypes": {
-            "p": "Array<string>"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
-        },
-        "raw": {
-          "valid": true,
-          "value": {
-            "path": {},
-            "query": {},
-            "headers": {},
-            "cookies": {
-              "p": [
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ],
+              [
+                "p",
                 "black"
               ]
-            }
+            ]
           }
-        }
+        },
+        "outcome": "unsupported",
+        "reason": "adapterLimitation",
+        "detail": "the request shape holds one string per cookie name, so neither a repeated name nor a crumb that carried no `=` has a spelling in it; handing over what survived would put the library's verdict on an input the case did not send"
       }
     },
     {
@@ -1501,43 +1490,23 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {
-              "p": "black"
-            }
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": [
-              "black"
-            ]
-          },
-          "nativeTypes": {
-            "p": "Array<string>"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
-        },
-        "raw": {
-          "valid": true,
-          "value": {
-            "path": {},
-            "query": {},
-            "headers": {},
-            "cookies": {
-              "p": [
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ],
+              [
+                "p",
                 "black"
               ]
-            }
+            ]
           }
-        }
+        },
+        "outcome": "unsupported",
+        "reason": "adapterLimitation",
+        "detail": "the request shape holds one string per cookie name, so neither a repeated name nor a crumb that carried no `=` has a spelling in it; handing over what survived would put the library's verdict on an input the case did not send"
       }
     },
     {
@@ -1548,11 +1517,14 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {
-              "p": "R,100,G,200"
-            }
+            "cookies": [
+              [
+                "p",
+                "R,100,G,200"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1597,11 +1569,14 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {
-              "p": "R,100,G,200"
-            }
+            "cookies": [
+              [
+                "p",
+                "R,100,G,200"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1670,11 +1645,14 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {
-              "p": "blue"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1713,11 +1691,14 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {
-              "p": "blue"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1756,11 +1737,14 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {
-              "p": "blue"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1799,11 +1783,14 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {
-              "p": "blue"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1842,9 +1829,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -1889,9 +1876,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -1936,9 +1923,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -1983,9 +1970,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2030,9 +2017,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2077,9 +2064,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2124,9 +2111,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2171,9 +2158,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2218,9 +2205,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2265,9 +2252,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2312,9 +2299,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2359,9 +2346,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2406,9 +2393,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2453,9 +2440,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2500,9 +2487,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2545,9 +2532,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2590,9 +2577,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2631,9 +2618,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2672,9 +2659,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2713,9 +2700,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2754,9 +2741,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2801,9 +2788,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2848,9 +2835,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2895,9 +2882,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2942,9 +2929,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2989,9 +2976,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3036,9 +3023,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3083,9 +3070,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3130,9 +3117,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3177,9 +3164,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3224,9 +3211,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3269,9 +3256,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3314,9 +3301,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3355,9 +3342,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3396,9 +3383,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3437,9 +3424,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3478,9 +3465,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3525,9 +3512,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3572,9 +3559,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3623,9 +3610,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3674,9 +3661,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3719,9 +3706,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3764,9 +3751,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3811,9 +3798,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3858,9 +3845,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3909,9 +3896,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3960,9 +3947,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4007,9 +3994,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4054,9 +4041,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4099,9 +4086,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4144,9 +4131,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4185,9 +4172,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4226,9 +4213,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4267,9 +4254,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4308,9 +4295,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -4359,9 +4346,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -4410,9 +4397,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4451,9 +4438,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4492,9 +4479,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -4543,9 +4530,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -4594,9 +4581,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "unsupported",
@@ -4612,9 +4599,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "unsupported",
@@ -4630,9 +4617,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4677,9 +4664,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4724,9 +4711,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4771,9 +4758,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4818,9 +4805,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4865,9 +4852,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4912,9 +4899,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4959,9 +4946,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5006,9 +4993,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5051,9 +5038,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5096,9 +5083,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5137,9 +5124,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5178,9 +5165,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5219,9 +5206,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5260,9 +5247,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5301,9 +5288,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5342,9 +5329,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5395,9 +5382,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5448,9 +5435,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5495,9 +5482,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5542,9 +5529,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5589,9 +5576,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5636,9 +5623,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5689,9 +5676,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5742,9 +5729,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5789,9 +5776,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5836,9 +5823,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5883,9 +5870,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5930,9 +5917,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5977,9 +5964,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6024,9 +6011,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6071,9 +6058,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6118,9 +6105,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6165,9 +6152,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6212,9 +6199,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6259,9 +6246,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6306,9 +6293,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6347,9 +6334,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6388,9 +6375,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6435,9 +6422,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6482,9 +6469,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6529,9 +6516,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6576,9 +6563,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6617,9 +6604,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6658,9 +6645,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -6711,9 +6698,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -6764,9 +6751,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6811,9 +6798,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6858,9 +6845,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6905,9 +6892,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6952,9 +6939,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7006,9 +6993,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7060,9 +7047,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7111,9 +7098,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7162,9 +7149,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7216,9 +7203,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7270,9 +7257,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7305,9 +7292,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7340,9 +7327,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7381,9 +7368,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7422,9 +7409,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7463,9 +7450,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7504,9 +7491,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7545,9 +7532,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7586,9 +7573,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7639,9 +7626,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7692,9 +7679,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7733,9 +7720,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7774,9 +7761,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7825,9 +7812,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7876,9 +7863,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7927,9 +7914,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7978,9 +7965,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8019,9 +8006,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8060,9 +8047,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8101,9 +8088,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8142,9 +8129,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8177,9 +8164,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8212,9 +8199,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8247,9 +8234,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8282,9 +8269,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8323,9 +8310,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8364,9 +8351,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8411,9 +8398,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8458,9 +8445,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8503,9 +8490,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8548,9 +8535,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8595,9 +8582,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8642,9 +8629,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8689,9 +8676,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8736,9 +8723,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8781,9 +8768,9 @@
         "configurationId": "request-return-values",
         "preparse": {
           "performedBy": "harness",
-          "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",

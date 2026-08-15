@@ -38,10 +38,10 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -150,12 +150,15 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
-          "cookies": {
-            "p": "blue"
-          }
+          "cookies": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
         }
       },
       "accepted": {
@@ -207,10 +210,10 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -262,14 +265,14 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
           "headers": {
             "host": "harness.invalid",
             "p": "blue"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -321,10 +324,10 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -376,13 +379,13 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {
             "p": "blue"
           },
           "query": [],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -434,9 +437,9 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -491,7 +494,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
@@ -499,7 +502,7 @@
               "blue"
             ]
           ],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -551,10 +554,10 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -609,10 +612,10 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -667,7 +670,7 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
@@ -675,7 +678,7 @@
               "blue,black"
             ]
           ],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -730,7 +733,7 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
@@ -738,7 +741,7 @@
               "%7B%22R%22%3A%22100%22%7D"
             ]
           ],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -793,10 +796,10 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -848,10 +851,10 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -903,10 +906,10 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -958,7 +961,7 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
@@ -966,7 +969,7 @@
               "blue"
             ]
           ],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -1016,7 +1019,7 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
@@ -1024,7 +1027,7 @@
               "blue"
             ]
           ],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -1074,7 +1077,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
@@ -1082,7 +1085,7 @@
               "blue"
             ]
           ],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -1134,7 +1137,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-core",
-    "imageId": "sha256:3dfa3ec15d07c63a12e66e3412c6e1be870cb169405a034eaa59bd32d5608fc4",
+    "imageId": "sha256:233931fdebf3c48522c9487c699960021097a9a21fffdb8012538f3572fa9d0d",
     "ecosystem": "pypi"
   },
   "answers": [
@@ -1146,12 +1149,15 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {
-              "p": "blue,black"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue,black"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1196,12 +1202,15 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {
-              "p": "blue,black"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue,black"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1246,37 +1255,51 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {
-              "p": "black"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ],
+              [
+                "p",
+                "black"
+              ]
+            ]
           }
         },
-        "outcome": "rejected",
+        "outcome": "accepted",
         "deserialized": {
           "kind": "observed",
           "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "list[str]"
+          }
         },
         "inputMutation": {
           "kind": "none",
           "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
         },
         "raw": {
-          "errors": [
-            {
-              "type": "ParameterValidationError",
-              "message": "Cookie parameter error: p"
-            }
-          ],
+          "errors": [],
           "parameters": {
             "path": {},
             "query": {},
             "header": {},
-            "cookie": {}
+            "cookie": {
+              "p": [
+                "blue",
+                "black"
+              ]
+            }
           }
         }
       }
@@ -1289,37 +1312,51 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {
-              "p": "black"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ],
+              [
+                "p",
+                "black"
+              ]
+            ]
           }
         },
-        "outcome": "rejected",
+        "outcome": "accepted",
         "deserialized": {
           "kind": "observed",
           "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "list[str]"
+          }
         },
         "inputMutation": {
           "kind": "none",
           "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
         },
         "raw": {
-          "errors": [
-            {
-              "type": "ParameterValidationError",
-              "message": "Cookie parameter error: p"
-            }
-          ],
+          "errors": [],
           "parameters": {
             "path": {},
             "query": {},
             "header": {},
-            "cookie": {}
+            "cookie": {
+              "p": [
+                "blue",
+                "black"
+              ]
+            }
           }
         }
       }
@@ -1332,12 +1369,15 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {
-              "p": "R,100,G,200"
-            }
+            "cookies": [
+              [
+                "p",
+                "R,100,G,200"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1382,12 +1422,15 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {
-              "p": "R,100,G,200"
-            }
+            "cookies": [
+              [
+                "p",
+                "R,100,G,200"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1456,12 +1499,15 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {
-              "p": "blue"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1500,12 +1546,15 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {
-              "p": "blue"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1544,12 +1593,15 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {
-              "p": "blue"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1588,12 +1640,15 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {
-              "p": "blue"
-            }
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
           }
         },
         "outcome": "accepted",
@@ -1632,10 +1687,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -1680,10 +1735,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -1728,10 +1783,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -1776,10 +1831,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -1824,10 +1879,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -1865,10 +1920,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -1906,10 +1961,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -1954,10 +2009,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2002,10 +2057,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2050,10 +2105,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2098,10 +2153,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2146,10 +2201,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2194,10 +2249,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2242,10 +2297,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2290,10 +2345,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2338,10 +2393,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2386,10 +2441,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2428,10 +2483,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2470,10 +2525,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2512,10 +2567,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -2554,10 +2609,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2569,7 +2624,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -2595,10 +2650,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2610,7 +2665,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -2636,10 +2691,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2651,7 +2706,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -2677,10 +2732,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2692,7 +2747,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -2718,10 +2773,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2733,7 +2788,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.blue.black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.blue.black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -2759,10 +2814,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2774,7 +2829,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.blue.black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.blue.black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -2800,10 +2855,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2815,7 +2870,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -2841,10 +2896,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2856,7 +2911,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -2882,10 +2937,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2897,7 +2952,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -2923,10 +2978,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2938,7 +2993,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -2964,10 +3019,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2979,7 +3034,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.R=100.G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.R=100.G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3005,10 +3060,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3020,7 +3075,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.R=100.G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.R=100.G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3046,10 +3101,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3061,7 +3116,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3087,10 +3142,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3102,7 +3157,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3128,10 +3183,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3143,7 +3198,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3169,10 +3224,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3184,7 +3239,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': '.blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': '.blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3210,10 +3265,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3225,7 +3280,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';p=blue;p=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=blue;p=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3251,10 +3306,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3266,7 +3321,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';p=blue;p=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=blue;p=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3292,10 +3347,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3307,7 +3362,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';q=blue;r=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';q=blue;r=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3333,10 +3388,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3348,7 +3403,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';q=blue;r=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';q=blue;r=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3374,10 +3429,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3389,7 +3444,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3415,10 +3470,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3430,7 +3485,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3456,10 +3511,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3471,7 +3526,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';p=blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3497,10 +3552,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3512,7 +3567,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';p=blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3538,10 +3593,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3553,7 +3608,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';q=blue', 'q': ';p=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';q=blue', 'q': ';p=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3583,10 +3638,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3598,7 +3653,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';q=blue', 'q': ';p=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';q=blue', 'q': ';p=black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3628,10 +3683,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3643,7 +3698,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';p=R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3669,10 +3724,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3684,7 +3739,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';p=R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3710,10 +3765,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3725,7 +3780,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';R=100;G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';R=100;G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3751,10 +3806,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3766,7 +3821,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';R=100;G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';R=100;G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3792,10 +3847,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3807,7 +3862,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';p=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3833,10 +3888,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3848,7 +3903,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';p=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3874,10 +3929,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3889,7 +3944,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';p=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3915,10 +3970,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3930,7 +3985,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';p=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3956,10 +4011,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3971,7 +4026,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';q=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';q=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -3997,10 +4052,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -4012,7 +4067,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': ';q=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';q=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -4038,10 +4093,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4057,7 +4112,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'entity': 't'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'entity': 't'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4080,10 +4135,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4099,7 +4154,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'entity': 't'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'entity': 't'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4122,10 +4177,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -4163,10 +4218,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -4204,10 +4259,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4223,7 +4278,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4246,10 +4301,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4265,7 +4320,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4288,10 +4343,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4310,7 +4365,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4336,10 +4391,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4358,7 +4413,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4384,10 +4439,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4405,7 +4460,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue%2Cblack'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue%2Cblack'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4430,10 +4485,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4451,7 +4506,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue%2Cblack'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue%2Cblack'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4476,10 +4531,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4498,7 +4553,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4524,10 +4579,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4546,7 +4601,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue,black'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4572,10 +4627,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4594,7 +4649,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4620,10 +4675,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4642,7 +4697,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'R,100,G,200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4668,10 +4723,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4690,7 +4745,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'R=100,G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'R=100,G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4716,10 +4771,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4738,7 +4793,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'R=100,G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'R=100,G=200'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4764,10 +4819,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4783,7 +4838,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4806,10 +4861,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4825,7 +4880,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4848,10 +4903,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4867,7 +4922,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4890,10 +4945,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4909,7 +4964,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4932,10 +4987,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4951,7 +5006,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -4974,10 +5029,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -4993,7 +5048,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [],
@@ -5016,10 +5071,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5031,7 +5086,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -5057,10 +5112,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5072,7 +5127,7 @@
         },
         "inputMutation": {
           "kind": "observed",
-          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie={}, path={})"
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [
@@ -5122,7 +5177,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5130,7 +5185,7 @@
                 "%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5168,7 +5223,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5176,7 +5231,7 @@
                 "%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5214,7 +5269,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5222,7 +5277,7 @@
                 "%7Bnot-json"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5260,7 +5315,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5268,7 +5323,7 @@
                 "%7Bnot-json"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5330,7 +5385,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5342,7 +5397,7 @@
                 "200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5380,7 +5435,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5392,7 +5447,7 @@
                 "200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5430,7 +5485,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5442,7 +5497,7 @@
                 "200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5480,7 +5535,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5492,7 +5547,7 @@
                 "200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -5530,7 +5585,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5542,7 +5597,7 @@
                 "black"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5587,7 +5642,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5599,7 +5654,7 @@
                 "black"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5644,7 +5699,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5652,7 +5707,7 @@
                 "blue,black"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5697,7 +5752,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5705,7 +5760,7 @@
                 "blue,black"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5774,7 +5829,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5782,7 +5837,7 @@
                 ""
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5825,7 +5880,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5833,7 +5888,7 @@
                 ""
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5876,7 +5931,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5888,7 +5943,7 @@
                 "2"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5933,7 +5988,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5945,7 +6000,7 @@
                 "2"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -5990,7 +6045,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6002,7 +6057,7 @@
                 "black"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6047,7 +6102,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6059,7 +6114,7 @@
                 "black"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6104,7 +6159,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6112,7 +6167,7 @@
                 "true"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6151,7 +6206,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6159,7 +6214,7 @@
                 "true"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6198,7 +6253,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6206,7 +6261,7 @@
                 "blue"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -6244,7 +6299,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6252,7 +6307,7 @@
                 "blue"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -6290,7 +6345,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6302,7 +6357,7 @@
                 "200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -6340,7 +6395,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6352,7 +6407,7 @@
                 "200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -6390,7 +6445,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6398,7 +6453,7 @@
                 "R,100,G,200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6443,7 +6498,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6451,7 +6506,7 @@
                 "R,100,G,200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6496,7 +6551,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6504,7 +6559,7 @@
                 "R,100,G,200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6549,7 +6604,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6557,7 +6612,7 @@
                 "R,100,G,200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6602,10 +6657,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -6643,10 +6698,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -6684,7 +6739,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6696,7 +6751,7 @@
                 "200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -6734,7 +6789,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6746,7 +6801,7 @@
                 "200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -6784,7 +6839,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6792,7 +6847,7 @@
                 ""
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6831,7 +6886,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6839,7 +6894,7 @@
                 ""
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6878,7 +6933,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6886,7 +6941,7 @@
                 "a/b:c"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6925,7 +6980,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6933,7 +6988,7 @@
                 "a/b:c"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -6972,7 +7027,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6980,7 +7035,7 @@
                 "a%2Fb"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7019,7 +7074,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7027,7 +7082,7 @@
                 "a%2Fb"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7090,7 +7145,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7098,7 +7153,7 @@
                 "1.5"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7136,7 +7191,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7144,7 +7199,7 @@
                 "1.5"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7182,7 +7237,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7190,7 +7245,7 @@
                 "100"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7229,7 +7284,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7237,7 +7292,7 @@
                 "100"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7276,7 +7331,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7284,7 +7339,7 @@
                 "blue"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7322,7 +7377,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7330,7 +7385,7 @@
                 "blue"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7368,10 +7423,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7409,10 +7464,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "libraryError",
@@ -7431,7 +7486,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7439,7 +7494,7 @@
                 ""
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -7477,7 +7532,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7485,7 +7540,7 @@
                 ""
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "libraryError",
@@ -7504,7 +7559,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7512,7 +7567,7 @@
                 "null"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7551,7 +7606,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7559,7 +7614,7 @@
                 "null"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "libraryError",
@@ -7578,10 +7633,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7614,10 +7669,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7650,10 +7705,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7692,10 +7747,10 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7734,7 +7789,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7742,7 +7797,7 @@
                 "blue"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7781,7 +7836,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7789,7 +7844,7 @@
                 "blue"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7828,7 +7883,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7836,7 +7891,7 @@
                 "blue%7Cblack"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7879,7 +7934,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7887,7 +7942,7 @@
                 "blue%7Cblack"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7930,7 +7985,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7938,7 +7993,7 @@
                 "R%7C100%7CG%7C200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -7977,7 +8032,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -7985,7 +8040,7 @@
                 "R%7C100%7CG%7C200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8024,7 +8079,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -8032,7 +8087,7 @@
                 "blue%20black"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8077,7 +8132,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -8085,7 +8140,7 @@
                 "blue%20black"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8130,7 +8185,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -8142,7 +8197,7 @@
                 "black"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -8180,7 +8235,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -8192,7 +8247,7 @@
                 "black"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -8230,7 +8285,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -8238,7 +8293,7 @@
                 "R%20100%20G%20200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -8283,7 +8338,7 @@
         "configurationId": "unmarshal-request-protocol",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -8291,7 +8346,7 @@
                 "R%20100%20G%20200"
               ]
             ],
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",

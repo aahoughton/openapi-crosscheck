@@ -38,7 +38,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {
             "p": "blue"
@@ -47,7 +47,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -120,7 +120,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [],
@@ -128,9 +128,12 @@
             "host": "harness.invalid",
             "cookie": "p=blue"
           },
-          "cookies": {
-            "p": "blue"
-          }
+          "cookies": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
         }
       },
       "accepted": {
@@ -163,11 +166,11 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [],
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -216,7 +219,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [],
@@ -224,7 +227,7 @@
             "host": "harness.invalid",
             "p": "blue"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -265,13 +268,13 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -320,7 +323,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {
             "p": "blue"
@@ -329,7 +332,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -370,13 +373,13 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -425,7 +428,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [
@@ -437,7 +440,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -478,7 +481,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [],
@@ -486,7 +489,7 @@
             "host": "harness.invalid",
             "p": "blue,black"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -535,7 +538,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {
             "p": "blue,black"
@@ -544,7 +547,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -593,7 +596,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [
@@ -605,7 +608,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -654,7 +657,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [
@@ -666,7 +669,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -699,7 +702,7 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {
             "p": "blue"
@@ -708,7 +711,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -749,7 +752,7 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {
             "p": "blue"
@@ -758,7 +761,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -799,14 +802,14 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [],
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -847,7 +850,7 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [
@@ -859,7 +862,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -898,7 +901,7 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [
@@ -910,7 +913,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -949,7 +952,7 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {},
           "query": [
@@ -961,7 +964,7 @@
           "headers": {
             "host": "harness.invalid"
           },
-          "cookies": {}
+          "cookies": []
         }
       },
       "accepted": {
@@ -996,13 +999,13 @@
   ],
   "configuration": {
     "id": "parameters-only",
-    "description": "new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. It is told which operation applies, because it has no routing of its own. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.",
+    "description": "new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. That shape holds a string per name, so a query pair that arrived with no `=` is answered as an adapter limitation rather than as an empty value. It is told which operation applies, because it has no routing of its own. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.",
     "options": {}
   },
   "provenance": {
     "kind": "container",
     "slug": "openapi-request-validator",
-    "imageId": "sha256:f6b417a8128dc2424bc558c1f2e73775ab183c3607965733438bb0e16ac3f5d8",
+    "imageId": "sha256:7f26d80aae158c16e6d48b7ba09eccdcd2a733c653ef7822bcab2b361aea0a95",
     "ecosystem": "npm"
   },
   "answers": [
@@ -2094,7 +2097,7 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {
               "p": "blue"
@@ -2103,7 +2106,7 @@
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2136,7 +2139,7 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {
               "p": "blue"
@@ -2145,7 +2148,7 @@
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2490,7 +2493,7 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [
@@ -2502,7 +2505,7 @@
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2535,7 +2538,7 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [
@@ -2547,7 +2550,7 @@
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2652,14 +2655,14 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [],
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2692,14 +2695,14 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [],
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2852,7 +2855,7 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [
@@ -2864,7 +2867,7 @@
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2897,7 +2900,7 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [
@@ -2909,7 +2912,7 @@
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -2966,7 +2969,7 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [
@@ -2978,7 +2981,7 @@
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3011,7 +3014,7 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [
@@ -3023,7 +3026,7 @@
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3056,14 +3059,14 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [],
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3096,14 +3099,14 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [],
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "rejected",
@@ -3160,7 +3163,7 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [
@@ -3172,7 +3175,7 @@
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3197,7 +3200,7 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [
@@ -3209,7 +3212,7 @@
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3234,14 +3237,14 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [],
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3266,14 +3269,14 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [],
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3298,14 +3301,14 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [],
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",
@@ -3336,14 +3339,14 @@
         "configurationId": "parameters-only",
         "preparse": {
           "performedBy": "harness",
-          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "params": {},
             "query": [],
             "headers": {
               "host": "harness.invalid"
             },
-            "cookies": {}
+            "cookies": []
           }
         },
         "outcome": "accepted",

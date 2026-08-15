@@ -35,7 +35,9 @@ Routing and path extraction are claimed because the validator is given a raw
 path and resolves the operation and path parameter.
 
 Query splitting is caller-owned because the public request builder accepts query
-parameters through `withQueryParam(name, values)`.
+parameters through `withQueryParam(name, values)`. Those values are strings, so
+a pair the harness supplies with no `=` at all is answered as an adapter
+limitation rather than handed over as an empty value.
 
 Header splitting is claimed because headers are passed to the builder as wire
 names and values, and the library matches them to declared header parameters.

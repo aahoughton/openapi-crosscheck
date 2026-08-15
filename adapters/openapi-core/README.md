@@ -32,13 +32,17 @@ Routing and path splitting are claimed because `unmarshal_request` receives the
 path and resolves the operation and path parameters.
 
 Query splitting is caller-owned because the Request protocol supplies query
-parameters as pairs or a mapping.
+parameters as pairs or a mapping. Those values are strings, so a pair the
+harness supplies with no `=` at all is answered as an adapter limitation rather
+than handed over as an empty value.
 
 Header splitting is claimed because the adapter preserves the header names it
 received, and the library matches them to declared parameters.
 
 Cookie splitting is caller-owned because the Request protocol supplies cookies
-as a mapping.
+as a mapping. The harness's cookie pairs go in as a `MultiDict`, which is the
+shape the library documents for that field, so a repeated cookie name reaches
+the library instead of being collapsed on the way in.
 
 Style and explode are claimed because `unmarshal_request` converts parameter
 values according to their declared serialization.
