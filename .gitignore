@@ -15,6 +15,12 @@ __pycache__/
 
 .engagement/
 
+# Where the README tells a reader to measure. A run directory is one person's
+# scratch measurement; the committed report is the only one this repository
+# keeps, and an untracked `runs/` in `git status` is noise in a checkout where
+# more than one person or agent is working.
+/runs/
+
 # Run sidecar and HTML view. The committed report is the checked JSON and
 # markdown; `index.html` and `run.json` are regenerated when needed.
 /report/run.json

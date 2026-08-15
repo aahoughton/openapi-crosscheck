@@ -24,6 +24,27 @@ It does not measure performance, response validation, security posture,
 framework ergonomics, or which library is best overall. No conformance outcome
 is totalled across libraries and nothing is ranked.
 
+### Request bodies are out of scope
+
+Every case sends a method, a target and headers, and no case sends a body:
+`WireRequest` has no body field, and the corpus is about parameters. The
+boundary is deliberate. A body's schema is JSON Schema, and how implementations
+read JSON Schema is already measured across languages by
+[bowtie](https://github.com/bowtie-json-schema/bowtie) against the official
+test suite, at a granularity no OpenAPI-level corpus would reach. Repeating it
+here would grow the corpus without adding an answer.
+
+Stated precisely, because the near-miss version of this is false: what is
+covered elsewhere is the schema dialect, not `requestBody` handling. No other
+harness measures OpenAPI libraries on bodies at all.
+
+The part of a body this instrument's question does reach is the Encoding
+Object, which reuses `style`, `explode` and `allowReserved` for
+`application/x-www-form-urlencoded` and `multipart/form-data`. That is the
+question the corpus already asks at four locations, asked at a fifth, and
+nothing measures it anywhere. If the corpus ever grows past parameters, that
+surface has the strongest claim.
+
 ## Libraries measured
 
 | ecosystem                 | libraries measured                                                                            | start here                                                                               |
