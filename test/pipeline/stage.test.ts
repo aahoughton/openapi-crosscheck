@@ -119,6 +119,51 @@ describe("the two deserialization stages are siblings", () => {
   });
 });
 
+describe("a style that carries the name is not askable without the style stage", () => {
+  const matrixScalar: Dimensions = {
+    declaration: "schema",
+    location: "path",
+    style: "matrix",
+    explode: false,
+    declaredStyle: "matrix",
+    declaredExplode: false,
+    schema: "scalar",
+    probeAxis: "wrongTypeValue",
+  };
+
+  it("requires it for a scalar probing the schema", () => {
+    // The trap the shape-based rule alone left open. `;p=42` is what preparse
+    // hands over, a library reading only the schema refuses those characters as
+    // a non-integer, and the cell would credit it with catching a wrong-typed
+    // value it never saw.
+    expect(probedStage(matrixScalar)).toBe("schemaValidation");
+    expect(canBeAsked(owning({ styleDeserialization: false }), matrixScalar)).toBe(false);
+    expect(
+      canBeAsked(owning({ styleDeserialization: false }), { ...matrixScalar, style: "label" }),
+    ).toBe(false);
+  });
+
+  it("requires it whatever the case probes", () => {
+    for (const probeAxis of ["missingName", "optionalAbsent"] as const) {
+      expect(
+        canBeAsked(owning({ styleDeserialization: false }), { ...matrixScalar, probeAxis }),
+      ).toBe(false);
+    }
+  });
+
+  it("leaves the styles that do not carry the name alone", () => {
+    // `simple` writes the segment as the value, so the raw text is the value and
+    // a schema-only library is answering the question the case asks.
+    expect(
+      canBeAsked(owning({ styleDeserialization: false }), {
+        ...matrixScalar,
+        style: "simple",
+        declaredStyle: "simple",
+      }),
+    ).toBe(true);
+  });
+});
+
 describe("the rule applied to the whole corpus", () => {
   it("never sends a content parameter through style deserialization", () => {
     const misrouted = cases

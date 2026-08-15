@@ -1,5 +1,6 @@
 import type { ParameterLocation } from "./openapi";
 import type { Dimensions, SchemaShape } from "./case";
+import type { Style } from "./openapi";
 
 /**
  * The shapes whose value is assembled rather than read. A scalar's value is the
@@ -13,6 +14,17 @@ const STRUCTURED_SHAPES: ReadonlySet<SchemaShape> = new Set([
   "nullableObject",
   "object",
 ]);
+
+/**
+ * The styles that write the parameter's name into the wire form around its
+ * value, so the raw text preparse hands over is never the value itself.
+ *
+ * `;p=blue` and `.blue` are a path segment each, and getting `blue` out of
+ * either means reading the style. Every other style in the surface leaves the
+ * value where a naive split already puts it: `form` puts it after the `=` that
+ * preparse splits on, and `simple` writes the segment as the value.
+ */
+const NAME_CARRYING_STYLES: ReadonlySet<Style> = new Set<Style>(["label", "matrix"]);
 
 /**
  * The request-validation pipeline, named stage by stage.
@@ -226,9 +238,20 @@ export function canBeAsked(ownership: StageOwnership, dimensions: Dimensions): b
   // Only the value probe. A structured parameter probed on absence asks whether
   // an empty query is noticed at all, and a library that never assembles `p`
   // answers that for the reason the case is about.
+  //
+  // A style that writes the name into the wire form is the third way the raw
+  // text is not the value, and the one that holds for a scalar. `;p=42` is what
+  // preparse hands over for a matrix path parameter, and a library reading only
+  // the schema rejects those five characters as a non-integer whatever the case
+  // varies: it rejected the style syntax, and the cell would read as a
+  // wrong-typed value caught. So the style stage is required for every case in
+  // one of those styles, whichever stage the case probes. Every such case
+  // already probes style deserialization today, so this bounds a case nobody
+  // has written rather than moving a cell.
   const deserialization = deserializationStage(dimensions.declaration);
   const needsDeserialization =
     dimensions.declaration === "content" ||
+    (dimensions.declaration === "schema" && NAME_CARRYING_STYLES.has(dimensions.style)) ||
     (dimensions.probeAxis === "wrongTypeValue" && STRUCTURED_SHAPES.has(dimensions.schema));
   const stages =
     needsDeserialization && !required.includes(deserialization)
