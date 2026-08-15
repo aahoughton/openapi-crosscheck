@@ -2,6 +2,7 @@ import type { Case } from "../types/case";
 import type { OasVersion } from "../types/openapi";
 import type { RunSidecarState } from "./read";
 import type { ConformanceOutcome } from "./score";
+import type { Disagreement } from "./view";
 import {
   CONFORMANCE_OUTCOMES,
   STAGE_SLOTS,
@@ -223,6 +224,33 @@ export function renderHtml(
   const lead = sharpestSplits(splits, 4);
 
   /**
+   * The same reading, per specification version, because the version filter is
+   * CSS and cannot recount anything. Each scope renders its own copy and the
+   * filter shows one, so a count above the fold always describes the rows a
+   * reader is looking at.
+   */
+  const scopes: readonly { slug: string; splits: readonly Disagreement[] }[] = [
+    { slug: "all", splits },
+    ...(versions.length < 2
+      ? []
+      : versions.map((version) => ({
+          slug: versionSlug(version),
+          splits: disagreements(
+            cases.filter((testCase) => testCase.oasVersion === version),
+            entries,
+          ),
+        }))),
+  ];
+
+  /** One span per scope, of which the filter shows exactly one. */
+  const scoped = (of: (splits: readonly Disagreement[]) => string): string =>
+    scopes
+      .map((scope) => `<span class="vscope v-${scope.slug}">${of(scope.splits)}</span>`)
+      .join("");
+  const countOf = (kind: "verdict" | "value") => (found: readonly Disagreement[]) =>
+    String(found.filter((split) => split.kind === kind).length);
+
+  /**
    * A band naming the parameter location the following rows share.
    *
    * The two big grids run to dozens of rows, and the id prefix is the only
@@ -271,17 +299,20 @@ ${
   entries.length < 2
     ? ""
     : `  <div class="readout">
-    <h2>Where the answers differed</h2>
+    <h2>The disagreements</h2>
     <div class="readout-counts">
-      <a href="#split-verdicts"><b>${String(verdictSplits.length)}</b> split verdicts</a>
-      <a href="#value-splits"><b>${String(valueSplits.length)}</b> same verdict, different values</a>
+      <a href="#split-verdicts"><b>${scoped(countOf("verdict"))}</b> split verdicts</a>
+      <a href="#value-splits"><b>${scoped(countOf("value"))}</b> same verdict, different values</a>
     </div>
     <p class="readout-note">Cases where more than one library reached a verdict and they didn't match. A library that wasn't asked is left out rather than counted as a dissenting opinion.</p>
 ${
   lead.length === 0
     ? ""
-    : `    <ol class="readout-lead">
-${lead
+    : `${scopes
+        .map((scope) => {
+          const rows = sharpestSplits(scope.splits, 4);
+          return `    <ol class="readout-lead vscope v-${scope.slug}">
+${rows
   .map(
     (split) => `      <li><a href="#${escape(split.disagreement.caseId)}"><code>${escape(
       split.disagreement.caseId,
@@ -290,7 +321,9 @@ ${lead
     )} rejected</span><span class="q">${escape(split.disagreement.title)}</span></li>`,
   )
   .join("\n")}
-    </ol>
+    </ol>`;
+        })
+        .join("\n")}
     <p class="readout-note">The evenest ones, where the libraries that answered came closest to halving. They're all in the tables below.</p>`
 }
   </div>`
@@ -476,12 +509,13 @@ ${delta.moved
 
 <section>
   <div class="section-head">
-    <h2>Every case where the answers differed</h2>
+    <h2>Where the answers differed</h2>
     <p>Cases where more than one measurement reached a verdict and they didn't match. A measurement that wasn't asked is left out rather than counted as a dissenting opinion.</p>${filterChips}
   </div>
   ${splitTable(
     "Split verdicts",
     "split-verdicts",
+    scoped(countOf("verdict")),
     "One accepted where another rejected.",
     verdictSplits,
     caseCell,
@@ -491,6 +525,7 @@ ${delta.moved
   ${splitTable(
     "Same verdict, different values",
     "value-splits",
+    scoped(countOf("value")),
     "Every measurement agreed on the verdict and handed its caller something different. This is the disagreement a verdict column can't show.",
     valueSplits,
     caseCell,
@@ -579,7 +614,16 @@ function oasVersions(cases: readonly Case[]): string {
  */
 function versionFilterCss(versions: readonly OasVersion[]): string {
   if (versions.length < 2) return "";
-  const rules: string[] = [];
+  // A scoped element renders once per version and once for the whole corpus,
+  // and the filter shows the one matching it. That is how a count stays true
+  // under a filter that can hide rows and cannot recount them.
+  const rules: string[] = [
+    `#oas-all:checked ~ * .vscope:not(.v-all){display:none}`,
+    ...versions.map(
+      (version) =>
+        `#oas-${versionSlug(version)}:checked ~ * .vscope:not(.v-${versionSlug(version)}){display:none}`,
+    ),
+  ];
   for (const version of versions) {
     const slug = versionSlug(version);
     const others = versions.filter((other) => other !== version);
@@ -668,6 +712,12 @@ function provenance(state: RunSidecarState): string {
 function splitTable(
   heading: string,
   anchor: string,
+  /**
+   * The count as markup rather than a number, because the version filter is CSS
+   * and a heading holding one number would go on stating the whole-corpus total
+   * over a table showing one version's rows.
+   */
+  count: string,
   blurb: string,
   splits: readonly {
     caseId: string;
@@ -690,7 +740,7 @@ function splitTable(
         : "This run holds one measurement, so there's nothing for it to differ from."
     }</p></div>`;
   }
-  return `<div class="callout" id="${anchor}"><h3>${escape(heading)} &middot; ${String(splits.length)}</h3><p>${escape(blurb)}</p></div>
+  return `<div class="callout" id="${anchor}"><h3>${escape(heading)} &middot; ${count}</h3><p>${escape(blurb)}</p></div>
   <div class="scroll">
     <table>
       <thead><tr><th>case</th><th>tier</th><th>answers</th></tr></thead>

@@ -5,7 +5,13 @@ import type { LibraryMeasurement } from "../../src/types/measurement";
 import { readRun } from "../../src/report/read";
 import { renderHtml } from "../../src/report/html";
 import { score } from "../../src/report/score";
-import { STAGE_SLOTS, caseNote, compareLibraryNames, type Entry } from "../../src/report/view";
+import {
+  STAGE_SLOTS,
+  caseNote,
+  compareLibraryNames,
+  disagreements,
+  type Entry,
+} from "../../src/report/view";
 
 /**
  * What the page has to contain, counted rather than eyeballed.
@@ -126,6 +132,75 @@ describe("the outcomes drawn are the outcomes scored", () => {
   it("draws a cell for every pair, so no measurement is quietly short a case", () => {
     const drawn = count(section("Conformance"), '<td class="chip-cell">');
     expect(drawn).toBe(casesIn("conformance").length * entries.length);
+  });
+});
+
+describe("a count under the version filter counts what the filter shows", () => {
+  // The filter is CSS: it hides rows and cannot recount anything. So every
+  // count renders once per version and once for the whole corpus, and the
+  // filter shows the matching one. A single number above the fold would go on
+  // stating the whole-corpus total over one version's rows.
+  const versions = [...new Set(run.cases.map((testCase) => testCase.oasVersion))].sort();
+
+  /** The markup between two landmarks, so an assertion names one site. */
+  function between(from: string, to: string): string {
+    const start = html.indexOf(from);
+    if (start === -1) throw new Error(`the page has no ${from}`);
+    return html.slice(start, html.indexOf(to, start));
+  }
+
+  it("renders a variant per version beside the whole-corpus one", () => {
+    for (const version of versions) {
+      const slug = `v-oas${version.replace(".", "")}`;
+      expect(html).toContain(`<span class="vscope ${slug}">`);
+    }
+    expect(html).toContain('<span class="vscope v-all">');
+  });
+
+  it("gives each count its own number per version, at every place it appears", () => {
+    // Sliced per site rather than searched across the page: the same numbers
+    // appear in the readout and in each table heading, so a whole-page search
+    // passes while any one of them still states the corpus total.
+    const sites = [
+      { name: "readout: split verdicts", markup: between('<a href="#split-verdicts">', "</a>"), kind: "verdict" },
+      { name: "readout: value splits", markup: between('<a href="#value-splits">', "</a>"), kind: "value" },
+      { name: "table: split verdicts", markup: between('id="split-verdicts"', "</h3>"), kind: "verdict" },
+      { name: "table: value splits", markup: between('id="value-splits"', "</h3>"), kind: "value" },
+    ] as const;
+
+    for (const site of sites) {
+      for (const version of versions) {
+        const slug = `oas${version.replace(".", "")}`;
+        const scoped = disagreements(
+          run.cases.filter((testCase) => testCase.oasVersion === version),
+          entries,
+        );
+        const expected = scoped.filter((split) => split.kind === site.kind).length;
+        expect(`${site.name} ${slug}: ${site.markup}`).toContain(
+          `<span class="vscope v-${slug}">${String(expected)}</span>`,
+        );
+      }
+    }
+  });
+
+  it("hides every variant the filter did not select", () => {
+    for (const version of versions) {
+      const slug = `oas${version.replace(".", "")}`;
+      expect(html).toContain(`#oas-${slug}:checked ~ * .vscope:not(.v-${slug}){display:none}`);
+    }
+    expect(html).toContain("#oas-all:checked ~ * .vscope:not(.v-all){display:none}");
+  });
+
+  it("leads with cases of the version the filter selected", () => {
+    for (const version of versions) {
+      const slug = `oas${version.replace(".", "")}`;
+      const start = html.indexOf(`readout-lead vscope v-${slug}`);
+      expect(start).toBeGreaterThan(-1);
+      const list = html.slice(start, html.indexOf("</ol>", start));
+      const ids = [...list.matchAll(/<code>(.*?)<\/code>/g)].map((match) => match[1]);
+      expect(ids.length).toBeGreaterThan(0);
+      for (const id of ids) expect(id).toContain(`-${slug}`);
+    }
   });
 });
 
