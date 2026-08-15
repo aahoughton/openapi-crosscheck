@@ -1108,6 +1108,42 @@ export const queryCases30: readonly Case[] = [
     holdsConstant: ["the style is the defaulted one", "one parameter declared"],
   },
   {
+    id: "query-form-scalar-name-without-value-oas30",
+    title: "query, form, scalar, the name present with no delimiter after it",
+    inShort:
+      "Sends ?p with no equals sign at all, which is a wire form no expansion in the " +
+      "table produces: absent, empty, and present-with-nothing are all readings of it.",
+    tier: "divergence",
+    oasVersion: "3.0",
+    question:
+      "The Style Examples table gives ?name= for an undefined value and ?name=value " +
+      "otherwise, and produces no bare ?name at all. The parameter is required and the " +
+      "name is on the wire. Is it satisfied by a name carrying no delimiter, is that the " +
+      "same request as ?name=, or is the parameter absent?",
+    basis: cite.STYLE_EXAMPLE_FORM_NO_EXPLODE,
+    document: document(
+      [{ name: "p", in: "query", required: true, style: "form", explode: false, schema: STRING }],
+      "/t",
+    ),
+    request: request("/t?p"),
+    dimensions: {
+      declaration: "schema",
+      location: "query",
+      style: "form",
+      explode: false,
+      schema: "scalar",
+      declaredStyle: "form",
+      declaredExplode: false,
+      probeAxis: "nameWithoutValue",
+    },
+    varies: ["the name arrives with no delimiter after it"],
+    holdsConstant: [
+      "identifier is the declared one",
+      "one parameter declared",
+      "the declaration is required",
+    ],
+  },
+  {
     id: "query-form-scalar-nullable-empty-oas30",
     title: "query, form, nullable scalar, name present with a zero-length value",
     inShort:

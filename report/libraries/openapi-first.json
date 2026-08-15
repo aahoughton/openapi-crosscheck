@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "gem \"openapi_first\""
   },
-  "corpusDigest": "sha256:711b0235ab6468c92ab66f9ebe3a15b981858958c12b040771c3f409b01adb15",
+  "corpusDigest": "sha256:4aaa21b483d4925d27dbba5996cb4a28d993e0f5f28c002936b2300a5b3e44dc",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -5036,6 +5036,68 @@
           "error": {
             "type": "invalid_query",
             "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-name-without-value-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "NilClass"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not a string"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-name-without-value-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "NilClass"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not a string"
           }
         }
       }

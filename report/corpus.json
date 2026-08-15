@@ -13032,6 +13032,152 @@
       ]
     },
     {
+      "id": "query-form-scalar-name-without-value-oas30",
+      "title": "query, form, scalar, the name present with no delimiter after it",
+      "inShort": "Sends ?p with no equals sign at all, which is a wire form no expansion in the table produces: absent, empty, and present-with-nothing are all readings of it.",
+      "tier": "divergence",
+      "oasVersion": "3.0",
+      "question": "The Style Examples table gives ?name= for an undefined value and ?name=value otherwise, and produces no bare ?name at all. The parameter is required and the name is on the wire. Is it satisfied by a name carrying no delimiter, is that the same request as ?name=, or is the parameter absent?",
+      "basis": {
+        "oasVersion": "3.0",
+        "anchor": "style-examples",
+        "url": "https://spec.openapis.org/oas/v3.0.4.html#style-examples",
+        "quoted": "| form | false | ?color= | ?color=blue | ?color=blue,black,brown | ?color=R,100,G,200,B,150 |"
+      },
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "style": "form",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "form",
+        "explode": false,
+        "schema": "scalar",
+        "declaredStyle": "form",
+        "declaredExplode": false,
+        "probeAxis": "nameWithoutValue"
+      },
+      "varies": [
+        "the name arrives with no delimiter after it"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "one parameter declared",
+        "the declaration is required"
+      ]
+    },
+    {
+      "id": "query-form-scalar-name-without-value-oas31",
+      "title": "query, form, scalar, the name present with no delimiter after it",
+      "inShort": "Sends ?p with no equals sign at all, which is a wire form no expansion in the table produces: absent, empty, and present-with-nothing are all readings of it.",
+      "tier": "divergence",
+      "oasVersion": "3.1",
+      "question": "The Style Examples table gives ?name= for an undefined value and ?name=value otherwise, and produces no bare ?name at all. The parameter is required and the name is on the wire. Is it satisfied by a name carrying no delimiter, is that the same request as ?name=, or is the parameter absent?",
+      "basis": {
+        "oasVersion": "3.1",
+        "anchor": "style-examples",
+        "url": "https://spec.openapis.org/oas/v3.1.1.html#style-examples",
+        "quoted": "| form | false | ?color= | ?color=blue | ?color=blue,black,brown | ?color=R,100,G,200,B,150 |"
+      },
+      "document": {
+        "openapi": "3.1.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "style": "form",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "form",
+        "explode": false,
+        "schema": "scalar",
+        "declaredStyle": "form",
+        "declaredExplode": false,
+        "probeAxis": "nameWithoutValue"
+      },
+      "varies": [
+        "the name arrives with no delimiter after it"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "one parameter declared",
+        "the declaration is required"
+      ]
+    },
+    {
       "id": "query-form-scalar-nullable-absent-oas30",
       "title": "query, form, nullable scalar, required and nothing sent",
       "inShort": "A required parameter whose type allows null is left out entirely. Absent and null look the same on the wire and different to a schema.",

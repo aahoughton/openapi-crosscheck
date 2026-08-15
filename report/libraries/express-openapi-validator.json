@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:711b0235ab6468c92ab66f9ebe3a15b981858958c12b040771c3f409b01adb15",
+  "corpusDigest": "sha256:4aaa21b483d4925d27dbba5996cb4a28d993e0f5f28c002936b2300a5b3e44dc",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -7826,6 +7826,70 @@
             "params": {},
             "query": {
               "x": "blue"
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-name-without-value-oas30",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "the middleware raised; the app answered 500",
+        "raw": {
+          "status": 500,
+          "body": {
+            "message": "Cannot read properties of undefined (reading 'split')",
+            "errors": null,
+            "params": {},
+            "query": {
+              "p": ""
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-name-without-value-oas31",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "the middleware raised; the app answered 500",
+        "raw": {
+          "status": 500,
+          "body": {
+            "message": "Cannot read properties of undefined (reading 'split')",
+            "errors": null,
+            "params": {},
+            "query": {
+              "p": ""
             },
             "headers": {
               "host": "harness.invalid",

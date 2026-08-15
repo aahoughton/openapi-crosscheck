@@ -58,6 +58,16 @@ export type ProbeAxis =
   | "foreignWireShape"
   | "missingName"
   /**
+   * The name arrives on the wire with no `=` after it at all.
+   *
+   * Distinct from `emptyContainer`, which sends `?p=`: there the delimiter is
+   * present and the value is zero-length. Here there is no delimiter, which is
+   * a wire form no expansion in the Style Examples table produces. Until this
+   * axis existed every value in the corpus arrived behind its delimiter, and
+   * the harness itself could not tell the two apart.
+   */
+  | "nameWithoutValue"
+  /**
    * The declared parameter is `required: false` and the request omits it.
    *
    * Distinct from `missingName`, where a required parameter is absent and the

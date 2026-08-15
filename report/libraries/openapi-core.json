@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "openapi-core"
   },
-  "corpusDigest": "sha256:711b0235ab6468c92ab66f9ebe3a15b981858958c12b040771c3f409b01adb15",
+  "corpusDigest": "sha256:4aaa21b483d4925d27dbba5996cb4a28d993e0f5f28c002936b2300a5b3e44dc",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -7495,6 +7495,54 @@
             "cookie": {}
           }
         }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-name-without-value-oas30",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                null
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "adapterLimitation",
+        "detail": "a query pair arrived with no `=`, and the Request protocol takes query values as strings, so `?p` cannot be handed over apart from `?p=`"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-name-without-value-oas31",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                null
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "adapterLimitation",
+        "detail": "a query pair arrived with no `=`, and the Request protocol takes query values as strings, so `?p` cannot be handed over apart from `?p=`"
       }
     },
     {

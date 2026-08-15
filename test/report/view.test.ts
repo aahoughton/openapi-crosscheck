@@ -1,17 +1,19 @@
 import { describe, expect, it } from "vitest";
-import type { Case, ConformanceCase, DivergenceCase } from "../../src/types/case";
+import type { Case, ConformanceCase, DivergenceCase, ProbeAxis } from "../../src/types/case";
 import type { LibraryMeasurement } from "../../src/types/measurement";
 import type { AdapterResult, DeserializedValues } from "../../src/types/result";
 import {
   caseNote,
   caseNotes,
   conformanceTallies,
+  contentConditionOf,
   corpusAgreement,
   disagreements,
   divergenceGrid,
   orderEntries,
   orderMeasurements,
   orderSources,
+  placeContentCases,
   resolveLabels,
   roster,
   versionDeltas,
@@ -182,6 +184,39 @@ function measurement(
     answers: Object.entries(answers).map(([caseId, result]) => ({ caseId, result })),
   };
 }
+
+describe("a content case that sends no representation fills no cell", () => {
+  // The condition axis has two halves, and both mean something arrived. An
+  // axis that sends nothing at all belongs in neither: counting it as
+  // wellFormed would mark a cell covered by a case whose whole point is that
+  // no representation was sent.
+  function contentCase(id: string, probeAxis: ProbeAxis): Case {
+    const base = conformanceCase(id);
+    return {
+      ...base,
+      dimensions: {
+        declaration: "content",
+        location: "query",
+        mediaType: "application/json",
+        schema: "object",
+        probeAxis,
+      },
+    };
+  }
+
+  it.each(["missingName", "nameWithoutValue", "optionalAbsent"] as const)(
+    "places no cell for %s",
+    (probeAxis) => {
+      expect(contentConditionOf(contentCase("c", probeAxis))).toBeNull();
+      expect(placeContentCases([contentCase("c", probeAxis)]).covered.size).toBe(0);
+    },
+  );
+
+  it("still places a case that sends one", () => {
+    expect(placeContentCases([contentCase("c", "canonical")]).covered.size).toBe(1);
+    expect(placeContentCases([contentCase("c", "foreignWireShape")]).covered.size).toBe(1);
+  });
+});
 
 describe("the roster", () => {
   it("counts owned stages without naming any library", () => {

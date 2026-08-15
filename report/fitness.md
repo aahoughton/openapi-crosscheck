@@ -220,7 +220,7 @@ Rules those verdicts rest on:
 - [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
 - [style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
 
-30 divergence cases also probe it: `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-array-explode-oas30`, `cookie-form-array-explode-oas31`, `cookie-form-object-canonical-oas30`, `cookie-form-object-canonical-oas31`, `cookie-form-scalar-canonical-oas30`, `cookie-form-scalar-canonical-oas31`, and 22 more in the matrix files. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+32 divergence cases also probe it: `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-array-explode-oas30`, `cookie-form-array-explode-oas31`, `cookie-form-object-canonical-oas30`, `cookie-form-object-canonical-oas31`, `cookie-form-scalar-canonical-oas30`, `cookie-form-scalar-canonical-oas31`, and 24 more in the matrix files. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 

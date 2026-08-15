@@ -2391,6 +2391,35 @@ The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapi
 
 Varies: the declared type is numeric rather than string. Holds constant: identifier is the declared one; wire shape matches the declared style; the value is well-formed for the declared type.
 
+#### `query-form-scalar-name-without-value-oas30`
+
+query, form, scalar, the name present with no delimiter after it.
+
+Sends ?p with no equals sign at all, which is a wire form no expansion in the table produces: absent, empty, and present-with-nothing are all readings of it.
+
+Request: `GET /t?p`
+
+Open question: The Style Examples table gives ?name= for an undefined value and ?name=value otherwise, and produces no bare ?name at all. The parameter is required and the name is on the wire. Is it satisfied by a name carrying no delimiter, is that the same request as ?name=, or is the parameter absent?
+
+The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
+
+> | form | false | ?color= | ?color=blue | ?color=blue,black,brown | ?color=R,100,G,200,B,150 |
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (adapterLimitation) | - |
+| `express-openapi-validator` | raised, no verdict | - |
+| `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `@oaverify/core` | accepted | `{"p":""}` (validated only, so an absent name failed its schema) |
+| `openapi-backend` | accepted | `{"p":""}` (parsed before validation) |
+| `openapi-core` | not asked (adapterLimitation) | - |
+| `openapi-request-validator` | not asked (stageNotOwned) | - |
+| `openapi_first` | rejected | `{"p":null}` (parsed before validation) |
+
+Varies: the name arrives with no delimiter after it. Holds constant: identifier is the declared one; one parameter declared; the declaration is required.
+
 #### `query-form-scalar-nullable-absent-oas30`
 
 query, form, nullable scalar, required and nothing sent.

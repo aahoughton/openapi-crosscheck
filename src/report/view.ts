@@ -1,4 +1,4 @@
-import type { Case, Citation, ConformanceCase, Dimensions } from "../types/case";
+import type { Case, Citation, ConformanceCase, Dimensions, ProbeAxis } from "../types/case";
 import type { LibraryMeasurement } from "../types/measurement";
 import type { AdapterResult } from "../types/result";
 import type { PipelineStage, SplittableLocation } from "../types/pipeline";
@@ -798,13 +798,20 @@ export function declaredTypes(document: OpenApiDocument): ReadonlySet<DeclaredTy
  * form belongs to another style, and both mean the bytes do not conform to the
  * declared serialization.
  *
- * A case that sends no value at all fills neither half. Negating one axis would
- * have marked `wellFormed` covered for a case whose whole point is that no
- * representation was sent, which overstates coverage in the table that shows
- * open cells.
+ * A case that sends no value at all fills neither half, and there is more than
+ * one way to send none: a required name absent, an optional one omitted, a name
+ * arriving with no delimiter after it. Negating one axis would have marked
+ * `wellFormed` covered for a case whose whole point is that no representation
+ * was sent, which overstates coverage in the table that shows open cells.
  */
+const SENDS_NO_REPRESENTATION: ReadonlySet<ProbeAxis> = new Set([
+  "missingName",
+  "nameWithoutValue",
+  "optionalAbsent",
+]);
+
 export function contentConditionOf(testCase: Case): ContentCondition | null {
-  if (testCase.dimensions.probeAxis === "missingName") return null;
+  if (SENDS_NO_REPRESENTATION.has(testCase.dimensions.probeAxis)) return null;
   return testCase.dimensions.probeAxis === "foreignWireShape" ? "malformed" : "wellFormed";
 }
 

@@ -57,6 +57,7 @@ export const PROBE_AXES: readonly ProbeAxis[] = [
   "foreignName",
   "foreignWireShape",
   "missingName",
+  "nameWithoutValue",
   "optionalAbsent",
   "wrongTypeValue",
 ];

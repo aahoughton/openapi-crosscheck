@@ -333,10 +333,13 @@ export function probedStage(dimensions: Dimensions): PipelineStage {
     return "splitting";
   }
 
-  // canonical, emptyAfterParse, emptyContainer, foreignWireShape: the name is
-  // the declared one and was recovered, and what is under test is what its raw
-  // value deserializes to. Which mechanism does that reading is the parameter's
-  // own declaration, so a malformed `application/json` value is a content
-  // question and a foreign style shape is a style question.
+  // canonical, emptyAfterParse, emptyContainer, foreignWireShape,
+  // nameWithoutValue: the name is the declared one and was recovered, and what
+  // is under test is what its raw value deserializes to. A name that arrived
+  // with no `=` was recovered as much as one that arrived with an empty value;
+  // what parts them is what each is read as, which is this stage. Which
+  // mechanism does that reading is the parameter's own declaration, so a
+  // malformed `application/json` value is a content question and a foreign
+  // style shape is a style question.
   return deserialization;
 }
