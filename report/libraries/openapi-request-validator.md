@@ -47,8 +47,8 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 7 |
-| not asked | 51 |
-| every conformance case | 58 |
+| not asked | 52 |
+| every conformance case | 59 |
 
 #### Cases it was not asked
 
@@ -82,6 +82,7 @@ caller, so an answer would describe the harness rather than the library.
 - [`path-matrix-scalar-canonical-oas30`](../matrix.oas30.md#path-matrix-scalar-canonical-oas30) (stageNotOwned)
 - [`path-matrix-scalar-explode-oas30`](../matrix.oas30.md#path-matrix-scalar-explode-oas30) (stageNotOwned)
 - [`path-matrix-scalar-foreign-name-oas30`](../matrix.oas30.md#path-matrix-scalar-foreign-name-oas30) (stageNotOwned)
+- [`path-matrix-scalar-wrong-type-oas30`](../matrix.oas30.md#path-matrix-scalar-wrong-type-oas30) (stageNotOwned)
 - [`path-routing-concrete-before-templated-oas30`](../matrix.oas30.md#path-routing-concrete-before-templated-oas30) (stageNotOwned)
 - [`path-simple-array-canonical-oas30`](../matrix.oas30.md#path-simple-array-canonical-oas30) (stageNotOwned)
 - [`path-simple-array-explode-oas30`](../matrix.oas30.md#path-simple-array-explode-oas30) (stageNotOwned)
@@ -154,8 +155,8 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 7 |
-| not asked | 51 |
-| every conformance case | 58 |
+| not asked | 52 |
+| every conformance case | 59 |
 
 #### Cases it was not asked
 
@@ -189,6 +190,7 @@ caller, so an answer would describe the harness rather than the library.
 - [`path-matrix-scalar-canonical-oas31`](../matrix.oas31.md#path-matrix-scalar-canonical-oas31) (stageNotOwned)
 - [`path-matrix-scalar-explode-oas31`](../matrix.oas31.md#path-matrix-scalar-explode-oas31) (stageNotOwned)
 - [`path-matrix-scalar-foreign-name-oas31`](../matrix.oas31.md#path-matrix-scalar-foreign-name-oas31) (stageNotOwned)
+- [`path-matrix-scalar-wrong-type-oas31`](../matrix.oas31.md#path-matrix-scalar-wrong-type-oas31) (stageNotOwned)
 - [`path-routing-concrete-before-templated-oas31`](../matrix.oas31.md#path-routing-concrete-before-templated-oas31) (stageNotOwned)
 - [`path-simple-array-canonical-oas31`](../matrix.oas31.md#path-simple-array-canonical-oas31) (stageNotOwned)
 - [`path-simple-array-explode-oas31`](../matrix.oas31.md#path-simple-array-explode-oas31) (stageNotOwned)

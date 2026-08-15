@@ -6130,6 +6130,206 @@
       ]
     },
     {
+      "id": "path-matrix-scalar-wrong-type-oas30",
+      "title": "path, matrix, scalar, a value well-formed for a different type",
+      "inShort": "The segment says ;p=blue where the schema says integer. The name is inside the segment, so the value has to be read out of it before any type can be judged.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#style-examples",
+          "quoted": "| matrix | false | ;color | ;color=blue | ;color=blue,black,brown | ;color=R,100,G,200,B,150 |"
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-schema",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-schema",
+          "quoted": "The schema defining the type used for the parameter."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "appendix-b-data-type-conversion",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion",
+          "quoted": "Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: \"integer\" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation."
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "The parameter is declared as an integer and the value inside the segment is alphabetic, so no conversion left to implementations makes it one. The wrong-typed sibling in `simple` asks the same question of a segment that is already the value; here the matrix syntax has to come off first, which is why a library that leaves path style to its caller is not asked this at all. Rejecting `;p=blue` for the semicolon would be the right verdict for the wrong reason, and the value channel is where the two come apart.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": true,
+                  "style": "matrix",
+                  "explode": false,
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/;p=blue",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "matrix",
+        "explode": false,
+        "schema": "scalar",
+        "declaredStyle": "matrix",
+        "declaredExplode": false,
+        "probeAxis": "wrongTypeValue"
+      },
+      "varies": [
+        "the value is well-formed for a different type"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style"
+      ]
+    },
+    {
+      "id": "path-matrix-scalar-wrong-type-oas31",
+      "title": "path, matrix, scalar, a value well-formed for a different type",
+      "inShort": "The segment says ;p=blue where the schema says integer. The name is inside the segment, so the value has to be read out of it before any type can be judged.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#style-examples",
+          "quoted": "| matrix | false | ;color | ;color=blue | ;color=blue,black,brown | ;color=R,100,G,200,B,150 |"
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-schema",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-schema",
+          "quoted": "The schema defining the type used for the parameter."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "appendix-b-data-type-conversion",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
+          "quoted": "Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: \"integer\" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation."
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "The parameter is declared as an integer and the value inside the segment is alphabetic, so no conversion left to implementations makes it one. The wrong-typed sibling in `simple` asks the same question of a segment that is already the value; here the matrix syntax has to come off first, which is why a library that leaves path style to its caller is not asked this at all. Rejecting `;p=blue` for the semicolon would be the right verdict for the wrong reason, and the value channel is where the two come apart.",
+      "document": {
+        "openapi": "3.1.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": true,
+                  "style": "matrix",
+                  "explode": false,
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/;p=blue",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "matrix",
+        "explode": false,
+        "schema": "scalar",
+        "declaredStyle": "matrix",
+        "declaredExplode": false,
+        "probeAxis": "wrongTypeValue"
+      },
+      "varies": [
+        "the value is well-formed for a different type"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style"
+      ]
+    },
+    {
       "id": "path-routing-ambiguous-templates-oas30",
       "title": "path, two templates that both match the request",
       "inShort": "Two templates both match /t/me, and the specification says out loud that which one wins is up to the tooling.",

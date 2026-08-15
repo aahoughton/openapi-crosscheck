@@ -1095,6 +1095,48 @@ export const pathCases: readonly Case[] = [
     holdsConstant: ["identifier is the declared one", "value well-formed"],
   },
   {
+    id: "path-matrix-scalar-wrong-type-oas31",
+    title: "path, matrix, scalar, a value well-formed for a different type",
+    inShort:
+      "The segment says ;p=blue where the schema says integer. The name is inside the " +
+      "segment, so the value has to be read out of it before any type can be judged.",
+    tier: "conformance",
+    oasVersion: "3.1",
+    citations: [
+      cite.PARAMETER_STYLE,
+      cite.STYLE_EXAMPLE_MATRIX_NO_EXPLODE,
+      cite.PARAMETER_SCHEMA,
+      cite.SCHEMA_OBJECT,
+      cite.JSON_SCHEMA_DATA_MODEL,
+    ],
+    expected: "rejected",
+    expectedValues: null,
+    rationale:
+      "The parameter is declared as an integer and the value inside the segment is " +
+      "alphabetic, so no conversion left to implementations makes it one. The wrong-typed " +
+      "sibling in `simple` asks the same question of a segment that is already the value; " +
+      "here the matrix syntax has to come off first, which is why a library that leaves " +
+      "path style to its caller is not asked this at all. Rejecting `;p=blue` for the " +
+      "semicolon would be the right verdict for the wrong reason, and the value channel " +
+      "is where the two come apart.",
+    document: document([
+      { name: "p", in: "path", required: true, style: "matrix", explode: false, schema: INTEGER },
+    ]),
+    request: request("/t/;p=blue"),
+    dimensions: {
+      declaration: "schema",
+      location: "path",
+      style: "matrix",
+      explode: false,
+      schema: "scalar",
+      declaredStyle: "matrix",
+      declaredExplode: false,
+      probeAxis: "wrongTypeValue",
+    },
+    varies: ["the value is well-formed for a different type"],
+    holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
+  },
+  {
     id: "path-simple-scalar-wrong-type-oas31",
     title: "path, simple, scalar, a value well-formed for a different type",
     inShort:

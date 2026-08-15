@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:3a85cca773c59d2e1502a806e66a30eba7246f5ec94bf0ea15d79df831f73503",
+  "corpusDigest": "sha256:711b0235ab6468c92ab66f9ebe3a15b981858958c12b040771c3f409b01adb15",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -4760,6 +4760,114 @@
             }
           },
           "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas30",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.0",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";p=blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "coerced": {
+            "method": "GET",
+            "path": "/t/;p=blue",
+            "query": "",
+            "headers": {
+              "host": "harness.invalid"
+            }
+          },
+          "errors": [
+            {
+              "instancePath": "/path/p",
+              "schemaPath": "#/properties/path/properties/p/type",
+              "keyword": "type",
+              "params": {
+                "type": "integer"
+              },
+              "message": "must be integer"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas31",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.0",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";p=blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "coerced": {
+            "method": "GET",
+            "path": "/t/;p=blue",
+            "query": "",
+            "headers": {
+              "host": "harness.invalid"
+            }
+          },
+          "errors": [
+            {
+              "instancePath": "/path/p",
+              "schemaPath": "#/properties/path/properties/p/type",
+              "keyword": "type",
+              "params": {
+                "type": "integer"
+              },
+              "message": "must be integer"
+            }
+          ]
         }
       }
     },

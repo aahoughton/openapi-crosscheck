@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "gem \"openapi_first\""
   },
-  "corpusDigest": "sha256:3a85cca773c59d2e1502a806e66a30eba7246f5ec94bf0ea15d79df831f73503",
+  "corpusDigest": "sha256:711b0235ab6468c92ab66f9ebe3a15b981858958c12b040771c3f409b01adb15",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -2733,6 +2733,68 @@
         "raw": {
           "valid": true,
           "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";p=blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not an integer"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";p=blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not an integer"
+          }
         }
       }
     },

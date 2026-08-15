@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:3a85cca773c59d2e1502a806e66a30eba7246f5ec94bf0ea15d79df831f73503",
+  "corpusDigest": "sha256:711b0235ab6468c92ab66f9ebe3a15b981858958c12b040771c3f409b01adb15",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -2292,6 +2292,64 @@
         "raw": {
           "errors": [],
           "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas30",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [
+            {
+              "message": "Path parameter 'p' is not a valid integer",
+              "reason": "The path parameter 'p' is defined as being an integer, however the value ';p=blue' is not a valid integer",
+              "validationSubType": "path",
+              "validationType": "parameter"
+            }
+          ],
+          "valid": false
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas31",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [
+            {
+              "message": "Path parameter 'p' is not a valid integer",
+              "reason": "The path parameter 'p' is defined as being an integer, however the value ';p=blue' is not a valid integer",
+              "validationSubType": "path",
+              "validationType": "parameter"
+            }
+          ],
+          "valid": false
         }
       }
     },

@@ -46,12 +46,12 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 27 |
+| pass | 28 |
 | FAIL (verdict) | 25 |
 | FAIL (value) | 4 |
 | raised instead of answering | 1 |
 | not asked | 1 |
-| every conformance case | 58 |
+| every conformance case | 59 |
 
 #### Cases it did not pass
 
@@ -147,12 +147,12 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 25 |
+| pass | 26 |
 | FAIL (verdict) | 25 |
 | FAIL (value) | 4 |
 | raised instead of answering | 3 |
 | not asked | 1 |
-| every conformance case | 58 |
+| every conformance case | 59 |
 
 #### Cases it did not pass
 

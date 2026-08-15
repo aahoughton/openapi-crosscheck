@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:3a85cca773c59d2e1502a806e66a30eba7246f5ec94bf0ea15d79df831f73503",
+  "corpusDigest": "sha256:711b0235ab6468c92ab66f9ebe3a15b981858958c12b040771c3f409b01adb15",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -4375,6 +4375,112 @@
               "params": {
                 "name": "p",
                 "in": "path"
+              },
+              "children": []
+            }
+          ],
+          "truncated": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas30",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "errors": [
+            {
+              "code": "type",
+              "path": [
+                "path",
+                "p"
+              ],
+              "message": "must be integer",
+              "params": {
+                "expected": [
+                  "integer"
+                ],
+                "actual": "string"
+              },
+              "children": []
+            }
+          ],
+          "truncated": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas31",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "errors": [
+            {
+              "code": "type",
+              "path": [
+                "path",
+                "p"
+              ],
+              "message": "must be integer",
+              "params": {
+                "expected": [
+                  "integer"
+                ],
+                "actual": "string"
               },
               "children": []
             }

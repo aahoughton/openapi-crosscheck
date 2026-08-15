@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "openapi-core"
   },
-  "corpusDigest": "sha256:3a85cca773c59d2e1502a806e66a30eba7246f5ec94bf0ea15d79df831f73503",
+  "corpusDigest": "sha256:711b0235ab6468c92ab66f9ebe3a15b981858958c12b040771c3f409b01adb15",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -4068,6 +4068,88 @@
         "inputMutation": {
           "kind": "observed",
           "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';q=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
+        },
+        "raw": {
+          "errors": [
+            {
+              "type": "MissingRequiredParameter",
+              "message": "Missing required path parameter: p"
+            }
+          ],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas30",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "observed",
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
+        },
+        "raw": {
+          "errors": [
+            {
+              "type": "MissingRequiredParameter",
+              "message": "Missing required path parameter: p"
+            }
+          ],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas31",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "observed",
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': ';p=blue'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
         },
         "raw": {
           "errors": [

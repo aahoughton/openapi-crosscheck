@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "*"
   },
-  "corpusDigest": "sha256:3a85cca773c59d2e1502a806e66a30eba7246f5ec94bf0ea15d79df831f73503",
+  "corpusDigest": "sha256:711b0235ab6468c92ab66f9ebe3a15b981858958c12b040771c3f409b01adb15",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -2720,6 +2720,72 @@
           "matched": {
             "path": "/t/{p}",
             "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \";p=blue\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value ';p=blue'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'integer', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-wrong-type-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \";p=blue\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value ';p=blue'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'integer', but 'string' given.",
+                "previous": null
+              }
+            }
           }
         }
       }

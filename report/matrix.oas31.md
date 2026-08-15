@@ -126,6 +126,7 @@ rules the expected verdict rests on, and the argument for it.
 | [`path-matrix-scalar-canonical-oas31`](#path-matrix-scalar-canonical-oas31) | accepted | pass (verdict only) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (value) | FAIL (verdict) | n/a | FAIL (value) |
 | [`path-matrix-scalar-explode-oas31`](#path-matrix-scalar-explode-oas31) | accepted | pass (verdict only) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (value) | FAIL (verdict) | n/a | FAIL (value) |
 | [`path-matrix-scalar-foreign-name-oas31`](#path-matrix-scalar-foreign-name-oas31) | rejected | FAIL (verdict) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | FAIL (verdict) |
+| [`path-matrix-scalar-wrong-type-oas31`](#path-matrix-scalar-wrong-type-oas31) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a | pass |
 | [`path-routing-concrete-before-templated-oas31`](#path-routing-concrete-before-templated-oas31) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a | pass |
 | [`path-simple-array-canonical-oas31`](#path-simple-array-canonical-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`path-simple-array-explode-oas31`](#path-simple-array-explode-oas31) | accepted | FAIL (verdict) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (verdict) | pass | n/a | pass |
@@ -854,6 +855,40 @@ Every rule the expected verdict rests on, OpenAPI 3.1:
 The segment names q. The declared parameter is p and it is required. No serialization of p produces ;q=blue, so p has no value here.
 
 Varies: the identifier is a foreign one. Holds constant: wire shape matches the declared style; value well-formed; one parameter.
+
+##### `path-matrix-scalar-wrong-type-oas31`
+
+path, matrix, scalar, a value well-formed for a different type. Expected: **rejected**.
+
+The segment says ;p=blue where the schema says integer. The name is inside the segment, so the value has to be read out of it before any type can be judged.
+
+Request: `GET /t/;p=blue`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[parameter-style](https://spec.openapis.org/oas/v3.1.1.html#parameter-style)
+
+> Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for "query" - "form"; for "path" - "simple"; for "header" - "simple"; for "cookie" - "form".
+
+[style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
+
+> | matrix | false | ;color | ;color=blue | ;color=blue,black,brown | ;color=R,100,G,200,B,150 |
+
+[parameter-schema](https://spec.openapis.org/oas/v3.1.1.html#parameter-schema)
+
+> The schema defining the type used for the parameter.
+
+[schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+[appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion)
+
+> Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: "integer" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation.
+
+The parameter is declared as an integer and the value inside the segment is alphabetic, so no conversion left to implementations makes it one. The wrong-typed sibling in `simple` asks the same question of a segment that is already the value; here the matrix syntax has to come off first, which is why a library that leaves path style to its caller is not asked this at all. Rejecting `;p=blue` for the semicolon would be the right verdict for the wrong reason, and the value channel is where the two come apart.
+
+Varies: the value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 ##### `path-routing-concrete-before-templated-oas31`
 
