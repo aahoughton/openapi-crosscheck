@@ -8,7 +8,14 @@ import type { LibraryMeasurement } from "../types/measurement";
 import { MEASUREMENT_SCHEMA_VERSION } from "../types/measurement";
 import { renderLibrary } from "./display";
 import type { CoverageView } from "./view";
-import { coverage, matrixFileName, orderMeasurements, presentVersions, versionSlug } from "./view";
+import {
+  coverage,
+  matrixFileName,
+  orderMeasurements,
+  placeContentCases,
+  presentVersions,
+  versionSlug,
+} from "./view";
 import { adjudications } from "../corpus/adjudications";
 import { externalFigures } from "../corpus/provenance";
 import {
@@ -17,10 +24,8 @@ import {
   PROBE_AXES,
   cellKey,
   contentCellKey,
-  definedContentSurface,
   definedSurface,
 } from "../surface/surface";
-import type { ContentCondition } from "../surface/surface";
 import type { CapabilityEvidence, ProbeSide } from "../capability/evidence";
 import { demonstratedBy, demonstrates, stageReading, versionDemonstratedBy } from "../capability/evidence";
 import { score } from "./score";
@@ -427,24 +432,6 @@ function list(items: readonly string[]): string {
   return items.length === 0 ? "nothing" : items.join("; ");
 }
 
-/**
- * Which half of the condition axis a content case fills.
- *
- * Read from the axis it varies rather than from a field of its own. A case
- * whose value is not a representation of its declared media type carries
- * `foreignWireShape`, which is the same axis a style case carries when its wire
- * form belongs to another style, and both mean the bytes do not conform to the
- * declared serialization.
- */
-function conditionOf(testCase: Case): ContentCondition | null {
-  // A case that sends no value at all fills neither half. Negating one axis
-  // would have marked `wellFormed` covered for a case whose whole point is that
-  // no representation was sent, which overstates coverage in the table that
-  // shows open cells.
-  if (testCase.dimensions.probeAxis === "missingName") return null;
-  return testCase.dimensions.probeAxis === "foreignWireShape" ? "malformed" : "wellFormed";
-}
-
 function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   // The surface table enumerates style serialization, so only cases declared
   // with `schema` belong in it. A `content` parameter has no style to place.
@@ -525,40 +512,14 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("`content` has no style and no explode to place in it. Those cases were in the");
   lines.push("corpus and in no coverage map. This is their map.");
   lines.push("");
-  const contentSurface = definedContentSurface();
-  const definedKeys = new Set(contentSurface.map(contentCellKey));
   const contentCases = cases.filter((testCase) => testCase.dimensions.declaration === "content");
   const excludedContent = contentCases
     .filter((testCase) => testCase.breaksDocumentRule !== undefined)
     .map((testCase) => testCase.id);
 
-  // Placed rather than counted, so a case landing outside the axes can be named
-  // instead of vanishing. A case declaring a media type this surface does not
-  // enumerate produces a key matching no cell, and silently dropping it would
-  // let the coverage number ignore a case the corpus really contains.
-  const placed = contentCases.flatMap((testCase) => {
-    if (testCase.dimensions.declaration !== "content") return [];
-    if (testCase.breaksDocumentRule !== undefined) return [];
-    const condition = conditionOf(testCase);
-    if (condition === null) return [];
-    return [
-      {
-        id: testCase.id,
-        key: contentCellKey({
-          location: testCase.dimensions.location,
-          mediaType: testCase.dimensions.mediaType,
-          schema: testCase.dimensions.schema,
-          condition,
-        }),
-      },
-    ];
-  });
-  const contentCovered = new Set(
-    placed.filter((entry) => definedKeys.has(entry.key)).map((entry) => entry.key),
-  );
-  const offSurface = placed
-    .filter((entry) => !definedKeys.has(entry.key))
-    .map((entry) => entry.id);
+  // The same placement the coverage numbers are counted from, so this table and
+  // those numbers cannot describe different surfaces.
+  const { defined: contentSurface, covered: contentCovered, offSurface } = placeContentCases(cases);
   const contentFilled = contentSurface.filter((cell) => contentCovered.has(contentCellKey(cell)));
   lines.push(
     `Defined combinations: ${String(contentSurface.length)}. ` +

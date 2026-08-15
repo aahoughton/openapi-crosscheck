@@ -12,9 +12,11 @@ import {
   DECLARED_TYPES,
   PROBE_AXES,
   cellKey,
+  contentCellKey,
   definedContentSurface,
   definedSurface,
 } from "../surface/surface";
+import type { ContentCell, ContentCondition } from "../surface/surface";
 import { score, type ConformanceOutcome } from "./score";
 
 /**
@@ -787,20 +789,78 @@ export function declaredTypes(document: OpenApiDocument): ReadonlySet<DeclaredTy
   return found;
 }
 
+/**
+ * Which half of the condition axis a content case fills.
+ *
+ * Read from the axis it varies rather than from a field of its own. A case
+ * whose value is not a representation of its declared media type carries
+ * `foreignWireShape`, which is the same axis a style case carries when its wire
+ * form belongs to another style, and both mean the bytes do not conform to the
+ * declared serialization.
+ *
+ * A case that sends no value at all fills neither half. Negating one axis would
+ * have marked `wellFormed` covered for a case whose whole point is that no
+ * representation was sent, which overstates coverage in the table that shows
+ * open cells.
+ */
+export function contentConditionOf(testCase: Case): ContentCondition | null {
+  if (testCase.dimensions.probeAxis === "missingName") return null;
+  return testCase.dimensions.probeAxis === "foreignWireShape" ? "malformed" : "wellFormed";
+}
+
+/**
+ * Where the content cases land on the content surface.
+ *
+ * One function because the count and the table are the same claim. They were
+ * computed twice, one of them dropping the `condition` axis, so the JSON said
+ * twelve cells defined where the markdown drew twenty-four. A number and a
+ * picture that disagree cannot both be the measurement.
+ *
+ * Cases are placed rather than counted, so one landing outside the axes can be
+ * named instead of vanishing. A case declaring a media type this surface does
+ * not enumerate produces a key matching no cell, and silently dropping it would
+ * let the coverage number ignore a case the corpus really contains.
+ */
+export function placeContentCases(cases: readonly Case[]): {
+  readonly defined: readonly ContentCell[];
+  readonly covered: ReadonlySet<string>;
+  readonly offSurface: readonly string[];
+} {
+  const defined = definedContentSurface();
+  const definedKeys = new Set(defined.map(contentCellKey));
+
+  const placed = cases.flatMap((testCase) => {
+    if (testCase.dimensions.declaration !== "content") return [];
+    // A case breaking a rule addressed to whoever wrote the document varies the
+    // declaration rather than the representation, so it fills no cell here.
+    if (testCase.breaksDocumentRule !== undefined) return [];
+    const condition = contentConditionOf(testCase);
+    if (condition === null) return [];
+    return [
+      {
+        id: testCase.id,
+        key: contentCellKey({
+          location: testCase.dimensions.location,
+          mediaType: testCase.dimensions.mediaType,
+          schema: testCase.dimensions.schema,
+          condition,
+        }),
+      },
+    ];
+  });
+
+  return {
+    defined,
+    covered: new Set(placed.filter((entry) => definedKeys.has(entry.key)).map((entry) => entry.key)),
+    offSurface: placed.filter((entry) => !definedKeys.has(entry.key)).map((entry) => entry.id),
+  };
+}
+
 export function coverage(cases: readonly Case[]): CoverageView {
   const styleKeys = new Set(
     cases.flatMap((c) => (c.dimensions.declaration === "schema" ? [cellKey(c.dimensions)] : [])),
   );
-  const contentKeys = new Set(
-    cases.flatMap((c) =>
-      c.dimensions.declaration === "content" && c.breaksDocumentRule === undefined
-        ? [`${c.dimensions.location}|${c.dimensions.mediaType}|${c.dimensions.schema}`]
-        : [],
-    ),
-  );
-  const contentCells = new Set(
-    definedContentSurface().map((cell) => `${cell.location}|${cell.mediaType}|${cell.schema}`),
-  );
+  const content = placeContentCases(cases);
 
   const typed = DECLARED_TYPES.map((type) => {
     const declaredBy = cases.filter((c) => declaredTypes(c.document).has(type));
@@ -817,8 +877,8 @@ export function coverage(cases: readonly Case[]): CoverageView {
     byType: typed,
     styleDefined: definedSurface().length,
     styleCovered: definedSurface().filter((cell) => styleKeys.has(cellKey(cell))).length,
-    contentDefined: contentCells.size,
-    contentCovered: [...contentKeys].filter((key) => contentCells.has(key)).length,
+    contentDefined: content.defined.length,
+    contentCovered: content.covered.size,
     // `valueExposure` is absent by construction rather than empty: no case can
     // probe it, because a case probes a stage by varying something until the
     // verdict moves and exposure moves no verdict.

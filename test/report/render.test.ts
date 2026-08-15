@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import { cases } from "../../src/corpus/index";
 import { readRun } from "../../src/report/read";
 import { renderCorpus, renderMarkdown } from "../../src/report/render";
+import { coverage, presentVersions, versionSlug } from "../../src/report/view";
 
 /**
  * Every rendered byte of the committed report, without a container.
@@ -99,6 +100,32 @@ describe("the markdown says what a result means", () => {
     expect(matrix.split("**Answered in the values.**").length - 1).toBe(marked.length);
     for (const testCase of marked) expect(matrix).toContain(`#### \`${testCase.id}\``);
   });
+});
+
+describe("the coverage table and the coverage numbers are one claim", () => {
+  // The markdown drew the content surface with its `condition` axis while the
+  // view counted it without, so the page said twenty-four cells and the JSON
+  // said twelve. Whoever reads the number and whoever reads the table have to
+  // be looking at the same surface.
+  const artifacts = renderMarkdown(run.cases, run.measurements);
+
+  for (const version of presentVersions(run.cases)) {
+    it(`coverage.${versionSlug(version)}.md counts what the view counts`, () => {
+      const page = artifacts[`coverage.${versionSlug(version)}.md`] ?? "";
+      const view = coverage(run.cases.filter((testCase) => testCase.oasVersion === version));
+      const stated = [...page.matchAll(/Defined combinations: (\d+)\. Covered: (\d+)\./g)].map(
+        (match) => [Number(match[1]), Number(match[2])],
+      );
+
+      // Two such lines: the style surface, then the content surface.
+      expect(stated).toEqual([
+        [view.styleDefined, view.styleCovered],
+        [view.contentDefined, view.contentCovered],
+      ]);
+      // And the table under the content line draws exactly the cells it counts.
+      expect(page.split("| application/json |").length - 1).toBe(view.contentDefined);
+    });
+  }
 });
 
 describe("the order libraries are handed in does not reach the markdown", () => {
