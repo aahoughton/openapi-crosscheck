@@ -77,12 +77,12 @@ answered.
 | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:bcb114332900fa8fdc00ac642a0d4bd68629013fde1ecaf8706b4986d08e2cbc` |
 | `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:f388656842fbd0d86979db6d14213351c4517c6dee8c2a582c7f0f62ac70c5fa` |
-| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:a09cf56b1c0616c2c39fd0c046327e4d346278bbe84f8eed340e802cd4d43eaf` |
-| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:ca943bced3f06fb0e11e88af9fe796f3df97a0c244d5ba1ecbd3e81d09dd2978` |
+| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:a55995e8e5097fa300b70679ba851814d0e54591bb250ef414c35796d2b5acf1` |
+| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:44acb68384d6e8f1742e34803e653ee531be849fbf2f764f7bfb8b0479f07916` |
 | `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:60038969bc4330fb444ea4637513ab0136b27d45b04761dceeb22c86a68fc6f8` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:faca4a457302ebd2888cd37e512291208549574aeda1cbb0b5c404acb27430db` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:9a6df56179ab4aae8e28ac46a44423fb285358b416cfd29faacd717e12b3399f` |
 | `openapi-backend` | `adapters/openapi-backend/` | `sha256:d7db10df17a3b7b943316683a2ad7e37526e50f3305f684fef30632064a3be31` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:58ff4151c7e8f85dedd87888114a2f0ab1afa06b37cc31f10264633dae5e51bb` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:8f5ab2a02d33ea6561b4bdfad15032ba05ad4e7eac65b01b66f0c1ecfce1a435` |
 | `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:856942871de748159a50a0c1bd988c482f6ee33874fe33a500f4cb1e7ce5a5f2` |
 | `openapi_first` | `adapters/openapi-first/` | `sha256:3887153f2558a770d89be6e689804184e593a545453caae68c5c0e0a41e7efe7` |
 

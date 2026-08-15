@@ -13,6 +13,12 @@ the library's request shape spells them, preserving wire casing and collecting
 repeated names as arrays. Cookies come from the harness preparse, which supplies
 them as pairs.
 
+## OpenAPI Versions
+
+3.0, 3.1 and 3.2 are declared. The library's Versions table gives 3.2.x the
+2020-12 dialect, the same as 3.1 plus the `QUERY` method, and the installed
+7.0.0 classifies a 3.2 document into that bucket.
+
 ## Stage Claims
 
 | stage              | claim  |

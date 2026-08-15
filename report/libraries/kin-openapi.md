@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/getkin/kin-openapi
 
 Built from: `adapters/kin-openapi/`
 
-Image: `sha256:a09cf56b1c0616c2c39fd0c046327e4d346278bbe84f8eed340e802cd4d43eaf`
+Image: `sha256:a55995e8e5097fa300b70679ba851814d0e54591bb250ef414c35796d2b5acf1`
 
 Configuration `validate-request-gorillamux`: openapi3.NewLoader().LoadFromData(document) routed with gorillamux and validated through openapi3filter.ValidateRequest, driven from an http.Request built from the raw target. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the router, so the encoding survives to that point. Values are read from a write-back channel: the function that decodes a styled parameter is unexported and no published call returns decoded values, and ValidateRequest writes values it supplies, such as schema defaults for absent query parameters, back onto the http.Request it was handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 
@@ -27,7 +27,7 @@ Configuration `validate-request-gorillamux`: openapi3.NewLoader().LoadFromData(d
 | schema validation | owned |
 | value exposure | owned |
 
-Declares its library accepts OpenAPI 3.0, 3.1 documents. Cases of other versions render as not asked, and what the version probes saw is in [capabilities.md](../capabilities.md).
+Declares its library accepts OpenAPI 3.0, 3.1, 3.2 documents. Cases of other versions render as not asked, and what the version probes saw is in [capabilities.md](../capabilities.md).
 
 `caller` means this library requires the stage to have been done already, so
 the specification rules governing it are the caller's to get right. See

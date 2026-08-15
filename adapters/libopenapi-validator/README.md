@@ -14,6 +14,12 @@ one public validation call. Routing is part of that call rather than a separate
 step: an unmatched path comes back as a validation error carrying the type
 `path`.
 
+## OpenAPI Versions
+
+3.0, 3.1 and 3.2 are declared. The library's README says document validation
+is explicitly covered for all three, and 3.2 support arrived in v0.14.0, the
+version measured here.
+
 ## Stage Claims
 
 | stage              | claim  |

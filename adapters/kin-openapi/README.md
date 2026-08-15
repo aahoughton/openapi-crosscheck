@@ -12,6 +12,13 @@ It loads the document with `openapi3.NewLoader().LoadFromData`, routes with
 The adapter builds an `http.Request` from the raw target and passes the request
 through the public router and validation APIs.
 
+## OpenAPI Versions
+
+3.0, 3.1 and 3.2 are declared. The library's README names all four of 2.0,
+3.0, 3.1 and 3.2, with 3.2 marked partial: the Media Type Object
+`itemSchema`, the `QUERY` method and `additionalOperations`. Support landed
+in v0.141.0, before the version measured here.
+
 ## Stage Claims
 
 | stage              | claim  |

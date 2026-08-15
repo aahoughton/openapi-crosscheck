@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/pb33f/libopenapi-validato
 
 Built from: `adapters/libopenapi-validator/`
 
-Image: `sha256:ca943bced3f06fb0e11e88af9fe796f3df97a0c244d5ba1ecbd3e81d09dd2978`
+Image: `sha256:44acb68384d6e8f1742e34803e653ee531be849fbf2f764f7bfb8b0479f07916`
 
 Configuration `validate-http-request`: libopenapi.NewDocument(document) handed to validator.NewValidator and driven through ValidateHttpRequest, from an http.Request built on the raw target. Routing is the library's: an unmatched path comes back as a validation error of type path rather than as a separate call. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the validator, so the encoding survives to that point. Values are unexposed: ValidateHttpRequest answers with a boolean and a list of validation errors, and the helpers that decode a styled parameter are internal packages, so no published call hands the deserialized values back.
 
@@ -27,7 +27,7 @@ Configuration `validate-http-request`: libopenapi.NewDocument(document) handed t
 | schema validation | owned |
 | value exposure | caller |
 
-Declares its library accepts OpenAPI 3.0, 3.1 documents. Cases of other versions render as not asked, and what the version probes saw is in [capabilities.md](../capabilities.md).
+Declares its library accepts OpenAPI 3.0, 3.1, 3.2 documents. Cases of other versions render as not asked, and what the version probes saw is in [capabilities.md](../capabilities.md).
 
 `caller` means this library requires the stage to have been done already, so
 the specification rules governing it are the caller's to get right. See

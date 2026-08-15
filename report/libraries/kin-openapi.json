@@ -25,7 +25,7 @@
     "oasVersions": {
       "3.0": true,
       "3.1": true,
-      "3.2": false
+      "3.2": true
     }
   },
   "capabilityEvidence": [
@@ -736,7 +736,7 @@
       "probeId": "oas-3.2-document",
       "oasVersion": "3.2",
       "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.2 document and rejects a value outside its enumeration",
-      "declared": false,
+      "declared": true,
       "preparse": null,
       "accepted": {
         "outcome": "accepted",
@@ -775,7 +775,7 @@
   "provenance": {
     "kind": "container",
     "slug": "kin-openapi",
-    "imageId": "sha256:a09cf56b1c0616c2c39fd0c046327e4d346278bbe84f8eed340e802cd4d43eaf",
+    "imageId": "sha256:a55995e8e5097fa300b70679ba851814d0e54591bb250ef414c35796d2b5acf1",
     "ecosystem": "go"
   },
   "answers": [

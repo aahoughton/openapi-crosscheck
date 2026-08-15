@@ -12,6 +12,11 @@ The raw path is passed without the query string. Raw query name and value pairs
 come from the harness preparse because the Request protocol accepts query
 parameters as a mapping. Cookies also come from the harness preparse.
 
+## OpenAPI Versions
+
+3.0, 3.1 and 3.2 are declared. The library's README names all three, and the
+installed 0.23.1 handles 3.2 in its unmarshallers.
+
 ## Stage Claims
 
 | stage              | claim  |

@@ -28,7 +28,7 @@ const capabilities: AdapterCapabilities = {
     schemaValidation: true,
     valueExposure: true,
   },
-  oasVersions: { "3.0": true, "3.1": true, "3.2": false },
+  oasVersions: { "3.0": true, "3.1": true, "3.2": true },
 };
 
 const configuration: Configuration = {

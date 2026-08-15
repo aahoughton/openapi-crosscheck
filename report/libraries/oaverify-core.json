@@ -25,7 +25,7 @@
     "oasVersions": {
       "3.0": true,
       "3.1": true,
-      "3.2": false
+      "3.2": true
     }
   },
   "capabilityEvidence": [
@@ -1275,7 +1275,7 @@
       "probeId": "oas-3.2-document",
       "oasVersion": "3.2",
       "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.2 document and rejects a value outside its enumeration",
-      "declared": false,
+      "declared": true,
       "preparse": {
         "performedBy": "harness",
         "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
@@ -1347,7 +1347,7 @@
   "provenance": {
     "kind": "container",
     "slug": "oaverify-core",
-    "imageId": "sha256:faca4a457302ebd2888cd37e512291208549574aeda1cbb0b5c404acb27430db",
+    "imageId": "sha256:9a6df56179ab4aae8e28ac46a44423fb285358b416cfd29faacd717e12b3399f",
     "ecosystem": "npm"
   },
   "answers": [

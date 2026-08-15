@@ -63,7 +63,7 @@ var declaredCapabilities = capabilities{
 		SchemaValidation:       true,
 		ValueExposure:          true,
 	},
-	OasVersions: map[string]bool{"3.0": true, "3.1": true, "3.2": false},
+	OasVersions: map[string]bool{"3.0": true, "3.1": true, "3.2": true},
 }
 
 var declaredConfiguration = configuration{

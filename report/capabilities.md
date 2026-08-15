@@ -525,22 +525,22 @@ an unbacked claim rather than treated as false.
 | `express-openapi-validator` | 3.2 | no | raised, no verdict | raised, no verdict | disclaimed, and not shown |
 | `github.com/getkin/kin-openapi` | 3.0 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `github.com/getkin/kin-openapi` | 3.1 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
-| `github.com/getkin/kin-openapi` | 3.2 | no | accepted, no values exposed | rejected, no values exposed | disclaimed, and demonstrated by the pair of verdicts |
+| `github.com/getkin/kin-openapi` | 3.2 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `github.com/pb33f/libopenapi-validator` | 3.0 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `github.com/pb33f/libopenapi-validator` | 3.1 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
-| `github.com/pb33f/libopenapi-validator` | 3.2 | no | accepted, no values exposed | rejected, no values exposed | disclaimed, and demonstrated by the pair of verdicts |
+| `github.com/pb33f/libopenapi-validator` | 3.2 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `league/openapi-psr7-validator` | 3.0 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `league/openapi-psr7-validator` | 3.1 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `league/openapi-psr7-validator` | 3.2 | no | accepted, no values exposed | rejected, no values exposed | disclaimed, and demonstrated by the pair of verdicts |
 | `@oaverify/core` | 3.0 | yes | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
 | `@oaverify/core` | 3.1 | yes | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
-| `@oaverify/core` | 3.2 | no | accepted, value exposed | rejected, values exposed without the probed name | disclaimed, and demonstrated by the pair of verdicts |
+| `@oaverify/core` | 3.2 | yes | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
 | `openapi-backend` | 3.0 | yes | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `openapi-backend` | 3.1 | yes | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `openapi-backend` | 3.2 | no | accepted, value exposed | rejected, value exposed | disclaimed, and demonstrated by the pair of verdicts |
 | `openapi-core` | 3.0 | yes | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
 | `openapi-core` | 3.1 | yes | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
-| `openapi-core` | 3.2 | no | accepted, value exposed | rejected, values exposed without the probed name | disclaimed, and demonstrated by the pair of verdicts |
+| `openapi-core` | 3.2 | yes | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
 | `openapi-request-validator` | 3.0 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `openapi-request-validator` | 3.1 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `openapi-request-validator` | 3.2 | no | accepted, no values exposed | rejected, no values exposed | disclaimed, and demonstrated by the pair of verdicts |

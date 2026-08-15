@@ -51,7 +51,7 @@ CAPABILITIES = {
         "schemaValidation": True,
         "valueExposure": True,
     },
-    "oasVersions": {"3.0": True, "3.1": True, "3.2": False},
+    "oasVersions": {"3.0": True, "3.1": True, "3.2": True},
 }
 
 CONFIGURATION = {

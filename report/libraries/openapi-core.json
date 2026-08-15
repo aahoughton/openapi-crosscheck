@@ -25,7 +25,7 @@
     "oasVersions": {
       "3.0": true,
       "3.1": true,
-      "3.2": false
+      "3.2": true
     }
   },
   "capabilityEvidence": [
@@ -1074,7 +1074,7 @@
       "probeId": "oas-3.2-document",
       "oasVersion": "3.2",
       "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.2 document and rejects a value outside its enumeration",
-      "declared": false,
+      "declared": true,
       "preparse": {
         "performedBy": "harness",
         "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
@@ -1137,7 +1137,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-core",
-    "imageId": "sha256:58ff4151c7e8f85dedd87888114a2f0ab1afa06b37cc31f10264633dae5e51bb",
+    "imageId": "sha256:8f5ab2a02d33ea6561b4bdfad15032ba05ad4e7eac65b01b66f0c1ecfce1a435",
     "ecosystem": "pypi"
   },
   "answers": [
