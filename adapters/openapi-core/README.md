@@ -42,7 +42,9 @@ received, and the library matches them to declared parameters.
 Cookie splitting is caller-owned because the Request protocol supplies cookies
 as a mapping. The harness's cookie pairs go in as a `MultiDict`, which is the
 shape the library documents for that field, so a repeated cookie name reaches
-the library instead of being collapsed on the way in.
+the library instead of being collapsed on the way in. Its values are strings,
+so a crumb the harness supplies with no `=` at all is answered as an adapter
+limitation, the same as a query pair with none.
 
 Style and explode are claimed because `unmarshal_request` converts parameter
 values according to their declared serialization.

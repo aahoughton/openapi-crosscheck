@@ -82,7 +82,7 @@ answered.
 | `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:596d1e0eede492c40c0bc7458eca55444cf3303c7ba3ea758bf4a4eebb4d5819` |
 | `@oaverify/core` | `adapters/oaverify-core/` | `sha256:b6d06b47bf542cab7c07e851bbfd869994052057ef8100ee50b5e5cdcb2aa87d` |
 | `openapi-backend` | `adapters/openapi-backend/` | `sha256:deeb7e4ad62348bed743f94b10fcc53a52138fa67d93c6575958d374a2ab7b00` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:233931fdebf3c48522c9487c699960021097a9a21fffdb8012538f3572fa9d0d` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:bdc1f73f212a3e2d31e35a40e9ed2e048d2e6c04ae927be181e5c10842729f77` |
 | `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:7f26d80aae158c16e6d48b7ba09eccdcd2a733c653ef7822bcab2b361aea0a95` |
 | `openapi_first` | `adapters/openapi-first/` | `sha256:3887153f2558a770d89be6e689804184e593a545453caae68c5c0e0a41e7efe7` |
 
