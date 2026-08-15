@@ -216,7 +216,7 @@ mapped query object. An adapter for such a library may convert the raw pairs
 into that public input shape, but that work is adapter-side boundary adaptation.
 The adapter configuration must say what it did, and if the public API cannot
 represent the raw input without deleting a probe dimension, the adapter must
-return `unsupported` with `adapterLimitation` rather than inventing an answer.
+return `unsupported` with `cannotRepresentCase` rather than inventing an answer.
 
 The record is per location because ownership is per location. openapi-core
 recovers its own path parameters and refuses a query string, and a single
@@ -268,6 +268,15 @@ attribute the library's exception to the adapter.
 `unsupported` carries a `reason` from a closed set: `cannotRepresentCase`,
 `libraryInitUnsupported`, or `adapterLimitation`. The fourth member,
 `stageNotOwned`, is issued by the harness and never by a container.
+
+The line between the first and the last is who could fix it. A published input
+type that holds one string per cookie name cannot carry a repeated name, and no
+container written against that type could: that is `cannotRepresentCase`, and
+it is a fact about the library. `adapterLimitation` is for the other side of
+that line, where a better container over the same published API would have
+managed it, and it is a fact about the container. Reaching for the second where
+the first is true charges the harness for a library's shape, which is the
+direction a container's author has every incentive to get wrong.
 
 ### `deserialized`
 

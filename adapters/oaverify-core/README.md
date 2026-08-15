@@ -43,7 +43,7 @@ Cookie splitting is caller-owned because this request shape accepts cookies as a
 mapping. That mapping holds one string per name, unlike the header and query
 fields beside it, so neither a case sending the same cookie name twice nor one
 sending a crumb with no `=` can be handed over as sent, and both are answered
-`unsupported` with `adapterLimitation`.
+`unsupported` with `cannotRepresentCase`, the reason that names the library's shape rather than this container's.
 
 Style and explode are claimed because the library converts raw parameter values
 according to their declared serialization.

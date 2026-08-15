@@ -44,8 +44,8 @@ const configuration: Configuration = {
     "as the wire carried it, so matching a header name to the declaration stays its " +
     "work too. Cookies are the harness's split, which this configuration declares, and " +
     "the request shape holds one string per cookie name, so a case sending a name twice " +
-    "or a crumb with no `=` is answered as an adapter limitation rather than on what " +
-    "survived. " +
+    "or a crumb with no `=` is answered as a case this shape cannot represent, rather " +
+    "than on what survived. " +
     "Reading its values: the library documents that a parameter appears in the " +
     "value channel when this call reached it, deserialized it, and its schema " +
     "accepted the result. So an empty value cell on a rejected row means the " +
@@ -92,7 +92,7 @@ export function createAdapter(): LibraryAdapter {
         return {
           ...base,
           outcome: "unsupported",
-          reason: "adapterLimitation",
+          reason: "cannotRepresentCase",
           detail:
             "the request shape holds one string per cookie name, so neither a repeated " +
             "name nor a crumb that carried no `=` has a spelling in it; handing over " +

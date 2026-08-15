@@ -68,8 +68,8 @@ CONFIGURATION = {
         "those pairs. Cookie pairs go in as the MultiDict this library documents for "
         "that field, so a repeated cookie name reaches it rather than being collapsed "
         "on the way in. Every value in both mappings is a string, so a query pair or a "
-        "cookie crumb that arrived with no `=` at all is answered as an adapter "
-        "limitation rather than handed over as an empty value. "
+        "cookie crumb that arrived with no `=` at all is answered as a case this shape "
+        "cannot represent rather than handed over as an empty value. "
         "Reading its values: a parameter appears once it was reached, deserialized and "
         "accepted by its schema, so an empty value cell on a rejected row means that "
         "parameter did not pass rather than that it deserialized to nothing."
@@ -244,7 +244,7 @@ def run(message: Mapping[str, Any]) -> Answer:
         # Ours, not the library's: the request never reached it.
         return Answer(
             outcome="unsupported",
-            reason="adapterLimitation",
+            reason="cannotRepresentCase",
             detail=str(error),
         )
 

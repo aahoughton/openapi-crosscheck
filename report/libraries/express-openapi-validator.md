@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/cdimascio/express-openapi
 
 Built from: `adapters/express-openapi-validator/`
 
-Image: `sha256:5da16316f9f76fb538eff2c303cfbac7b429b257427c9061e14fdc1d1f050216`
+Image: `sha256:f388656842fbd0d86979db6d14213351c4517c6dee8c2a582c7f0f62ac70c5fa`
 
 Configuration `middleware-validate-requests`: OpenApiValidator.middleware({ apiSpec, validateRequests: true }) mounted on an express app, exactly as the published usage shows, with a handler that echoes the request it received and an error handler that reports the thrown status alongside the same request fields. Reading its values: on an accepted request they are what the handler was handed. On a rejected one they are what the middleware had coerced onto the request before it stopped, so they are partial and stop at the first failure.
 

@@ -17,8 +17,8 @@ the same way query pairs and wire headers already do.
 with no `=` at all. `?p` and `?p=` were both reaching containers as `["p", ""]`,
 so no case could ask whether a library tells them apart. If your library's input
 shape has no way to say "name, no value", return `unsupported` with
-`adapterLimitation`; the three containers here that take preparsed query pairs
-all do.
+`cannotRepresentCase`; the three containers here that take preparsed query
+pairs all do.
 
 A cookie crumb with no `=` carries a `null` value too, for the same reason. Only
 a crumb with nothing in it at all, which is what a trailing semicolon leaves, is
@@ -28,7 +28,7 @@ Cookie values are no longer trimmed, so whitespace inside or after a value
 arrives as sent, and only the space after the `;` separator is dropped.
 
 If your library's request shape can't hold a repeated cookie name, say so:
-return `unsupported` with `adapterLimitation`. Picking a crumb and carrying on
+return `unsupported` with `cannotRepresentCase`. Picking a crumb and carrying on
 publishes your library's verdict on a request the case never sent.
 
 ## 1

@@ -67,11 +67,25 @@ export type UnsupportedReason =
    * does not declare its library accepts, so no request was made.
    */
   | "oasVersionNotDeclared"
-  /** The library has no way to express what the case declares. */
+  /**
+   * The library's published API has no way to express what the case declares
+   * or sends, so no call could carry it.
+   *
+   * Attributable to the library rather than to us, and the line between this
+   * and `adapterLimitation` is who could fix it. A request shape holding one
+   * string per cookie name cannot carry a repeated name, and no adapter
+   * written against that shape could; handing over the crumb that survived
+   * would report the library's verdict on a request the case never sent.
+   * `adapterLimitation` is for the other side of that line, where a different
+   * adapter over the same published API would have managed it.
+   */
   | "cannotRepresentCase"
   /** The library refused the document itself, before any request was made. */
   | "libraryInitUnsupported"
-  /** This adapter cannot drive the library through its published API. Attributable to us. */
+  /**
+   * This adapter could not drive the library through its published API, where
+   * a better-written one over the same API would have. Attributable to us.
+   */
   | "adapterLimitation";
 
 /** Values handed to the application, keyed by parameter name. */

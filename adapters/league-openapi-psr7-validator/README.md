@@ -72,4 +72,4 @@ PSR-7 carries a URI object rather than a request target, so the target is parsed
 into one before the library sees it. Percent-encoded sequences reach the
 validator unchanged, and percent-encoding cases measure that parser as well as
 the library. A target the URI type refuses is reported as `unsupported` with
-`adapterLimitation` rather than being reshaped into one it accepts.
+`cannotRepresentCase` rather than being reshaped into one it accepts.

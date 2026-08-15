@@ -34,8 +34,8 @@ parameter list.
 Path, query and header splitting are caller-owned because `validateRequest`
 receives location records rather than a raw request target. Every value in
 those records is a string, so a query pair the harness supplies with no `=` at
-all is answered as an adapter limitation rather than handed over as an empty
-value.
+all is answered as a case this shape cannot represent, rather than handed over as
+an empty value.
 
 Cookie splitting is caller-owned for a stronger reason: the call takes
 `{ params, query, headers }` and there is no cookie position in it, so a cookie

@@ -1357,7 +1357,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-backend",
-    "imageId": "sha256:deeb7e4ad62348bed743f94b10fcc53a52138fa67d93c6575958d374a2ab7b00",
+    "imageId": "sha256:d7db10df17a3b7b943316683a2ad7e37526e50f3305f684fef30632064a3be31",
     "ecosystem": "npm"
   },
   "answers": [

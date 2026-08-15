@@ -224,7 +224,7 @@ function runCase(array $message): array
         $request = buildRequest($wire);
     } catch (InvalidArgumentException $error) {
         return unsupported(
-            'adapterLimitation',
+            'cannotRepresentCase',
             'the PSR-7 URI type this library validates through cannot hold the target: '
             . $error->getMessage()
         );

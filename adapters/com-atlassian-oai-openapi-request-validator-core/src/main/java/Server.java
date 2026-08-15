@@ -165,7 +165,7 @@ public final class Server {
       ObjectNode body = JSON.createObjectNode();
       body.put("protocol", PROTOCOL_VERSION);
       body.put("outcome", "unsupported");
-      body.put("reason", "adapterLimitation");
+      body.put("reason", "cannotRepresentCase");
       body.put(
           "detail",
           "the request builder exposes no cookie API, so a cookie parameter cannot be put to "
@@ -191,7 +191,7 @@ public final class Server {
       ObjectNode body = JSON.createObjectNode();
       body.put("protocol", PROTOCOL_VERSION);
       body.put("outcome", "unsupported");
-      body.put("reason", "adapterLimitation");
+      body.put("reason", "cannotRepresentCase");
       body.put(
           "detail",
           "a query pair arrived with no `=`, and withQueryParam takes a list of string "

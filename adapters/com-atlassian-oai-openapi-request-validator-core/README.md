@@ -36,15 +36,16 @@ path and resolves the operation and path parameter.
 
 Query splitting is caller-owned because the public request builder accepts query
 parameters through `withQueryParam(name, values)`. Those values are strings, so
-a pair the harness supplies with no `=` at all is answered as an adapter
-limitation rather than handed over as an empty value.
+a pair the harness supplies with no `=` at all is answered as a case this shape
+cannot represent, rather than handed over as an empty value.
 
 Header splitting is claimed because headers are passed to the builder as wire
 names and values, and the library matches them to declared header parameters.
 
 Cookie splitting is caller-owned because the request builder exposes no cookie
 API. Cookie parameter cases that cannot be represented through this public
-surface are reported as an adapter limitation.
+surface are reported as `cannotRepresentCase`, which names the library's
+surface rather than this container's.
 
 Style and explode are claimed because the builder methods accept string values.
 Any conversion from the wire value to the schema value happens inside the

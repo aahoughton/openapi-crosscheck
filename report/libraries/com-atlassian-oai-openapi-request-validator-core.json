@@ -892,7 +892,7 @@
   "provenance": {
     "kind": "container",
     "slug": "com-atlassian-oai-openapi-request-validator-core",
-    "imageId": "sha256:7a62361984f531d6c578fe69b4063a3cae8ddd15cea46526de8325056f46b660",
+    "imageId": "sha256:bcb114332900fa8fdc00ac642a0d4bd68629013fde1ecaf8706b4986d08e2cbc",
     "ecosystem": "maven"
   },
   "answers": [
@@ -916,7 +916,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
       }
     },
@@ -940,7 +940,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
       }
     },
@@ -968,7 +968,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
       }
     },
@@ -996,7 +996,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
       }
     },
@@ -1020,7 +1020,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
       }
     },
@@ -1044,7 +1044,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
       }
     },
@@ -1092,7 +1092,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
       }
     },
@@ -1116,7 +1116,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
       }
     },
@@ -1140,7 +1140,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
       }
     },
@@ -1164,7 +1164,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
       }
     },
@@ -5460,7 +5460,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "a query pair arrived with no `=`, and withQueryParam takes a list of string values, so `?p` cannot be handed over apart from `?p=`; answering either way would report a verdict on the other request"
       }
     },
@@ -5484,7 +5484,7 @@
           }
         },
         "outcome": "unsupported",
-        "reason": "adapterLimitation",
+        "reason": "cannotRepresentCase",
         "detail": "a query pair arrived with no `=`, and withQueryParam takes a list of string values, so `?p` cannot be handed over apart from `?p=`; answering either way would report a verdict on the other request"
       }
     },

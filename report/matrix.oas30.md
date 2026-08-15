@@ -75,15 +75,15 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:7a62361984f531d6c578fe69b4063a3cae8ddd15cea46526de8325056f46b660` |
-| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:5da16316f9f76fb538eff2c303cfbac7b429b257427c9061e14fdc1d1f050216` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:bcb114332900fa8fdc00ac642a0d4bd68629013fde1ecaf8706b4986d08e2cbc` |
+| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:f388656842fbd0d86979db6d14213351c4517c6dee8c2a582c7f0f62ac70c5fa` |
 | `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:a09cf56b1c0616c2c39fd0c046327e4d346278bbe84f8eed340e802cd4d43eaf` |
 | `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:ca943bced3f06fb0e11e88af9fe796f3df97a0c244d5ba1ecbd3e81d09dd2978` |
-| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:596d1e0eede492c40c0bc7458eca55444cf3303c7ba3ea758bf4a4eebb4d5819` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:b6d06b47bf542cab7c07e851bbfd869994052057ef8100ee50b5e5cdcb2aa87d` |
-| `openapi-backend` | `adapters/openapi-backend/` | `sha256:deeb7e4ad62348bed743f94b10fcc53a52138fa67d93c6575958d374a2ab7b00` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:bdc1f73f212a3e2d31e35a40e9ed2e048d2e6c04ae927be181e5c10842729f77` |
-| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:7f26d80aae158c16e6d48b7ba09eccdcd2a733c653ef7822bcab2b361aea0a95` |
+| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:60038969bc4330fb444ea4637513ab0136b27d45b04761dceeb22c86a68fc6f8` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:faca4a457302ebd2888cd37e512291208549574aeda1cbb0b5c404acb27430db` |
+| `openapi-backend` | `adapters/openapi-backend/` | `sha256:d7db10df17a3b7b943316683a2ad7e37526e50f3305f684fef30632064a3be31` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:58ff4151c7e8f85dedd87888114a2f0ab1afa06b37cc31f10264633dae5e51bb` |
+| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:856942871de748159a50a0c1bd988c482f6ee33874fe33a500f4cb1e7ce5a5f2` |
 | `openapi_first` | `adapters/openapi-first/` | `sha256:3887153f2558a770d89be6e689804184e593a545453caae68c5c0e0a41e7efe7` |
 
 ## Conformance
@@ -1727,7 +1727,7 @@ The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://s
 
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | not asked (adapterLimitation) | - |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (cannotRepresentCase) | - |
 | `express-openapi-validator` | accepted | not exposed by this library (cookie values are not exposed in this configuration; mounting a cookie parser would make the harness perform the split under test) |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
@@ -1758,12 +1758,12 @@ The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.0.4.
 
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | not asked (adapterLimitation) | - |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (cannotRepresentCase) | - |
 | `express-openapi-validator` | accepted | not exposed by this library (cookie values are not exposed in this configuration; mounting a cookie parser would make the harness perform the split under test) |
 | `github.com/getkin/kin-openapi` | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
-| `@oaverify/core` | not asked (adapterLimitation) | - |
+| `@oaverify/core` | not asked (cannotRepresentCase) | - |
 | `openapi-backend` | rejected | `{"p":"blue"}` (parsed before validation) |
 | `openapi-core` | accepted | `{"p":["blue","black"]}` (validated only, so an absent name failed its schema) |
 | `openapi-request-validator` | not asked (stageNotOwned) | - |
@@ -1789,7 +1789,7 @@ The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://s
 
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | not asked (adapterLimitation) | - |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (cannotRepresentCase) | - |
 | `express-openapi-validator` | accepted | not exposed by this library (cookie values are not exposed in this configuration; mounting a cookie parser would make the harness perform the split under test) |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
@@ -1851,7 +1851,7 @@ The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://s
 
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | not asked (adapterLimitation) | - |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (cannotRepresentCase) | - |
 | `express-openapi-validator` | accepted | not exposed by this library (cookie values are not exposed in this configuration; mounting a cookie parser would make the harness perform the split under test) |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
@@ -1882,7 +1882,7 @@ The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://s
 
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | not asked (adapterLimitation) | - |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (cannotRepresentCase) | - |
 | `express-openapi-validator` | accepted | not exposed by this library (cookie values are not exposed in this configuration; mounting a cookie parser would make the harness perform the split under test) |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
@@ -2407,14 +2407,14 @@ The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.0.4.
 
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | not asked (adapterLimitation) | - |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (cannotRepresentCase) | - |
 | `express-openapi-validator` | raised, no verdict | - |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `@oaverify/core` | accepted | `{"p":""}` (validated only, so an absent name failed its schema) |
 | `openapi-backend` | accepted | `{"p":""}` (parsed before validation) |
-| `openapi-core` | not asked (adapterLimitation) | - |
+| `openapi-core` | not asked (cannotRepresentCase) | - |
 | `openapi-request-validator` | not asked (stageNotOwned) | - |
 | `openapi_first` | rejected | `{"p":null}` (parsed before validation) |
 

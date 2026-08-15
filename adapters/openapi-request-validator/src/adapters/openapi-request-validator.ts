@@ -45,8 +45,8 @@ const configuration: Configuration = {
     "called with { params, query, headers }. Query arrives from the harness as raw " +
     "name/value pairs with no percent decoding, then this adapter collapses duplicate " +
     "raw names into the object shape validateRequest accepts. That shape holds a " +
-    "string per name, so a query pair that arrived with no `=` is answered as an " +
-    "adapter limitation rather than as an empty value. It is told which " +
+    "string per name, so a query pair that arrived with no `=` is answered as a case " +
+    "this shape cannot represent, rather than as an empty value. It is told which " +
     "operation applies, because it has no routing of its own. " +
     "Values are read from a write-back channel: validateRequest returns errors only, " +
     "and its schema engine writes coerced values and schema defaults onto the params, " +
@@ -115,7 +115,7 @@ export function createAdapter(): LibraryAdapter {
         return {
           ...base,
           outcome: "unsupported",
-          reason: "adapterLimitation",
+          reason: "cannotRepresentCase",
           detail:
             "a query pair arrived with no `=`, and the object shape validateRequest " +
             "accepts holds a string per name, so `?p` cannot be spelled apart from " +
