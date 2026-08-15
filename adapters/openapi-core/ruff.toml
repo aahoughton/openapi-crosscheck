@@ -1,0 +1,7 @@
+# The harness asks nothing of a container beyond the protocol. This is what the
+# containers written here hold themselves to, and it is here to be copied.
+target-version = "py313"
+line-length = 100
+
+[lint]
+select = ["E", "W", "F", "I", "N", "UP", "B", "A", "BLE", "C4", "SIM", "PTH", "RET", "ARG", "RUF"]

@@ -1,0 +1,38 @@
+# Renders the HTML reading of the committed report and deploys it, plus the
+# report directory itself, to GitHub Pages. Manually triggered on purpose:
+# publishing is a decision, and the page is rendered fresh from the committed
+# JSON at publish time because index.html is a view this repository never
+# commits. The whole report directory ships alongside it, so the page's named
+# files (corpus.json, the matrices, each library's measurement) are fetchable
+# at sibling URLs and the dispute procedure starts one click away.
+name: publish-page
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm render-html report
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: report
+      - id: deployment
+        uses: actions/deploy-pages@v4

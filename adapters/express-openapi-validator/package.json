@@ -1,0 +1,15 @@
+{
+  "name": "openapi-crosscheck-container-express-openapi-validator",
+  "private": true,
+  "type": "module",
+  "description": "container serving express-openapi-validator over the container protocol",
+  "dependencies": {
+    "@types/express": "latest",
+    "@types/node": "latest",
+    "express": "latest",
+    "express-openapi-validator": "latest",
+    "oxlint": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+
+gem "openapi_first"
+gem "rack"
+gem "webrick"
+
+# Checking only, and installed in the build stage alone so the container that
+# answers the harness holds the library and nothing else.
+group :check do
+  gem "rubocop"
+end

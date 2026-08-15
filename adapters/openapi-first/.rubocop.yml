@@ -1,0 +1,20 @@
+# The harness asks nothing of a container beyond the protocol. This is what the
+# containers written here hold themselves to, and it is here to be copied.
+#
+# Ruby has no type checker in play here, so what is left is everything that
+# finds a mistake rather than a preference: Lint, Naming and Security. The
+# departments that argue about layout are off, because a container's formatting
+# is nobody else's business.
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.4
+  SuggestExtensions: false
+
+Layout:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Style:
+  Enabled: false

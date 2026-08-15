@@ -1,0 +1,13 @@
+{
+  "name": "openapi-crosscheck-container-openapi-backend",
+  "private": true,
+  "type": "module",
+  "description": "container serving openapi-backend over the container protocol",
+  "dependencies": {
+    "@types/node": "latest",
+    "openapi-backend": "latest",
+    "oxlint": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

@@ -1,0 +1,4756 @@
+{
+  "schemaVersion": 1,
+  "library": "github.com/getkin/kin-openapi",
+  "libraryVersion": "0.146.0",
+  "librarySource": "https://github.com/getkin/kin-openapi",
+  "libraryResolution": {
+    "kind": "registry",
+    "specifier": null
+  },
+  "corpusDigest": "sha256:3a85cca773c59d2e1502a806e66a30eba7246f5ec94bf0ea15d79df831f73503",
+  "capabilities": {
+    "stages": {
+      "routing": true,
+      "splitting": {
+        "cookie": true,
+        "header": true,
+        "path": true,
+        "query": true
+      },
+      "styleDeserialization": true,
+      "contentDeserialization": true,
+      "schemaValidation": true,
+      "valueExposure": true
+    },
+    "oasVersions": {
+      "3.0": true,
+      "3.1": true,
+      "3.2": false
+    }
+  },
+  "capabilityEvidence": [
+    {
+      "probeId": "routing-method",
+      "stage": "routing",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a request for an undeclared method reaches an operation at all",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": "method not allowed",
+          "stage": "routing"
+        }
+      }
+    },
+    {
+      "probeId": "splitting-cookie-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "cookie",
+      "asks": "whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in cookie has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "splitting-cookie-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "cookie",
+      "asks": "whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "cookies": {
+            "p": "blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in cookie has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "splitting-header-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "header",
+      "asks": "whether a declared header parameter's value is recovered, with the harness supplying its usual split for every location except header",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in header has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "splitting-header-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "header",
+      "asks": "whether a declared header parameter's value is recovered, with the harness supplying the header split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "headers": {
+            "host": "harness.invalid",
+            "p": "blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in header has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "splitting-path-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "path",
+      "asks": "whether a declared path parameter's value is recovered, with the harness supplying its usual split for every location except path",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "red"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "splitting-path-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "path",
+      "asks": "whether a declared path parameter's value is recovered, with the harness supplying the path split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {
+            "p": "blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "red"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "splitting-query-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "query",
+      "asks": "whether a declared query parameter's value is recovered, with the harness supplying its usual split for every location except query",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "splitting-query-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "query",
+      "asks": "whether a declared query parameter's value is recovered, with the harness supplying the query split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "query": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-header",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined header array is split before its members are judged",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in header has an error: validation failed due to: error at \"/1\": at '/1': value must be one of 'blue', 'black'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-path",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined path array is split before its members are judged",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue,black"
+          },
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: validation failed due to: error at \"/1\": at '/1': value must be one of 'blue', 'black'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "blue,red"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-query",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined query array is split before its members are judged",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: validation failed due to: error at \"/1\": at '/1': value must be one of 'blue', 'black'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "content-deserialization-json-object",
+      "stage": "contentDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a content parameter's value is read as its declared media type",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: error unmarshaling parameter \"p\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "schema-validation-enum",
+      "stage": "schemaValidation",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a recovered value is judged against its schema",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "red"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "value-exposure-accepted",
+      "stage": "valueExposure",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether the deserialized value of an accepted parameter is handed back",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "red"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "value-exposure-write-back",
+      "stage": "valueExposure",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a value the library supplied for an absent optional parameter reaches the caller",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    }
+  ],
+  "versionEvidence": [
+    {
+      "probeId": "oas-3.0-document",
+      "oasVersion": "3.0",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.0 document and rejects a value outside its enumeration",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value is not one of the allowed values [\"blue\"]\nSchema:\n  {\n    \"enum\": [\n      \"blue\"\n    ],\n    \"type\": \"string\"\n  }\n\nValue:\n  \"green\"\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "oas-3.1-document",
+      "oasVersion": "3.1",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.1 document and rejects a value outside its enumeration",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "probeId": "oas-3.2-document",
+      "oasVersion": "3.2",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.2 document and rejects a value outside its enumeration",
+      "declared": false,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: validation failed due to: at '': value must be 'blue'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    }
+  ],
+  "configuration": {
+    "id": "validate-request-gorillamux",
+    "description": "openapi3.NewLoader().LoadFromData(document) routed with gorillamux and validated through openapi3filter.ValidateRequest, driven from an http.Request built from the raw target. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the router, so the encoding survives to that point. Values are read from a write-back channel: the function that decodes a styled parameter is unexported and no published call returns decoded values, and ValidateRequest writes values it supplies, such as schema defaults for absent query parameters, back onto the http.Request it was handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.",
+    "options": {}
+  },
+  "provenance": {
+    "kind": "container",
+    "slug": "kin-openapi",
+    "imageId": "sha256:4d25abce30af9904bec1c4b224dfaf30c3a82f15e2f49d04f79c868b570dcdd0",
+    "ecosystem": "go"
+  },
+  "answers": [
+    {
+      "caseId": "cookie-form-array-canonical-no-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-canonical-no-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in cookie has an error: invalid serialization method: style=\"form\", explode=true",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in cookie has an error: invalid serialization method: style=\"form\", explode=true",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in cookie has an error: invalid serialization method: style=\"form\", explode=true",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in cookie has an error: invalid serialization method: style=\"form\", explode=true",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-content-json-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-content-json-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-case-variant-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-case-variant-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-duplicate-name-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-duplicate-name-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explicit-style-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explicit-style-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-content-json-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: error unmarshaling parameter \"p\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-content-json-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: error unmarshaling parameter \"p\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".blue,black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".blue,black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".blue.black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".blue.black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-foreign-shape-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value blue,black: a value must be prefixed with \".\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "blue,black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-foreign-shape-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value blue,black: a value must be prefixed with \".\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "blue,black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".R,100,G,200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".R,100,G,200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".R=100.G=200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".R=100.G=200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ".blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";p=blue;p=black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";p=blue;p=black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-empty-after-parse-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value ;q=blue;r=black: a value must be prefixed with \";p=\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": ";q=blue;r=black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-empty-after-parse-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value ;q=blue;r=black: a value must be prefixed with \";p=\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": ";q=blue;r=black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-foreign-shape-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value blue: a value must be prefixed with \";p=\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-foreign-shape-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value blue: a value must be prefixed with \";p=\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-no-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";p=blue,black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-no-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";p=blue,black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-competing-parameters-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value ;q=blue: a value must be prefixed with \";p=\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": ";q=blue",
+            "q": ";p=black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-competing-parameters-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value ;q=blue: a value must be prefixed with \";p=\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": ";q=blue",
+            "q": ";p=black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";p=R,100,G,200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";p=R,100,G,200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";R=100;G=200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";R=100;G=200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";p=blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";p=blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";p=blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": ";p=blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-foreign-name-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value ;q=blue: a value must be prefixed with \";p=\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": ";q=blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-foreign-name-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value ;q=blue: a value must be prefixed with \";p=\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": ";q=blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-ambiguous-templates-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "entity": "t"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-ambiguous-templates-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "entity": "t"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-concrete-before-templated-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"q\" in query has an error: value is required but missing",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-concrete-before-templated-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"q\" in query has an error: value is required but missing",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-identical-templates-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: conflicting paths \"/t/{q}\" and \"/t/{p}\""
+      }
+    },
+    {
+      "caseId": "path-routing-identical-templates-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: conflicting paths \"/t/{q}\" and \"/t/{p}\""
+      }
+    },
+    {
+      "caseId": "path-simple-array-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue,black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue,black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-encoded-delimiter-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue%2Cblack"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-encoded-delimiter-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue%2Cblack"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue,black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue,black"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "R,100,G,200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "R,100,G,200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "R=100,G=200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "R=100,G=200"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-unset-style-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-unset-style-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-wrong-type-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value blue: an invalid integer: invalid syntax",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-wrong-type-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in path has an error: value blue: an invalid integer: invalid syntax",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {
+            "p": "blue"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-content-and-schema-declared-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "load: cannot contain both schema and content in a parameter"
+      }
+    },
+    {
+      "caseId": "query-content-and-schema-declared-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "load: cannot contain both schema and content in a parameter"
+      }
+    },
+    {
+      "caseId": "query-content-json-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-malformed-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: error unmarshaling parameter \"p\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-malformed-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: error unmarshaling parameter \"p\"",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-content-two-media-types-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" content is invalid: parameter content must only contain one entry"
+      }
+    },
+    {
+      "caseId": "query-content-two-media-types-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" content is invalid: parameter content must only contain one entry"
+      }
+    },
+    {
+      "caseId": "query-deep-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: serialization method with style=\"deepObject\" and explode=false is not supported by a query parameter"
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: serialization method with style=\"deepObject\" and explode=false is not supported by a query parameter"
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-no-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-no-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-duplicate-name-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-duplicate-name-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-empty-value-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: empty value is not allowed",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-empty-value-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: empty value is not allowed",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-integer-items-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-integer-items-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-unset-style-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-unset-style-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-literal-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-literal-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-wrong-type-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value blue: an invalid boolean: invalid syntax",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-wrong-type-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value blue: an invalid boolean: invalid syntax",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-no-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-no-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-integer-properties-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-integer-properties-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-missing-name-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value is required but missing",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-missing-name-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value is required but missing",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-wrong-type-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: path R: value blue: an invalid integer: invalid syntax",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-wrong-type-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: path R: value blue: an invalid integer: invalid syntax",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-empty-value-declared-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-empty-value-declared-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-declared-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-declared-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-percent-triple-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-percent-triple-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-unset-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-unset-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-fractional-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value 1.5: an invalid integer: invalid syntax",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-fractional-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value 1.5: an invalid integer: invalid syntax",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-missing-name-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value is required but missing",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-missing-name-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value is required but missing",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-absent-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value is required but missing",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-absent-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: value is required but missing",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-empty-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-empty-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-absent-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-absent-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-default-absent-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "nativeTypes": {
+            "p": "string"
+          },
+          "value": {
+            "p": "blue"
+          },
+          "vantage": "parsedBeforeValidation"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest; it is now \"GET http://harness.invalid/t?p=blue|h Host=harness.invalid\" where it was \"GET http://harness.invalid/t|h Host=harness.invalid\"",
+          "kind": "observed"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-default-absent-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "nativeTypes": {
+            "p": "string"
+          },
+          "value": {
+            "p": "blue"
+          },
+          "vantage": "parsedBeforeValidation"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest; it is now \"GET http://harness.invalid/t?p=blue|h Host=harness.invalid\" where it was \"GET http://harness.invalid/t|h Host=harness.invalid\"",
+          "kind": "observed"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unset-style-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unset-style-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-array-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-array-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: invalid serialization method: style=\"pipeDelimited\", explode=false",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: invalid serialization method: style=\"pipeDelimited\", explode=false",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-explode-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-object-canonical-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: invalid serialization method: style=\"spaceDelimited\", explode=false",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-object-canonical-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: invalid serialization method: style=\"spaceDelimited\", explode=false",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    }
+  ]
+}

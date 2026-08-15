@@ -1,0 +1,16 @@
+{
+  "name": "openapi-crosscheck/container-league-openapi-psr7-validator",
+  "description": "container serving league/openapi-psr7-validator over the container protocol",
+  "type": "project",
+  "require": {
+    "php": ">=8.4",
+    "league/openapi-psr7-validator": "*",
+    "nyholm/psr7": "*"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "*"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}

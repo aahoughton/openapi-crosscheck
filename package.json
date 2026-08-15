@@ -1,0 +1,30 @@
+{
+  "name": "openapi-crosscheck",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cross-library conformance and differential harness for OpenAPI request validation",
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "check": "pnpm run typecheck && pnpm run lint && pnpm run test",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --deny-warnings && oxfmt --check .",
+    "format": "oxfmt .",
+    "test": "vitest run --project harness",
+    "check:containers": "vitest run --project containers",
+    "measure": "tsx src/cli/measure.ts",
+    "render-md": "tsx src/cli/render-md.ts",
+    "render-html": "tsx src/cli/render-html.ts",
+    "regenerate": "tsx src/cli/measure.ts adapters/* --out report --force && tsx src/cli/render-md.ts report",
+    "diff-runs": "tsx src/cli/diff-runs.ts"
+  },
+  "devDependencies": {
+    "@hyperjump/json-schema": "^1.17.8",
+    "@types/node": "latest",
+    "oxfmt": "latest",
+    "oxlint": "latest",
+    "tsx": "^4.23.12",
+    "typescript": "latest",
+    "vitest": "latest"
+  }
+}

@@ -1,0 +1,5357 @@
+{
+  "schemaVersion": 1,
+  "library": "league/openapi-psr7-validator",
+  "libraryVersion": "0.24",
+  "librarySource": "https://github.com/thephpleague/openapi-psr7-validator",
+  "libraryResolution": {
+    "kind": "registry",
+    "specifier": "*"
+  },
+  "corpusDigest": "sha256:3a85cca773c59d2e1502a806e66a30eba7246f5ec94bf0ea15d79df831f73503",
+  "capabilities": {
+    "stages": {
+      "routing": true,
+      "splitting": {
+        "cookie": true,
+        "header": true,
+        "path": true,
+        "query": true
+      },
+      "styleDeserialization": true,
+      "contentDeserialization": true,
+      "schemaValidation": true,
+      "valueExposure": false
+    },
+    "oasVersions": {
+      "3.0": true,
+      "3.1": true,
+      "3.2": false
+    }
+  },
+  "capabilityEvidence": [
+    {
+      "probeId": "routing-method",
+      "stage": "routing",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a request for an undeclared method reaches an operation at all",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\NoPath",
+            "message": "OpenAPI spec contains no such operation [/t/blue]",
+            "previous": null
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-cookie-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "cookie",
+      "asks": "whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidCookies",
+            "message": "Value \"red\" for cookie \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+              "message": "Keyword validation failed: Value must be present in the enum",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-cookie-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "cookie",
+      "asks": "whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "cookies": {
+            "p": "blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidCookies",
+            "message": "Value \"red\" for cookie \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+              "message": "Keyword validation failed: Value must be present in the enum",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-header-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "header",
+      "asks": "whether a declared header parameter's value is recovered, with the harness supplying its usual split for every location except header",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"red\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+              "message": "Keyword validation failed: Value must be present in the enum",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-header-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "header",
+      "asks": "whether a declared header parameter's value is recovered, with the harness supplying the header split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "headers": {
+            "host": "harness.invalid",
+            "p": "blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"red\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+              "message": "Keyword validation failed: Value must be present in the enum",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-path-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "path",
+      "asks": "whether a declared path parameter's value is recovered, with the harness supplying its usual split for every location except path",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"red\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'red'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-path-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "path",
+      "asks": "whether a declared path parameter's value is recovered, with the harness supplying the path split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {
+            "p": "blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"red\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'red'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-query-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "query",
+      "asks": "whether a declared query parameter's value is recovered, with the harness supplying its usual split for every location except query",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"red\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'red'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-query-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "query",
+      "asks": "whether a declared query parameter's value is recovered, with the harness supplying the query split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "query": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"red\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'red'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-header",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined header array is split before its members are judged",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue,black\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue,red\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-path",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined path array is split before its members are judged",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"blue,red\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'blue,red'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-query",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined query array is split before its members are judged",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"blue,red\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'blue,red'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "content-deserialization-json-object",
+      "stage": "contentDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a content parameter's value is read as its declared media type",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"{not-json\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '{not-json'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\ContentTypeMismatch",
+                "message": "Value '{not-json' does not match content-type application/json",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "schema-validation-enum",
+      "stage": "schemaValidation",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a recovered value is judged against its schema",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"red\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'red'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "value-exposure-accepted",
+      "stage": "valueExposure",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether the deserialized value of an accepted parameter is handed back",
+      "declared": false,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"red\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'red'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "value-exposure-write-back",
+      "stage": "valueExposure",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a value the library supplied for an absent optional parameter reaches the caller",
+      "declared": false,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"green\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'green'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "versionEvidence": [
+    {
+      "probeId": "oas-3.0-document",
+      "oasVersion": "3.0",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.0 document and rejects a value outside its enumeration",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"green\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'green'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "oas-3.1-document",
+      "oasVersion": "3.1",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.1 document and rejects a value outside its enumeration",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"green\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'green'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "probeId": "oas-3.2-document",
+      "oasVersion": "3.2",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.2 document and rejects a value outside its enumeration",
+      "declared": false,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"green\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'green'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\KeywordMismatch",
+                "message": "Keyword validation failed: Value must be present in the enum",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "configuration": {
+    "id": "request-validator-psr7",
+    "description": "ValidatorBuilder::fromJson(document) driven through getRequestValidator()->validate(), with a PSR-7 RequestInterface built from the raw target. The plain request validator is used rather than the server request one, because the plain one reads the Cookie header itself where the server one takes a cookie array from its caller, so every location stays the library's. Known limitation: the PSR-7 URI type parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. Existing percent-encoded sequences reach the validator unchanged. Values are unexposed: validate() answers with an OperationAddress or raises, and the deserializer that converts a styled parameter is not reachable from the published validation call.",
+    "options": []
+  },
+  "provenance": {
+    "kind": "container",
+    "slug": "league-openapi-psr7-validator",
+    "imageId": "sha256:35078f69c8dced56579e780abdb580007d42ae44ea19b3aae5084bde2af36b77",
+    "ecosystem": "packagist"
+  },
+  "answers": [
+    {
+      "caseId": "cookie-form-array-canonical-no-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-canonical-no-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidCookies",
+            "message": "Value \"black\" for cookie \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'iterable', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidCookies",
+            "message": "Value \"black\" for cookie \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'iterable', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidCookies",
+            "message": "Value \"R,100,G,200\" for cookie \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'object', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidCookies",
+            "message": "Value \"R,100,G,200\" for cookie \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'object', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidCookies",
+            "message": "Missing required cookie \"p\" for Request [get /t]",
+            "previous": null
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidCookies",
+            "message": "Missing required cookie \"p\" for Request [get /t]",
+            "previous": null
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-content-json-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "libraryError",
+        "detail": "TypeError: League\\OpenAPIValidation\\Schema\\SchemaValidator::validate(): Argument #2 ($schema) must be of type cebe\\openapi\\spec\\Schema, null given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/HeadersValidator.php on line 44",
+        "raw": {
+          "type": "TypeError",
+          "message": "League\\OpenAPIValidation\\Schema\\SchemaValidator::validate(): Argument #2 ($schema) must be of type cebe\\openapi\\spec\\Schema, null given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/HeadersValidator.php on line 44",
+          "previous": null
+        }
+      }
+    },
+    {
+      "caseId": "header-content-json-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "libraryError",
+        "detail": "TypeError: League\\OpenAPIValidation\\Schema\\SchemaValidator::validate(): Argument #2 ($schema) must be of type cebe\\openapi\\spec\\Schema, null given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/HeadersValidator.php on line 44",
+        "raw": {
+          "type": "TypeError",
+          "message": "League\\OpenAPIValidation\\Schema\\SchemaValidator::validate(): Argument #2 ($schema) must be of type cebe\\openapi\\spec\\Schema, null given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/HeadersValidator.php on line 44",
+          "previous": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue,black\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue,black\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-case-variant-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue,black\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-case-variant-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue,black\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-duplicate-name-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-duplicate-name-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explicit-style-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue,black\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explicit-style-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue,black\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue,black\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"blue,black\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'array', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"R,100,G,200\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'object', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"R,100,G,200\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'object', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"R=100,G=200\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'object', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"R=100,G=200\" for header \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'object', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-content-json-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\ContentTypeMismatch",
+                "message": "Value '%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D' does not match content-type application/json",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-content-json-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\ContentTypeMismatch",
+                "message": "Value '%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D' does not match content-type application/json",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-foreign-shape-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"blue,black\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'blue,black'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'label-array', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-foreign-shape-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"blue,black\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'blue,black'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'label-array', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \".R,100,G,200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '.R,100,G,200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \".R,100,G,200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '.R,100,G,200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \".R=100.G=200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '.R=100.G=200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \".R=100.G=200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '.R=100.G=200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-empty-after-parse-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-empty-after-parse-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-foreign-shape-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"blue\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'blue'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'matrix-array', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-foreign-shape-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"blue\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'blue'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'matrix-array', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-no-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-no-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-competing-parameters-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}/{q}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-competing-parameters-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}/{q}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \";p=R,100,G,200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value ';p=R,100,G,200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \";p=R,100,G,200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value ';p=R,100,G,200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \";R=100;G=200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value ';R=100;G=200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \";R=100;G=200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value ';R=100;G=200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-foreign-name-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-foreign-name-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-ambiguous-templates-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/{entity}/me",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-ambiguous-templates-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/{entity}/me",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-concrete-before-templated-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"q\" for Request [get /t/mine]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-concrete-before-templated-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"q\" for Request [get /t/mine]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-identical-templates-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-identical-templates-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-encoded-delimiter-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-encoded-delimiter-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"R,100,G,200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R,100,G,200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"R,100,G,200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R,100,G,200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"R=100,G=200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R=100,G=200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"R=100,G=200\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R=100,G=200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-unset-style-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-unset-style-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t/{p}",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-wrong-type-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"blue\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'blue'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'integer', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-wrong-type-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidPath",
+            "message": "Value \"blue\" for parameter \"p\" is invalid for Request [get /t/{p}]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'blue'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'integer', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-and-schema-declared-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "libraryError",
+        "detail": "League\\OpenAPIValidation\\Schema\\Exception\\InvalidSchema: Schema(or data) validation failed: All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+        "raw": {
+          "type": "League\\OpenAPIValidation\\Schema\\Exception\\InvalidSchema",
+          "message": "Schema(or data) validation failed: All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+          "previous": {
+            "type": "Respect\\Validation\\Exceptions\\ValidatorException",
+            "message": "All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+            "previous": null
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-and-schema-declared-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "libraryError",
+        "detail": "League\\OpenAPIValidation\\Schema\\Exception\\InvalidSchema: Schema(or data) validation failed: All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+        "raw": {
+          "type": "League\\OpenAPIValidation\\Schema\\Exception\\InvalidSchema",
+          "message": "Schema(or data) validation failed: All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+          "previous": {
+            "type": "Respect\\Validation\\Exceptions\\ValidatorException",
+            "message": "All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+            "previous": null
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-malformed-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"{not-json\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '{not-json'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\ContentTypeMismatch",
+                "message": "Value '{not-json' does not match content-type application/json",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-malformed-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"{not-json\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '{not-json'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\ContentTypeMismatch",
+                "message": "Value '{not-json' does not match content-type application/json",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-two-media-types-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "libraryError",
+        "detail": "League\\OpenAPIValidation\\Schema\\Exception\\InvalidSchema: Schema(or data) validation failed: All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }), \"text/plain\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+        "raw": {
+          "type": "League\\OpenAPIValidation\\Schema\\Exception\\InvalidSchema",
+          "message": "Schema(or data) validation failed: All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }), \"text/plain\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+          "previous": {
+            "type": "Respect\\Validation\\Exceptions\\ValidatorException",
+            "message": "All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }), \"text/plain\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+            "previous": null
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-two-media-types-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "libraryError",
+        "detail": "League\\OpenAPIValidation\\Schema\\Exception\\InvalidSchema: Schema(or data) validation failed: All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }), \"text/plain\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+        "raw": {
+          "type": "League\\OpenAPIValidation\\Schema\\Exception\\InvalidSchema",
+          "message": "Schema(or data) validation failed: All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }), \"text/plain\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+          "previous": {
+            "type": "Respect\\Validation\\Exceptions\\ValidatorException",
+            "message": "All of the required rules must pass for `{ \"application/json\": [object] (cebe\\openapi\\spec\\MediaType: { }), \"text/plain\": [object] (cebe\\openapi\\spec\\MediaType: { }) }`",
+            "previous": null
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"black\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'black'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'iterable', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"black\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'black'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'iterable', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-no-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-no-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-duplicate-name-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-duplicate-name-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-empty-value-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-empty-value-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-integer-items-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"2\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '2'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'iterable', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-integer-items-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"2\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '2'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'iterable', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-unset-style-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"black\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'black'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'iterable', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-unset-style-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"black\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'black'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'iterable', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-literal-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-literal-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-wrong-type-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"blue\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'blue'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'boolean', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-wrong-type-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"blue\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'blue'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'boolean', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"p\" for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"p\" for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-no-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"R,100,G,200\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R,100,G,200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-no-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"R,100,G,200\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R,100,G,200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-integer-properties-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"R,100,G,200\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R,100,G,200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-integer-properties-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"R,100,G,200\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R,100,G,200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-missing-name-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"p\" for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-missing-name-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"p\" for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-wrong-type-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"p\" for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-wrong-type-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"p\" for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-empty-value-declared-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-empty-value-declared-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-declared-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-declared-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-percent-triple-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-percent-triple-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-unset-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-unset-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-fractional-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"1.5\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '1.5'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'integer', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-fractional-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"1.5\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value '1.5'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'integer', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-missing-name-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"p\" for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-missing-name-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"p\" for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-absent-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"p\" for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-absent-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Missing required argument \"p\" for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\RequiredParameterMissing",
+              "message": "",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-empty-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-empty-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "libraryError",
+        "detail": "TypeError: League\\OpenAPIValidation\\PSR7\\Validators\\SerializedParameter::castToSchemaType(): Argument #2 ($type) must be of type ?string, array given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/SerializedParameter.php on line 120",
+        "raw": {
+          "type": "TypeError",
+          "message": "League\\OpenAPIValidation\\PSR7\\Validators\\SerializedParameter::castToSchemaType(): Argument #2 ($type) must be of type ?string, array given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/SerializedParameter.php on line 120",
+          "previous": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "libraryError",
+        "detail": "TypeError: League\\OpenAPIValidation\\PSR7\\Validators\\SerializedParameter::castToSchemaType(): Argument #2 ($type) must be of type ?string, array given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/SerializedParameter.php on line 120",
+        "raw": {
+          "type": "TypeError",
+          "message": "League\\OpenAPIValidation\\PSR7\\Validators\\SerializedParameter::castToSchemaType(): Argument #2 ($type) must be of type ?string, array given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/SerializedParameter.php on line 120",
+          "previous": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-absent-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-absent-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-default-absent-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-default-absent-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unset-style-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unset-style-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-array-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-array-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"R|100|G|200\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R|100|G|200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"R|100|G|200\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R|100|G|200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-explode-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"black\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'black'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'iterable', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-explode-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"black\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'black'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'iterable', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-object-canonical-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"R 100 G 200\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R 100 G 200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-object-canonical-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidQueryArgs",
+            "message": "Value \"R 100 G 200\" for argument \"p\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidParameter",
+              "message": "Parameter 'p' has invalid value 'R 100 G 200'",
+              "previous": {
+                "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+                "message": "Value expected to be 'object', but 'string' given.",
+                "previous": null
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

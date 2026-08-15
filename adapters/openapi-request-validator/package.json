@@ -1,0 +1,13 @@
+{
+  "name": "openapi-crosscheck-container-openapi-request-validator",
+  "private": true,
+  "type": "module",
+  "description": "container serving openapi-request-validator over the container protocol",
+  "dependencies": {
+    "@types/node": "latest",
+    "openapi-request-validator": "latest",
+    "oxlint": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

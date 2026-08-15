@@ -1,0 +1,3514 @@
+{
+  "schemaVersion": 1,
+  "library": "openapi-request-validator",
+  "libraryVersion": "12.1.3",
+  "librarySource": "https://github.com/kogosoftwarellc/open-api/tree/master/packages/openapi-request-validator",
+  "libraryResolution": {
+    "kind": "registry",
+    "specifier": "latest"
+  },
+  "corpusDigest": "sha256:3a85cca773c59d2e1502a806e66a30eba7246f5ec94bf0ea15d79df831f73503",
+  "capabilities": {
+    "stages": {
+      "routing": false,
+      "splitting": {
+        "cookie": false,
+        "header": false,
+        "path": false,
+        "query": false
+      },
+      "styleDeserialization": false,
+      "contentDeserialization": false,
+      "schemaValidation": true,
+      "valueExposure": true
+    },
+    "oasVersions": {
+      "3.0": true,
+      "3.1": true,
+      "3.2": false
+    }
+  },
+  "capabilityEvidence": [
+    {
+      "probeId": "routing-method",
+      "stage": "routing",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a request for an undeclared method reaches an operation at all",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {
+            "p": "blue"
+          },
+          "query": [],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      }
+    },
+    {
+      "probeId": "splitting-cookie-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "cookie",
+      "asks": "whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [],
+          "headers": {
+            "host": "harness.invalid",
+            "cookie": "p=blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      }
+    },
+    {
+      "probeId": "splitting-cookie-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "cookie",
+      "asks": "whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [],
+          "headers": {
+            "host": "harness.invalid",
+            "cookie": "p=blue"
+          },
+          "cookies": {
+            "p": "blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      }
+    },
+    {
+      "probeId": "splitting-header-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "header",
+      "asks": "whether a declared header parameter's value is recovered, with the harness supplying its usual split for every location except header",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [],
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "headers"
+            }
+          ]
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "headers"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "splitting-header-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "header",
+      "asks": "whether a declared header parameter's value is recovered, with the harness supplying the header split itself",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [],
+          "headers": {
+            "host": "harness.invalid",
+            "p": "blue"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "enum.openapi.requestValidation",
+              "message": "must be equal to one of the allowed values",
+              "location": "headers"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "splitting-path-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "path",
+      "asks": "whether a declared path parameter's value is recovered, with the harness supplying its usual split for every location except path",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "query": [],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "path"
+            }
+          ]
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "path"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "splitting-path-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "path",
+      "asks": "whether a declared path parameter's value is recovered, with the harness supplying the path split itself",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {
+            "p": "blue"
+          },
+          "query": [],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "enum.openapi.requestValidation",
+              "message": "must be equal to one of the allowed values",
+              "location": "path"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "splitting-query-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "query",
+      "asks": "whether a declared query parameter's value is recovered, with the harness supplying its usual split for every location except query",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "query"
+            }
+          ]
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "splitting-query-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "query",
+      "asks": "whether a declared query parameter's value is recovered, with the harness supplying the query split itself",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [
+            [
+              "p",
+              "blue"
+            ]
+          ],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "enum.openapi.requestValidation",
+              "message": "must be equal to one of the allowed values",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-header",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined header array is split before its members are judged",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [],
+          "headers": {
+            "host": "harness.invalid",
+            "p": "blue,black"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be array",
+              "location": "headers"
+            }
+          ]
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be array",
+              "location": "headers"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-path",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined path array is split before its members are judged",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {
+            "p": "blue,black"
+          },
+          "query": [],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be array",
+              "location": "path"
+            }
+          ]
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be array",
+              "location": "path"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-query",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined query array is split before its members are judged",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [
+            [
+              "p",
+              "blue,black"
+            ]
+          ],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be array",
+              "location": "query"
+            }
+          ]
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be array",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "content-deserialization-json-object",
+      "stage": "contentDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a content parameter's value is read as its declared media type",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [
+            [
+              "p",
+              "%7B%22R%22%3A%22100%22%7D"
+            ]
+          ],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      }
+    },
+    {
+      "probeId": "schema-validation-enum",
+      "stage": "schemaValidation",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a recovered value is judged against its schema",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {
+            "p": "blue"
+          },
+          "query": [],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "enum.openapi.requestValidation",
+              "message": "must be equal to one of the allowed values",
+              "location": "path"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "value-exposure-accepted",
+      "stage": "valueExposure",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether the deserialized value of an accepted parameter is handed back",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {
+            "p": "blue"
+          },
+          "query": [],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "enum.openapi.requestValidation",
+              "message": "must be equal to one of the allowed values",
+              "location": "path"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "value-exposure-write-back",
+      "stage": "valueExposure",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a value the library supplied for an absent optional parameter reaches the caller",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "enum.openapi.requestValidation",
+              "message": "must be equal to one of the allowed values",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "versionEvidence": [
+    {
+      "probeId": "oas-3.0-document",
+      "oasVersion": "3.0",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.0 document and rejects a value outside its enumeration",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [
+            [
+              "p",
+              "blue"
+            ]
+          ],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "enum.openapi.requestValidation",
+              "message": "must be equal to one of the allowed values",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "oas-3.1-document",
+      "oasVersion": "3.1",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.1 document and rejects a value outside its enumeration",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [
+            [
+              "p",
+              "blue"
+            ]
+          ],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "enum.openapi.requestValidation",
+              "message": "must be equal to one of the allowed values",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "probeId": "oas-3.2-document",
+      "oasVersion": "3.2",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.2 document and rejects a value outside its enumeration",
+      "declared": false,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {},
+          "query": [
+            [
+              "p",
+              "blue"
+            ]
+          ],
+          "headers": {
+            "host": "harness.invalid"
+          },
+          "cookies": {}
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "errors": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "enum.openapi.requestValidation",
+              "message": "must be equal to one of the allowed values",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration": {
+    "id": "parameters-only",
+    "description": "new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. It is told which operation applies, because it has no routing of its own. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.",
+    "options": {}
+  },
+  "provenance": {
+    "kind": "container",
+    "slug": "openapi-request-validator",
+    "imageId": "sha256:f6b417a8128dc2424bc558c1f2e73775ab183c3607965733438bb0e16ac3f5d8",
+    "ecosystem": "npm"
+  },
+  "answers": [
+    {
+      "caseId": "cookie-form-array-canonical-no-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-array-canonical-no-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-object-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-object-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-content-json-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes contentDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-content-json-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes contentDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-array-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-array-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-array-case-variant-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-array-case-variant-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-array-duplicate-name-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-array-duplicate-name-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-array-explicit-style-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-array-explicit-style-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-array-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-array-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-object-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-object-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-content-json-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes contentDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-content-json-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes contentDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-array-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-array-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-array-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-array-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-array-foreign-shape-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-array-foreign-shape-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-object-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-object-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-scalar-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-scalar-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-scalar-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-label-scalar-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-array-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-array-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-array-empty-after-parse-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-array-empty-after-parse-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-array-foreign-shape-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-array-foreign-shape-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-array-no-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-array-no-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-competing-parameters-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-competing-parameters-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-object-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-object-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-foreign-name-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-foreign-name-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-routing-ambiguous-templates-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes routing for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-routing-ambiguous-templates-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes routing for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-routing-concrete-before-templated-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes routing for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-routing-concrete-before-templated-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes routing for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-routing-identical-templates-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes routing for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-routing-identical-templates-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes routing for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-array-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-array-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-array-encoded-delimiter-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-array-encoded-delimiter-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-array-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-array-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-object-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-object-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-unset-style-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-unset-style-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a path parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-wrong-type-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {
+              "p": "blue"
+            },
+            "query": [],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be integer",
+              "location": "path"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-wrong-type-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {
+              "p": "blue"
+            },
+            "query": [],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be integer",
+              "location": "path"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-content-and-schema-declared-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-content-and-schema-declared-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-content-json-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes contentDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-content-json-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes contentDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-content-json-object-malformed-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes contentDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-content-json-object-malformed-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes contentDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-content-two-media-types-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-content-two-media-types-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-deep-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-deep-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-no-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-no-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-duplicate-name-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-duplicate-name-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-empty-value-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-empty-value-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-integer-items-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-integer-items-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-unset-style-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-array-unset-style-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-boolean-literal-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-boolean-literal-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-boolean-wrong-type-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [
+              [
+                "p",
+                "blue"
+              ]
+            ],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be boolean",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-wrong-type-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [
+              [
+                "p",
+                "blue"
+              ]
+            ],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be boolean",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-no-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-no-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-object-integer-properties-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-object-integer-properties-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-object-missing-name-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-missing-name-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-wrong-type-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes schemaValidation for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-object-wrong-type-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes schemaValidation for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-empty-value-declared-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-empty-value-declared-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-declared-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-declared-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-percent-triple-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-percent-triple-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-unset-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-unset-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-fractional-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [
+              [
+                "p",
+                "1.5"
+              ]
+            ],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be integer",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-fractional-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [
+              [
+                "p",
+                "1.5"
+              ]
+            ],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "type.openapi.requestValidation",
+              "message": "must be integer",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-missing-name-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [
+              [
+                "x",
+                "blue"
+              ]
+            ],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-missing-name-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [
+              [
+                "x",
+                "blue"
+              ]
+            ],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-absent-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-absent-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "required.openapi.requestValidation",
+              "message": "must have required property 'p'",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-empty-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-empty-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [
+              [
+                "p",
+                "null"
+              ]
+            ],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [
+              [
+                "p",
+                "null"
+              ]
+            ],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-absent-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-absent-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-default-absent-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "observed",
+          "detail": "the params, query and headers object handed to validateRequest; changed: query is now {\"p\":\"blue\"} where it was {}"
+        },
+        "raw": {
+          "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-default-absent-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": {}
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "observed",
+          "detail": "the params, query and headers object handed to validateRequest; changed: query is now {\"p\":\"blue\"} where it was {}"
+        },
+        "raw": {
+          "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unset-style-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unset-style-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-array-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-array-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-explode-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-explode-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-space-delimited-object-canonical-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-space-delimited-object-canonical-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    }
+  ]
+}

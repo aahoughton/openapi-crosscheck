@@ -1,0 +1,5615 @@
+{
+  "schemaVersion": 1,
+  "library": "openapi_first",
+  "libraryVersion": "3.4.3",
+  "librarySource": "https://github.com/ahx/openapi_first",
+  "libraryResolution": {
+    "kind": "registry",
+    "specifier": "gem \"openapi_first\""
+  },
+  "corpusDigest": "sha256:3a85cca773c59d2e1502a806e66a30eba7246f5ec94bf0ea15d79df831f73503",
+  "capabilities": {
+    "stages": {
+      "routing": true,
+      "splitting": {
+        "cookie": true,
+        "header": true,
+        "path": true,
+        "query": true
+      },
+      "styleDeserialization": true,
+      "contentDeserialization": true,
+      "schemaValidation": true,
+      "valueExposure": true
+    },
+    "oasVersions": {
+      "3.0": true,
+      "3.1": true,
+      "3.2": false
+    }
+  },
+  "capabilityEvidence": [
+    {
+      "probeId": "routing-method",
+      "stage": "routing",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a request for an undeclared method reaches an operation at all",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": false,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "method_not_allowed",
+            "message": "Request method is not defined."
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-cookie-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "cookie",
+      "asks": "whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_cookie",
+            "message": "Cookie value is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-cookie-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "cookie",
+      "asks": "whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "cookies": {
+            "p": "blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_cookie",
+            "message": "Cookie value is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-header-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "header",
+      "asks": "whether a declared header parameter's value is recovered, with the harness supplying its usual split for every location except header",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_header",
+            "message": "Request header is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-header-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "header",
+      "asks": "whether a declared header parameter's value is recovered, with the harness supplying the header split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "headers": {
+            "host": "harness.invalid",
+            "p": "blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_header",
+            "message": "Request header is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-path-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "path",
+      "asks": "whether a declared path parameter's value is recovered, with the harness supplying its usual split for every location except path",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-path-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "path",
+      "asks": "whether a declared path parameter's value is recovered, with the harness supplying the path split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "path parameters. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "params": {
+            "p": "blue"
+          }
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-query-withoutProbedLocation",
+      "stage": "splitting",
+      "supply": "withoutProbedLocation",
+      "location": "query",
+      "asks": "whether a declared query parameter's value is recovered, with the harness supplying its usual split for every location except query",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "splitting-query-withProbedLocation",
+      "stage": "splitting",
+      "supply": "withProbedLocation",
+      "location": "query",
+      "asks": "whether a declared query parameter's value is recovered, with the harness supplying the query split itself",
+      "declared": true,
+      "preparse": {
+        "performedBy": "harness",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "result": {
+          "query": [
+            [
+              "p",
+              "blue"
+            ]
+          ]
+        }
+      },
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-header",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined header array is split before its members are judged",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_header",
+            "message": "Request header is invalid: value at `/p` is not one of: [\"blue\", \"black\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-path",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined path array is split before its members are judged",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not one of: [\"blue\", \"black\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "style-deserialization-array-query",
+      "stage": "styleDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a comma-joined query array is split before its members are judged",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not one of: [\"blue\", \"black\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "content-deserialization-json-object",
+      "stage": "contentDeserialization",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a content parameter's value is read as its declared media type",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not an object"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "schema-validation-enum",
+      "stage": "schemaValidation",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a recovered value is judged against its schema",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "value-exposure-accepted",
+      "stage": "valueExposure",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether the deserialized value of an accepted parameter is handed back",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "value-exposure-write-back",
+      "stage": "valueExposure",
+      "supply": "asDeclared",
+      "location": null,
+      "asks": "whether a value the library supplied for an absent optional parameter reaches the caller",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    }
+  ],
+  "versionEvidence": [
+    {
+      "probeId": "oas-3.0-document",
+      "oasVersion": "3.0",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.0 document and rejects a value outside its enumeration",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "oas-3.1-document",
+      "oasVersion": "3.1",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.1 document and rejects a value outside its enumeration",
+      "declared": true,
+      "preparse": null,
+      "accepted": {
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      },
+      "rejected": {
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "observed",
+        "vantage": "parsedBeforeValidation",
+        "exposedProbedName": true,
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not one of: [\"blue\"]"
+          }
+        }
+      }
+    },
+    {
+      "probeId": "oas-3.2-document",
+      "oasVersion": "3.2",
+      "asks": "whether the library accepts a valid request against an ordinary OpenAPI 3.2 document and rejects a value outside its enumeration",
+      "declared": false,
+      "preparse": null,
+      "accepted": {
+        "outcome": "unsupported",
+        "detail": "OpenapiFirst::Error: Unsupported OpenAPI version \"3.2.0\" ",
+        "observation": null,
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": null
+      },
+      "rejected": {
+        "outcome": "unsupported",
+        "detail": "OpenapiFirst::Error: Unsupported OpenAPI version \"3.2.0\" ",
+        "observation": null,
+        "vantage": null,
+        "exposedProbedName": false,
+        "raw": null
+      }
+    }
+  ],
+  "configuration": {
+    "id": "validate-request-rack",
+    "description": "OpenapiFirst.parse(document) driven through validate_request with a Rack::Request built from the raw target. The path is handed over as PATH_INFO with no decoding of its own, and the query string as QUERY_STRING, so the library splits and deserializes both. Header names are put into the Rack environment under its own convention, which upcases them and joins duplicates with a comma, because that environment is the only request shape this library's public call accepts. Reading its values: parsed parameters are reported whether or not the request was then rejected, so a value cell on a rejected row shows what the library had parsed at the point it refused rather than what it accepted.",
+    "options": {}
+  },
+  "provenance": {
+    "kind": "container",
+    "slug": "openapi-first",
+    "imageId": "sha256:37e829a1b62d957b8be392d92701796dad08136c8e03fc9b936a2724e1999405",
+    "ecosystem": "rubygems"
+  },
+  "answers": [
+    {
+      "caseId": "cookie-form-array-canonical-no-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-canonical-no-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_cookie",
+            "message": "Cookie value is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-object-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_cookie",
+            "message": "Cookie value is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-scalar-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-content-json-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-content-json-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-case-variant-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-case-variant-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-duplicate-name-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              " black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-duplicate-name-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              " black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explicit-style-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explicit-style-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-array-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-object-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "header-simple-scalar-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-content-json-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not an object"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-content-json-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not an object"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue,black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue,black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-foreign-shape-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "lue,black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-array-foreign-shape-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "lue,black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ".R,100,G,200"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not an object"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ".R,100,G,200"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not an object"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              ".R": "100.G=200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-object-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              ".R": "100.G=200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ".blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ".blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ".blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-label-scalar-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ".blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-empty-after-parse-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": []
+          },
+          "nativeTypes": {
+            "p": "Array"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-empty-after-parse-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": []
+          },
+          "nativeTypes": {
+            "p": "Array"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-foreign-shape-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": []
+          },
+          "nativeTypes": {
+            "p": "Array"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-foreign-shape-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": []
+          },
+          "nativeTypes": {
+            "p": "Array"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-no-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-array-no-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-competing-parameters-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";q=blue",
+            "q": ";p=black"
+          },
+          "nativeTypes": {
+            "p": "String",
+            "q": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-competing-parameters-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";q=blue",
+            "q": ";p=black"
+          },
+          "nativeTypes": {
+            "p": "String",
+            "q": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              ";R": "100;G=200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-object-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              ";R": "100;G=200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";p=blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";p=blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";p=blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";p=blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-foreign-name-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";q=blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-matrix-scalar-foreign-name-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ";q=blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-ambiguous-templates-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "entity": "t"
+          },
+          "nativeTypes": {
+            "entity": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-ambiguous-templates-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "entity": "t"
+          },
+          "nativeTypes": {
+            "entity": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-concrete-before-templated-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: q"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-concrete-before-templated-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: q"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-identical-templates-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-routing-identical-templates-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-encoded-delimiter-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue%2Cblack"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-encoded-delimiter-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue%2Cblack"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-array-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-object-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-unset-style-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-unset-style-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-wrong-type-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not an integer"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-wrong-type-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_path",
+            "message": "Path segment is invalid: value at `/p` is not an integer"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-and-schema-declared-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-content-and-schema-declared-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-malformed-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "{not-json"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not an object"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-object-malformed-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "{not-json"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not an object"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-two-media-types-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-content-two-media-types-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-no-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-canonical-no-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-duplicate-name-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-duplicate-name-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-empty-value-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": []
+          },
+          "nativeTypes": {
+            "p": "Array"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-empty-value-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": []
+          },
+          "nativeTypes": {
+            "p": "Array"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-integer-items-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              1,
+              2
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[Integer]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-integer-items-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              1,
+              2
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[Integer]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-unset-style-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-array-unset-style-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-literal-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": true
+          },
+          "nativeTypes": {
+            "p": "TrueClass"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-literal-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": true
+          },
+          "nativeTypes": {
+            "p": "TrueClass"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-wrong-type-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not a boolean"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-boolean-wrong-type-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not a boolean"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-no-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-canonical-no-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-integer-properties-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": 100,
+              "G": 200
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,Integer]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-integer-properties-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": 100,
+              "G": 200
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,Integer]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-missing-name-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-missing-name-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-wrong-type-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-object-wrong-type-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-empty-value-declared-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ""
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-empty-value-declared-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ""
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-declared-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "a/b:c"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-declared-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "a/b:c"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-percent-triple-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "a/b"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-percent-triple-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "a/b"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-unset-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "a/b:c"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-allow-reserved-unset-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "a/b:c"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-fractional-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "1.5"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not an integer"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-fractional-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "1.5"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not an integer"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": 100
+          },
+          "nativeTypes": {
+            "p": "Integer"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-integer-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": 100
+          },
+          "nativeTypes": {
+            "p": "Integer"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-missing-name-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-missing-name-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-absent-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-absent-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: object at root is missing required properties: p"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-empty-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ""
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-empty-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": ""
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "null"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "null"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-absent-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-absent-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-default-absent-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-optional-default-absent-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unset-style-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unset-style-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-array-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-array-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-pipe-delimited-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-explode-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-array-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array[String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-object-canonical-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "query-space-delimited-object-canonical-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Hash[String,String]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    }
+  ]
+}

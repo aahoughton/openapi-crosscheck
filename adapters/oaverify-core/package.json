@@ -1,0 +1,13 @@
+{
+  "name": "openapi-crosscheck-container-oaverify-core",
+  "private": true,
+  "type": "module",
+  "description": "container serving @oaverify/core over the container protocol",
+  "dependencies": {
+    "@oaverify/core": "latest",
+    "@types/node": "latest",
+    "oxlint": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

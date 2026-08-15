@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>crosscheck</groupId>
+  <artifactId>openapi-request-validator-container</artifactId>
+  <version>1</version>
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <!-- Resolved at image build time, so the version the container reports is
+         the version that was measured and the image id pins the rest. -->
+    <dependency>
+      <groupId>com.atlassian.oai</groupId>
+      <artifactId>openapi-request-validator-core</artifactId>
+      <version>LATEST</version>
+    </dependency>
+  </dependencies>
+</project>

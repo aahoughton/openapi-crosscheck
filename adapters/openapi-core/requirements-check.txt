@@ -1,0 +1,4 @@
+# Checking only, and installed in the build stage alone so the container that
+# answers the harness holds the library and nothing else.
+mypy
+ruff

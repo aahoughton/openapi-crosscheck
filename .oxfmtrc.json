@@ -1,0 +1,28 @@
+// JSONC: comments are permitted here.
+//
+// oxfmt formats JavaScript, TypeScript, JSON, Markdown, YAML and TOML, so
+// every ignore pattern below is a rule in force. `mise.toml` is formatted
+// here and was not under prettier.
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 100,
+  "singleQuote": false,
+  "trailingComma": "all",
+  // Reordering package.json is a rewrite of a hand-kept file, not formatting.
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "node_modules/",
+    "pnpm-lock.yaml",
+
+    // Repository conventions, and a symlink to them. Formatting these would
+    // rewrite a document that predates the harness, and would follow the
+    // symlink.
+    "AGENTS.md",
+    "CLAUDE.md",
+
+    // Generated measurement output. Its formatting is the generator's
+    // business, and reformatting it here would make the freshness check
+    // compare against something no run produces.
+    "report/"
+  ]
+}

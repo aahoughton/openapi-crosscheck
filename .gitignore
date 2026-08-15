@@ -1,0 +1,21 @@
+node_modules/
+
+# Local tool output from running adapter checks outside their images.
+.mypy_cache/
+.ruff_cache/
+__pycache__/
+*.py[cod]
+
+# Anchored to the repository root on purpose. An unanchored `coverage/` also
+# matches `src/coverage/`, which silently kept a source directory out of a
+# commit while the working tree still built.
+/dist/
+/coverage/
+*.tsbuildinfo
+
+.engagement/
+
+# Run sidecar and HTML view. The committed report is the checked JSON and
+# markdown; `index.html` and `run.json` are regenerated when needed.
+/report/run.json
+/report/index.html

@@ -1,0 +1,7 @@
+# The harness asks nothing of a container beyond the protocol. This is what the
+# containers written here hold themselves to, and it is here to be copied.
+parameters:
+    level: max
+    paths:
+        - server.php
+    treatPhpDocTypesAsCertain: false
