@@ -32,7 +32,16 @@ import {
 const definedStyleKeys = new Map<OasVersion, ReadonlySet<string>>(
   OAS_VERSIONS.map((version) => [version, new Set(definedSurface(version).map(cellKey))]),
 );
-const definedContentKeys = new Set(definedContentSurface().map(contentCellKey));
+// Per version for the same reason, and since d65e2e0 the content surface has
+// one too: `querystring` is a location 3.2 defines and the earlier versions do
+// not, so a querystring case citing 3.1 is a case placed off the surface rather
+// than a cell filled.
+const definedContentKeys = new Map<OasVersion, ReadonlySet<string>>(
+  OAS_VERSIONS.map((version) => [
+    version,
+    new Set(definedContentSurface(version).map(contentCellKey)),
+  ]),
+);
 
 describe("every case lands in a coverage map", () => {
   it("places a schema case outside the style surface only as a divergence probe", () => {
@@ -79,6 +88,7 @@ describe("every case lands in a coverage map", () => {
         return [
           {
             id: testCase.id,
+            version: testCase.oasVersion,
             key: contentCellKey({
               location: dimensions.location,
               mediaType: dimensions.mediaType,
@@ -88,7 +98,7 @@ describe("every case lands in a coverage map", () => {
           },
         ];
       })
-      .filter((entry) => !definedContentKeys.has(entry.key))
+      .filter((entry) => !(definedContentKeys.get(entry.version)?.has(entry.key) ?? false))
       .map((entry) => entry.id);
     expect({ stray, enumerated: CONTENT_MEDIA_TYPES }).toEqual({
       stray: [],

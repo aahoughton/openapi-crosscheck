@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:99b0a98c767c545e59d9a99c650ed136c10adf678a2f326856743184f6ec88dc",
+  "corpusDigest": "sha256:e206c6fd26309e1ee6ab6f324042a3e9bc20a26e4adb444eaf11976c60d4ec65",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -775,7 +775,7 @@
   "provenance": {
     "kind": "container",
     "slug": "kin-openapi",
-    "imageId": "sha256:fe0e5b3baaad5d32942d63a21af9e0acf9a98884fdfe145e44bdd85976e8cfd3",
+    "imageId": "sha256:e48d496f1c2b1882e534725002ffc8acaf5854de31dbb855c07cffc26e216000",
     "ecosystem": "go"
   },
   "answers": [
@@ -5050,6 +5050,114 @@
           "pathParams": {},
           "stage": "validation"
         }
+      }
+    },
+    {
+      "caseId": "querystring-absent-no-question-mark-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter can't have 'in' value \"querystring\""
+      }
+    },
+    {
+      "caseId": "querystring-beside-query-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter can't have 'in' value \"querystring\""
+      }
+    },
+    {
+      "caseId": "querystring-content-with-style-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter can't have 'in' value \"querystring\""
+      }
+    },
+    {
+      "caseId": "querystring-declared-twice-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter can't have 'in' value \"querystring\""
+      }
+    },
+    {
+      "caseId": "querystring-declared-with-schema-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter can't have 'in' value \"querystring\""
+      }
+    },
+    {
+      "caseId": "querystring-empty-after-question-mark-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter can't have 'in' value \"querystring\""
+      }
+    },
+    {
+      "caseId": "querystring-form-urlencoded-object-canonical-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter can't have 'in' value \"querystring\""
+      }
+    },
+    {
+      "caseId": "querystring-form-urlencoded-object-wrong-type-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter can't have 'in' value \"querystring\""
+      }
+    },
+    {
+      "caseId": "querystring-json-object-canonical-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter can't have 'in' value \"querystring\""
       }
     }
   ]

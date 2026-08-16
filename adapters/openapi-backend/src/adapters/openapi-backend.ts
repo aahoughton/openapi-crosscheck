@@ -11,6 +11,7 @@ import type { WireRequest } from "../types/wire";
 import type { PreparsedRequest } from "../wire/preparse";
 import type { JsonValue } from "../types/json";
 import { toJsonValue } from "../runner/jsonSafe";
+import { declaredParameters } from "../wire/pathTemplate";
 import { inputMutation, snapshotInput } from "../container/inputMutation";
 import { observed } from "../container/observe";
 import { readResolution, readVersion } from "./version";
@@ -96,6 +97,24 @@ export function createAdapter(): LibraryAdapter {
 
       const question = request.target.indexOf("?");
       const path = question === -1 ? request.target : request.target.slice(0, question);
+      // `query` is a string here, so a target with no `?` and one with an empty
+      // query string both arrive as "". That is the difference a parameter
+      // declared `in: "querystring"` exists to read, so a case declaring one is
+      // refused rather than answered on a request this shape cannot tell apart.
+      if (
+        question === -1 &&
+        declaredParameters(testCase.document).some((parameter) => parameter.in === "querystring")
+      ) {
+        return {
+          ...base,
+          outcome: "unsupported",
+          reason: "cannotRepresentCase",
+          detail:
+            "the request shape takes the query as a string, so a target with no `?` cannot " +
+            "be handed over apart from one carrying an empty query string, which is the " +
+            "difference a querystring parameter is declared to read",
+        };
+      }
       const query = question === -1 ? "" : request.target.slice(question + 1);
       const headers = preparsed.headers ?? {};
       const libraryRequest = { method: request.method, path, query, headers };
@@ -159,7 +178,23 @@ function parsedValues(
         reason: `matched ${operation.path}, which the case document does not declare`,
       };
     }
-    for (const parameter of pathItem.get?.parameters ?? pathItem.post?.parameters ?? []) {
+    const declared = pathItem.get?.parameters ?? pathItem.post?.parameters ?? [];
+    // A location this library does not parse into a bag has no value to read,
+    // and reporting the rest would publish an empty cell as this library's
+    // answer for a parameter nothing looked at. `querystring` is the location
+    // that reaches this, and "the library returned nothing" is a different fact
+    // from "this container could not read it".
+    const unreadable = declared.filter((parameter) => byLocation[parameter.in] === undefined);
+    if (unreadable.length > 0) {
+      const locations = [...new Set(unreadable.map((parameter) => parameter.in))].sort().join(", ");
+      return {
+        kind: "unexposed",
+        reason:
+          `this library parses the request into path, query, cookie and header bags, so a ` +
+          `parameter declared in ${locations} has no bag to be read from`,
+      };
+    }
+    for (const parameter of declared) {
       const key = parameter.in === "header" ? parameter.name.toLowerCase() : parameter.name;
       const value = byLocation[parameter.in]?.[key];
       if (value !== undefined) values[parameter.name] = value;

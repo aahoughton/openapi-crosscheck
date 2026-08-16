@@ -59,8 +59,13 @@ export function deserializationStage(declaration: "content" | "schema"): Deseria
 
 /**
  * Which locations splitting is a question for.
+ *
+ * Written out rather than aliased to `ParameterLocation`. Splitting is claimed
+ * per location and `querystring` is not one of the locations it is a question
+ * for, so the two sets are not the same set: aliasing them would turn the fifth
+ * parameter location into a fifth `splitting` key the protocol does not have.
  */
-export type SplittableLocation = ParameterLocation;
+export type SplittableLocation = "cookie" | "header" | "path" | "query";
 
 export const SPLITTABLE_LOCATIONS: readonly SplittableLocation[] = [
   "cookie",
@@ -116,7 +121,19 @@ export function ownsStage(
   stage: PipelineStage,
   location: ParameterLocation,
 ): boolean {
-  if (stage === "splitting") return ownership.splitting[location];
+  if (stage === "splitting") {
+    // `querystring` is not a location splitting is a question for: the value is
+    // the whole query string, so nothing is matched against a declared name and
+    // no container declares ownership of it. Answering either way would decide
+    // who owns work nobody does, so this says so instead of guessing.
+    if (location === "querystring") {
+      throw new Error(
+        "splitting ownership is not claimed for querystring: the parameter's value is the " +
+          "whole query string, so no location is split to produce it",
+      );
+    }
+    return ownership.splitting[location];
+  }
   if (stage === "routing") return ownership.routing;
   if (stage === "styleDeserialization") return ownership.styleDeserialization;
   if (stage === "contentDeserialization") return ownership.contentDeserialization;
@@ -153,9 +170,13 @@ export function ownsStage(
 export function canBeAsked(ownership: StageOwnership, dimensions: Dimensions): boolean {
   const probed = probedStage(dimensions);
   const { location } = dimensions;
+  // No splitting step for a querystring parameter: its value is everything
+  // after the first `?`, so nothing is matched against a declared name. Kept in
+  // step with the harness, whose `ownsStage` refuses to answer for that
+  // location; leaving splitting in the chain here would reach that refusal.
   const order: readonly PipelineStage[] = [
     "routing",
-    "splitting",
+    ...(location === "querystring" ? [] : (["splitting"] as const)),
     deserializationStage(dimensions.declaration),
     "schemaValidation",
   ];

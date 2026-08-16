@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/ahx/openapi_first
 
 Built from: `adapters/openapi-first/`
 
-Image: `sha256:f8cde4f09888a56430f7f82c8a545a0af935badd43cfaa694a64bff8846fa83f`
+Image: `sha256:4ef5b670ae6fb7a72ddd97c458fd3cbc14c1f9867c9a16d4408217bd46fd09fe`
 
 Configuration `validate-request-rack`: OpenapiFirst.parse(document) driven through validate_request with a Rack::Request built from the raw target. The path is handed over as PATH_INFO with no decoding of its own, and the query string as QUERY_STRING, so the library splits and deserializes both. Header names are put into the Rack environment under its own convention, which upcases them and joins duplicates with a comma, because that environment is the only request shape this library's public call accepts. Reading its values: parsed parameters are reported whether or not the request was then rejected, so a value cell on a rejected row shows what the library had parsed at the point it refused rather than what it accepted.
 
@@ -204,8 +204,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| not asked | 10 |
-| every conformance case | 10 |
+| not asked | 14 |
+| every conformance case | 14 |
 
 #### Cases it was not asked
 
@@ -222,6 +222,10 @@ caller, so an answer would describe the harness rather than the library.
 - [`path-simple-scalar-allow-reserved-declared-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-declared-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-canonical-oas32`](../matrix.oas32.md#query-deep-object-canonical-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-no-explode-oas32`](../matrix.oas32.md#query-deep-object-no-explode-oas32) (oasVersionNotDeclared)
+- [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (oasVersionNotDeclared)
+- [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (oasVersionNotDeclared)
+- [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
+- [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 
@@ -232,3 +236,8 @@ nothing is attributed to it.
 | --- | --- | --- |
 | [`cookie-form-array-explode-oas32`](../matrix.oas32.md#cookie-form-array-explode-oas32) | not asked (oasVersionNotDeclared) | - |
 | [`path-simple-scalar-allow-reserved-unset-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-unset-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-beside-query-oas32`](../matrix.oas32.md#querystring-beside-query-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-declared-with-schema-oas32`](../matrix.oas32.md#querystring-declared-with-schema-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) | not asked (oasVersionNotDeclared) | - |

@@ -98,27 +98,33 @@ The table above enumerates style serialization, and a parameter declaring
 `content` has no style and no explode to place in it. Those cases were in the
 corpus and in no coverage map. This is their map.
 
-Defined combinations: 24. Covered: 4. Empty: 20.
+Defined combinations: 48. Covered: 4. Empty: 44.
 
 Mostly empty, and published that way. The corpus has 6 content cases and this
 surface has room for far more, so this table keeps the empty cells visible.
 Filling it to look full would make the coverage number less informative.
 
-No legality filter applies, unlike the style table. The Style Values table marks
-some style, location and type combinations n/a; `content` has no such table, is
-permitted in all four locations, and is not restricted by schema shape. So every
-empty cell here is a case nobody has written, and none of them is a combination
-the specification excludes.
+Almost no legality filter applies, unlike the style table. The Style Values
+table marks some style, location and type combinations n/a; `content` has no
+such table, is permitted in every location this version defines, and is not
+restricted by schema shape or media type. So every empty cell here is a case
+nobody has written, and none of them is a combination the specification
+excludes.
+
+The one filter is which locations the version defines. `querystring` is defined
+by 3.2 and by no earlier version, so it has rows in the 3.2 table alone. A
+querystring row in a 3.0 or 3.1 table would be a cell nobody can fill rather
+than one nobody has filled, and the two must not be counted alike.
 
 `condition` is the axis a style surface has no room for. A media type
 representation can be a value that is not a representation of it, and what a
 library does with that is a different question from what it does with a
 well-formed one. A case carrying `foreignWireShape` fills a `malformed` cell.
 
-Media types enumerated: `application/json`. That is what the corpus
-declares. A library's handling of `application/xml` or `text/plain` is unmeasured
-here rather than absent, and widening the axis means writing cases that send
-them.
+Media types enumerated: `application/json`, `application/x-www-form-urlencoded`.
+That is what the corpus declares. A library's handling of `application/xml` or
+`text/plain` is unmeasured here rather than absent, and widening the axis means
+writing cases that send them.
 
 | location | media type | schema | condition | covered |
 | --- | --- | --- | --- | --- |
@@ -128,24 +134,48 @@ them.
 | cookie | application/json | object | wellFormed |  |
 | cookie | application/json | scalar | malformed |  |
 | cookie | application/json | scalar | wellFormed |  |
+| cookie | application/x-www-form-urlencoded | array | malformed |  |
+| cookie | application/x-www-form-urlencoded | array | wellFormed |  |
+| cookie | application/x-www-form-urlencoded | object | malformed |  |
+| cookie | application/x-www-form-urlencoded | object | wellFormed |  |
+| cookie | application/x-www-form-urlencoded | scalar | malformed |  |
+| cookie | application/x-www-form-urlencoded | scalar | wellFormed |  |
 | header | application/json | array | malformed |  |
 | header | application/json | array | wellFormed |  |
 | header | application/json | object | malformed |  |
 | header | application/json | object | wellFormed | yes |
 | header | application/json | scalar | malformed |  |
 | header | application/json | scalar | wellFormed |  |
+| header | application/x-www-form-urlencoded | array | malformed |  |
+| header | application/x-www-form-urlencoded | array | wellFormed |  |
+| header | application/x-www-form-urlencoded | object | malformed |  |
+| header | application/x-www-form-urlencoded | object | wellFormed |  |
+| header | application/x-www-form-urlencoded | scalar | malformed |  |
+| header | application/x-www-form-urlencoded | scalar | wellFormed |  |
 | path | application/json | array | malformed |  |
 | path | application/json | array | wellFormed |  |
 | path | application/json | object | malformed |  |
 | path | application/json | object | wellFormed | yes |
 | path | application/json | scalar | malformed |  |
 | path | application/json | scalar | wellFormed |  |
+| path | application/x-www-form-urlencoded | array | malformed |  |
+| path | application/x-www-form-urlencoded | array | wellFormed |  |
+| path | application/x-www-form-urlencoded | object | malformed |  |
+| path | application/x-www-form-urlencoded | object | wellFormed |  |
+| path | application/x-www-form-urlencoded | scalar | malformed |  |
+| path | application/x-www-form-urlencoded | scalar | wellFormed |  |
 | query | application/json | array | malformed |  |
 | query | application/json | array | wellFormed |  |
 | query | application/json | object | malformed | yes |
 | query | application/json | object | wellFormed | yes |
 | query | application/json | scalar | malformed |  |
 | query | application/json | scalar | wellFormed |  |
+| query | application/x-www-form-urlencoded | array | malformed |  |
+| query | application/x-www-form-urlencoded | array | wellFormed |  |
+| query | application/x-www-form-urlencoded | object | malformed |  |
+| query | application/x-www-form-urlencoded | object | wellFormed |  |
+| query | application/x-www-form-urlencoded | scalar | malformed |  |
+| query | application/x-www-form-urlencoded | scalar | wellFormed |  |
 
 A case that breaks a rule addressed to whoever wrote the document fills no cell
 here, and 2 content cases are excluded on that rule: `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas31`. They vary the

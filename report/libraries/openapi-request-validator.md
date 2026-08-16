@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/kogosoftwarellc/open-api/
 
 Built from: `adapters/openapi-request-validator/`
 
-Image: `sha256:202e5282012ac8bc30525a7217ba29559bfc68bcfb7167aa411ceae51c0e6946`
+Image: `sha256:c79f9fb1dc515dddfbcd11d879b5d5454ed803fc4dce70386611a2d8931f2dcf`
 
 Configuration `parameters-only`: new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. That shape holds a string per name, so a query pair that arrived with no `=` is answered as a case this shape cannot represent, rather than as an empty value. It is told which operation applies, because it has no routing of its own. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 
@@ -264,8 +264,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| not asked | 10 |
-| every conformance case | 10 |
+| not asked | 14 |
+| every conformance case | 14 |
 
 #### Cases it was not asked
 
@@ -282,6 +282,10 @@ caller, so an answer would describe the harness rather than the library.
 - [`path-simple-scalar-allow-reserved-declared-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-declared-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-canonical-oas32`](../matrix.oas32.md#query-deep-object-canonical-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-no-explode-oas32`](../matrix.oas32.md#query-deep-object-no-explode-oas32) (oasVersionNotDeclared)
+- [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (oasVersionNotDeclared)
+- [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (oasVersionNotDeclared)
+- [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
+- [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 
@@ -292,3 +296,8 @@ nothing is attributed to it.
 | --- | --- | --- |
 | [`cookie-form-array-explode-oas32`](../matrix.oas32.md#cookie-form-array-explode-oas32) | not asked (oasVersionNotDeclared) | - |
 | [`path-simple-scalar-allow-reserved-unset-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-unset-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-beside-query-oas32`](../matrix.oas32.md#querystring-beside-query-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-declared-with-schema-oas32`](../matrix.oas32.md#querystring-declared-with-schema-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) | not asked (oasVersionNotDeclared) | - |

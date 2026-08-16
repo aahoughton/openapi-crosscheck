@@ -1,4 +1,4 @@
-# Container protocol, version 2
+# Container protocol, version 3
 
 Every library under test runs in its own container and answers this protocol.
 The harness speaks only this protocol, so adding a library in any language means
@@ -48,7 +48,7 @@ Called once, before any case. Answers what the library can be asked.
 
 ```json
 {
-  "protocol": 2,
+  "protocol": 3,
   "library": "@oaverify/core",
   "libraryVersion": "7.0.0",
   "librarySource": "https://github.com/oaverify/oaverify",
@@ -164,7 +164,7 @@ Called once per case.
 
 ```json
 {
-  "protocol": 2,
+  "protocol": 3,
   "caseId": "path-matrix-scalar-canonical-oas31",
   "document": { "openapi": "3.1.1", "...": "the case's document, verbatim" },
   "request": {
@@ -192,6 +192,36 @@ values itself:
 A container must not read a location it declared it owns. Doing so measures the
 harness's splitting while the declaration says otherwise, and nothing in the
 protocol could detect it.
+
+That rule governs the four locations `splitting` and `preparsed` carry.
+`in: "querystring"`, which OpenAPI 3.2 defines, sits outside both, and this
+paragraph is the contract for it. A querystring parameter's value is the entire
+query string, so the whole of it is the value and any name or delimiter inside
+it belongs to the value too. Read it from `request.targetBase64`: decode the
+target, take everything after the first `?`, and that string, undecoded, is the
+value. `preparsed` has no key for it and `splitting` has no key for it, so a
+container reading it from the target is inside the contract while doing so.
+
+Both are on the wire at once, which is what lets one operation declare an
+`in: "query"` parameter and an `in: "querystring"` parameter together. A
+document doing that is invalid, and what a library does with an invalid document
+is a question the corpus asks, so the two have to be answerable together rather
+than as alternatives.
+
+`/t` and `/t?` are different requests here. The first carries no query string at
+all and the second carries an empty one. The target preserves the difference, so
+what a library makes of each is its own answer to give.
+
+Say which one you are holding, then, because "everything after the first `?`"
+does not answer it on its own: a target with no `?` has no such thing, and a
+container that defaults it to the empty string has just made the two requests
+identical before its library saw either. A target with no `?` carries **no
+value** for the location, which is a different state from the empty value `/t?`
+carries, and a container whose input shape cannot hold both states returns
+`unsupported` with `cannotRepresentCase` rather than picking one. Two containers
+answering these differently because the document left it open would publish as a
+difference between their libraries, which is the one thing this paragraph exists
+to prevent.
 
 Query preparse is raw and ordered. The harness splits the request target at the
 first `?`, then splits the query string on `&` and the first `=` in each pair.
@@ -233,7 +263,7 @@ with any other container's.
 
 ```json
 {
-  "protocol": 2,
+  "protocol": 3,
   "outcome": "accepted",
   "deserialized": {
     "kind": "observed",
@@ -369,7 +399,7 @@ are both describing themselves accurately. They are displayed, never compared.
 
 ## Protocol version
 
-`protocol` is `2` on every message in both directions. The harness refuses a
+`protocol` is `3` on every message in both directions. The harness refuses a
 container answering a different number rather than guessing at compatibility. A
 change that would alter what a cell means is a version bump.
 

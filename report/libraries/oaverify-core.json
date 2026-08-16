@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:99b0a98c767c545e59d9a99c650ed136c10adf678a2f326856743184f6ec88dc",
+  "corpusDigest": "sha256:e206c6fd26309e1ee6ab6f324042a3e9bc20a26e4adb444eaf11976c60d4ec65",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1347,7 +1347,7 @@
   "provenance": {
     "kind": "container",
     "slug": "oaverify-core",
-    "imageId": "sha256:a58b653695fab3fa4a73ac8a99eb1ad70de44ab7e4c79e4301d88e48d362f05e",
+    "imageId": "sha256:c6d6f139ad148185805b621ac27465cbce423f4ea44f15eb076c49c0b7456f06",
     "ecosystem": "npm"
   },
   "answers": [
@@ -9520,6 +9520,226 @@
             "headers": {},
             "cookies": {}
           }
+        }
+      }
+    },
+    {
+      "caseId": "querystring-absent-no-question-mark-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.1.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "this library's returned values are keyed by path, query, header and cookie, so a parameter declared in querystring has no slot to be read from; reporting the rest would publish an empty value cell as this library's answer"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "querystring-beside-query-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.1.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "path is not iterable",
+        "raw": {
+          "name": "TypeError",
+          "message": "path is not iterable",
+          "stackOmitted": true
+        }
+      }
+    },
+    {
+      "caseId": "querystring-content-with-style-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.1.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "path is not iterable",
+        "raw": {
+          "name": "TypeError",
+          "message": "path is not iterable",
+          "stackOmitted": true
+        }
+      }
+    },
+    {
+      "caseId": "querystring-declared-twice-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.1.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "path is not iterable",
+        "raw": {
+          "name": "TypeError",
+          "message": "path is not iterable",
+          "stackOmitted": true
+        }
+      }
+    },
+    {
+      "caseId": "querystring-declared-with-schema-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.1.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "path is not iterable",
+        "raw": {
+          "name": "TypeError",
+          "message": "path is not iterable",
+          "stackOmitted": true
+        }
+      }
+    },
+    {
+      "caseId": "querystring-empty-after-question-mark-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.1.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "this library's returned values are keyed by path, query, header and cookie, so a parameter declared in querystring has no slot to be read from; reporting the rest would publish an empty value cell as this library's answer"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "querystring-form-urlencoded-object-canonical-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.1.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "path is not iterable",
+        "raw": {
+          "name": "TypeError",
+          "message": "path is not iterable",
+          "stackOmitted": true
+        }
+      }
+    },
+    {
+      "caseId": "querystring-form-urlencoded-object-wrong-type-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.1.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "path is not iterable",
+        "raw": {
+          "name": "TypeError",
+          "message": "path is not iterable",
+          "stackOmitted": true
+        }
+      }
+    },
+    {
+      "caseId": "querystring-json-object-canonical-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.1.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "path is not iterable",
+        "raw": {
+          "name": "TypeError",
+          "message": "path is not iterable",
+          "stackOmitted": true
         }
       }
     }

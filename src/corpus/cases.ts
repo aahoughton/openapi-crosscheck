@@ -9,6 +9,7 @@ import { pathCases } from "./cases/oas31/path";
 import { queryCases } from "./cases/oas31/query";
 import { cookieCases32 } from "./cases/oas32/cookie";
 import { pathCases32 } from "./cases/oas32/path";
+import { querystringCases32 } from "./cases/oas32/querystring";
 import { queryCases32 } from "./cases/oas32/query";
 
 /**
@@ -51,4 +52,5 @@ export const cases: readonly Case[] = [
   ...queryCases30,
   ...queryCases,
   ...queryCases32,
+  ...querystringCases32,
 ].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));

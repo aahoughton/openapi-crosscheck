@@ -11,7 +11,14 @@ import type { JsonValue } from "./json";
  */
 export type OasVersion = "3.0" | "3.1" | "3.2";
 
-export type ParameterLocation = "cookie" | "header" | "path" | "query";
+/**
+ * Every location a document under test can declare, including the `querystring`
+ * OpenAPI 3.2 adds. Listed here because a document arrives as the case wrote it
+ * and this container branches on the field: a union of four would make code
+ * handling a fifth look unreachable to the type checker while it is reached at
+ * run time.
+ */
+export type ParameterLocation = "cookie" | "header" | "path" | "query" | "querystring";
 
 export type Style =
   | "deepObject"

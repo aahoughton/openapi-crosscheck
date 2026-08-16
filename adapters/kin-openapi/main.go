@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	protocolVersion = 2
+	protocolVersion = 3
 	library         = "github.com/getkin/kin-openapi"
 	modulePath      = "github.com/getkin/kin-openapi"
 	// Where this library's source lives. Stated by this container.
@@ -288,6 +288,19 @@ func declaredParameters(route *routers.Route) []parameterPosition {
 // parameterValues reads the current value at each declared position, so the
 // same read before and after the call shows what the library wrote. Query and
 // header positions hold every value under the name; path and cookie hold one.
+//
+// A querystring position is read through the request, so a write-back would
+// show, and via RequestURI rather than RawQuery, so `/t` and `/t?` stay apart.
+// Go parses both to the same empty RawQuery and keeps the difference in
+// ForceQuery; RequestURI re-emits the `?` that ForceQuery records, which is the
+// distinction the protocol document draws and two cases turn on.
+//
+// Reading it through the request is what makes the before and after comparison
+// live for this position: reading the harness's own target string instead would
+// return the same bytes both times by construction, so the arm could never
+// report anything and the comparison would be decoration. This library does not
+// write one today, so the two reads match and no value is observed, which is
+// the honest answer for the right reason.
 func parameterValues(request *http.Request, pathParams map[string]string, declared []parameterPosition) map[string][]string {
 	values := map[string][]string{}
 	query := request.URL.Query()
@@ -305,6 +318,12 @@ func parameterValues(request *http.Request, pathParams map[string]string, declar
 		case "cookie":
 			if cookie, err := request.Cookie(position.name); err == nil {
 				values[key] = []string{cookie.Value}
+			}
+		case "querystring":
+			if uri := request.URL.RequestURI(); strings.Contains(uri, "?") {
+				values[key] = []string{uri[strings.Index(uri, "?")+1:]}
+			} else {
+				values[key] = []string{}
 			}
 		}
 	}

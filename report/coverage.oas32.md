@@ -89,10 +89,10 @@ shows whether the type was checked at all.
 | type | cases declaring it | wrong value probed |
 | --- | --- | --- |
 | `boolean` | 0 |  |
-| `integer` | 0 |  |
+| `integer` | 1 | `querystring-form-urlencoded-object-wrong-type-oas32` |
 | `null` | 0 |  |
 | `number` | 0 |  |
-| `string` | 12 |  |
+| `string` | 21 | `querystring-form-urlencoded-object-wrong-type-oas32` |
 
 A wrong-typed value against `string` cannot be constructed here. Every value on
 the wire is text, so there is nothing to send that a string schema must refuse,
@@ -105,27 +105,33 @@ The table above enumerates style serialization, and a parameter declaring
 `content` has no style and no explode to place in it. Those cases were in the
 corpus and in no coverage map. This is their map.
 
-Defined combinations: 24. Covered: 0. Empty: 24.
+Defined combinations: 60. Covered: 2. Empty: 58.
 
-Mostly empty, and published that way. The corpus has 0 content cases and this
+Mostly empty, and published that way. The corpus has 9 content cases and this
 surface has room for far more, so this table keeps the empty cells visible.
 Filling it to look full would make the coverage number less informative.
 
-No legality filter applies, unlike the style table. The Style Values table marks
-some style, location and type combinations n/a; `content` has no such table, is
-permitted in all four locations, and is not restricted by schema shape. So every
-empty cell here is a case nobody has written, and none of them is a combination
-the specification excludes.
+Almost no legality filter applies, unlike the style table. The Style Values
+table marks some style, location and type combinations n/a; `content` has no
+such table, is permitted in every location this version defines, and is not
+restricted by schema shape or media type. So every empty cell here is a case
+nobody has written, and none of them is a combination the specification
+excludes.
+
+The one filter is which locations the version defines. `querystring` is defined
+by 3.2 and by no earlier version, so it has rows in the 3.2 table alone. A
+querystring row in a 3.0 or 3.1 table would be a cell nobody can fill rather
+than one nobody has filled, and the two must not be counted alike.
 
 `condition` is the axis a style surface has no room for. A media type
 representation can be a value that is not a representation of it, and what a
 library does with that is a different question from what it does with a
 well-formed one. A case carrying `foreignWireShape` fills a `malformed` cell.
 
-Media types enumerated: `application/json`. That is what the corpus
-declares. A library's handling of `application/xml` or `text/plain` is unmeasured
-here rather than absent, and widening the axis means writing cases that send
-them.
+Media types enumerated: `application/json`, `application/x-www-form-urlencoded`.
+That is what the corpus declares. A library's handling of `application/xml` or
+`text/plain` is unmeasured here rather than absent, and widening the axis means
+writing cases that send them.
 
 | location | media type | schema | condition | covered |
 | --- | --- | --- | --- | --- |
@@ -135,27 +141,63 @@ them.
 | cookie | application/json | object | wellFormed |  |
 | cookie | application/json | scalar | malformed |  |
 | cookie | application/json | scalar | wellFormed |  |
+| cookie | application/x-www-form-urlencoded | array | malformed |  |
+| cookie | application/x-www-form-urlencoded | array | wellFormed |  |
+| cookie | application/x-www-form-urlencoded | object | malformed |  |
+| cookie | application/x-www-form-urlencoded | object | wellFormed |  |
+| cookie | application/x-www-form-urlencoded | scalar | malformed |  |
+| cookie | application/x-www-form-urlencoded | scalar | wellFormed |  |
 | header | application/json | array | malformed |  |
 | header | application/json | array | wellFormed |  |
 | header | application/json | object | malformed |  |
 | header | application/json | object | wellFormed |  |
 | header | application/json | scalar | malformed |  |
 | header | application/json | scalar | wellFormed |  |
+| header | application/x-www-form-urlencoded | array | malformed |  |
+| header | application/x-www-form-urlencoded | array | wellFormed |  |
+| header | application/x-www-form-urlencoded | object | malformed |  |
+| header | application/x-www-form-urlencoded | object | wellFormed |  |
+| header | application/x-www-form-urlencoded | scalar | malformed |  |
+| header | application/x-www-form-urlencoded | scalar | wellFormed |  |
 | path | application/json | array | malformed |  |
 | path | application/json | array | wellFormed |  |
 | path | application/json | object | malformed |  |
 | path | application/json | object | wellFormed |  |
 | path | application/json | scalar | malformed |  |
 | path | application/json | scalar | wellFormed |  |
+| path | application/x-www-form-urlencoded | array | malformed |  |
+| path | application/x-www-form-urlencoded | array | wellFormed |  |
+| path | application/x-www-form-urlencoded | object | malformed |  |
+| path | application/x-www-form-urlencoded | object | wellFormed |  |
+| path | application/x-www-form-urlencoded | scalar | malformed |  |
+| path | application/x-www-form-urlencoded | scalar | wellFormed |  |
 | query | application/json | array | malformed |  |
 | query | application/json | array | wellFormed |  |
 | query | application/json | object | malformed |  |
 | query | application/json | object | wellFormed |  |
 | query | application/json | scalar | malformed |  |
 | query | application/json | scalar | wellFormed |  |
+| query | application/x-www-form-urlencoded | array | malformed |  |
+| query | application/x-www-form-urlencoded | array | wellFormed |  |
+| query | application/x-www-form-urlencoded | object | malformed |  |
+| query | application/x-www-form-urlencoded | object | wellFormed |  |
+| query | application/x-www-form-urlencoded | scalar | malformed |  |
+| query | application/x-www-form-urlencoded | scalar | wellFormed |  |
+| querystring | application/json | array | malformed |  |
+| querystring | application/json | array | wellFormed |  |
+| querystring | application/json | object | malformed |  |
+| querystring | application/json | object | wellFormed | yes |
+| querystring | application/json | scalar | malformed |  |
+| querystring | application/json | scalar | wellFormed |  |
+| querystring | application/x-www-form-urlencoded | array | malformed |  |
+| querystring | application/x-www-form-urlencoded | array | wellFormed |  |
+| querystring | application/x-www-form-urlencoded | object | malformed |  |
+| querystring | application/x-www-form-urlencoded | object | wellFormed | yes |
+| querystring | application/x-www-form-urlencoded | scalar | malformed |  |
+| querystring | application/x-www-form-urlencoded | scalar | wellFormed |  |
 
 A case that breaks a rule addressed to whoever wrote the document fills no cell
-here, and 0 content cases are excluded on that rule: . They vary the
+here, and 4 content cases are excluded on that rule: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`. They vary the
 declaration rather than the representation, so counting them would mark a
 representation covered that nothing has sent. They appear in `matrix.oas32.md`.
 
@@ -171,16 +213,19 @@ resting on it, and can see which cited sections carry only one.
 
 | section | cases |
 | --- | --- |
+| fixed-fields-for-use-with-content | `querystring-absent-no-question-mark-oas32`, `querystring-empty-after-question-mark-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-form-urlencoded-object-wrong-type-oas32` |
 | fixed-fields-for-use-with-schema | `cookie-cookie-scalar-percent-triple-oas32` |
 | parameter-allow-reserved | `path-simple-scalar-allow-reserved-declared-oas32`, `path-simple-scalar-allow-reserved-unset-oas32` |
 | parameter-explode | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `query-deep-object-no-explode-oas32` |
+| parameter-locations | `querystring-absent-no-question-mark-oas32`, `querystring-empty-after-question-mark-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-form-urlencoded-object-wrong-type-oas32` |
+| parameter-required | `querystring-absent-no-question-mark-oas32`, `querystring-empty-after-question-mark-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-form-urlencoded-object-wrong-type-oas32` |
 | parameter-style | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32` |
 | percent-encoding-and-cookies | `cookie-form-array-explode-oas32` |
-| schema-object | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32` |
+| schema-object | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-form-urlencoded-object-wrong-type-oas32` |
 | style-examples | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32` |
 | style-values | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32` |
 
-Cases resting on no cited section, because the specification is silent: none.
+Cases resting on no cited section, because the specification is silent: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`, `querystring-json-object-canonical-oas32`.
 
 ## Default resolution
 
@@ -234,21 +279,21 @@ cannot show.
 
 | probe axis | cases |
 | --- | --- |
-| canonical | 7 |
+| canonical | 9 |
 | caseVariant | 0 |
-| competingParameter | 0 |
+| competingParameter | 1 |
 | competingPath | 0 |
-| declarationFlag | 2 |
-| duplicateName | 0 |
+| declarationFlag | 4 |
+| duplicateName | 1 |
 | emptyAfterParse | 0 |
-| emptyContainer | 0 |
+| emptyContainer | 1 |
 | encodingVariant | 2 |
 | foreignName | 0 |
 | foreignWireShape | 1 |
 | missingName | 0 |
 | nameWithoutValue | 0 |
-| optionalAbsent | 0 |
-| wrongTypeValue | 0 |
+| optionalAbsent | 1 |
+| wrongTypeValue | 1 |
 
 ## Cases by the stage they probe
 
@@ -266,8 +311,8 @@ would be filled by a canonical case, and canonical probes style.
 | routing | 0 | 0 |
 | splitting | 1 | 0 |
 | styleDeserialization | 9 | 2 |
-| contentDeserialization | 0 | 0 |
-| schemaValidation | 0 | 0 |
+| contentDeserialization | 2 | 5 |
+| schemaValidation | 2 | 0 |
 
 `valueExposure` is a pipeline stage and has no row here, which is deliberate and
 is a correction. It had one, reading `0` and `0`, and that read as a gap someone

@@ -209,6 +209,22 @@ function observeValues(
         "would make the harness perform the split under test",
     };
   }
+  // The echo carries params, query and headers. A parameter declared anywhere
+  // else has no slot in it, and reporting the rest would publish an empty value
+  // cell as this library's answer for a parameter nothing read. `querystring`
+  // is the location that reaches this today.
+  const unechoed = declaredParameters(testCase.document).filter(
+    (parameter) => parameter.in !== "path" && parameter.in !== "query" && parameter.in !== "header",
+  );
+  if (unechoed.length > 0) {
+    const locations = [...new Set(unechoed.map((parameter) => parameter.in))].sort().join(", ");
+    return {
+      kind: "unexposed",
+      reason:
+        `the echoed request carries params, query and headers, so a parameter declared in ` +
+        `${locations} has no slot to be read from`,
+    };
+  }
   return observed(vantage, echoedValues(testCase, body));
 }
 
@@ -223,6 +239,15 @@ function echoedValues(testCase: AdapterCase, body: unknown): DeserializedValues 
   };
 
   for (const parameter of declaredParameters(testCase.document)) {
+    // Only the three locations the echo carries. The chain used to end at
+    // `headers`, so a location with no bag of its own was looked up there by
+    // name: a `querystring` parameter, which a 3.2 document can declare, would
+    // have read whatever header shared its name and had it published as that
+    // parameter's value. An echo has nothing to say about a location express
+    // never populated, and saying nothing is the answer.
+    if (parameter.in !== "path" && parameter.in !== "query" && parameter.in !== "header") {
+      continue;
+    }
     const source =
       parameter.in === "path"
         ? echoed.params

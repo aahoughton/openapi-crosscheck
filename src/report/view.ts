@@ -828,12 +828,15 @@ export function contentConditionOf(testCase: Case): ContentCondition | null {
  * not enumerate produces a key matching no cell, and silently dropping it would
  * let the coverage number ignore a case the corpus really contains.
  */
-export function placeContentCases(cases: readonly Case[]): {
+export function placeContentCases(
+  cases: readonly Case[],
+  version: OasVersion,
+): {
   readonly defined: readonly ContentCell[];
   readonly covered: ReadonlySet<string>;
   readonly offSurface: readonly string[];
 } {
-  const defined = definedContentSurface();
+  const defined = definedContentSurface(version);
   const definedKeys = new Set(defined.map(contentCellKey));
 
   const placed = cases.flatMap((testCase) => {
@@ -868,10 +871,11 @@ export function coverage(cases: readonly Case[]): CoverageView {
   // denominators in the same grid mean the same thing. A cell filled under one
   // version is not filled under another: counting one surface for the whole
   // corpus would credit a 3.1 case for a 3.2 cell nobody has written, and 3.2
-  // defines a style the earlier versions do not. The content surface does not
-  // vary by version, which makes the summing look like multiplication, and it
-  // is the same statement either way: every version is asked the question and
-  // the versions nobody wrote a content case for are published as empty.
+  // defines a style and a location the earlier versions do not. Both surfaces
+  // now vary by version, the content one by the `querystring` location it
+  // admits under 3.2 alone, so a version is asked only the questions its own
+  // specification defines and the ones nobody wrote a case for are published as
+  // empty.
   const versions = presentVersions(cases);
   const perVersion = versions.map((version) => {
     const versionCases = cases.filter((c) => c.oasVersion === version);
@@ -881,7 +885,7 @@ export function coverage(cases: readonly Case[]): CoverageView {
       ),
     );
     const surface = definedSurface(version);
-    const content = placeContentCases(versionCases);
+    const content = placeContentCases(versionCases, version);
     return {
       styleDefined: surface.length,
       styleCovered: surface.filter((cell) => keys.has(cellKey(cell))).length,

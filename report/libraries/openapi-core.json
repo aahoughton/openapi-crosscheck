@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "openapi-core"
   },
-  "corpusDigest": "sha256:99b0a98c767c545e59d9a99c650ed136c10adf678a2f326856743184f6ec88dc",
+  "corpusDigest": "sha256:e206c6fd26309e1ee6ab6f324042a3e9bc20a26e4adb444eaf11976c60d4ec65",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1137,7 +1137,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-core",
-    "imageId": "sha256:0d41fa0704ef78ff9909329d6bd68bf23c999eaf5deb727a9326fb2aa0dd4613",
+    "imageId": "sha256:55b83f88b442c4865e6fb8782658021fdd280e66ed1b1e39273a4bdc42a923cf",
     "ecosystem": "pypi"
   },
   "answers": [
@@ -9054,6 +9054,245 @@
             "cookie": {}
           }
         }
+      }
+    },
+    {
+      "caseId": "querystring-absent-no-question-mark-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "cannotRepresentCase",
+        "detail": "the Request protocol takes the query as parsed pairs and the path with the query removed, so a target with no `?` cannot be handed over apart from one with an empty query string, which is the difference a querystring parameter is declared to read"
+      }
+    },
+    {
+      "caseId": "querystring-beside-query-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "R",
+                "100"
+              ],
+              [
+                "G",
+                "200"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "OpenAPIValidationError: [{'name': 'p', 'in': 'querystring', 'required': True, 'content': {'application/x-www-form-urlencoded': {'schema': {'type': 'object', 'properties': {'R': {'type': 'string'}, 'G': {'type': 'string'}}}}}}, {'name': 'R', 'in': 'query', 'required': True, 'schema': {'type': 'string'}}] should not be valid under {'allOf': [{'contains': {'type': 'object', 'properties': {'in': {'const': 'query'}}, 'required': ['in']}}, {'contains': {'type': 'object', 'properties': {'in': {'const': 'querystring'}}, 'required': ['in']}}]}\n\nFailed validating 'not' in schema['properties']['paths']['patternProperties']['^/']['properties']['get']['properties']['parameters']:\n    {'type': 'array',\n     'items': {'$ref': '#/$defs/parameter-or-reference'},\n     'not': {'allOf': [{'contains': {'type': 'object',\n                                     'properties': {'in': {'const': 'query'}},\n                                     'required': ['in']}},\n                       {'contains': {'type': 'object',\n                                     'properties': {'in': {'const': 'querystring'}},\n                                     'required': ['in']}}]},\n     'contains': {'type': 'object',\n                  'properties': {'in': {'const': 'querystring'}},\n                  'required': ['in']},\n     'minContains': 0,\n     'maxContains': 1}\n\nOn instance['paths']['/t']['get']['parameters']:\n    [{'name': 'p',\n      'in': 'querystring',\n      'required': True,\n      'content': {'application/x-www-form-urlencoded': {'schema': {'type': 'object',\n                                                                   'properties': {'R': {'type': 'string'},\n                                                                                  'G': {'type': 'string'}}}}}},\n     {'name': 'R',\n      'in': 'query',\n      'required': True,\n      'schema': {'type': 'string'}}]"
+      }
+    },
+    {
+      "caseId": "querystring-content-with-style-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "R",
+                "100"
+              ],
+              [
+                "G",
+                "200"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "OpenAPIValidationError: Unevaluated properties are not allowed ('style' was unexpected)\n\nFailed validating 'unevaluatedProperties' in schema['properties']['paths']['patternProperties']['^/']['properties']['get']['properties']['parameters']['items']['else']:\n    {'$comment': 'https://spec.openapis.org/oas/v3.2#parameter-object',\n     'type': 'object',\n     'properties': {'name': {'type': 'string'},\n                    'in': {'enum': ['query',\n                                    'querystring',\n                                    'header',\n                                    'path',\n                                    'cookie']},\n                    'description': {'type': 'string'},\n                    'required': {'default': False, 'type': 'boolean'},\n                    'deprecated': {'default': False, 'type': 'boolean'},\n                    'schema': {'$dynamicRef': '#meta'},\n                    'content': {'$ref': '#/$defs/content',\n                                'minProperties': 1,\n                                'maxProperties': 1}},\n     'required': ['name', 'in'],\n     'oneOf': [{'required': ['schema']}, {'required': ['content']}],\n     'allOf': [{'$ref': '#/$defs/examples'},\n               {'$ref': '#/$defs/specification-extensions'},\n               {'if': {'properties': {'in': {'const': 'query'}}},\n                'then': {'properties': {'allowEmptyValue': {'default': False,\n                                                            'type': 'boolean'}}}},\n               {'if': {'properties': {'in': {'const': 'querystring'}}},\n                'then': {'required': ['content']}}],\n     'dependentSchemas': {'schema': {'properties': {'style': {'type': 'string'},\n                                                    'explode': {'type': 'boolean'}},\n                                     'allOf': [{'$ref': '#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-path'},\n                                               {'$ref': '#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-header'},\n                                               {'$ref': '#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-query'},\n                                               {'$ref': '#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-cookie'}],\n                                     '$defs': {'styles-for-path': {'if': {'properties': {'in': {'const': 'path'}}},\n                                                                   'then': {'properties': {'name': {'pattern': '^[^{}]+$'},\n                                                                                           'style': {'default': 'simple',\n                                                                                                     'enum': ['matrix',\n                                                                                                              'label',\n                                                                                                              'simple']},\n                                                                                           'required': {'const': True},\n                                                                                           'explode': {'default': False},\n                                                                                           'allowReserved': {'type': 'boolean',\n                                                                                                             'default': False}},\n                                                                            'required': ['required']}},\n                                               'styles-for-header': {'if': {'properties': {'in': {'const': 'header'}}},\n                                                                     'then': {'properties': {'style': {'default': 'simple',\n                                                                                                       'const': 'simple'},\n                                                                                             'explode': {'default': False}}}},\n                                               'styles-for-query': {'if': {'properties': {'in': {'const': 'query'}}},\n                                                                    'then': {'properties': {'style': {'default': 'form',\n                                                                                                      'enum': ['form',\n                                                                                                               'spaceDelimited',\n                                                                                                               'pipeDelimited',\n                                                                                                               'deepObject']},\n                                                                                            'allowReserved': {'type': 'boolean',\n                                                                                                              'default': False}},\n                                                                             '$ref': '#/$defs/explode-for-form'}},\n                                               'styles-for-cookie': {'if': {'properties': {'in': {'const': 'cookie'}}},\n                                                                     'then': {'properties': {'style': {'default': 'form',\n                                                                                                       'enum': ['form',\n                                                                                                                'cookie']},\n                                                                                             'explode': {'default': True}},\n                                                                              'if': {'properties': {'style': {'const': 'form'}}},\n                                                                              'then': {'properties': {'allowReserved': {'type': 'boolean',\n                                                                                                                        'default': False}}}}}}}},\n     'unevaluatedProperties': False}\n\nOn instance['paths']['/t']['get']['parameters'][0]:\n    {'name': 'p',\n     'in': 'querystring',\n     'required': True,\n     'style': 'form',\n     'content': {'application/x-www-form-urlencoded': {'schema': {'type': 'object',\n                                                                  'properties': {'R': {'type': 'string'},\n                                                                                 'G': {'type': 'string'}},\n                                                                  'required': ['R',\n                                                                               'G']}}}}"
+      }
+    },
+    {
+      "caseId": "querystring-declared-twice-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "R",
+                "100"
+              ],
+              [
+                "G",
+                "200"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "OpenAPIValidationError: Too many items match the given schema (expected at most 1)\n\nFailed validating 'maxContains' in schema['properties']['paths']['patternProperties']['^/']['properties']['get']['properties']['parameters']:\n    {'type': 'array',\n     'items': {'$ref': '#/$defs/parameter-or-reference'},\n     'not': {'allOf': [{'contains': {'type': 'object',\n                                     'properties': {'in': {'const': 'query'}},\n                                     'required': ['in']}},\n                       {'contains': {'type': 'object',\n                                     'properties': {'in': {'const': 'querystring'}},\n                                     'required': ['in']}}]},\n     'contains': {'type': 'object',\n                  'properties': {'in': {'const': 'querystring'}},\n                  'required': ['in']},\n     'minContains': 0,\n     'maxContains': 1}\n\nOn instance['paths']['/t']['get']['parameters']:\n    [{'name': 'p',\n      'in': 'querystring',\n      'required': True,\n      'content': {'application/x-www-form-urlencoded': {'schema': {'type': 'object',\n                                                                   'properties': {'R': {'type': 'string'},\n                                                                                  'G': {'type': 'string'}}}}}},\n     {'name': 'q',\n      'in': 'querystring',\n      'required': True,\n      'content': {'application/x-www-form-urlencoded': {'schema': {'type': 'object',\n                                                                   'properties': {'R': {'type': 'string'},\n                                                                                  'G': {'type': 'string'}}}}}}]"
+      }
+    },
+    {
+      "caseId": "querystring-declared-with-schema-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "R",
+                "100"
+              ],
+              [
+                "G",
+                "200"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "OpenAPIValidationError: 'content' is a required property\n\nFailed validating 'required' in schema['properties']['paths']['patternProperties']['^/']['properties']['get']['properties']['parameters']['items']['else']['allOf'][3]['then']:\n    {'required': ['content']}\n\nOn instance['paths']['/t']['get']['parameters'][0]:\n    {'name': 'p',\n     'in': 'querystring',\n     'required': True,\n     'schema': {'type': 'object',\n                'properties': {'R': {'type': 'string'},\n                               'G': {'type': 'string'}}}}"
+      }
+    },
+    {
+      "caseId": "querystring-empty-after-question-mark-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "AttributeError: 'RequestParameters' object has no attribute 'querystring'",
+        "raw": {
+          "type": "AttributeError",
+          "message": "'RequestParameters' object has no attribute 'querystring'"
+        }
+      }
+    },
+    {
+      "caseId": "querystring-form-urlencoded-object-canonical-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "R",
+                "100"
+              ],
+              [
+                "G",
+                "200"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "AttributeError: 'RequestParameters' object has no attribute 'querystring'",
+        "raw": {
+          "type": "AttributeError",
+          "message": "'RequestParameters' object has no attribute 'querystring'"
+        }
+      }
+    },
+    {
+      "caseId": "querystring-form-urlencoded-object-wrong-type-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "R",
+                "blue"
+              ],
+              [
+                "G",
+                "200"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "AttributeError: 'RequestParameters' object has no attribute 'querystring'",
+        "raw": {
+          "type": "AttributeError",
+          "message": "'RequestParameters' object has no attribute 'querystring'"
+        }
+      }
+    },
+    {
+      "caseId": "querystring-json-object-canonical-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D",
+                null
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "cannotRepresentCase",
+        "detail": "a query pair arrived with no `=`, and the Request protocol takes query values as strings, so `?p` cannot be handed over apart from `?p=`"
       }
     }
   ]

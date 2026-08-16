@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/openapistack/openapi-back
 
 Built from: `adapters/openapi-backend/`
 
-Image: `sha256:da3b5bb95f321b605ae889d8cb125e266d6455e378a96cbbc52b30acce20a2d4`
+Image: `sha256:aa591845b921c1cbeeaa6e9c941909b2c58f59f8723b384fa49e159cc857c640`
 
 Configuration `coerce-types-on`: new OpenAPIBackend({ definition, quick: false, coerceTypes: true }) then init(), driven through validateRequest with the raw path and raw query string. coerceTypes is enabled because leaving it off rejects every typed parameter; both settings were measured and the results were identical for path parameters.
 
@@ -250,8 +250,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| not asked | 10 |
-| every conformance case | 10 |
+| not asked | 14 |
+| every conformance case | 14 |
 
 #### Cases it was not asked
 
@@ -268,6 +268,10 @@ caller, so an answer would describe the harness rather than the library.
 - [`path-simple-scalar-allow-reserved-declared-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-declared-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-canonical-oas32`](../matrix.oas32.md#query-deep-object-canonical-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-no-explode-oas32`](../matrix.oas32.md#query-deep-object-no-explode-oas32) (oasVersionNotDeclared)
+- [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (oasVersionNotDeclared)
+- [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (oasVersionNotDeclared)
+- [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
+- [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 
@@ -278,3 +282,8 @@ nothing is attributed to it.
 | --- | --- | --- |
 | [`cookie-form-array-explode-oas32`](../matrix.oas32.md#cookie-form-array-explode-oas32) | not asked (oasVersionNotDeclared) | - |
 | [`path-simple-scalar-allow-reserved-unset-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-unset-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-beside-query-oas32`](../matrix.oas32.md#querystring-beside-query-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-declared-with-schema-oas32`](../matrix.oas32.md#querystring-declared-with-schema-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) | not asked (oasVersionNotDeclared) | - |

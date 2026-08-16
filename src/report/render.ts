@@ -519,7 +519,11 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
 
   // The same placement the coverage numbers are counted from, so this table and
   // those numbers cannot describe different surfaces.
-  const { defined: contentSurface, covered: contentCovered, offSurface } = placeContentCases(cases);
+  const {
+    defined: contentSurface,
+    covered: contentCovered,
+    offSurface,
+  } = placeContentCases(cases, version);
   const contentFilled = contentSurface.filter((cell) => contentCovered.has(contentCellKey(cell)));
   lines.push(
     `Defined combinations: ${String(contentSurface.length)}. ` +
@@ -534,11 +538,17 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("surface has room for far more, so this table keeps the empty cells visible.");
   lines.push("Filling it to look full would make the coverage number less informative.");
   lines.push("");
-  lines.push("No legality filter applies, unlike the style table. The Style Values table marks");
-  lines.push("some style, location and type combinations n/a; `content` has no such table, is");
-  lines.push("permitted in all four locations, and is not restricted by schema shape. So every");
-  lines.push("empty cell here is a case nobody has written, and none of them is a combination");
-  lines.push("the specification excludes.");
+  lines.push("Almost no legality filter applies, unlike the style table. The Style Values");
+  lines.push("table marks some style, location and type combinations n/a; `content` has no");
+  lines.push("such table, is permitted in every location this version defines, and is not");
+  lines.push("restricted by schema shape or media type. So every empty cell here is a case");
+  lines.push("nobody has written, and none of them is a combination the specification");
+  lines.push("excludes.");
+  lines.push("");
+  lines.push("The one filter is which locations the version defines. `querystring` is defined");
+  lines.push("by 3.2 and by no earlier version, so it has rows in the 3.2 table alone. A");
+  lines.push("querystring row in a 3.0 or 3.1 table would be a cell nobody can fill rather");
+  lines.push("than one nobody has filled, and the two must not be counted alike.");
   lines.push("");
   lines.push("`condition` is the axis a style surface has no room for. A media type");
   lines.push("representation can be a value that is not a representation of it, and what a");
@@ -546,12 +556,11 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("well-formed one. A case carrying `foreignWireShape` fills a `malformed` cell.");
   lines.push("");
   lines.push(
-    `Media types enumerated: ${CONTENT_MEDIA_TYPES.map((type) => `\`${type}\``).join(", ")}. ` +
-      "That is what the corpus",
+    `Media types enumerated: ${CONTENT_MEDIA_TYPES.map((type) => `\`${type}\``).join(", ")}.`,
   );
-  lines.push("declares. A library's handling of `application/xml` or `text/plain` is unmeasured");
-  lines.push("here rather than absent, and widening the axis means writing cases that send");
-  lines.push("them.");
+  lines.push("That is what the corpus declares. A library's handling of `application/xml` or");
+  lines.push("`text/plain` is unmeasured here rather than absent, and widening the axis means");
+  lines.push("writing cases that send them.");
   lines.push("");
   lines.push("| location | media type | schema | condition | covered |");
   lines.push("| --- | --- | --- | --- | --- |");
@@ -629,7 +638,12 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("");
   lines.push("| location | style declared | explode declared | cases |");
   lines.push("| --- | --- | --- | --- |");
-  for (const location of LOCATIONS) {
+  // Only the locations that can carry a style. A querystring parameter is
+  // declared with `content`, and the specification says `style` and `explode`
+  // MUST NOT be used with it, so a row for it could only ever read `0 of 0`.
+  // An empty cell on this surface means a case nobody has written, and a row
+  // that no case can ever fill says something else in the same shape.
+  for (const location of LOCATIONS.filter((candidate) => candidate !== "querystring")) {
     for (const declared of [true, false]) {
       const matching = cases.filter(
         (c) =>

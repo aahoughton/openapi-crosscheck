@@ -75,16 +75,16 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:165a69777926a05b7620827753a14a80f4cea012e4f8953b3ef9f1dadcc6377e` |
-| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:ad48acb76aa43e57a0f85ab4cae8f3edbc909741e96390032308bd6f8f7f37fd` |
-| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:fe0e5b3baaad5d32942d63a21af9e0acf9a98884fdfe145e44bdd85976e8cfd3` |
-| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:3e9694a49bf191218ee36aed396c89b298237944e892ee3f556f5c58965a8fa6` |
-| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:dab8a66b221964cf5db9e6b957396cd4a750ec395686c3e5608473b5ece6b6f4` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:a58b653695fab3fa4a73ac8a99eb1ad70de44ab7e4c79e4301d88e48d362f05e` |
-| `openapi-backend` | `adapters/openapi-backend/` | `sha256:da3b5bb95f321b605ae889d8cb125e266d6455e378a96cbbc52b30acce20a2d4` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:0d41fa0704ef78ff9909329d6bd68bf23c999eaf5deb727a9326fb2aa0dd4613` |
-| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:202e5282012ac8bc30525a7217ba29559bfc68bcfb7167aa411ceae51c0e6946` |
-| `openapi_first` | `adapters/openapi-first/` | `sha256:f8cde4f09888a56430f7f82c8a545a0af935badd43cfaa694a64bff8846fa83f` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:d12011fdebc7d0dcca773e65b95e276a8ead7e127b393fdbd0b4220d76891487` |
+| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:9d866ad6d5bd3e46b987358c874f01a711ce6e470a63d786ac591876125072f2` |
+| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:e48d496f1c2b1882e534725002ffc8acaf5854de31dbb855c07cffc26e216000` |
+| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:e2e0e033db583f8f687cf014e496eb95cd456aebe7bcabc11350d9b9b31c67c9` |
+| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:9d7f553270fa9bcd217ae8ba595293e87c15fc794e0cf1d9a7c125406ad18816` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:c6d6f139ad148185805b621ac27465cbce423f4ea44f15eb076c49c0b7456f06` |
+| `openapi-backend` | `adapters/openapi-backend/` | `sha256:aa591845b921c1cbeeaa6e9c941909b2c58f59f8723b384fa49e159cc857c640` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:55b83f88b442c4865e6fb8782658021fdd280e66ed1b1e39273a4bdc42a923cf` |
+| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:c79f9fb1dc515dddfbcd11d879b5d5454ed803fc4dce70386611a2d8931f2dcf` |
+| `openapi_first` | `adapters/openapi-first/` | `sha256:4ef5b670ae6fb7a72ddd97c458fd3cbc14c1f9867c9a16d4408217bd46fd09fe` |
 
 ## Conformance
 
@@ -109,6 +109,10 @@ rules the expected verdict rests on, and the argument for it.
 | [`path-simple-scalar-allow-reserved-declared-oas32`](#path-simple-scalar-allow-reserved-declared-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | pass | n/a | n/a |
 | [`query-deep-object-canonical-oas32`](#query-deep-object-canonical-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | FAIL (verdict) | n/a | n/a |
 | [`query-deep-object-no-explode-oas32`](#query-deep-object-no-explode-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | FAIL (verdict) | n/a | n/a |
+| [`querystring-absent-no-question-mark-oas32`](#querystring-absent-no-question-mark-oas32) | accepted | n/a | n/a | n/a | pass | n/a | pass | n/a | n/a | n/a | n/a |
+| [`querystring-empty-after-question-mark-oas32`](#querystring-empty-after-question-mark-oas32) | accepted | n/a | n/a | n/a | pass | n/a | pass | n/a | RAISED | n/a | n/a |
+| [`querystring-form-urlencoded-object-canonical-oas32`](#querystring-form-urlencoded-object-canonical-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | RAISED | n/a | RAISED | n/a | n/a |
+| [`querystring-form-urlencoded-object-wrong-type-oas32`](#querystring-form-urlencoded-object-wrong-type-oas32) | rejected | n/a | n/a | n/a | FAIL (verdict) | n/a | RAISED | n/a | RAISED | n/a | n/a |
 
 Legend: `pass (verdict only)` means the library reached the right verdict and
 exposes no deserialized values, so the value half of the case could not be
@@ -471,6 +475,120 @@ explode has no effect when the style is deepObject, and the table gives one row 
 
 Varies: explode, into a pairing earlier versions call undefined and this one defines. Holds constant: identifier is the declared one; wire shape as for the exploded twin.
 
+#### Querystring parameters
+
+##### `querystring-absent-no-question-mark-oas32`
+
+querystring, optional, request carrying no query string at all. Expected: **accepted**.
+
+A target with no `?`. Asks whether a querystring parameter is absent or present and empty when there is no query string to read.
+
+Request: `GET /t`
+
+Every rule the expected verdict rests on, OpenAPI 3.2:
+
+[parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
+
+> querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: "query" parameters.
+
+[fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
+
+> For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: "querystring" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type.
+
+[parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
+
+> Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
+
+required is false and written out, so a request the parameter is not in is valid and a library rejecting it has inverted its required check. That much is settled. What is not is whether the parameter is absent here at all: with no `?` there is no query string to read, and reading the empty string instead deserializes to the empty object, which this schema admits. Both readings accept, so no values are expected and the value channel is where libraries part. The case below sends `/t?` and asks the same question of a query string that is present and empty; one case cannot show that a library collapsed the two.
+
+Varies: the request carries no query string. Holds constant: the parameter is optional, so the verdict does not turn on the required check; the schema requires no property, so an empty object is admitted; exactly one parameter is declared.
+
+##### `querystring-empty-after-question-mark-oas32`
+
+querystring, optional, request carrying an empty query string. Expected: **accepted**.
+
+A target ending in `?`. The same question as the case above, asked of a request that does carry a query string, which happens to be empty.
+
+Request: `GET /t?`
+
+Every rule the expected verdict rests on, OpenAPI 3.2:
+
+[parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
+
+> querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: "query" parameters.
+
+[fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
+
+> For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: "querystring" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type.
+
+[parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
+
+> Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
+
+The query string is present and empty, where the case above has none at all. An empty form-urlencoded value is a well-formed representation of the empty object and the schema requires no property, so acceptance is settled here for a second reason as well as the first: the parameter is optional either way. The value is what differs, and what differs between this case and the one above is what shows whether a library kept the distinction the wire carries.
+
+Varies: the query string is present and empty. Holds constant: the parameter is optional, so the verdict does not turn on the required check; the schema requires no property, so an empty object is admitted; exactly one parameter is declared.
+
+##### `querystring-form-urlencoded-object-canonical-oas32`
+
+querystring, x-www-form-urlencoded, object, canonical. Expected: **accepted**.
+
+The whole query string read as one form-urlencoded value. The positive control, and the media type the specification pairs with this location.
+
+Request: `GET /t?R=100&G=200`
+
+Every rule the expected verdict rests on, OpenAPI 3.2:
+
+[parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
+
+> querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: "query" parameters.
+
+[fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
+
+> For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: "querystring" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type.
+
+[parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
+
+> Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
+
+[schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+The parameter's value is the entire query string, and `R=100&G=200` is that string read as the media type it declares. Both properties are present and both are strings, which is what the schema asks for.
+
+Varies: nothing. Holds constant: the media type is the one the specification pairs with this location; the query string is well-formed for it; exactly one parameter is declared; canonical encoding.
+
+##### `querystring-form-urlencoded-object-wrong-type-oas32`
+
+querystring, x-www-form-urlencoded, object, a property well-formed for another type. Expected: **rejected**.
+
+The query string parses cleanly, then its R property is blue where the schema says integer. The case that tells a library which validated from one which never looked.
+
+Request: `GET /t?R=blue&G=200`
+
+Every rule the expected verdict rests on, OpenAPI 3.2:
+
+[parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
+
+> querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: "query" parameters.
+
+[fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
+
+> For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: "querystring" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type.
+
+[parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
+
+> Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
+
+[schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+`R=blue&G=200` is a well-formed form-urlencoded value, so nothing about reading it fails and the whole question is the schema: R is declared integer and blue is not an integer under any coercion policy. This is the one querystring case whose expected verdict is reachable only by reading the parameter. Every other one here expects acceptance, and acceptance is what a library that validated correctly and a library that never looked both produce.
+
+Varies: a property spells one type while being well-formed for another. Holds constant: the query string is well-formed for the declared media type; exactly one parameter is declared; canonical encoding.
+
 ## Divergence
 
 The specification requires no particular answer to these. The table reports what
@@ -561,3 +679,138 @@ The text leaving it open: [parameter-allow-reserved](https://spec.openapis.org/o
 | `openapi_first` | not asked (oasVersionNotDeclared) | - |
 
 Varies: the wire carries reserved characters the declaration did not permit unencoded. Holds constant: the identifier is the declared one; allowReserved is left unset.
+
+### Querystring parameters
+
+#### `querystring-beside-query-oas32`
+
+querystring alongside an in: query parameter.
+
+One operation declaring both, which the specification forbids. The request carries a query string that answers either reading.
+
+Request: `GET /t?R=100&G=200`
+
+Open question: Each location's own bullet forbids the combination, so the document breaks a rule written twice, and neither bullet says what a validator does with a document that breaks it. The two locations divide the same bytes twice, one as pairs and one whole, and the specification forbids the combination rather than saying how to reconcile them. `R=100&G=200` is a legitimate value for each of them read alone, so a library that accepts this document reports values for one, the other, or both, and that is the answer worth having.
+
+**Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (oasVersionNotDeclared) | - |
+| `express-openapi-validator` | not asked (oasVersionNotDeclared) | - |
+| `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
+| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | not asked (oasVersionNotDeclared) | - |
+| `@oaverify/core` | raised, no verdict | - |
+| `openapi-backend` | not asked (oasVersionNotDeclared) | - |
+| `openapi-core` | not asked (libraryInitUnsupported) | - |
+| `openapi-request-validator` | not asked (oasVersionNotDeclared) | - |
+| `openapi_first` | not asked (oasVersionNotDeclared) | - |
+
+Varies: an in: query parameter is declared beside the querystring one. Holds constant: the request is the canonical one for both readings; the querystring declaration is the canonical one.
+
+#### `querystring-content-with-style-oas32`
+
+querystring declared with content and style.
+
+The document adds a `style` the location may not carry.
+
+Request: `GET /t?R=100&G=200`
+
+Open question: `style` is among the fields the specification names as not for use with this location, and it says nothing about what a validator does with a document carrying one. The parameter is otherwise the canonical one, so a library refusing this and accepting the canonical case refused the field rather than the location, and one that ignores the field answers the request as though it were not there.
+
+**Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (oasVersionNotDeclared) | - |
+| `express-openapi-validator` | not asked (oasVersionNotDeclared) | - |
+| `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
+| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | not asked (oasVersionNotDeclared) | - |
+| `@oaverify/core` | raised, no verdict | - |
+| `openapi-backend` | not asked (oasVersionNotDeclared) | - |
+| `openapi-core` | not asked (libraryInitUnsupported) | - |
+| `openapi-request-validator` | not asked (oasVersionNotDeclared) | - |
+| `openapi_first` | not asked (oasVersionNotDeclared) | - |
+
+Varies: the parameter carries a style. Holds constant: the request is the canonical one; exactly one parameter is declared.
+
+#### `querystring-declared-twice-oas32`
+
+two querystring parameters in one operation.
+
+The document declares the location twice, which it may appear at most once.
+
+Request: `GET /t?R=100&G=200`
+
+Open question: Both parameters claim the entire query string, and the specification says the location MUST NOT appear more than once without saying what a validator does when handed two. There is no reading under which each gets its own value, so a library that accepts has taken one, taken both, or read neither, and which it did shows in the values.
+
+**Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (oasVersionNotDeclared) | - |
+| `express-openapi-validator` | not asked (oasVersionNotDeclared) | - |
+| `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
+| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | not asked (oasVersionNotDeclared) | - |
+| `@oaverify/core` | raised, no verdict | - |
+| `openapi-backend` | not asked (oasVersionNotDeclared) | - |
+| `openapi-core` | not asked (libraryInitUnsupported) | - |
+| `openapi-request-validator` | not asked (oasVersionNotDeclared) | - |
+| `openapi_first` | not asked (oasVersionNotDeclared) | - |
+
+Varies: the location is declared twice. Holds constant: the request is the canonical one; both declarations are identical.
+
+#### `querystring-declared-with-schema-oas32`
+
+querystring declared with schema instead of content.
+
+The document breaks the rule that this location must be declared with `content`.
+
+Request: `GET /t?R=100&G=200`
+
+Open question: The document is invalid: the value is the whole query string, so `schema` has nothing to describe the serialization of, and the specification forbids the field here. What a validator does when handed it is not written down. Refusing the document and validating the request as though the parameter were declared some other way are each consistent with what is written.
+
+**Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (oasVersionNotDeclared) | - |
+| `express-openapi-validator` | not asked (oasVersionNotDeclared) | - |
+| `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
+| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | not asked (oasVersionNotDeclared) | - |
+| `@oaverify/core` | raised, no verdict | - |
+| `openapi-backend` | not asked (oasVersionNotDeclared) | - |
+| `openapi-core` | not asked (libraryInitUnsupported) | - |
+| `openapi-request-validator` | not asked (oasVersionNotDeclared) | - |
+| `openapi_first` | not asked (oasVersionNotDeclared) | - |
+
+Varies: the parameter is declared with schema rather than content. Holds constant: the request is the canonical one; exactly one parameter is declared.
+
+#### `querystring-json-object-canonical-oas32`
+
+querystring, application/json, object, percent-encoded.
+
+The same location declared with a media type the specification does not pair with it, asking whether the query string is decoded before it is parsed.
+
+Request: `GET /t?%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D`
+
+Open question: Is the query string percent-decoded before it is read as the parameter's declared media type? The value of a querystring parameter is the query string as it arrived, and a JSON object cannot be written in one without percent-encoding its braces and quotes. A library that decodes first reads a JSON object and accepts; one that hands the raw string to a JSON parser reads `%7B%22R%22` and rejects. Both are defensible readings of a location whose value is defined as the whole query string, and the specification pairs this location with `application/x-www-form-urlencoded` rather than settling what any other media type does here.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (oasVersionNotDeclared) | - |
+| `express-openapi-validator` | not asked (oasVersionNotDeclared) | - |
+| `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
+| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | not asked (oasVersionNotDeclared) | - |
+| `@oaverify/core` | raised, no verdict | - |
+| `openapi-backend` | not asked (oasVersionNotDeclared) | - |
+| `openapi-core` | not asked (cannotRepresentCase) | - |
+| `openapi-request-validator` | not asked (oasVersionNotDeclared) | - |
+| `openapi_first` | not asked (oasVersionNotDeclared) | - |
+
+Varies: media type, which is the only dimension moved from the positive control. Holds constant: the target carries a percent-encoded JSON object, which is the only way to write one in a query string; the schema and the value it would deserialize to, once decoded; exactly one parameter is declared.

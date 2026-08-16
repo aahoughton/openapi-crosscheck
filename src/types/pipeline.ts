@@ -104,8 +104,18 @@ export function deserializationStage(declaration: "content" | "schema"): Deseria
  * keyed by lowercased name never does it: whoever built that record folded the
  * casing and collected the duplicates. Both are probe dimensions, so the
  * folding has to be attributed to whoever performed it.
+ *
+ * Written out rather than aliased to `ParameterLocation`, which is what it was.
+ * Splitting ownership is a claim every container makes and the harness acts on,
+ * so a location joins this set by a decision rather than by arriving in the
+ * parameter union. The alias made the two the same edit, and silently: nothing
+ * derives the keys from the union, so a widened union produced a
+ * `Record<SplittableLocation, boolean>` missing a key rather than a type error,
+ * and a missing key is the protocol's default-to-owned case. A location added
+ * here now has to be added to `SPLITTABLE_LOCATIONS`, to `delegatedSplits()`
+ * and to every container's declaration, and the compiler says so at each one.
  */
-export type SplittableLocation = ParameterLocation;
+export type SplittableLocation = "cookie" | "header" | "path" | "query";
 
 export const SPLITTABLE_LOCATIONS: readonly SplittableLocation[] = [
   "cookie",
@@ -161,7 +171,23 @@ export function ownsStage(
   stage: PipelineStage,
   location: ParameterLocation,
 ): boolean {
-  if (stage === "splitting") return ownership.splitting[location];
+  if (stage === "splitting") {
+    // Splitting is claimed per location, and `querystring` is not one of the
+    // locations it is a question for: the value is the whole query string, so
+    // there is nothing to match a declared name against. No container declares
+    // it, so there is no answer to read, and inventing one in either direction
+    // would decide who owns work nobody does. The stage order in `canBeAsked`
+    // leaves splitting out of every querystring chain, which makes this
+    // unreachable; it throws rather than guessing so that a caller that finds a
+    // way here says so.
+    if (location === "querystring") {
+      throw new Error(
+        "splitting ownership is not claimed for querystring: the parameter's value is the " +
+          "whole query string, so no location is split to produce it",
+      );
+    }
+    return ownership.splitting[location];
+  }
   if (stage === "routing") return ownership.routing;
   if (stage === "styleDeserialization") return ownership.styleDeserialization;
   if (stage === "contentDeserialization") return ownership.contentDeserialization;
@@ -198,9 +224,15 @@ export function ownsStage(
 export function canBeAsked(ownership: StageOwnership, dimensions: Dimensions): boolean {
   const probed = probedStage(dimensions);
   const { location } = dimensions;
+  // The chain a querystring parameter travels has no splitting step in it. Its
+  // value is everything after the first `?`, so nothing is matched against a
+  // declared name and no library is asked to have done that. Leaving splitting
+  // in the chain would make a querystring case unaskable of any library that
+  // disclaims a split it is never asked to perform, which is a stage-ownership
+  // claim about one location deciding a case in another.
   const order: readonly PipelineStage[] = [
     "routing",
-    "splitting",
+    ...(location === "querystring" ? [] : (["splitting"] as const)),
     deserializationStage(dimensions.declaration),
     "schemaValidation",
   ];
@@ -316,6 +348,19 @@ export function probedStage(dimensions: Dimensions): PipelineStage {
   // which operation matched is not asking anything about how a segment was
   // written.
   if (location === "path") return deserialization;
+
+  // A querystring parameter's value is the entire query string, so there is no
+  // step that recovers an identifier for the identifier axes below to be about.
+  // Nothing is matched against a declared name, nothing is split on a
+  // delimiter, and the parameter claims every byte after the first `?` whatever
+  // else the document says. What a second declaration or a competing `in:
+  // "query"` parameter does is settled where the declaration is read, and the
+  // reading of a `content` parameter is content deserialization.
+  //
+  // Stated for the location rather than for each axis, and placed above them
+  // for the same reason the path rule is: the axis alone does not say which
+  // stage a variation lands on, and the location is what decides it.
+  if (location === "querystring") return deserialization;
 
   // A flag that changes how a value is read is a question about the reading,
   // even when the flag is spelled elsewhere in the declaration.

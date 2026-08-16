@@ -70,17 +70,21 @@ Rules those verdicts rest on:
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 
-8 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas30`, `query-content-json-object-malformed-oas31`.
+10 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas30`, `query-content-json-object-malformed-oas31`, and 2 more in the matrix files.
 
 Rules those verdicts rest on:
 
 - [decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings)
-- [fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.1.1.html#fixed-fields-for-use-with-content)
+- [fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
 - [media-type-object](https://spec.openapis.org/oas/v3.1.1.html#media-type-object)
 - [parameter-content](https://spec.openapis.org/oas/v3.1.1.html#parameter-content)
-- [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
+- [parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
+- [parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
+- [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
 - [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 - [x4-8-12-2-fixed-fields](https://spec.openapis.org/oas/v3.1.1.html#x4-8-12-2-fixed-fields)
+
+5 divergence cases also probe it: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`, `querystring-json-object-canonical-oas32`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
 
 **Value exposure.** It returns a verdict and no values, so a caller needing the deserialized values computes them again from the request.
 
@@ -270,17 +274,21 @@ Rules those verdicts rest on:
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 
-8 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas30`, `query-content-json-object-malformed-oas31`.
+10 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas30`, `query-content-json-object-malformed-oas31`, and 2 more in the matrix files.
 
 Rules those verdicts rest on:
 
 - [decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings)
-- [fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.1.1.html#fixed-fields-for-use-with-content)
+- [fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
 - [media-type-object](https://spec.openapis.org/oas/v3.1.1.html#media-type-object)
 - [parameter-content](https://spec.openapis.org/oas/v3.1.1.html#parameter-content)
-- [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
+- [parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
+- [parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
+- [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
 - [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 - [x4-8-12-2-fixed-fields](https://spec.openapis.org/oas/v3.1.1.html#x4-8-12-2-fixed-fields)
+
+5 divergence cases also probe it: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`, `querystring-json-object-canonical-oas32`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
 
 ### `openapi_first`
 

@@ -217,6 +217,12 @@ function atPosition(request: LibraryRequest, parameter: ParameterObject): unknow
     holder !== null && Object.hasOwn(holder, key) ? holder[key] : undefined;
   if (parameter.in === "path") return record(request.params, parameter.name);
   if (parameter.in === "query") return record(request.query, parameter.name);
+  // A location with no slot on this library's request shape has no value to
+  // read. Falling through to the headers slot, which is what this did, looked a
+  // querystring parameter up among the headers and would have reported a header
+  // of the same name as that parameter's value. Cookies already take this exit:
+  // the caller skips them before asking.
+  if (parameter.in !== "header") return undefined;
   // Preparse folds header names to lower case, so the declared name is folded
   // the same way before lookup.
   return record(request.headers, parameter.name.toLowerCase());

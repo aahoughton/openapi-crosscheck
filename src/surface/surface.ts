@@ -10,7 +10,21 @@ import type { ProbeAxis, SchemaShape } from "../types/case";
  * The map is worth having precisely because it can show a hole.
  */
 
-export const LOCATIONS: readonly ParameterLocation[] = ["cookie", "header", "path", "query"];
+/**
+ * Every location any measured version defines.
+ *
+ * `querystring` is 3.2-only and this list does not say so, the same way it does
+ * not say the `cookie` style is 3.2-only. Which locations a version defines is
+ * what `isDefined` and `CONTENT_LOCATIONS` answer, per version, and the
+ * coverage map is drawn from those rather than from this list.
+ */
+export const LOCATIONS: readonly ParameterLocation[] = [
+  "cookie",
+  "header",
+  "path",
+  "query",
+  "querystring",
+];
 
 export const STYLES: readonly Style[] = [
   "cookie",
@@ -162,6 +176,13 @@ export interface SurfaceCell {
  * it, which is why the 3.2 denominator is 48 rather than 47.
  */
 export function isDefined(cell: SurfaceCell, version: OasVersion): boolean {
+  // A querystring parameter has no cell on this surface in any version, and the
+  // specification says so twice: it MUST be specified using `content`, and the
+  // fields for use with `schema`, `style` and `explode` among them, "MUST NOT be
+  // used with `in: "querystring"`". Stated here rather than left to fall out of
+  // no style listing the location, so that a later edit to the style tables
+  // cannot admit a cell whose every case the meta-schema rejects.
+  if (cell.location === "querystring") return false;
   if (!STYLE_LOCATIONS[version][cell.style].includes(cell.location)) return false;
   const shape = baseShape(cell.schema);
   if (!STYLE_SHAPES[version][cell.style].includes(shape)) return false;
@@ -240,16 +261,50 @@ export const CONTENT_CONDITIONS = ["malformed", "wellFormed"] as const;
 export type ContentCondition = (typeof CONTENT_CONDITIONS)[number];
 
 /**
- * One media type, and the narrowness is published rather than hidden.
+ * The media types the corpus declares, and the narrowness is published rather
+ * than hidden.
  *
- * `application/json` is what the corpus declares today. Enumerating media types
- * this repository has never sent would fill the map with cells whose emptiness
- * says nothing about any library, and leaving the axis out entirely would let
- * the table read as though media type were not a dimension. So the axis exists,
- * holds one value, and the report states that a library's handling of
+ * A media type enters this list when the corpus sends it. Enumerating ones this
+ * repository has never sent would fill the map with cells whose emptiness says
+ * nothing about any library, and leaving the axis out entirely would let the
+ * table read as though media type were not a dimension. So the axis holds what
+ * is sent, and the report states that a library's handling of
  * `application/xml` or `text/plain` is unmeasured rather than absent.
+ *
+ * `application/x-www-form-urlencoded` entered with the querystring cases, and
+ * in that order: the cases were promoted first, then the member added here.
+ * Adding it first would have published a denominator counting cells for a
+ * representation this repository had never sent, and told the coverage pages
+ * the corpus declares it.
+ *
+ * 3.2 pairs that media type with `in: "querystring"`, and the two canonical
+ * querystring cases are written twice, once under each media type. A library
+ * that rejects one and accepts the other has named its own reason, where a
+ * single case would leave the location and the media type sharing one verdict
+ * between them.
+ *
+ * The cost is a denominator that roughly doubled: this axis multiplies every
+ * location in every version, so 78 defined cells became 156, and almost all of
+ * the new ones are empty. Those cells were unmeasured either way, and the
+ * change is that a reader can see it. That was the argument for paying it.
  */
-export const CONTENT_MEDIA_TYPES: readonly string[] = ["application/json"];
+export const CONTENT_MEDIA_TYPES: readonly string[] = [
+  "application/json",
+  "application/x-www-form-urlencoded",
+];
+
+/**
+ * Which locations `content` is a question for, per version.
+ *
+ * The four locations every measured version defines, plus `querystring` in
+ * 3.2, which is the version that defines it. A parameter there MUST be declared
+ * with `content`, so it appears on this surface and on no other.
+ */
+const CONTENT_LOCATIONS: Readonly<Record<OasVersion, readonly ParameterLocation[]>> = {
+  "3.0": ["cookie", "header", "path", "query"],
+  "3.1": ["cookie", "header", "path", "query"],
+  "3.2": ["cookie", "header", "path", "query", "querystring"],
+};
 
 export interface ContentCell {
   readonly location: ParameterLocation;
@@ -261,15 +316,20 @@ export interface ContentCell {
 /**
  * Every content combination this surface enumerates.
  *
- * No legality filter, unlike the style surface. The Style Values table marks
- * some style, location and type combinations n/a, and `content` has no such
- * table: the specification permits `content` in any of the four locations and
- * says nothing that rules out a schema shape. An empty cell here is a case
- * nobody has written rather than one the specification excludes.
+ * Almost no legality filter, unlike the style surface. The Style Values table
+ * marks some style, location and type combinations n/a, and `content` has no
+ * such table: the specification permits `content` in every location it defines
+ * and says nothing that rules out a schema shape or a media type. An empty cell
+ * here is a case nobody has written rather than one the specification excludes.
+ *
+ * The one filter is which locations a version defines at all, which is why this
+ * takes a version. A 3.1 document cannot declare `in: "querystring"`, so a
+ * querystring cell under 3.1 would be a hole nobody can fill rather than one
+ * nobody has filled, and the two must not count the same.
  */
-export function definedContentSurface(): readonly ContentCell[] {
+export function definedContentSurface(version: OasVersion): readonly ContentCell[] {
   const cells: ContentCell[] = [];
-  for (const location of LOCATIONS) {
+  for (const location of CONTENT_LOCATIONS[version]) {
     for (const mediaType of CONTENT_MEDIA_TYPES) {
       for (const schema of SCHEMA_SHAPES) {
         for (const condition of CONTENT_CONDITIONS) {

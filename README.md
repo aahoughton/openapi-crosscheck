@@ -35,18 +35,23 @@ coordinate and a difference in the results is a difference in what a library
 does with the `openapi` field.
 
 3.2.0 is asked only what 3.2.0 changed: the `cookie` style, the `deepObject`
-explode pairing it defines where earlier versions call it undefined, and
-`allowReserved` in a location no earlier version applies it to. Most of
+explode pairing it defines where earlier versions call it undefined,
+`allowReserved` in a location no earlier version applies it to, and
+`in: "querystring"`, the fifth parameter location, whose value is the entire
+query string. Most of
 [report/coverage.oas32.md](report/coverage.oas32.md) is therefore empty, and
 that is a decision rather than an oversight. Six of the ten measured libraries
 do not accept a 3.2 document at all, which the version probes in
 [report/capabilities.md](report/capabilities.md) already record once per
 library; mirroring the whole corpus under 3.2 would record the same rejection
 another eighty times. Whether the mirror is worth writing anyway is
-[issue 2](https://github.com/aahoughton/openapi-crosscheck/issues/2), and 3.2's
-fifth parameter location, `in: "querystring"`, is
-[issue 1](https://github.com/aahoughton/openapi-crosscheck/issues/1): it needs
-a container protocol version before it needs a case.
+[issue 2](https://github.com/aahoughton/openapi-crosscheck/issues/2).
+
+The querystring cases are where the corpus most clearly earns its keep. One
+library accepts every request put to it against a document declaring that
+location, including one whose value violates the schema it declares, which is
+what accepting the document and never reading the parameter looks like from
+outside. `matrix.oas32.md` has the row.
 
 ### Request bodies are out of scope
 

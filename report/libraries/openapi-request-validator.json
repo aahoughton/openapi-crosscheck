@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:99b0a98c767c545e59d9a99c650ed136c10adf678a2f326856743184f6ec88dc",
+  "corpusDigest": "sha256:e206c6fd26309e1ee6ab6f324042a3e9bc20a26e4adb444eaf11976c60d4ec65",
   "capabilities": {
     "stages": {
       "routing": false,
@@ -1005,7 +1005,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-request-validator",
-    "imageId": "sha256:202e5282012ac8bc30525a7217ba29559bfc68bcfb7167aa411ceae51c0e6946",
+    "imageId": "sha256:c79f9fb1dc515dddfbcd11d879b5d5454ed803fc4dce70386611a2d8931f2dcf",
     "ecosystem": "npm"
   },
   "answers": [
@@ -3703,6 +3703,114 @@
         "outcome": "unsupported",
         "reason": "stageNotOwned",
         "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "querystring-absent-no-question-mark-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-beside-query-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-content-with-style-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-declared-twice-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-declared-with-schema-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-empty-after-question-mark-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-form-urlencoded-object-canonical-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-form-urlencoded-object-wrong-type-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-json-object-canonical-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
       }
     }
   ]

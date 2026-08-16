@@ -14,7 +14,21 @@ export type OasVersion = "3.0" | "3.1" | "3.2";
 /** Every version the protocol knows, for code that must answer about each. */
 export const OAS_VERSIONS: readonly OasVersion[] = ["3.0", "3.1", "3.2"];
 
-export type ParameterLocation = "cookie" | "header" | "path" | "query";
+/**
+ * Where a parameter is read from.
+ *
+ * `querystring` exists only in 3.2, and the union does not say so, for the same
+ * reason the style union does not say `cookie` is 3.2-only: which locations a
+ * version defines belongs to the surface enumeration, which is per version and
+ * is what a coverage map is drawn from.
+ *
+ * It is the one member that does not name a value among others in a container.
+ * The other four name something to find inside a path, a query, a header list
+ * or a cookie header. A `querystring` parameter's value is the entire query
+ * string, so there is no name to match and no delimiter to split on, which is
+ * why `SplittableLocation` is a separate union and does not include it.
+ */
+export type ParameterLocation = "cookie" | "header" | "path" | "query" | "querystring";
 
 /**
  * Every style any measured version defines, as one union.

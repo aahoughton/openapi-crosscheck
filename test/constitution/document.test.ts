@@ -72,5 +72,21 @@ describe("a declared document-rule break carries its citation", () => {
       expect(declared.citation.url).toContain(declared.citation.anchor);
       expect(declared.detail.length).toBeGreaterThan(0);
     });
+
+    it(`${testCase.id} is divergence, because the rule is addressed to the document`, () => {
+      // A validator handed a document that breaks a MUST has to do something and
+      // the specification does not say what, which is the divergence tier stated
+      // in full. A case like this in the conformance tier scores a library for
+      // an answer nothing settles: accepting an invalid document would count as
+      // failing a rule that says nothing about accepting it.
+      //
+      // Nothing checked this until four candidate cases were written the other
+      // way. The tier is the field the whole two-tier separation rests on, and
+      // it was resting on whoever wrote the case remembering.
+      expect({ id: testCase.id, tier: testCase.tier }).toEqual({
+        id: testCase.id,
+        tier: "divergence",
+      });
+    });
   }
 });

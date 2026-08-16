@@ -197,7 +197,11 @@ function splittingProbes(): readonly CapabilityProbe[] {
  * Running all three and publishing all three states it.
  */
 function styleProbes(): readonly CapabilityProbe[] {
-  const locations: readonly ParameterLocation[] = ["header", "path", "query"];
+  // Typed as splittable rather than as any parameter location, because
+  // `inLocation` has to know where to write the value and only these have a
+  // place to write one into. A style probe for `querystring` is not expressible
+  // here and is not wanted: a querystring parameter declares no style.
+  const locations: readonly SplittableLocation[] = ["header", "path", "query"];
   return locations.map((location) => ({
     id: `style-deserialization-array-${location}`,
     stage: "styleDeserialization" as const,

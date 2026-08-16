@@ -8,7 +8,7 @@ require "webrick"
 
 require "openapi_first"
 
-PROTOCOL_VERSION = 2
+PROTOCOL_VERSION = 3
 LIBRARY = "openapi_first"
 # Where this library's source lives. Stated by this container.
 LIBRARY_SOURCE = "https://github.com/ahx/openapi_first"
@@ -155,6 +155,24 @@ def observed_values(document, validated)
     "header" => validated.parsed_headers,
     "cookie" => validated.parsed_cookies
   }
+
+  # A location this library does not parse into a hash has no value to read, and
+  # reporting the rest would publish an empty cell as this library's answer for
+  # a parameter nothing looked at. "querystring" is the location that reaches
+  # this. "The library returned nothing" and "this container could not read it"
+  # are different facts.
+  unreadable = declared_parameters(document).filter_map do |parameter|
+    location = parameter["in"]
+    location if location.is_a?(String) && !by_location.key?(location)
+  end
+  unless unreadable.empty?
+    return {
+      "kind" => "unexposed",
+      "reason" =>
+        "this library parses the request into path, query, header and cookie hashes, so a " \
+        "parameter declared in #{unreadable.uniq.sort.join(', ')} has no hash to be read from"
+    }
+  end
 
   values = {}
   types = {}

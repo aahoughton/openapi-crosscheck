@@ -267,13 +267,13 @@ describe("a content case that sends no representation fills no cell", () => {
     "places no cell for %s",
     (probeAxis) => {
       expect(contentConditionOf(contentCase("c", probeAxis))).toBeNull();
-      expect(placeContentCases([contentCase("c", probeAxis)]).covered.size).toBe(0);
+      expect(placeContentCases([contentCase("c", probeAxis)], "3.1").covered.size).toBe(0);
     },
   );
 
   it("still places a case that sends one", () => {
-    expect(placeContentCases([contentCase("c", "canonical")]).covered.size).toBe(1);
-    expect(placeContentCases([contentCase("c", "foreignWireShape")]).covered.size).toBe(1);
+    expect(placeContentCases([contentCase("c", "canonical")], "3.1").covered.size).toBe(1);
+    expect(placeContentCases([contentCase("c", "foreignWireShape")], "3.1").covered.size).toBe(1);
   });
 });
 

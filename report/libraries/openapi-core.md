@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/python-openapi/openapi-co
 
 Built from: `adapters/openapi-core/`
 
-Image: `sha256:0d41fa0704ef78ff9909329d6bd68bf23c999eaf5deb727a9326fb2aa0dd4613`
+Image: `sha256:55b83f88b442c4865e6fb8782658021fdd280e66ed1b1e39273a4bdc42a923cf`
 
 Configuration `unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. Raw query name/value pairs come from the harness preparse with no percent decoding: this library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into pairs is the caller's and is recorded on every cell. Style and explode are still applied by the library to those pairs. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
 
@@ -216,8 +216,9 @@ the page with the numbers.
 | --- | --- |
 | pass | 3 |
 | FAIL (verdict) | 6 |
-| not asked | 1 |
-| every conformance case | 10 |
+| raised instead of answering | 3 |
+| not asked | 2 |
+| every conformance case | 14 |
 
 #### Cases it did not pass
 
@@ -243,6 +244,7 @@ Not a gap in the measurement. Each is a stage this library leaves to its
 caller, so an answer would describe the harness rather than the library.
 
 - [`cookie-cookie-scalar-percent-triple-oas32`](../matrix.oas32.md#cookie-cookie-scalar-percent-triple-oas32) (stageNotOwned)
+- [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (cannotRepresentCase)
 
 ### Divergence
 
@@ -253,3 +255,8 @@ nothing is attributed to it.
 | --- | --- | --- |
 | [`cookie-form-array-explode-oas32`](../matrix.oas32.md#cookie-form-array-explode-oas32) | accepted | `{"p":["blue","black"]}` |
 | [`path-simple-scalar-allow-reserved-unset-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-unset-oas32) | accepted | `{"p":"a:b@c"}` |
+| [`querystring-beside-query-oas32`](../matrix.oas32.md#querystring-beside-query-oas32) | not asked (libraryInitUnsupported) | - |
+| [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (libraryInitUnsupported) | - |
+| [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (libraryInitUnsupported) | - |
+| [`querystring-declared-with-schema-oas32`](../matrix.oas32.md#querystring-declared-with-schema-oas32) | not asked (libraryInitUnsupported) | - |
+| [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) | not asked (cannotRepresentCase) | - |

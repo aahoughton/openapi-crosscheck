@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "*"
   },
-  "corpusDigest": "sha256:99b0a98c767c545e59d9a99c650ed136c10adf678a2f326856743184f6ec88dc",
+  "corpusDigest": "sha256:e206c6fd26309e1ee6ab6f324042a3e9bc20a26e4adb444eaf11976c60d4ec65",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -886,7 +886,7 @@
   "provenance": {
     "kind": "container",
     "slug": "league-openapi-psr7-validator",
-    "imageId": "sha256:dab8a66b221964cf5db9e6b957396cd4a750ec395686c3e5608473b5ece6b6f4",
+    "imageId": "sha256:9d7f553270fa9bcd217ae8ba595293e87c15fc794e0cf1d9a7c125406ad18816",
     "ecosystem": "packagist"
   },
   "answers": [
@@ -5612,6 +5612,114 @@
             }
           }
         }
+      }
+    },
+    {
+      "caseId": "querystring-absent-no-question-mark-oas32",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-beside-query-oas32",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-content-with-style-oas32",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-declared-twice-oas32",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-declared-with-schema-oas32",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-empty-after-question-mark-oas32",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-form-urlencoded-object-canonical-oas32",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-form-urlencoded-object-wrong-type-oas32",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-json-object-canonical-oas32",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
       }
     }
   ]

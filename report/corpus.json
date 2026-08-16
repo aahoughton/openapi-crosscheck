@@ -16300,6 +16300,860 @@
         "identifier is the declared one",
         "wire shape matches the declared style"
       ]
+    },
+    {
+      "id": "querystring-absent-no-question-mark-oas32",
+      "title": "querystring, optional, request carrying no query string at all",
+      "inShort": "A target with no `?`. Asks whether a querystring parameter is absent or present and empty when there is no query string to read.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-locations",
+          "quoted": "querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: \"query\" parameters."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "fixed-fields-for-use-with-content",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content",
+          "quoted": "For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: \"querystring\" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": null,
+      "rationale": "required is false and written out, so a request the parameter is not in is valid and a library rejecting it has inverted its required check. That much is settled. What is not is whether the parameter is absent here at all: with no `?` there is no query string to read, and reading the empty string instead deserializes to the empty object, which this schema admits. Both readings accept, so no values are expected and the value channel is where libraries part. The case below sends `/t?` and asks the same question of a query string that is present and empty; one case cannot show that a library collapsed the two.",
+      "answeredInValues": true,
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": false,
+                  "content": {
+                    "application/x-www-form-urlencoded": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "string"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/x-www-form-urlencoded",
+        "schema": "object",
+        "probeAxis": "optionalAbsent"
+      },
+      "varies": [
+        "the request carries no query string"
+      ],
+      "holdsConstant": [
+        "the parameter is optional, so the verdict does not turn on the required check",
+        "the schema requires no property, so an empty object is admitted",
+        "exactly one parameter is declared"
+      ]
+    },
+    {
+      "id": "querystring-beside-query-oas32",
+      "title": "querystring alongside an in: query parameter",
+      "inShort": "One operation declaring both, which the specification forbids. The request carries a query string that answers either reading.",
+      "tier": "divergence",
+      "oasVersion": "3.2",
+      "basis": null,
+      "answeredInValues": true,
+      "question": "Each location's own bullet forbids the combination, so the document breaks a rule written twice, and neither bullet says what a validator does with a document that breaks it. The two locations divide the same bytes twice, one as pairs and one whole, and the specification forbids the combination rather than saying how to reconcile them. `R=100&G=200` is a legitimate value for each of them read alone, so a library that accepts this document reports values for one, the other, or both, and that is the answer worth having.",
+      "breaksDocumentRule": {
+        "citation": {
+          "oasVersion": "3.2",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-locations",
+          "quoted": "query - Parameters that are appended to the URL. For example, in /items?id=###, the query parameter is id; MUST NOT appear in the same operation (or in the operation’s path-item) as an in: \"querystring\" parameter."
+        },
+        "detail": "The operation declares `in: \"querystring\"` and `in: \"query\"` together, which each location's own bullet forbids.",
+        "detectedByMetaSchema": true
+      },
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": true,
+                  "content": {
+                    "application/x-www-form-urlencoded": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "string"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "R",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?R=100&G=200",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/x-www-form-urlencoded",
+        "schema": "object",
+        "probeAxis": "competingParameter"
+      },
+      "varies": [
+        "an in: query parameter is declared beside the querystring one"
+      ],
+      "holdsConstant": [
+        "the request is the canonical one for both readings",
+        "the querystring declaration is the canonical one"
+      ]
+    },
+    {
+      "id": "querystring-content-with-style-oas32",
+      "title": "querystring declared with content and style",
+      "inShort": "The document adds a `style` the location may not carry.",
+      "tier": "divergence",
+      "oasVersion": "3.2",
+      "question": "`style` is among the fields the specification names as not for use with this location, and it says nothing about what a validator does with a document carrying one. The parameter is otherwise the canonical one, so a library refusing this and accepting the canonical case refused the field rather than the location, and one that ignores the field answers the request as though it were not there.",
+      "basis": null,
+      "answeredInValues": true,
+      "breaksDocumentRule": {
+        "citation": {
+          "oasVersion": "3.2",
+          "anchor": "fixed-fields-for-use-with-schema",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema",
+          "quoted": "For simpler scenarios, a schema and style can describe the structure and syntax of the parameter. These fields MUST NOT be used with in: \"querystring\"."
+        },
+        "detail": "`style` is one of the fields that MUST NOT be used with `in: \"querystring\"`, and the parameter carries it alongside the `content` the location requires.",
+        "detectedByMetaSchema": true
+      },
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": true,
+                  "style": "form",
+                  "content": {
+                    "application/x-www-form-urlencoded": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "string"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "R",
+                          "G"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?R=100&G=200",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/x-www-form-urlencoded",
+        "schema": "object",
+        "probeAxis": "declarationFlag"
+      },
+      "varies": [
+        "the parameter carries a style"
+      ],
+      "holdsConstant": [
+        "the request is the canonical one",
+        "exactly one parameter is declared"
+      ]
+    },
+    {
+      "id": "querystring-declared-twice-oas32",
+      "title": "two querystring parameters in one operation",
+      "inShort": "The document declares the location twice, which it may appear at most once.",
+      "tier": "divergence",
+      "oasVersion": "3.2",
+      "basis": null,
+      "answeredInValues": true,
+      "question": "Both parameters claim the entire query string, and the specification says the location MUST NOT appear more than once without saying what a validator does when handed two. There is no reading under which each gets its own value, so a library that accepts has taken one, taken both, or read neither, and which it did shows in the values.",
+      "breaksDocumentRule": {
+        "citation": {
+          "oasVersion": "3.2",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-locations",
+          "quoted": "querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: \"query\" parameters."
+        },
+        "detail": "Two parameters declare `in: \"querystring\"` in the same operation.",
+        "detectedByMetaSchema": true
+      },
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": true,
+                  "content": {
+                    "application/x-www-form-urlencoded": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "string"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "q",
+                  "in": "querystring",
+                  "required": true,
+                  "content": {
+                    "application/x-www-form-urlencoded": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "string"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?R=100&G=200",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/x-www-form-urlencoded",
+        "schema": "object",
+        "probeAxis": "duplicateName"
+      },
+      "varies": [
+        "the location is declared twice"
+      ],
+      "holdsConstant": [
+        "the request is the canonical one",
+        "both declarations are identical"
+      ]
+    },
+    {
+      "id": "querystring-declared-with-schema-oas32",
+      "title": "querystring declared with schema instead of content",
+      "inShort": "The document breaks the rule that this location must be declared with `content`.",
+      "tier": "divergence",
+      "oasVersion": "3.2",
+      "question": "The document is invalid: the value is the whole query string, so `schema` has nothing to describe the serialization of, and the specification forbids the field here. What a validator does when handed it is not written down. Refusing the document and validating the request as though the parameter were declared some other way are each consistent with what is written.",
+      "basis": null,
+      "answeredInValues": true,
+      "breaksDocumentRule": {
+        "citation": {
+          "oasVersion": "3.2",
+          "anchor": "fixed-fields-for-use-with-schema",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema",
+          "quoted": "For simpler scenarios, a schema and style can describe the structure and syntax of the parameter. These fields MUST NOT be used with in: \"querystring\"."
+        },
+        "detail": "`schema` is one of the fields for use with `schema`, and those MUST NOT be used with `in: \"querystring\"`, which MUST be specified using `content`.",
+        "detectedByMetaSchema": true
+      },
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": true,
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "R": {
+                        "type": "string"
+                      },
+                      "G": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?R=100&G=200",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/x-www-form-urlencoded",
+        "schema": "object",
+        "probeAxis": "declarationFlag"
+      },
+      "varies": [
+        "the parameter is declared with schema rather than content"
+      ],
+      "holdsConstant": [
+        "the request is the canonical one",
+        "exactly one parameter is declared"
+      ]
+    },
+    {
+      "id": "querystring-empty-after-question-mark-oas32",
+      "title": "querystring, optional, request carrying an empty query string",
+      "inShort": "A target ending in `?`. The same question as the case above, asked of a request that does carry a query string, which happens to be empty.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-locations",
+          "quoted": "querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: \"query\" parameters."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "fixed-fields-for-use-with-content",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content",
+          "quoted": "For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: \"querystring\" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": null,
+      "rationale": "The query string is present and empty, where the case above has none at all. An empty form-urlencoded value is a well-formed representation of the empty object and the schema requires no property, so acceptance is settled here for a second reason as well as the first: the parameter is optional either way. The value is what differs, and what differs between this case and the one above is what shows whether a library kept the distinction the wire carries.",
+      "answeredInValues": true,
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": false,
+                  "content": {
+                    "application/x-www-form-urlencoded": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "string"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/x-www-form-urlencoded",
+        "schema": "object",
+        "probeAxis": "emptyContainer"
+      },
+      "varies": [
+        "the query string is present and empty"
+      ],
+      "holdsConstant": [
+        "the parameter is optional, so the verdict does not turn on the required check",
+        "the schema requires no property, so an empty object is admitted",
+        "exactly one parameter is declared"
+      ]
+    },
+    {
+      "id": "querystring-form-urlencoded-object-canonical-oas32",
+      "title": "querystring, x-www-form-urlencoded, object, canonical",
+      "inShort": "The whole query string read as one form-urlencoded value. The positive control, and the media type the specification pairs with this location.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-locations",
+          "quoted": "querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: \"query\" parameters."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "fixed-fields-for-use-with-content",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content",
+          "quoted": "For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: \"querystring\" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": {
+          "R": "100",
+          "G": "200"
+        }
+      },
+      "rationale": "The parameter's value is the entire query string, and `R=100&G=200` is that string read as the media type it declares. Both properties are present and both are strings, which is what the schema asks for.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": true,
+                  "content": {
+                    "application/x-www-form-urlencoded": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "string"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "R",
+                          "G"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?R=100&G=200",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/x-www-form-urlencoded",
+        "schema": "object",
+        "probeAxis": "canonical"
+      },
+      "varies": [],
+      "holdsConstant": [
+        "the media type is the one the specification pairs with this location",
+        "the query string is well-formed for it",
+        "exactly one parameter is declared",
+        "canonical encoding"
+      ]
+    },
+    {
+      "id": "querystring-form-urlencoded-object-wrong-type-oas32",
+      "title": "querystring, x-www-form-urlencoded, object, a property well-formed for another type",
+      "inShort": "The query string parses cleanly, then its R property is blue where the schema says integer. The case that tells a library which validated from one which never looked.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-locations",
+          "quoted": "querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: \"query\" parameters."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "fixed-fields-for-use-with-content",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content",
+          "quoted": "For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: \"querystring\" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "`R=blue&G=200` is a well-formed form-urlencoded value, so nothing about reading it fails and the whole question is the schema: R is declared integer and blue is not an integer under any coercion policy. This is the one querystring case whose expected verdict is reachable only by reading the parameter. Every other one here expects acceptance, and acceptance is what a library that validated correctly and a library that never looked both produce.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": true,
+                  "content": {
+                    "application/x-www-form-urlencoded": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "integer"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?R=blue&G=200",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/x-www-form-urlencoded",
+        "schema": "object",
+        "probeAxis": "wrongTypeValue"
+      },
+      "varies": [
+        "a property spells one type while being well-formed for another"
+      ],
+      "holdsConstant": [
+        "the query string is well-formed for the declared media type",
+        "exactly one parameter is declared",
+        "canonical encoding"
+      ]
+    },
+    {
+      "id": "querystring-json-object-canonical-oas32",
+      "title": "querystring, application/json, object, percent-encoded",
+      "inShort": "The same location declared with a media type the specification does not pair with it, asking whether the query string is decoded before it is parsed.",
+      "tier": "divergence",
+      "oasVersion": "3.2",
+      "question": "Is the query string percent-decoded before it is read as the parameter's declared media type? The value of a querystring parameter is the query string as it arrived, and a JSON object cannot be written in one without percent-encoding its braces and quotes. A library that decodes first reads a JSON object and accepts; one that hands the raw string to a JSON parser reads `%7B%22R%22` and rejects. Both are defensible readings of a location whose value is defined as the whole query string, and the specification pairs this location with `application/x-www-form-urlencoded` rather than settling what any other media type does here.",
+      "basis": null,
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "string"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "R",
+                          "G"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/json",
+        "schema": "object",
+        "probeAxis": "canonical"
+      },
+      "varies": [
+        "media type, which is the only dimension moved from the positive control"
+      ],
+      "holdsConstant": [
+        "the target carries a percent-encoded JSON object, which is the only way to write one in a query string",
+        "the schema and the value it would deserialize to, once decoded",
+        "exactly one parameter is declared"
+      ]
     }
   ]
 }

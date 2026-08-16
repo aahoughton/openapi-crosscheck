@@ -6,6 +6,7 @@ import { cases } from "../../src/corpus/index";
 import { readRun } from "../../src/report/read";
 import { renderCorpus, renderMarkdown } from "../../src/report/render";
 import { coverage, presentVersions, versionSlug } from "../../src/report/view";
+import { CONTENT_MEDIA_TYPES } from "../../src/surface/surface";
 
 /**
  * Every rendered byte of the committed report, without a container.
@@ -123,7 +124,14 @@ describe("the coverage table and the coverage numbers are one claim", () => {
         [view.contentDefined, view.contentCovered],
       ]);
       // And the table under the content line draws exactly the cells it counts.
-      expect(page.split("| application/json |").length - 1).toBe(view.contentDefined);
+      // Summed over the media type axis rather than counting one member of it,
+      // so widening that axis cannot leave this checking a fraction of the
+      // table and still passing.
+      const drawn = CONTENT_MEDIA_TYPES.reduce(
+        (total, mediaType) => total + page.split(`| ${mediaType} |`).length - 1,
+        0,
+      );
+      expect(drawn).toBe(view.contentDefined);
     });
   }
 });

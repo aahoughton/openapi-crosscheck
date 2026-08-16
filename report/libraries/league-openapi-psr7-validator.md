@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/thephpleague/openapi-psr7
 
 Built from: `adapters/league-openapi-psr7-validator/`
 
-Image: `sha256:dab8a66b221964cf5db9e6b957396cd4a750ec395686c3e5608473b5ece6b6f4`
+Image: `sha256:9d7f553270fa9bcd217ae8ba595293e87c15fc794e0cf1d9a7c125406ad18816`
 
 Configuration `request-validator-psr7`: ValidatorBuilder::fromJson(document) driven through getRequestValidator()->validate(), with a PSR-7 RequestInterface built from the raw target. The plain request validator is used rather than the server request one, because the plain one reads the Cookie header itself where the server one takes a cookie array from its caller, so every location stays the library's. Known limitation: the PSR-7 URI type parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. Existing percent-encoded sequences reach the validator unchanged. Values are unexposed: validate() answers with an OperationAddress or raises, and the deserializer that converts a styled parameter is not reachable from the published validation call.
 
@@ -220,8 +220,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| not asked | 10 |
-| every conformance case | 10 |
+| not asked | 14 |
+| every conformance case | 14 |
 
 #### Cases it was not asked
 
@@ -238,6 +238,10 @@ caller, so an answer would describe the harness rather than the library.
 - [`path-simple-scalar-allow-reserved-declared-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-declared-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-canonical-oas32`](../matrix.oas32.md#query-deep-object-canonical-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-no-explode-oas32`](../matrix.oas32.md#query-deep-object-no-explode-oas32) (oasVersionNotDeclared)
+- [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (oasVersionNotDeclared)
+- [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (oasVersionNotDeclared)
+- [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
+- [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 
@@ -248,3 +252,8 @@ nothing is attributed to it.
 | --- | --- | --- |
 | [`cookie-form-array-explode-oas32`](../matrix.oas32.md#cookie-form-array-explode-oas32) | not asked (oasVersionNotDeclared) | - |
 | [`path-simple-scalar-allow-reserved-unset-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-unset-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-beside-query-oas32`](../matrix.oas32.md#querystring-beside-query-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-declared-with-schema-oas32`](../matrix.oas32.md#querystring-declared-with-schema-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) | not asked (oasVersionNotDeclared) | - |

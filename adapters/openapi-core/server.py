@@ -13,7 +13,7 @@ from openapi_core import OpenAPI
 from openapi_core.datatypes import RequestParameters
 from werkzeug.datastructures import ImmutableMultiDict
 
-PROTOCOL_VERSION = 2
+PROTOCOL_VERSION = 3
 LIBRARY = "openapi-core"
 # Where this library's source lives. Stated by this container, not resolved.
 LIBRARY_SOURCE = "https://github.com/python-openapi/openapi-core"
@@ -163,6 +163,23 @@ def build_request(message: Mapping[str, Any]) -> ProtocolRequest:
     target = base64.b64decode(wire["targetBase64"]).decode("utf-8", errors="surrogateescape")
     path = target.split("?", 1)[0]
 
+    # `/t` and `/t?` are different requests, the first carrying no query string
+    # and the second an empty one. This shape holds the query as parsed pairs
+    # and the path with the query removed, so the two arrive identical, and a
+    # document declaring `in: "querystring"` asks about exactly that difference.
+    # Refused rather than collapsed: two rows that look like two library answers
+    # would be one shape reporting the same request twice.
+    if any(
+        parameter.get("in") == "querystring"
+        for parameter in declared_parameters(message["document"])
+    ) and "?" not in target:
+        raise UnspellableInputError(
+            "the Request protocol takes the query as parsed pairs and the path with the "
+            'query removed, so a target with no `?` cannot be handed over apart from one '
+            "with an empty query string, which is the difference a querystring parameter "
+            "is declared to read"
+        )
+
     preparsed = message.get("preparsed") or {}
     # A pair whose value is null carried no `=` on the wire. Every value in a
     # MultiDict is a string, so `?p` cannot be spelled apart from `?p=` here and
@@ -266,6 +283,36 @@ def run(message: Mapping[str, Any]) -> Answer:
         "header": result.parameters.header,
         "cookie": result.parameters.cookie,
     }
+
+    # A location this library does not expose a bucket for has no value to read,
+    # and reporting the rest would publish an empty cell as this library's
+    # answer for a parameter nothing looked at. "querystring" is the location
+    # that reaches this: RequestParameters carries four fields and none of them
+    # is it. "The library returned nothing" and "this container could not read
+    # it" are different facts.
+    unreadable = sorted(
+        {
+            location
+            for parameter in declared_parameters(document)
+            if isinstance(location := parameter.get("in"), str) and location not in by_location
+        }
+    )
+    if unreadable:
+        return Answer(
+            outcome="rejected" if errors else "accepted",
+            input_mutation=mutation,
+            deserialized={
+                "kind": "unexposed",
+                "reason": (
+                    "this library exposes parameters as path, query, header and cookie "
+                    f"buckets, so a parameter declared in {', '.join(unreadable)} has no "
+                    "bucket to be read from"
+                ),
+            },
+            raw={
+                "errors": [{"type": type(e).__name__, "message": str(e)} for e in errors],
+            },
+        )
 
     values: dict[str, Any] = {}
     types: dict[str, str] = {}
