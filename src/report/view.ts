@@ -864,9 +864,22 @@ export function placeContentCases(cases: readonly Case[]): {
 }
 
 export function coverage(cases: readonly Case[]): CoverageView {
-  const styleKeys = new Set(
-    cases.flatMap((c) => (c.dimensions.declaration === "schema" ? [cellKey(c.dimensions)] : [])),
-  );
+  // Per version and then summed, because the style surface is per version: 3.2
+  // defines a style the earlier ones do not, and a cell filled under one
+  // version is not filled under another. Counting one surface for the whole
+  // corpus would credit a 3.1 case for a 3.2 cell nobody has written.
+  const style = presentVersions(cases).map((version) => {
+    const keys = new Set(
+      cases
+        .filter((c) => c.oasVersion === version)
+        .flatMap((c) => (c.dimensions.declaration === "schema" ? [cellKey(c.dimensions)] : [])),
+    );
+    const surface = definedSurface(version);
+    return {
+      defined: surface.length,
+      covered: surface.filter((cell) => keys.has(cellKey(cell))).length,
+    };
+  });
   const content = placeContentCases(cases);
 
   const typed = DECLARED_TYPES.map((type) => {
@@ -882,8 +895,8 @@ export function coverage(cases: readonly Case[]): CoverageView {
 
   return {
     byType: typed,
-    styleDefined: definedSurface().length,
-    styleCovered: definedSurface().filter((cell) => styleKeys.has(cellKey(cell))).length,
+    styleDefined: style.reduce((total, entry) => total + entry.defined, 0),
+    styleCovered: style.reduce((total, entry) => total + entry.covered, 0),
     contentDefined: content.defined.length,
     contentCovered: content.covered.size,
     // `valueExposure` is absent by construction rather than empty: no case can

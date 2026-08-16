@@ -439,7 +439,7 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
     c.dimensions.declaration === "schema" ? [c.dimensions] : [],
   );
   const covered = new Set(styled.map((dimensions) => cellKey(dimensions)));
-  const surface = definedSurface();
+  const surface = definedSurface(version);
   const filled = surface.filter((cell) => covered.has(cellKey(cell)));
 
   const lines: string[] = [];

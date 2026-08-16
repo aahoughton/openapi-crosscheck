@@ -2,6 +2,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import type { OasVersion } from "../../src/types/openapi";
+import { OAS_VERSIONS } from "../../src/types/openapi";
 import { cases } from "../../src/corpus/index";
 import { coverage, declaredTypes } from "../../src/report/view";
 import {
@@ -24,7 +26,12 @@ import {
  * here.
  */
 
-const definedStyleKeys = new Set(definedSurface().map(cellKey));
+// Per version, because the style surface is: a cookie-style cell is defined
+// under 3.2 and under nothing earlier, so a case is placed against the surface
+// of the specification it cites rather than against a union of all of them.
+const definedStyleKeys = new Map<OasVersion, ReadonlySet<string>>(
+  OAS_VERSIONS.map((version) => [version, new Set(definedSurface(version).map(cellKey))]),
+);
 const definedContentKeys = new Set(definedContentSurface().map(contentCellKey));
 
 describe("every case lands in a coverage map", () => {
@@ -37,10 +44,21 @@ describe("every case lands in a coverage map", () => {
     const stray = cases
       .flatMap((testCase) =>
         testCase.dimensions.declaration === "schema"
-          ? [{ id: testCase.id, tier: testCase.tier, key: cellKey(testCase.dimensions) }]
+          ? [
+              {
+                id: testCase.id,
+                tier: testCase.tier,
+                version: testCase.oasVersion,
+                key: cellKey(testCase.dimensions),
+              },
+            ]
           : [],
       )
-      .filter((entry) => entry.tier === "conformance" && !definedStyleKeys.has(entry.key))
+      .filter(
+        (entry) =>
+          entry.tier === "conformance" &&
+          !(definedStyleKeys.get(entry.version)?.has(entry.key) ?? false),
+      )
       .map((entry) => entry.id);
     expect(stray).toEqual([]);
   });

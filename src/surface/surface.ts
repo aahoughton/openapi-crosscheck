@@ -1,4 +1,4 @@
-import type { ParameterLocation, Style } from "../types/openapi";
+import type { OasVersion, ParameterLocation, Style } from "../types/openapi";
 import type { ProbeAxis, SchemaShape } from "../types/case";
 
 /**
@@ -13,6 +13,7 @@ import type { ProbeAxis, SchemaShape } from "../types/case";
 export const LOCATIONS: readonly ParameterLocation[] = ["cookie", "header", "path", "query"];
 
 export const STYLES: readonly Style[] = [
+  "cookie",
   "deepObject",
   "form",
   "label",
@@ -62,8 +63,18 @@ export const PROBE_AXES: readonly ProbeAxis[] = [
   "wrongTypeValue",
 ];
 
-/** Which locations each style is legal in, per the Style Values table. */
-const STYLE_LOCATIONS: Record<Style, readonly ParameterLocation[]> = {
+/**
+ * Which locations each style is legal in, per each version's Style Values
+ * table.
+ *
+ * 3.0.4 and 3.1.1 share a table, so they share an entry here rather than
+ * carrying two transcriptions of one thing that could drift apart. 3.2.0 adds
+ * a row: `cookie`, legal in `cookie` alone. A style a version does not define
+ * has no legal location in it, which is what an empty list says, and is why a
+ * cookie-style case cannot land in the 3.1 surface by accident.
+ */
+const STYLE_LOCATIONS_THROUGH_3_1: Record<Style, readonly ParameterLocation[]> = {
+  cookie: [],
   deepObject: ["query"],
   form: ["cookie", "query"],
   label: ["path"],
@@ -73,18 +84,23 @@ const STYLE_LOCATIONS: Record<Style, readonly ParameterLocation[]> = {
   spaceDelimited: ["query"],
 };
 
+const STYLE_LOCATIONS: Record<OasVersion, Record<Style, readonly ParameterLocation[]>> = {
+  "3.0": STYLE_LOCATIONS_THROUGH_3_1,
+  "3.1": STYLE_LOCATIONS_THROUGH_3_1,
+  "3.2": { ...STYLE_LOCATIONS_THROUGH_3_1, cookie: ["cookie"] },
+};
+
 /**
  * Which schema kinds each style is legal for, per the Style Examples table.
  *
- * One table for every specification version on purpose: the 2024 patch
- * releases converged, and 3.0.4's table matches 3.1.1's row for row,
- * including the object columns for spaceDelimited and pipeDelimited that
- * pre-2024 3.0 patches lacked. This corpus builds and cites 3.0.4, so a
- * per-version table here would encode a difference the cited documents do
- * not have. The day a measured version's table genuinely differs, this is
- * the constant to split by version.
+ * 3.0.4 and 3.1.1 share a table: the 2024 patch releases converged, and
+ * 3.0.4's table matches 3.1.1's row for row, including the object columns for
+ * spaceDelimited and pipeDelimited that pre-2024 3.0 patches lacked. 3.2.0 is
+ * where a measured version's table genuinely differs, and it differs by
+ * addition: a `cookie` row for primitive, array and object.
  */
-const STYLE_SHAPES: Record<Style, readonly ("array" | "object" | "scalar")[]> = {
+const STYLE_SHAPES_THROUGH_3_1: Record<Style, readonly ("array" | "object" | "scalar")[]> = {
+  cookie: [],
   deepObject: ["object"],
   form: ["array", "object", "scalar"],
   label: ["array", "object", "scalar"],
@@ -92,6 +108,15 @@ const STYLE_SHAPES: Record<Style, readonly ("array" | "object" | "scalar")[]> = 
   pipeDelimited: ["array", "object"],
   simple: ["array", "object", "scalar"],
   spaceDelimited: ["array", "object"],
+};
+
+const STYLE_SHAPES: Record<
+  OasVersion,
+  Record<Style, readonly ("array" | "object" | "scalar")[]>
+> = {
+  "3.0": STYLE_SHAPES_THROUGH_3_1,
+  "3.1": STYLE_SHAPES_THROUGH_3_1,
+  "3.2": { ...STYLE_SHAPES_THROUGH_3_1, cookie: ["array", "object", "scalar"] },
 };
 
 function baseShape(shape: SchemaShape): "array" | "object" | "scalar" {
@@ -108,29 +133,42 @@ export interface SurfaceCell {
 }
 
 /**
- * True when the combination is legal for the location and type, and is not one
- * the specification marks n/a. A combination the specification calls undefined
- * is not a coverage hole: it is a divergence probe, and it is counted as one.
+ * True when the combination is legal for the location and type in that version,
+ * and is not one that version marks n/a. A combination the specification calls
+ * undefined is not a coverage hole: it is a divergence probe, and it is counted
+ * as one.
+ *
+ * The version is required rather than defaulted. A caller who does not say
+ * which specification they mean is asking a question with no answer, and a
+ * default would answer it silently with whichever version this file was written
+ * against.
+ *
+ * `deepObject` is where the versions part company. Through 3.1 the combination
+ * with explode false is named undefined, so only the exploded cell is on the
+ * surface. 3.2 says explode has no effect for deepObject, which puts both cells
+ * on the surface and makes each one a case worth writing: a library that
+ * branches on the flag answers the two differently, and one cell could not show
+ * that.
  */
-export function isDefined(cell: SurfaceCell): boolean {
-  if (!STYLE_LOCATIONS[cell.style].includes(cell.location)) return false;
+export function isDefined(cell: SurfaceCell, version: OasVersion): boolean {
+  if (!STYLE_LOCATIONS[version][cell.style].includes(cell.location)) return false;
   const shape = baseShape(cell.schema);
-  if (!STYLE_SHAPES[cell.style].includes(shape)) return false;
+  if (!STYLE_SHAPES[version][cell.style].includes(shape)) return false;
 
-  if (cell.style === "deepObject") return cell.explode;
+  if (cell.style === "deepObject") return version === "3.2" || cell.explode;
   if (cell.style === "pipeDelimited" || cell.style === "spaceDelimited") return !cell.explode;
   return true;
 }
 
-/** Every defined combination, in the order the enumerations are declared. */
-export function definedSurface(): readonly SurfaceCell[] {
+/** Every combination one version defines, in the order the enumerations are declared. */
+export function definedSurface(version: OasVersion): readonly SurfaceCell[] {
   const cells: SurfaceCell[] = [];
   for (const location of LOCATIONS) {
     for (const style of STYLES) {
       for (const explode of [false, true]) {
         for (const schema of SCHEMA_SHAPES) {
           const cell = { location, style, explode, schema };
-          if (isDefined(cell)) cells.push(cell);
+          if (isDefined(cell, version)) cells.push(cell);
         }
       }
     }

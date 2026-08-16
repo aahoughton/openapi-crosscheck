@@ -16,7 +16,17 @@ export const OAS_VERSIONS: readonly OasVersion[] = ["3.0", "3.1", "3.2"];
 
 export type ParameterLocation = "cookie" | "header" | "path" | "query";
 
+/**
+ * Every style any measured version defines, as one union.
+ *
+ * `cookie` exists only in 3.2, and the union does not say so: which styles a
+ * version defines belongs to the surface enumeration, which is per version and
+ * is what a coverage map is drawn from. A union per version would make a case
+ * file's type depend on its directory and buy nothing the surface does not
+ * already state.
+ */
 export type Style =
+  | "cookie"
   | "deepObject"
   | "form"
   | "label"
