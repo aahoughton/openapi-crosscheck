@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "openapi-core"
   },
-  "corpusDigest": "sha256:289ed7aac537f32567e25e85b367a67ed5c346a4652c7372efcce3e597f6733a",
+  "corpusDigest": "sha256:e144982e1018e07d39455f4784db195bf3fa5eb614f90a6b41e9178433b7e3a2",
   "capabilities": {
     "stages": {
       "routing": true,

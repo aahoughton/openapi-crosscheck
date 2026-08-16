@@ -145,7 +145,7 @@ export const STYLE_EXAMPLE_SIMPLE_NO_EXPLODE = cite(
  * characters `%20` are three characters of the value.
  */
 export const COOKIE_PERCENT_ENCODING_NOT_DECODED = cite(
-  "fixed-fields-for-rfc6570-style-serialization",
+  "fixed-fields-for-use-with-schema",
   'Care is needed for parameters with schema that have in: "header" or in: "cookie", ' +
     'style: "cookie": When serializing these values, URI percent-encoding MUST NOT be ' +
     "applied. When parsing these parameters, any apparent percent-encoding MUST NOT be " +

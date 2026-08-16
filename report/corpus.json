@@ -685,8 +685,8 @@
         },
         {
           "oasVersion": "3.2",
-          "anchor": "fixed-fields-for-rfc6570-style-serialization",
-          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-rfc6570-style-serialization",
+          "anchor": "fixed-fields-for-use-with-schema",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema",
           "quoted": "Care is needed for parameters with schema that have in: \"header\" or in: \"cookie\", style: \"cookie\": When serializing these values, URI percent-encoding MUST NOT be applied. When parsing these parameters, any apparent percent-encoding MUST NOT be decoded. If using an RFC6570 implementation that automatically performs encoding or decoding steps, the steps MUST be undone before use."
         },
         {

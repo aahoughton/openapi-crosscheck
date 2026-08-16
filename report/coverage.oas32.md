@@ -171,7 +171,7 @@ resting on it, and can see which cited sections carry only one.
 
 | section | cases |
 | --- | --- |
-| fixed-fields-for-rfc6570-style-serialization | `cookie-cookie-scalar-percent-triple-oas32` |
+| fixed-fields-for-use-with-schema | `cookie-cookie-scalar-percent-triple-oas32` |
 | parameter-allow-reserved | `path-simple-scalar-allow-reserved-declared-oas32`, `path-simple-scalar-allow-reserved-unset-oas32` |
 | parameter-explode | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `query-deep-object-no-explode-oas32` |
 | parameter-style | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32` |

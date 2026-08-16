@@ -361,7 +361,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > | cookie | primitive, array, object | cookie | Analogous to form, but following [RFC6265] Cookie syntax rules, meaning that name-value pairs are separated by a semicolon followed by a single space (e.g. n1=v1; n2=v2), and no percent-encoding or other escaping is applied; data values that require any sort of escaping MUST be provided in escaped form. |
 
-[fixed-fields-for-rfc6570-style-serialization](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-rfc6570-style-serialization)
+[fixed-fields-for-use-with-schema](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema)
 
 > Care is needed for parameters with schema that have in: "header" or in: "cookie", style: "cookie": When serializing these values, URI percent-encoding MUST NOT be applied. When parsing these parameters, any apparent percent-encoding MUST NOT be decoded. If using an RFC6570 implementation that automatically performs encoding or decoding steps, the steps MUST be undone before use.
 

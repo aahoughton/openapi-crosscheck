@@ -61,7 +61,7 @@ expected verdicts rest on.
 
 Rules those verdicts rest on:
 
-- [fixed-fields-for-rfc6570-style-serialization](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-rfc6570-style-serialization)
+- [fixed-fields-for-use-with-schema](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema)
 - [parameter-style](https://spec.openapis.org/oas/v3.2.0.html#parameter-style)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
 - [style-values](https://spec.openapis.org/oas/v3.2.0.html#style-values)
@@ -100,7 +100,7 @@ expected verdicts rest on.
 
 Rules those verdicts rest on:
 
-- [fixed-fields-for-rfc6570-style-serialization](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-rfc6570-style-serialization)
+- [fixed-fields-for-use-with-schema](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema)
 - [parameter-style](https://spec.openapis.org/oas/v3.2.0.html#parameter-style)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
 - [style-values](https://spec.openapis.org/oas/v3.2.0.html#style-values)
@@ -147,7 +147,7 @@ expected verdicts rest on.
 
 Rules those verdicts rest on:
 
-- [fixed-fields-for-rfc6570-style-serialization](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-rfc6570-style-serialization)
+- [fixed-fields-for-use-with-schema](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema)
 - [parameter-style](https://spec.openapis.org/oas/v3.2.0.html#parameter-style)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
 - [style-values](https://spec.openapis.org/oas/v3.2.0.html#style-values)
@@ -188,7 +188,7 @@ expected verdicts rest on.
 
 Rules those verdicts rest on:
 
-- [fixed-fields-for-rfc6570-style-serialization](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-rfc6570-style-serialization)
+- [fixed-fields-for-use-with-schema](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema)
 - [parameter-style](https://spec.openapis.org/oas/v3.2.0.html#parameter-style)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
 - [style-values](https://spec.openapis.org/oas/v3.2.0.html#style-values)
@@ -241,7 +241,7 @@ Rules those verdicts rest on:
 
 Rules those verdicts rest on:
 
-- [fixed-fields-for-rfc6570-style-serialization](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-rfc6570-style-serialization)
+- [fixed-fields-for-use-with-schema](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema)
 - [parameter-style](https://spec.openapis.org/oas/v3.2.0.html#parameter-style)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
 - [style-values](https://spec.openapis.org/oas/v3.2.0.html#style-values)
