@@ -331,7 +331,7 @@ ${
         .join("")}`
 }
 <header>
-  <p class="eyebrow">openapi-crosscheck</p>
+  <p class="eyebrow"><a href="https://github.com/aahoughton/openapi-crosscheck" rel="noreferrer noopener">openapi-crosscheck</a></p>
   <h1>OpenAPI ${escape(oasVersions(cases))} request validation, measured across ${String(entries.length)} librar${entries.length === 1 ? "y" : "ies"}</h1>
   <div class="meta">
     <span><b>cases</b> ${scopedCount((found) => found.conformance + found.divergence)}</span>
@@ -842,6 +842,7 @@ h1,header p,.section-head p,.callout p,.callout dd,.map .q{max-width:74ch}
    scroll, and the surrounding page compresses to the viewport. */
 @media (max-width:48rem){.wrap{min-width:0}}
 .eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 .75rem}
+.eyebrow a{color:inherit;text-decoration:none}
 h1{font-size:clamp(1.9rem,4.5vw,2.55rem);line-height:1.15;letter-spacing:-.022em;font-weight:620;margin:0 0 .85rem;text-wrap:balance}
 h2{font-size:1.3rem;font-weight:600;margin:0 0 .35rem}
 h3{font-size:1rem;font-weight:600;margin:0 0 .3rem}
