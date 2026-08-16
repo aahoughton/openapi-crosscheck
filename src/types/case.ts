@@ -137,7 +137,23 @@ export interface Citation {
   /** Section anchor within the specification document, e.g. `style-values`. */
   readonly anchor: string;
   readonly url: string;
-  /** Verbatim specification text. Quoted, not paraphrased. */
+  /**
+   * Verbatim specification text. Quoted, not paraphrased.
+   *
+   * Verbatim includes punctuation, so a sentence the document sets with a
+   * typographic apostrophe carries one here. That sits against the rule that
+   * generated output is ASCII, and the two are reconciled by the sentence in
+   * `AGENTS.md` exempting data passed through from a specification: this text
+   * is the specification's, and normalising it would make the quote something
+   * this repository wrote.
+   *
+   * Recorded as tentative rather than settled. Nothing enforces the choice, and
+   * the case for the other one is real: every other byte this project publishes
+   * is ASCII, and a transcriber deciding faithfulness character by character is
+   * how transcriptions drift. If it is revisited, the change is a normalising
+   * step in the `cite` helpers and an amendment to that sentence in `AGENTS.md`,
+   * applied together. What it must not become is a per-quote judgement.
+   */
   readonly quoted: string;
 }
 

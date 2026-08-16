@@ -18,6 +18,11 @@ import type { Citation } from "../../types/case";
 
 const SPEC = "https://spec.openapis.org/oas/v3.0.4.html";
 
+/**
+ * Transcribe as the document sets it, punctuation included. Whether that is
+ * right is open, and the `quoted` field on `Citation` carries the tension and
+ * what changing the answer would take.
+ */
 function cite(anchor: string, quoted: string): Citation {
   return { oasVersion: "3.0", anchor, url: `${SPEC}#${anchor}`, quoted };
 }
