@@ -9,6 +9,7 @@ import {
   STAGE_SLOTS,
   caseNote,
   compareLibraryNames,
+  coverage,
   disagreements,
   type Entry,
 } from "../../src/report/view";
@@ -178,6 +179,59 @@ describe("a count under the version filter counts what the filter shows", () => 
         const expected = scoped.filter((split) => split.kind === site.kind).length;
         expect(`${site.name} ${slug}: ${site.markup}`).toContain(
           `<span class="vscope v-${slug}">${String(expected)}</span>`,
+        );
+      }
+    }
+  });
+
+  it("counts the corpus per version wherever it says how big it is", () => {
+    // The counts describing the corpus rather than an answer: how many cases
+    // there are, and how many of each tier. They sit above and beside the
+    // chips, so a whole-corpus number here reads as a description of the rows
+    // on screen.
+    const sites = [
+      { name: "header meta", markup: between('<div class="meta">', "</div>") },
+      { name: "conformance intro", markup: between("<h2>Conformance</h2>", "</p>") },
+      { name: "divergence intro", markup: between("<h2>Divergence</h2>", "</p>") },
+    ];
+
+    for (const version of versions) {
+      const slug = `oas${version.replace(".", "")}`;
+      const scoped = coverage(run.cases.filter((testCase) => testCase.oasVersion === version));
+      const expected = {
+        "header meta": [scoped.conformance + scoped.divergence, scoped.conformance, scoped.divergence],
+        "conformance intro": [scoped.conformance],
+        "divergence intro": [scoped.divergence],
+      };
+      for (const site of sites) {
+        for (const value of expected[site.name as keyof typeof expected]) {
+          expect(`${site.name} ${slug}: ${site.markup}`).toContain(
+            `<span class="vscope v-${slug}">${String(value)}</span>`,
+          );
+        }
+      }
+    }
+  });
+
+  it("counts each coverage map against the surface of the version selected", () => {
+    // The surface is per version: 3.2 defines a style the earlier versions do
+    // not, so the same corpus covers a different denominator under each. One
+    // number for the whole corpus would be a sum of three surfaces printed
+    // under a filter showing one of them.
+    for (const version of versions) {
+      const slug = `oas${version.replace(".", "")}`;
+      const scoped = coverage(run.cases.filter((testCase) => testCase.oasVersion === version));
+      const styleMap = between("<h3>style surface</h3>", "</div>");
+      expect(`style surface ${slug}: ${styleMap}`).toContain(
+        `<dd class="vscope v-${slug}">${String(scoped.styleCovered)}</dd>`,
+      );
+      expect(`style surface ${slug}: ${styleMap}`).toContain(
+        `<dd class="vscope v-${slug}">${String(scoped.styleDefined)}</dd>`,
+      );
+      const axisMap = between("<h3>probe axis</h3>", "</div>");
+      for (const entry of scoped.byAxis) {
+        expect(`probe axis ${entry.axis} ${slug}: ${axisMap}`).toContain(
+          `<dd class="vscope v-${slug}${entry.cases === 0 ? " thin" : ""}">${String(entry.cases)}</dd>`,
         );
       }
     }

@@ -2,7 +2,7 @@ import type { Case } from "../types/case";
 import type { OasVersion } from "../types/openapi";
 import type { RunSidecarState } from "./read";
 import type { ConformanceOutcome } from "./score";
-import type { Disagreement } from "./view";
+import type { CoverageView, Disagreement } from "./view";
 import {
   CONFORMANCE_OUTCOMES,
   STAGE_SLOTS,
@@ -251,6 +251,51 @@ export function renderHtml(
     String(found.filter((split) => split.kind === kind).length);
 
   /**
+   * The same reading of the corpus, per version, for every count describing
+   * what the corpus asks rather than what a library answered.
+   *
+   * A coverage number is the one a reader is most likely to attribute to the
+   * version they have selected, and it is the one the filter cannot recompute:
+   * hiding rows cannot change a total drawn once. So each scope carries its own
+   * `coverage` over its own cases, and the surface each is counted against is
+   * that version's, which is why the same corpus can be 10 of 48 under one
+   * version and 41 of 41 under another.
+   */
+  const coverageScopes: readonly { slug: string; view: CoverageView }[] = [
+    { slug: "all", view },
+    ...(versions.length < 2
+      ? []
+      : versions.map((version) => ({
+          slug: versionSlug(version),
+          view: coverage(cases.filter((testCase) => testCase.oasVersion === version)),
+        }))),
+  ];
+
+  /** One span per scope, for a count read off that scope's coverage. */
+  const scopedCount = (of: (found: CoverageView) => number): string =>
+    coverageScopes
+      .map((scope) => `<span class="vscope v-${scope.slug}">${String(of(scope.view))}</span>`)
+      .join("");
+
+  /**
+   * The same, as the value half of a definition list.
+   *
+   * A `dd` per scope rather than a span inside one, because the maps are a grid
+   * of term and value and a hidden `dd` leaves the grid alone. It also keeps
+   * the marking of an empty cell where its stylesheet already puts it, on the
+   * `dd`, and that marking is per scope: an axis with cases under one version
+   * and none under another is exactly what the filter exists to show.
+   */
+  const scopedCells = (of: (found: CoverageView) => number, markEmpty = false): string =>
+    coverageScopes
+      .map((scope) => {
+        const count = of(scope.view);
+        const thin = markEmpty && count === 0 ? " thin" : "";
+        return `<dd class="vscope v-${scope.slug}${thin}">${String(count)}</dd>`;
+      })
+      .join("");
+
+  /**
    * A band naming the parameter location the following rows share.
    *
    * The two big grids run to dozens of rows, and the id prefix is the only
@@ -273,7 +318,7 @@ export function renderHtml(
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>openapi-crosscheck results</title>
+<title>openapi-crosscheck: OpenAPI ${escape(oasVersions(cases))} results</title>
 <style>${STYLE}${versionFilterCss(versions)}</style>
 </head>
 <body>
@@ -289,9 +334,9 @@ ${
   <p class="eyebrow">openapi-crosscheck</p>
   <h1>OpenAPI ${escape(oasVersions(cases))} request validation, measured across ${String(entries.length)} librar${entries.length === 1 ? "y" : "ies"}</h1>
   <div class="meta">
-    <span><b>cases</b> ${String(view.conformance + view.divergence)}</span>
-    <span><b>conformance</b> ${String(view.conformance)}</span>
-    <span><b>divergence</b> ${String(view.divergence)}</span>
+    <span><b>cases</b> ${scopedCount((found) => found.conformance + found.divergence)}</span>
+    <span><b>conformance</b> ${scopedCount((found) => found.conformance)}</span>
+    <span><b>divergence</b> ${scopedCount((found) => found.divergence)}</span>
     <span><b>corpus</b> ${escape(agreement.digests[0]?.slice(0, 19) ?? "none")}</span>
   </div>
   <p class="lede">Every library below got the same OpenAPI documents and the same HTTP requests, and this page is what each one answered. They don't all do the same job, so what each one can be asked differs, and the page says where.</p>
@@ -400,7 +445,7 @@ ${STAGE_SLOTS.map(
 <section>
   <div class="section-head">
     <h2>Conformance</h2>
-    <p><b>What the specification settles.</b> ${String(view.conformance)} cases where it requires one answer, so a different answer is a failure attributable to the library. Every case is listed against every measurement. Nothing is totalled: measurements are asked different numbers of cases, so a count per measurement would carry its own denominator and read as a rank against denominators it doesn't share.</p>${filterChips}
+    <p><b>What the specification settles.</b> ${scopedCount((found) => found.conformance)} cases where it requires one answer, so a different answer is a failure attributable to the library. Every case is listed against every measurement. Nothing is totalled: measurements are asked different numbers of cases, so a count per measurement would carry its own denominator and read as a rank against denominators it doesn't share.</p>${filterChips}
   </div>
   <div class="scroll">
     <table>
@@ -435,7 +480,7 @@ ${CONFORMANCE_OUTCOMES.map(
 <section>
   <div class="section-head">
     <h2>Divergence</h2>
-    <p><b>What the specification leaves open.</b> ${String(view.divergence)} cases where it requires no particular answer, so libraries can differ here and none of them is failing. With no expected answer there's nothing to fail: the table reports what each measurement returned, including the cases they all answered alike, which is a finding of its own about a question the specification left open.</p>${filterChips}
+    <p><b>What the specification leaves open.</b> ${scopedCount((found) => found.divergence)} cases where it requires no particular answer, so libraries can differ here and none of them is failing. With no expected answer there's nothing to fail: the table reports what each measurement returned, including the cases they all answered alike, which is a finding of its own about a question the specification left open.</p>${filterChips}
     <p>Each cell holds two things: the verdict that library reached, and under it the values it handed back, or a note where it hands none.</p>
   </div>
   <div class="scroll">
@@ -543,32 +588,32 @@ ${delta.moved
     <div class="map">
       <h3>style surface</h3>
       <p class="q">Location, style, explode and schema combinations.</p>
-      <dl><dt>covered</dt><dd>${String(view.styleCovered)}</dd><dt>defined</dt><dd>${String(view.styleDefined)}</dd></dl>
+      <dl><dt>covered</dt>${scopedCells((found) => found.styleCovered)}<dt>defined</dt>${scopedCells((found) => found.styleDefined)}</dl>
     </div>
     <div class="map">
       <h3>content surface</h3>
       <p class="q">Location, media type and schema combinations.</p>
-      <dl><dt>covered</dt><dd>${String(view.contentCovered)}</dd><dt>defined</dt><dd>${String(view.contentDefined)}</dd></dl>
+      <dl><dt>covered</dt>${scopedCells((found) => found.contentCovered)}<dt>defined</dt>${scopedCells((found) => found.contentDefined)}</dl>
     </div>
     <div class="map">
       <h3>declaration form</h3>
       <p class="q">The two ways the specification defines.</p>
-      <dl>${view.byDeclaration.map((entry) => `<dt>${escape(entry.declaration)}</dt><dd>${String(entry.cases)}</dd>`).join("")}</dl>
+      <dl>${view.byDeclaration.map((entry, index) => `<dt>${escape(entry.declaration)}</dt>${scopedCells((found) => found.byDeclaration[index]?.cases ?? 0)}`).join("")}</dl>
     </div>
     <div class="map">
       <h3>declared value type</h3>
       <p class="q">What the schemas ask for. A zero is a type nothing probes.</p>
-      <dl>${view.byType.map((entry) => `<dt>${escape(entry.type)}</dt><dd>${String(entry.declaredBy.length)}</dd>`).join("")}</dl>
+      <dl>${view.byType.map((entry, index) => `<dt>${escape(entry.type)}</dt>${scopedCells((found) => found.byType[index]?.declaredBy.length ?? 0)}`).join("")}</dl>
     </div>
     <div class="map">
       <h3>probed stage</h3>
       <p class="q">Which pipeline stage each case exists to test.</p>
-      <dl>${view.byStage.map((entry) => `<dt>${escape(entry.stage)}</dt><dd>${String(entry.conformance + entry.divergence)}</dd>`).join("")}</dl>
+      <dl>${view.byStage.map((entry, index) => `<dt>${escape(entry.stage)}</dt>${scopedCells((found) => (found.byStage[index]?.conformance ?? 0) + (found.byStage[index]?.divergence ?? 0))}`).join("")}</dl>
     </div>
     <div class="map">
       <h3>probe axis</h3>
       <p class="q">What each case varies away from canonical.</p>
-      <dl>${view.byAxis.map((entry) => `<dt>${escape(entry.axis)}</dt><dd class="${entry.cases === 0 ? "thin" : ""}">${String(entry.cases)}</dd>`).join("")}</dl>
+      <dl>${view.byAxis.map((entry, index) => `<dt>${escape(entry.axis)}</dt>${scopedCells((found) => found.byAxis[index]?.cases ?? 0, true)}`).join("")}</dl>
     </div>
   </div>
 </section>
@@ -602,7 +647,10 @@ ${provenance(sidecar)}
  */
 function oasVersions(cases: readonly Case[]): string {
   const versions = [...new Set(cases.map((c) => c.oasVersion))].sort();
-  return versions.join(" and ");
+  // Two read as "3.0 and 3.1"; three or more take commas, because "3.0 and 3.1
+  // and 3.2" is a list a reader has to count.
+  if (versions.length < 3) return versions.join(" and ");
+  return `${versions.slice(0, -1).join(", ")} and ${versions[versions.length - 1] ?? ""}`;
 }
 
 /**
