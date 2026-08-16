@@ -16702,7 +16702,7 @@
           "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema",
           "quoted": "For simpler scenarios, a schema and style can describe the structure and syntax of the parameter. These fields MUST NOT be used with in: \"querystring\"."
         },
-        "detail": "`schema` is one of the fields for use with `schema`, and those MUST NOT be used with `in: \"querystring\"`, which MUST be specified using `content`.",
+        "detail": "`schema` is one of the fields for use with `schema`, and those MUST NOT be used with `in: \"querystring\"`, which MUST be specified using `content`. The dimensions recorded beside this case name a media type the document does not declare: an invalid document has no serialization to record, and the coverage coordinates have no shape that says so.",
         "detectedByMetaSchema": true
       },
       "document": {

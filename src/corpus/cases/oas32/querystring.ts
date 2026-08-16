@@ -363,7 +363,10 @@ export const querystringCases32: readonly Case[] = [
       citation: FIXED_FIELDS_FOR_USE_WITH_SCHEMA,
       detail:
         "`schema` is one of the fields for use with `schema`, and those MUST NOT be used " +
-        'with `in: "querystring"`, which MUST be specified using `content`.',
+        'with `in: "querystring"`, which MUST be specified using `content`. The dimensions ' +
+        "recorded beside this case name a media type the document does not declare: an " +
+        "invalid document has no serialization to record, and the coverage coordinates " +
+        "have no shape that says so.",
       detectedByMetaSchema: true,
     },
     document: document(
@@ -371,6 +374,28 @@ export const querystringCases32: readonly Case[] = [
       "/t",
     ),
     request: request("/t?R=100&G=200"),
+    // The coordinates below describe a serialization this document does not
+    // have. `Dimensions` offers two shapes, a `schema` parameter carrying a
+    // style and an explode, or a `content` parameter carrying a media type, and
+    // a document declaring `schema` where `content` is required is neither.
+    // Nothing serializes here, so there is no media type to record and no style
+    // either, and either shape records something the document never wrote.
+    // `content` with the media type the valid cases send is the choice made,
+    // and `breaksDocumentRule.detail` says so in the measurement itself, where
+    // a reader of `corpus.json` meets the field rather than this comment.
+    //
+    // Written down rather than designed away. A third shape meaning "no
+    // serialization applies" would reach `probedStage`, `canBeAsked`, the
+    // surface placement and every branch on `declaration`, to describe a case
+    // that fills no coverage cell: `placeContentCases` drops a document-rule
+    // case before it reaches the surface.
+    //
+    // One thing to watch. `canBeAsked` reads `declaration` and so asks for
+    // content deserialization ownership here. A library that declares style
+    // deserialization, disclaims content deserialization, and accepts 3.2 would
+    // be recorded `stageNotOwned` on a document carrying no media type. No
+    // measured library does all three today, and whoever meets that empty cell
+    // should find this rather than derive it again.
     dimensions: {
       declaration: "content",
       location: "querystring",

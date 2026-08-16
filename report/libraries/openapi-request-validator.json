@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:e206c6fd26309e1ee6ab6f324042a3e9bc20a26e4adb444eaf11976c60d4ec65",
+  "corpusDigest": "sha256:e8a4bb7ed1d2d3485d420e9a1d07caf88f393373d45bf4fe063f39ee18bcb0c7",
   "capabilities": {
     "stages": {
       "routing": false,
