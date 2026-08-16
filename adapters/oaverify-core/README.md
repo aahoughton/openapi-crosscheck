@@ -16,8 +16,13 @@ them as pairs.
 ## OpenAPI Versions
 
 3.0, 3.1 and 3.2 are declared. The library's Versions table gives 3.2.x the
-2020-12 dialect, the same as 3.1 plus the `QUERY` method, and the installed
-7.0.0 classifies a 3.2 document into that bucket.
+2020-12 dialect, the same as 3.1 plus the `QUERY` method and `style: cookie`,
+and the installed release classifies a 3.2 document into that bucket. Which
+release that was is recorded with every measurement, so it is not restated
+here where it would go stale.
+
+The library's own README says `in: "querystring"` is not recognized yet, which
+the 3.2 querystring cases measure rather than take on trust.
 
 ## Stage Claims
 

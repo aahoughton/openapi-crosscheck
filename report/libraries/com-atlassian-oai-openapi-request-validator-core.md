@@ -9,9 +9,9 @@ Source, as its container states it: https://bitbucket.org/atlassian/swagger-requ
 
 Built from: `adapters/com-atlassian-oai-openapi-request-validator-core/`
 
-Image: `sha256:60c3cc71ac6ea762ae0bd75873c1b63e6486f0f359da70e8b4b41a5a7e4c0ad5`
+Image: `sha256:ab706b6532241b9a70d3ce74f9ffc587c9a65a19ccfba99390c7054c59211aa3`
 
-Configuration `inline-spec-simple-request`: OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Duplicate raw names are grouped into the list shape the builder accepts. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Known limitation: the request builder has no cookie API, so cookie parameters cannot be put to the library through it and those cases are refused here rather than answered.
+Configuration `inline-spec-simple-request`: OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Duplicate raw names are grouped into the list shape the builder accepts. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Cookies reach the library as the `Cookie` header, which the builder does take: it has no cookie API, and the library reads cookie parameters out of that header itself, so the split is the library's and is declared as such. Refusing these cases for want of a cookie API, which this container did until the builder's surface was checked against what the library reads, published ten questions as unanswerable that the library answers.
 
 ## What it does for itself
 
@@ -21,7 +21,7 @@ Configuration `inline-spec-simple-request`: OpenApiInteractionValidator.createFo
 | split: path | owned |
 | split: query | caller |
 | split: header | owned |
-| split: cookie | caller |
+| split: cookie | owned |
 | style and explode | owned |
 | content media type | caller |
 | schema validation | owned |
@@ -98,12 +98,12 @@ nothing is attributed to it.
 
 | case | verdict | values |
 | --- | --- | --- |
-| [`cookie-form-array-canonical-no-explode-oas30`](../matrix.oas30.md#cookie-form-array-canonical-no-explode-oas30) | not asked (cannotRepresentCase) | - |
-| [`cookie-form-array-explode-oas30`](../matrix.oas30.md#cookie-form-array-explode-oas30) | not asked (cannotRepresentCase) | - |
-| [`cookie-form-object-canonical-oas30`](../matrix.oas30.md#cookie-form-object-canonical-oas30) | not asked (cannotRepresentCase) | - |
-| [`cookie-form-object-explode-oas30`](../matrix.oas30.md#cookie-form-object-explode-oas30) | not asked (stageNotOwned) | - |
-| [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | not asked (cannotRepresentCase) | - |
-| [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | not asked (cannotRepresentCase) | - |
+| [`cookie-form-array-canonical-no-explode-oas30`](../matrix.oas30.md#cookie-form-array-canonical-no-explode-oas30) | accepted | not exposed by this library |
+| [`cookie-form-array-explode-oas30`](../matrix.oas30.md#cookie-form-array-explode-oas30) | accepted | not exposed by this library |
+| [`cookie-form-object-canonical-oas30`](../matrix.oas30.md#cookie-form-object-canonical-oas30) | rejected | not exposed by this library |
+| [`cookie-form-object-explode-oas30`](../matrix.oas30.md#cookie-form-object-explode-oas30) | rejected | not exposed by this library |
+| [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | accepted | not exposed by this library |
+| [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | accepted | not exposed by this library |
 | [`header-simple-array-duplicate-name-oas30`](../matrix.oas30.md#header-simple-array-duplicate-name-oas30) | rejected | not exposed by this library |
 | [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | not exposed by this library |
 | [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | accepted | not exposed by this library |
@@ -202,12 +202,12 @@ nothing is attributed to it.
 
 | case | verdict | values |
 | --- | --- | --- |
-| [`cookie-form-array-canonical-no-explode-oas31`](../matrix.oas31.md#cookie-form-array-canonical-no-explode-oas31) | not asked (cannotRepresentCase) | - |
-| [`cookie-form-array-explode-oas31`](../matrix.oas31.md#cookie-form-array-explode-oas31) | not asked (cannotRepresentCase) | - |
-| [`cookie-form-object-canonical-oas31`](../matrix.oas31.md#cookie-form-object-canonical-oas31) | not asked (cannotRepresentCase) | - |
-| [`cookie-form-object-explode-oas31`](../matrix.oas31.md#cookie-form-object-explode-oas31) | not asked (stageNotOwned) | - |
-| [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | not asked (cannotRepresentCase) | - |
-| [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | not asked (cannotRepresentCase) | - |
+| [`cookie-form-array-canonical-no-explode-oas31`](../matrix.oas31.md#cookie-form-array-canonical-no-explode-oas31) | rejected | not exposed by this library |
+| [`cookie-form-array-explode-oas31`](../matrix.oas31.md#cookie-form-array-explode-oas31) | rejected | not exposed by this library |
+| [`cookie-form-object-canonical-oas31`](../matrix.oas31.md#cookie-form-object-canonical-oas31) | rejected | not exposed by this library |
+| [`cookie-form-object-explode-oas31`](../matrix.oas31.md#cookie-form-object-explode-oas31) | rejected | not exposed by this library |
+| [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | accepted | not exposed by this library |
+| [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | accepted | not exposed by this library |
 | [`header-simple-array-duplicate-name-oas31`](../matrix.oas31.md#header-simple-array-duplicate-name-oas31) | rejected | not exposed by this library |
 | [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | not exposed by this library |
 | [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | accepted | not exposed by this library |

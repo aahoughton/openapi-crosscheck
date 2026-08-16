@@ -23,7 +23,7 @@ builder accepts.
 | splitting: path    | owned  |
 | splitting: query   | caller |
 | splitting: header  | owned  |
-| splitting: cookie  | caller |
+| splitting: cookie  | owned  |
 | style and explode  | owned  |
 | content media type | caller |
 | schema validation  | owned  |
@@ -42,10 +42,17 @@ cannot represent, rather than handed over as an empty value.
 Header splitting is claimed because headers are passed to the builder as wire
 names and values, and the library matches them to declared header parameters.
 
-Cookie splitting is caller-owned because the request builder exposes no cookie
-API. Cookie parameter cases that cannot be represented through this public
-surface are reported as `cannotRepresentCase`, which names the library's
-surface rather than this container's.
+Cookie splitting is owned because the library reads cookie parameters out of the
+`Cookie` header, and the builder does take headers. `SimpleRequest.Builder`
+carries `withAccept`, `withAuthorization`, `withBody`, `withContentType`,
+`withHeader` and `withQueryParam`, and no cookie method, so the header is the
+route in and the split from header to named cookie is the library's own.
+
+This container previously read the absent cookie method as the library being
+unable to take a cookie parameter at all, and refused ten cases as
+`cannotRepresentCase`. The library answers them. A missing API on the builder
+was evidence about the builder, and it was published as a fact about the
+library.
 
 Style and explode are claimed because the builder methods accept string values.
 Any conversion from the wire value to the schema value happens inside the

@@ -20,7 +20,7 @@ exact set of rules governing it and nothing else.
 
 | library | routing | split: path | split: query | split: header | split: cookie | style and explode | content media type | schema validation | value exposure |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | owned | owned | caller | owned | caller | owned | caller | owned | caller |
+| `com.atlassian.oai:openapi-request-validator-core` | owned | owned | caller | owned | owned | owned | caller | owned | caller |
 | `express-openapi-validator` | owned | owned | owned | owned | caller | owned | owned | owned | owned |
 | `github.com/getkin/kin-openapi` | owned | owned | owned | owned | owned | owned | owned | owned | owned |
 | `github.com/pb33f/libopenapi-validator` | owned | owned | owned | owned | owned | owned | owned | owned | caller |
@@ -54,19 +54,6 @@ expected verdicts rest on.
 **Query splitting.** Split the query string into name and value pairs.
 
 8 divergence cases also probe it: `query-content-and-schema-declared-oas30`, `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas30`, `query-content-two-media-types-oas31`, `query-form-array-duplicate-name-oas30`, `query-form-array-duplicate-name-oas31`, `query-form-scalar-allow-reserved-unset-oas30`, `query-form-scalar-allow-reserved-unset-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
-
-**Cookie splitting.** Split the `Cookie` header into name and value pairs.
-
-1 conformance case probes it: `cookie-cookie-scalar-percent-triple-oas32`.
-
-Rules those verdicts rest on:
-
-- [fixed-fields-for-use-with-schema](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema)
-- [parameter-style](https://spec.openapis.org/oas/v3.2.0.html#parameter-style)
-- [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
-- [style-values](https://spec.openapis.org/oas/v3.2.0.html#style-values)
-
-2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 

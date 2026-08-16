@@ -63,7 +63,7 @@ it.
 
 | library | reached a verdict | observed | of those, one withheld | unexposed | not reached | never asked | raised |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | 140 | 0 | 0 | 140 | 0 | 51 | 0 |
+| `com.atlassian.oai:openapi-request-validator-core` | 152 | 0 | 0 | 152 | 0 | 39 | 0 |
 | `express-openapi-validator` | 162 | 152 | 0 | 10 | 0 | 23 | 6 |
 | `github.com/getkin/kin-openapi` | 166 | 2 | 0 | 164 | 0 | 25 | 0 |
 | `github.com/pb33f/libopenapi-validator` | 191 | 0 | 0 | 191 | 0 | 0 | 0 |
@@ -81,8 +81,8 @@ a failure.
 
 | library | verdict | observed | of those, one withheld | unexposed | not reached | vantages |
 | --- | --- | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | accepted | 0 | 0 | 70 | 0 | none |
-| `com.atlassian.oai:openapi-request-validator-core` | rejected | 0 | 0 | 70 | 0 | none |
+| `com.atlassian.oai:openapi-request-validator-core` | accepted | 0 | 0 | 76 | 0 | none |
+| `com.atlassian.oai:openapi-request-validator-core` | rejected | 0 | 0 | 76 | 0 | none |
 | `express-openapi-validator` | accepted | 90 | 0 | 10 | 0 | handed to the handler |
 | `express-openapi-validator` | rejected | 62 | 0 | 0 | 0 | parsed before validation |
 | `github.com/getkin/kin-openapi` | accepted | 2 | 0 | 121 | 0 | parsed before validation |
@@ -122,7 +122,7 @@ failure.
 
 | library | declares exposure | wrote back | unchanged | not compared |
 | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | no | 0 | 140 | 0 |
+| `com.atlassian.oai:openapi-request-validator-core` | no | 0 | 152 | 0 |
 | `express-openapi-validator` | yes | 0 | 0 | 162 |
 | `github.com/getkin/kin-openapi` | yes | 2 | 164 | 0 |
 | `github.com/pb33f/libopenapi-validator` | no | 0 | 191 | 0 |
@@ -198,7 +198,7 @@ support, and printing only the support would turn that into a checkbox.
 | library | stage | declared | shown by | probes that did not show it |
 | --- | --- | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | routing | owned | `routing-method` | none |
-| `com.atlassian.oai:openapi-request-validator-core` | splitting: cookie | caller | nothing, which is what a disclaim predicts | `splitting-cookie-withoutProbedLocation` (consistent with the disclaim) |
+| `com.atlassian.oai:openapi-request-validator-core` | splitting: cookie | owned | `splitting-cookie-withoutProbedLocation` | none |
 | `com.atlassian.oai:openapi-request-validator-core` | splitting: header | owned | `splitting-header-withoutProbedLocation` | none |
 | `com.atlassian.oai:openapi-request-validator-core` | splitting: path | owned | `splitting-path-withoutProbedLocation` | none |
 | `com.atlassian.oai:openapi-request-validator-core` | splitting: query | caller | nothing, which is what a disclaim predicts | `splitting-query-withoutProbedLocation` (consistent with the disclaim) |
@@ -293,8 +293,8 @@ support, and printing only the support would turn that into a checkbox.
 | probe | asks | declared | accepted side | rejected side | reading |
 | --- | --- | --- | --- | --- | --- |
 | `routing-method` | whether a request for an undeclared method reaches an operation at all | owned | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
-| `splitting-cookie-withoutProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie | caller | not asked (the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library) | not asked (the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library) | disclaimed, and not shown |
-| `splitting-cookie-withProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself | caller | not asked (the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library) | not asked (the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library) | control only; the harness supplied this location, so this row is not evidence |
+| `splitting-cookie-withoutProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie | owned | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
+| `splitting-cookie-withProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself | owned | accepted, no values exposed | rejected, no values exposed | control only; the harness supplied this location, so this row is not evidence |
 | `splitting-header-withoutProbedLocation` | whether a declared header parameter's value is recovered, with the harness supplying its usual split for every location except header | owned | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `splitting-header-withProbedLocation` | whether a declared header parameter's value is recovered, with the harness supplying the header split itself | owned | accepted, no values exposed | rejected, no values exposed | control only; the harness supplied this location, so this row is not evidence |
 | `splitting-path-withoutProbedLocation` | whether a declared path parameter's value is recovered, with the harness supplying its usual split for every location except path | owned | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
@@ -558,7 +558,7 @@ an unbacked claim rather than treated as false.
 
 ### `com.atlassian.oai:openapi-request-validator-core`
 
-`inline-spec-simple-request`: OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Duplicate raw names are grouped into the list shape the builder accepts. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Known limitation: the request builder has no cookie API, so cookie parameters cannot be put to the library through it and those cases are refused here rather than answered.
+`inline-spec-simple-request`: OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Duplicate raw names are grouped into the list shape the builder accepts. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Cookies reach the library as the `Cookie` header, which the builder does take: it has no cookie API, and the library reads cookie parameters out of that header itself, so the split is the library's and is declared as such. Refusing these cases for want of a cookie API, which this container did until the builder's surface was checked against what the library reads, published ten questions as unanswerable that the library answers.
 
 ### `express-openapi-validator`
 

@@ -75,7 +75,7 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:60c3cc71ac6ea762ae0bd75873c1b63e6486f0f359da70e8b4b41a5a7e4c0ad5` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:ab706b6532241b9a70d3ce74f9ffc587c9a65a19ccfba99390c7054c59211aa3` |
 | `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:4ba93d5098a7f131ae97f7b8b0f442f068ec18b9071170d712c65f23d51cfd26` |
 | `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:7d1a87db5508a039cffb745dd0df06e52662a1d956bfdb063ac9e3ddfe748452` |
 | `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:3d643cc09605d86ce8ebf0e53c44d69e6d2e449967a5ec1a2e62112882ae87af` |

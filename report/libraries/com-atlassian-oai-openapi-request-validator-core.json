@@ -12,7 +12,7 @@
     "stages": {
       "routing": true,
       "splitting": {
-        "cookie": false,
+        "cookie": true,
         "header": true,
         "path": true,
         "query": false
@@ -38,10 +38,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "query": [],
-          "cookies": []
+          "query": []
         }
       },
       "accepted": {
@@ -79,7 +78,7 @@
       "supply": "withoutProbedLocation",
       "location": "cookie",
       "asks": "whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie",
-      "declared": false,
+      "declared": true,
       "preparse": {
         "performedBy": "harness",
         "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
@@ -88,20 +87,32 @@
         }
       },
       "accepted": {
-        "outcome": "unsupported",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library",
-        "observation": null,
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
         "vantage": null,
         "exposedProbedName": false,
-        "raw": null
+        "raw": {
+          "hasErrors": false,
+          "messages": []
+        }
       },
       "rejected": {
-        "outcome": "unsupported",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library",
-        "observation": null,
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
         "vantage": null,
         "exposedProbedName": false,
-        "raw": null
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.schema.enum",
+              "level": "ERROR",
+              "message": "does not have a value in the enumeration [\"blue\"]"
+            }
+          ]
+        }
       }
     },
     {
@@ -110,7 +121,7 @@
       "supply": "withProbedLocation",
       "location": "cookie",
       "asks": "whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself",
-      "declared": false,
+      "declared": true,
       "preparse": {
         "performedBy": "harness",
         "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
@@ -125,20 +136,32 @@
         }
       },
       "accepted": {
-        "outcome": "unsupported",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library",
-        "observation": null,
+        "outcome": "accepted",
+        "detail": null,
+        "observation": "unexposed",
         "vantage": null,
         "exposedProbedName": false,
-        "raw": null
+        "raw": {
+          "hasErrors": false,
+          "messages": []
+        }
       },
       "rejected": {
-        "outcome": "unsupported",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library",
-        "observation": null,
+        "outcome": "rejected",
+        "detail": null,
+        "observation": "unexposed",
         "vantage": null,
         "exposedProbedName": false,
-        "raw": null
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.schema.enum",
+              "level": "ERROR",
+              "message": "does not have a value in the enumeration [\"blue\"]"
+            }
+          ]
+        }
       }
     },
     {
@@ -150,10 +173,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "query": [],
-          "cookies": []
+          "query": []
         }
       },
       "accepted": {
@@ -194,14 +216,13 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs; header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [],
           "headers": {
             "host": "harness.invalid",
             "p": "blue"
-          },
-          "cookies": []
+          }
         }
       },
       "accepted": {
@@ -242,10 +263,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "query": [],
-          "cookies": []
+          "query": []
         }
       },
       "accepted": {
@@ -286,13 +306,12 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "path parameters; raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "path parameters; raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "params": {
             "p": "blue"
           },
-          "query": [],
-          "cookies": []
+          "query": []
         }
       },
       "accepted": {
@@ -331,13 +350,7 @@
       "location": "query",
       "asks": "whether a declared query parameter's value is recovered, with the harness supplying its usual split for every location except query",
       "declared": false,
-      "preparse": {
-        "performedBy": "harness",
-        "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-        "result": {
-          "cookies": []
-        }
-      },
+      "preparse": null,
       "accepted": {
         "outcome": "rejected",
         "detail": null,
@@ -382,15 +395,14 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
               "p",
               "blue"
             ]
-          ],
-          "cookies": []
+          ]
         }
       },
       "accepted": {
@@ -431,10 +443,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "query": [],
-          "cookies": []
+          "query": []
         }
       },
       "accepted": {
@@ -481,10 +492,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "query": [],
-          "cookies": []
+          "query": []
         }
       },
       "accepted": {
@@ -531,15 +541,14 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
               "p",
               "blue,black"
             ]
-          ],
-          "cookies": []
+          ]
         }
       },
       "accepted": {
@@ -586,15 +595,14 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
               "p",
               "%7B%22R%22%3A%22100%22%7D"
             ]
-          ],
-          "cookies": []
+          ]
         }
       },
       "accepted": {
@@ -629,10 +637,9 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "query": [],
-          "cookies": []
+          "query": []
         }
       },
       "accepted": {
@@ -673,10 +680,9 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "query": [],
-          "cookies": []
+          "query": []
         }
       },
       "accepted": {
@@ -717,10 +723,9 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
-          "query": [],
-          "cookies": []
+          "query": []
         }
       },
       "accepted": {
@@ -761,15 +766,14 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
               "p",
               "blue"
             ]
-          ],
-          "cookies": []
+          ]
         }
       },
       "accepted": {
@@ -808,15 +812,14 @@
       "declared": true,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
               "p",
               "blue"
             ]
-          ],
-          "cookies": []
+          ]
         }
       },
       "accepted": {
@@ -855,15 +858,14 @@
       "declared": false,
       "preparse": {
         "performedBy": "harness",
-        "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+        "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
         "result": {
           "query": [
             [
               "p",
               "blue"
             ]
-          ],
-          "cookies": []
+          ]
         }
       },
       "accepted": {
@@ -886,13 +888,13 @@
   ],
   "configuration": {
     "id": "inline-spec-simple-request",
-    "description": "OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Duplicate raw names are grouped into the list shape the builder accepts. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Known limitation: the request builder has no cookie API, so cookie parameters cannot be put to the library through it and those cases are refused here rather than answered.",
+    "description": "OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Duplicate raw names are grouped into the list shape the builder accepts. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Cookies reach the library as the `Cookie` header, which the builder does take: it has no cookie API, and the library reads cookie parameters out of that header itself, so the split is the library's and is declared as such. Refusing these cases for want of a cookie API, which this container did until the builder's surface was checked against what the library reads, published ten questions as unanswerable that the library answers.",
     "options": {}
   },
   "provenance": {
     "kind": "container",
     "slug": "com-atlassian-oai-openapi-request-validator-core",
-    "imageId": "sha256:60c3cc71ac6ea762ae0bd75873c1b63e6486f0f359da70e8b4b41a5a7e4c0ad5",
+    "imageId": "sha256:ab706b6532241b9a70d3ce74f9ffc587c9a65a19ccfba99390c7054c59211aa3",
     "ecosystem": "maven"
   },
   "answers": [
@@ -988,20 +990,24 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": [
-              [
-                "p",
-                "blue,black"
-              ]
-            ]
+            "query": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": false,
+          "messages": []
+        }
       }
     },
     {
@@ -1012,20 +1018,30 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": [
-              [
-                "p",
-                "blue,black"
-              ]
-            ]
+            "query": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.schema.invalidJson",
+              "level": "ERROR",
+              "message": "Unable to parse JSON - Unrecognized token 'blue': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 1]."
+            }
+          ]
+        }
       }
     },
     {
@@ -1036,24 +1052,24 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": [
-              [
-                "p",
-                "blue"
-              ],
-              [
-                "p",
-                "black"
-              ]
-            ]
+            "query": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": false,
+          "messages": []
+        }
       }
     },
     {
@@ -1064,24 +1080,30 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": [
-              [
-                "p",
-                "blue"
-              ],
-              [
-                "p",
-                "black"
-              ]
-            ]
+            "query": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.collection.invalid",
+              "level": "ERROR",
+              "message": "Multiple values found for parameter 'p' but it is not an array."
+            }
+          ]
+        }
       }
     },
     {
@@ -1104,20 +1126,30 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": [
-              [
-                "p",
-                "R,100,G,200"
-              ]
-            ]
+            "query": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.schema.invalidJson",
+              "level": "ERROR",
+              "message": "Unable to parse JSON - Unrecognized token 'R': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 1]."
+            }
+          ]
+        }
       }
     },
     {
@@ -1128,20 +1160,30 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": [
-              [
-                "p",
-                "R,100,G,200"
-              ]
-            ]
+            "query": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.schema.invalidJson",
+              "level": "ERROR",
+              "message": "Unable to parse JSON - Unrecognized token 'R': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 1]."
+            }
+          ]
+        }
       }
     },
     {
@@ -1150,10 +1192,32 @@
         "library": "com.atlassian.oai:openapi-request-validator-core",
         "libraryVersion": "3.0.0",
         "configurationId": "inline-spec-simple-request",
-        "preparse": null,
-        "outcome": "unsupported",
-        "reason": "stageNotOwned",
-        "detail": "this case probes splitting for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.cookie.missing",
+              "level": "ERROR",
+              "message": "Cookie parameter 'p' is required on path '/t' but not found in request."
+            }
+          ]
+        }
       }
     },
     {
@@ -1162,10 +1226,32 @@
         "library": "com.atlassian.oai:openapi-request-validator-core",
         "libraryVersion": "3.0.0",
         "configurationId": "inline-spec-simple-request",
-        "preparse": null,
-        "outcome": "unsupported",
-        "reason": "stageNotOwned",
-        "detail": "this case probes splitting for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.cookie.missing",
+              "level": "ERROR",
+              "message": "Cookie parameter 'p' is required on path '/t' but not found in request."
+            }
+          ]
+        }
       }
     },
     {
@@ -1176,20 +1262,24 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": [
-              [
-                "p",
-                "blue"
-              ]
-            ]
+            "query": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": false,
+          "messages": []
+        }
       }
     },
     {
@@ -1200,20 +1290,24 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": [
-              [
-                "p",
-                "blue"
-              ]
-            ]
+            "query": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": false,
+          "messages": []
+        }
       }
     },
     {
@@ -1224,20 +1318,24 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": [
-              [
-                "p",
-                "blue"
-              ]
-            ]
+            "query": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": false,
+          "messages": []
+        }
       }
     },
     {
@@ -1248,20 +1346,24 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": [
-              [
-                "p",
-                "blue"
-              ]
-            ]
+            "query": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "the request builder exposes no cookie API, so a cookie parameter cannot be put to the library at all; supplying it as a raw header would measure this adapter's cookie split rather than the library"
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": false,
+          "messages": []
+        }
       }
     },
     {
@@ -1296,10 +1398,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -1325,10 +1426,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1360,10 +1460,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -1389,10 +1488,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1424,10 +1522,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1459,10 +1556,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1494,10 +1590,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -1523,10 +1618,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1558,10 +1652,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -1587,10 +1680,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1622,10 +1714,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1657,10 +1748,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1692,10 +1782,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1727,10 +1816,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1762,10 +1850,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -1791,10 +1878,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -1820,10 +1906,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -1849,10 +1934,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -1902,10 +1986,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -1931,10 +2014,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -1966,10 +2048,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -1995,10 +2076,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2030,10 +2110,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2059,10 +2138,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2094,10 +2172,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2129,10 +2206,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2164,10 +2240,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2199,10 +2274,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2234,10 +2308,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2263,10 +2336,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2292,10 +2364,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2321,10 +2392,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2350,10 +2420,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2379,10 +2448,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2414,10 +2482,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2443,10 +2510,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2478,10 +2544,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2507,10 +2572,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2542,10 +2606,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2571,10 +2634,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2606,10 +2668,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2635,10 +2696,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2664,10 +2724,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2699,10 +2758,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2734,10 +2792,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2769,10 +2826,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -2804,10 +2860,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2833,10 +2888,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2862,10 +2916,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2891,10 +2944,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2920,10 +2972,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2949,10 +3000,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -2978,10 +3028,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3013,10 +3062,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3048,10 +3096,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3077,10 +3124,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3106,10 +3152,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3141,10 +3186,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3176,10 +3220,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3205,10 +3248,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3234,10 +3276,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3263,10 +3304,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3298,10 +3338,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3327,10 +3366,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3362,10 +3400,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3391,10 +3428,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3426,10 +3462,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3461,10 +3496,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3496,10 +3530,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3531,10 +3564,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3590,10 +3622,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3619,10 +3650,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3648,10 +3678,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3677,10 +3706,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3706,10 +3734,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3735,10 +3762,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -3764,10 +3790,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3799,10 +3824,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -3930,7 +3954,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -3941,8 +3965,7 @@
                 "p%5BG%5D",
                 "200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -3979,7 +4002,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -3990,8 +4013,7 @@
                 "p%5BG%5D",
                 "200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4040,7 +4062,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -4051,8 +4073,7 @@
                 "p%5BG%5D",
                 "200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4089,7 +4110,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -4100,8 +4121,7 @@
                 "p%5BG%5D",
                 "200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4150,7 +4170,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -4161,8 +4181,7 @@
                 "p",
                 "black"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4188,7 +4207,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -4199,8 +4218,7 @@
                 "p",
                 "black"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4232,15 +4250,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "blue,black"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4266,15 +4283,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "blue,black"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4330,15 +4346,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 ""
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4364,15 +4379,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 ""
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4404,7 +4418,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -4415,8 +4429,7 @@
                 "p",
                 "2"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4442,7 +4455,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -4453,8 +4466,7 @@
                 "p",
                 "2"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4486,7 +4498,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -4497,8 +4509,7 @@
                 "p",
                 "black"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4524,7 +4535,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -4535,8 +4546,7 @@
                 "p",
                 "black"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4568,15 +4578,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "true"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4602,15 +4611,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "true"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4636,15 +4644,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "blue"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4676,15 +4683,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "blue"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4716,7 +4722,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -4727,8 +4733,7 @@
                 "G",
                 "200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4754,7 +4759,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -4765,8 +4770,7 @@
                 "G",
                 "200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -4792,15 +4796,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "R,100,G,200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4832,15 +4835,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "R,100,G,200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4872,15 +4874,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "R,100,G,200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4912,15 +4913,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "R,100,G,200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -4952,10 +4952,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -4992,10 +4991,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -5032,7 +5030,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5043,8 +5041,7 @@
                 "G",
                 "200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -5076,7 +5073,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -5087,8 +5084,7 @@
                 "G",
                 "200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -5120,15 +5116,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 ""
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -5154,15 +5149,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 ""
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -5194,15 +5188,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "a/b:c"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -5228,15 +5221,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "a/b:c"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -5262,15 +5254,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "a%2Fb"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -5296,15 +5287,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "a%2Fb"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -5354,15 +5344,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "1.5"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -5394,15 +5383,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "1.5"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -5434,15 +5422,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "100"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -5468,15 +5455,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "100"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -5502,15 +5488,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "x",
                 "blue"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -5547,15 +5532,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "x",
                 "blue"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -5592,15 +5576,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 null
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "unsupported",
@@ -5616,15 +5599,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 null
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "unsupported",
@@ -5640,10 +5622,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -5675,10 +5656,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "rejected",
@@ -5710,15 +5690,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 ""
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -5750,15 +5729,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 ""
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -5790,15 +5768,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "null"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -5824,15 +5801,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "null"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -5858,10 +5834,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -5887,10 +5862,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -5916,10 +5890,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -5945,10 +5918,9 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
-            "query": [],
-            "cookies": []
+            "query": []
           }
         },
         "outcome": "accepted",
@@ -5974,15 +5946,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "blue"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -6008,15 +5979,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "blue"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -6042,15 +6012,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "blue%7Cblack"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -6076,15 +6045,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "blue%7Cblack"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -6116,15 +6084,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "R%7C100%7CG%7C200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -6156,15 +6123,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "R%7C100%7CG%7C200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -6196,15 +6162,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "blue%20black"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "accepted",
@@ -6230,15 +6195,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "blue%20black"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -6270,7 +6234,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6281,8 +6245,7 @@
                 "p",
                 "black"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -6314,7 +6277,7 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
@@ -6325,8 +6288,7 @@
                 "p",
                 "black"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -6358,15 +6320,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "R%20100%20G%20200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",
@@ -6398,15 +6359,14 @@
         "configurationId": "inline-spec-simple-request",
         "preparse": {
           "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
           "result": {
             "query": [
               [
                 "p",
                 "R%20100%20G%20200"
               ]
-            ],
-            "cookies": []
+            ]
           }
         },
         "outcome": "rejected",

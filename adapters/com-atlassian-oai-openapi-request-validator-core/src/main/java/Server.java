@@ -46,7 +46,7 @@ public final class Server {
 
   private static void describe(HttpExchange exchange) throws IOException {
     ObjectNode splitting = JSON.createObjectNode();
-    splitting.put("cookie", false);
+    splitting.put("cookie", true);
     splitting.put("header", true);
     splitting.put("path", true);
     splitting.put("query", false);
@@ -80,9 +80,12 @@ public final class Server {
             + "cell. Duplicate raw names are grouped into the list shape the builder accepts. "
             + "Values are permanently unexposed: ValidationReport carries hasErrors and "
             + "getMessages and no channel for what was deserialized. "
-            + "Known limitation: the request builder has no cookie API, so cookie parameters "
-            + "cannot be put to the library through it and those cases are refused here rather "
-            + "than answered.");
+            + "Cookies reach the library as the `Cookie` header, which the builder does take: "
+            + "it has no cookie API, and the library reads cookie parameters out of that header "
+            + "itself, so the split is the library's and is declared as such. Refusing these "
+            + "cases for want of a cookie API, which this container did until the builder's "
+            + "surface was checked against what the library reads, published ten questions as "
+            + "unanswerable that the library answers.");
     configuration.set("options", JSON.createObjectNode());
 
     ObjectNode body = JSON.createObjectNode();
@@ -160,19 +163,6 @@ public final class Server {
 
   private static ObjectNode runCase(JsonNode message) {
     JsonNode document = message.get("document");
-
-    if (declaresCookieParameter(document)) {
-      ObjectNode body = JSON.createObjectNode();
-      body.put("protocol", PROTOCOL_VERSION);
-      body.put("outcome", "unsupported");
-      body.put("reason", "cannotRepresentCase");
-      body.put(
-          "detail",
-          "the request builder exposes no cookie API, so a cookie parameter cannot be put to "
-              + "the library at all; supplying it as a raw header would measure this adapter's "
-              + "cookie split rather than the library");
-      return body;
-    }
 
     OpenApiInteractionValidator validator;
     try {
