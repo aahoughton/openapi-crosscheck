@@ -74,12 +74,19 @@ Rules those verdicts rest on:
 
 Rules those verdicts rest on:
 
+- [decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings)
 - [decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings)
+- [fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.0.4.html#fixed-fields-for-use-with-content)
+- [fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.1.1.html#fixed-fields-for-use-with-content)
 - [fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
+- [media-type-object](https://spec.openapis.org/oas/v3.0.4.html#media-type-object)
 - [media-type-object](https://spec.openapis.org/oas/v3.1.1.html#media-type-object)
+- [parameter-content](https://spec.openapis.org/oas/v3.0.4.html#parameter-content)
 - [parameter-content](https://spec.openapis.org/oas/v3.1.1.html#parameter-content)
 - [parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
 - [parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
+- [schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
+- [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
 - [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 - [x4-8-12-2-fixed-fields](https://spec.openapis.org/oas/v3.1.1.html#x4-8-12-2-fixed-fields)
@@ -170,8 +177,11 @@ expected verdicts rest on.
 
 Rules those verdicts rest on:
 
+- [parameter-locations](https://spec.openapis.org/oas/v3.0.4.html#parameter-locations)
 - [parameter-locations](https://spec.openapis.org/oas/v3.1.1.html#parameter-locations)
+- [parameter-style](https://spec.openapis.org/oas/v3.0.4.html#parameter-style)
 - [parameter-style](https://spec.openapis.org/oas/v3.1.1.html#parameter-style)
+- [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
 
 2 divergence cases also probe it: `header-simple-array-duplicate-name-oas30`, `header-simple-array-duplicate-name-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
@@ -211,8 +221,11 @@ expected verdicts rest on.
 
 Rules those verdicts rest on:
 
+- [parameter-required](https://spec.openapis.org/oas/v3.0.4.html#parameter-required)
 - [parameter-required](https://spec.openapis.org/oas/v3.1.1.html#parameter-required)
+- [path-templating-matching](https://spec.openapis.org/oas/v3.0.4.html#path-templating-matching)
 - [path-templating-matching](https://spec.openapis.org/oas/v3.1.1.html#path-templating-matching)
+- [paths-path](https://spec.openapis.org/oas/v3.0.4.html#paths-path)
 - [paths-path](https://spec.openapis.org/oas/v3.1.1.html#paths-path)
 
 4 divergence cases also probe it: `path-routing-ambiguous-templates-oas30`, `path-routing-ambiguous-templates-oas31`, `path-routing-identical-templates-oas30`, `path-routing-identical-templates-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
@@ -229,8 +242,11 @@ simple.
 
 Rules those verdicts rest on:
 
+- [parameter-locations](https://spec.openapis.org/oas/v3.0.4.html#parameter-locations)
 - [parameter-locations](https://spec.openapis.org/oas/v3.1.1.html#parameter-locations)
+- [parameter-style](https://spec.openapis.org/oas/v3.0.4.html#parameter-style)
 - [parameter-style](https://spec.openapis.org/oas/v3.1.1.html#parameter-style)
+- [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
 
 2 divergence cases also probe it: `header-simple-array-duplicate-name-oas30`, `header-simple-array-duplicate-name-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
@@ -258,16 +274,30 @@ Rules those verdicts rest on:
 
 Rules those verdicts rest on:
 
+- [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
 - [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion)
+- [parameter-allow-reserved](https://spec.openapis.org/oas/v3.0.4.html#parameter-allow-reserved)
 - [parameter-allow-reserved](https://spec.openapis.org/oas/v3.1.1.html#parameter-allow-reserved)
+- [parameter-allow-reserved](https://spec.openapis.org/oas/v3.2.0.html#parameter-allow-reserved)
+- [parameter-explode](https://spec.openapis.org/oas/v3.0.4.html#parameter-explode)
 - [parameter-explode](https://spec.openapis.org/oas/v3.1.1.html#parameter-explode)
+- [parameter-explode](https://spec.openapis.org/oas/v3.2.0.html#parameter-explode)
+- [parameter-name](https://spec.openapis.org/oas/v3.0.4.html#parameter-name)
 - [parameter-name](https://spec.openapis.org/oas/v3.1.1.html#parameter-name)
+- [parameter-required](https://spec.openapis.org/oas/v3.0.4.html#parameter-required)
 - [parameter-required](https://spec.openapis.org/oas/v3.1.1.html#parameter-required)
+- [parameter-style](https://spec.openapis.org/oas/v3.0.4.html#parameter-style)
 - [parameter-style](https://spec.openapis.org/oas/v3.1.1.html#parameter-style)
+- [parameter-style](https://spec.openapis.org/oas/v3.2.0.html#parameter-style)
+- [path-templating](https://spec.openapis.org/oas/v3.0.4.html#path-templating)
 - [path-templating](https://spec.openapis.org/oas/v3.1.1.html#path-templating)
 - [schema-nullable](https://spec.openapis.org/oas/v3.0.4.html#schema-nullable)
+- [schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
+- [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+- [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
+- [style-examples](https://spec.openapis.org/oas/v3.2.0.html#style-examples)
 - [style-values](https://spec.openapis.org/oas/v3.2.0.html#style-values)
 
 34 divergence cases also probe it: `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-array-explode-oas30`, `cookie-form-array-explode-oas31`, `cookie-form-array-explode-oas32`, `cookie-form-object-canonical-oas30`, `cookie-form-object-canonical-oas31`, `cookie-form-scalar-canonical-oas30`, and 26 more in the matrix files. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
@@ -278,12 +308,19 @@ Rules those verdicts rest on:
 
 Rules those verdicts rest on:
 
+- [decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings)
 - [decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings)
+- [fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.0.4.html#fixed-fields-for-use-with-content)
+- [fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.1.1.html#fixed-fields-for-use-with-content)
 - [fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
+- [media-type-object](https://spec.openapis.org/oas/v3.0.4.html#media-type-object)
 - [media-type-object](https://spec.openapis.org/oas/v3.1.1.html#media-type-object)
+- [parameter-content](https://spec.openapis.org/oas/v3.0.4.html#parameter-content)
 - [parameter-content](https://spec.openapis.org/oas/v3.1.1.html#parameter-content)
 - [parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
 - [parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
+- [schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
+- [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
 - [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 - [x4-8-12-2-fixed-fields](https://spec.openapis.org/oas/v3.1.1.html#x4-8-12-2-fixed-fields)

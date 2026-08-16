@@ -1152,9 +1152,17 @@ function rulesBehind(
   const matching = cases.filter((testCase) => probesStage(testCase, stage, location));
   const settled = matching.filter((c): c is ConformanceCase => c.tier === "conformance");
 
+  // Keyed by version and anchor, because an anchor names a section of one
+  // document and the same section name exists in three. Keyed by anchor alone,
+  // the corpus's id order decided which document's URL survived: `schema-object`
+  // and `fixed-fields-for-use-with-content` exist in all three, so the 3.1 links
+  // were being overwritten by whichever version sorted last, and a reader
+  // following a rule behind a 3.0 case landed in the 3.2 document.
   const seen = new Map<string, Citation>();
   for (const testCase of settled) {
-    for (const citation of testCase.citations) seen.set(citation.anchor, citation);
+    for (const citation of testCase.citations) {
+      seen.set(`${citation.oasVersion}|${citation.anchor}`, citation);
+    }
   }
   return {
     settled: settled.map((testCase) => testCase.id),
@@ -1162,7 +1170,15 @@ function rulesBehind(
     // here: implementations already disagree about this stage, so a caller
     // implementing it is choosing a side rather than following a rule.
     unsettled: matching.filter((c) => c.tier === "divergence").map((c) => c.id),
-    citations: [...seen.values()].sort((a, b) => (a.anchor < b.anchor ? -1 : 1)),
+    citations: [...seen.values()].sort((a, b) =>
+      a.anchor === b.anchor
+        ? a.oasVersion < b.oasVersion
+          ? -1
+          : 1
+        : a.anchor < b.anchor
+          ? -1
+          : 1,
+    ),
   };
 }
 
