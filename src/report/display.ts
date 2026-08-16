@@ -211,5 +211,13 @@ function valuesOf(result: AdapterResult | undefined): string {
   const observation = result.deserialized;
   if (observation.kind === "unexposed") return "not exposed by this library";
   if (observation.kind === "notReached") return `none reached (${observation.reason})`;
-  return `\`${JSON.stringify(observation.value)}\``;
+  // A parameter this container could not read is absent from `value` exactly as
+  // a parameter the library reported nothing for is, so it is named here rather
+  // than left to look like the second.
+  const unreadable = Object.keys(observation.unreadable ?? {}).sort();
+  const withheld =
+    unreadable.length === 0
+      ? ""
+      : `, and this container could not read ${unreadable.map((name) => `\`${name}\``).join(", ")}`;
+  return `\`${JSON.stringify(observation.value)}\`${withheld}`;
 }

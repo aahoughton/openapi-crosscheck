@@ -781,7 +781,7 @@
   "provenance": {
     "kind": "container",
     "slug": "libopenapi-validator",
-    "imageId": "sha256:e2e0e033db583f8f687cf014e496eb95cd456aebe7bcabc11350d9b9b31c67c9",
+    "imageId": "sha256:3d643cc09605d86ce8ebf0e53c44d69e6d2e449967a5ec1a2e62112882ae87af",
     "ecosystem": "go"
   },
   "answers": [

@@ -46,6 +46,31 @@ export type Observation<T> =
       readonly vantage: ValueVantage;
       readonly value: T;
       readonly nativeTypes: NativeTypes;
+      /**
+       * Declared parameters this container could not read, each with the reason,
+       * keyed by the same declared names as `value`.
+       *
+       * The value channel had two states for a parameter and needed three. A
+       * name present in `value` is one the library reported. A name absent from
+       * it meant the library reported nothing for it, and that is a fact about
+       * the library. It was also the only spelling available to a container
+       * facing a parameter its library's request shape has no slot for, so a
+       * container gap and a library's silence arrived identically, and the
+       * report published the second when the first was true.
+       *
+       * `unexposed` covers a library with no value channel at all, so it was the
+       * only honest answer once one parameter was unreadable, at the cost of
+       * discarding the values the container did hold for every other parameter
+       * in the case. A case declaring two parameters, one readable and one not,
+       * has an answer worth publishing for the first, and cases exist that turn
+       * on exactly that pairing.
+       *
+       * A name here must not appear in `value`: the two say opposite things, and
+       * the protocol suite refuses a container that reports both. Absent means
+       * every declared parameter was readable, which is what every answer before
+       * this field existed was already claiming.
+       */
+      readonly unreadable?: Readonly<Record<string, string>>;
     }
   /** The library has no API that exposes this, at any input. */
   | { readonly kind: "unexposed"; readonly reason: string }

@@ -148,7 +148,14 @@ function values(result: AdapterResult): string {
   const deserialized = result.deserialized;
   if (deserialized.kind === "unexposed") return `unexposed: ${deserialized.reason}`;
   if (deserialized.kind === "notReached") return `not reached: ${deserialized.reason}`;
-  return JSON.stringify(deserialized.value);
+  // Part of the comparison, for the same reason the three kinds are: a
+  // parameter moving into or out of `unreadable` is a real movement between two
+  // runs, and comparing `value` alone reports it as no change at all. Two
+  // answers whose `value` is `{}` differ when one of them says a parameter had
+  // no slot to be read from.
+  const unreadable = Object.keys(deserialized.unreadable ?? {}).sort();
+  const withheld = unreadable.length === 0 ? "" : ` (withheld: ${unreadable.join(", ")})`;
+  return `${JSON.stringify(deserialized.value)}${withheld}`;
 }
 
 function short(digest: string): string {

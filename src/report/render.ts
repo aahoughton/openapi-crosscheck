@@ -324,6 +324,11 @@ function renderMatrix(
       "this request |",
   );
   lines.push("| `none reached` | it does expose values, and produced none here |");
+  lines.push(
+    "| `and this container could not read `p`` | the parameter has no slot in the request " +
+      "shape this library takes, so it was never put to the library. A different fact from " +
+      "the library reporting no value for it |",
+  );
   lines.push("");
   lines.push("A case marked **answered in the values** is one the verdict cannot carry: every");
   lines.push("reading of the specification accepts the request, and what separates them is");
@@ -413,7 +418,20 @@ function valuesOf(result: AdapterResult | undefined): string {
   const observation = result.deserialized;
   if (observation.kind === "unexposed") return `not exposed by this library (${observation.reason})`;
   if (observation.kind === "notReached") return `none reached (${observation.reason})`;
-  return `\`${JSON.stringify(observation.value)}\` (${vantageOf(observation.vantage)})`;
+  // Named rather than left out. A parameter the container could not read is
+  // absent from `value` exactly as a parameter the library reported nothing for
+  // is, and a cell that prints only the values it has says the second when the
+  // first is true.
+  const unreadable = Object.entries(observation.unreadable ?? {}).sort(([one], [other]) =>
+    one < other ? -1 : 1,
+  );
+  const gap =
+    unreadable.length === 0
+      ? ""
+      : `, and this container could not read ${unreadable
+          .map(([name, reason]) => `\`${name}\` (${reason})`)
+          .join(", ")}`;
+  return `\`${JSON.stringify(observation.value)}\` (${vantageOf(observation.vantage)})${gap}`;
 }
 
 /**
@@ -1269,15 +1287,23 @@ function renderCapabilities(
   lines.push("never reached that point at all.");
   lines.push("");
   lines.push(
-    `| library | reached a verdict | observed | unexposed | not reached | never asked | raised |`,
+    "`observed` counts an answer that named a parameter this container could not read, and",
   );
-  lines.push("| --- | --- | --- | --- | --- | --- | --- |");
+  lines.push("`of those, one withheld` says how many. A parameter with no slot in a");
+  lines.push("container's request shape was never put to the library, so counting it as a");
+  lines.push("value the library declined to report would attribute the container's reach to");
+  lines.push("it.");
+  lines.push("");
+  lines.push(
+    `| library | reached a verdict | observed | of those, one withheld | unexposed | not reached | never asked | raised |`,
+  );
+  lines.push("| --- | --- | --- | --- | --- | --- | --- | --- |");
   for (const adapter of measurements) {
     const tally = exposureTally(adapter);
     lines.push(
       `| \`${adapter.library}\` | ${String(tally.decided)} | ${String(tally.observed)} | ` +
-        `${String(tally.unexposed)} | ${String(tally.notReached)} | ${String(tally.neverAsked)} | ` +
-        `${String(tally.raised)} |`,
+        `${String(tally.partlyObserved)} | ${String(tally.unexposed)} | ` +
+        `${String(tally.notReached)} | ${String(tally.neverAsked)} | ${String(tally.raised)} |`,
     );
   }
   lines.push("");
@@ -1286,14 +1312,17 @@ function renderCapabilities(
   lines.push("library that withholds on rejection is not. Both are legitimate and neither is");
   lines.push("a failure.");
   lines.push("");
-  lines.push("| library | verdict | observed | unexposed | not reached | vantages |");
-  lines.push("| --- | --- | --- | --- | --- | --- |");
+  lines.push(
+    "| library | verdict | observed | of those, one withheld | unexposed | not reached | vantages |",
+  );
+  lines.push("| --- | --- | --- | --- | --- | --- | --- |");
   for (const adapter of measurements) {
     for (const verdict of ["accepted", "rejected"] as const) {
       const tally = exposureTally(adapter, verdict);
       lines.push(
         `| \`${adapter.library}\` | ${verdict} | ${String(tally.observed)} | ` +
-          `${String(tally.unexposed)} | ${String(tally.notReached)} | ${tally.vantages} |`,
+          `${String(tally.partlyObserved)} | ${String(tally.unexposed)} | ` +
+          `${String(tally.notReached)} | ${tally.vantages} |`,
       );
     }
   }
@@ -1496,6 +1525,16 @@ interface ExposureTally {
   /** Cases where the library reached a verdict, so values could have been reported. */
   readonly decided: number;
   readonly observed: number;
+  /**
+   * Of those observed, the ones where a declared parameter had no slot in this
+   * container's request shape and was reported unreadable.
+   *
+   * Counted apart because the row exists to keep a library with no exposure API
+   * and a library that exposed nothing here from reading alike, and an answer
+   * carrying an unreadable parameter is a third thing again: the library
+   * exposed what it was asked for, and one parameter was never put to it.
+   */
+  readonly partlyObserved: number;
   readonly unexposed: number;
   readonly notReached: number;
   readonly neverAsked: number;
@@ -1518,6 +1557,7 @@ function exposureTally(
   let observed = 0;
   let unexposed = 0;
   let notReached = 0;
+  let partlyObserved = 0;
   let neverAsked = 0;
   let raised = 0;
   const vantages = new Set<ValueVantage>();
@@ -1535,6 +1575,7 @@ function exposureTally(
     decided += 1;
     if (result.deserialized.kind === "observed") {
       observed += 1;
+      if (Object.keys(result.deserialized.unreadable ?? {}).length > 0) partlyObserved += 1;
       vantages.add(result.deserialized.vantage);
     } else if (result.deserialized.kind === "unexposed") unexposed += 1;
     else notReached += 1;
@@ -1543,6 +1584,7 @@ function exposureTally(
   return {
     decided,
     observed,
+    partlyObserved,
     unexposed,
     notReached,
     neverAsked,

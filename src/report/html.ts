@@ -512,6 +512,7 @@ ${divergence
       <dt><code>{"p":"blue"}</code></dt><dd>The values the library handed back, as it returned them. The vantage they were read from is recorded with every answer in <code>libraries/&lt;slug&gt;.json</code>, because a value handed to a handler and a value read from a validator are different observations.</dd>
       <dt>not exposed by this library</dt><dd>It reached a verdict, and publishes no call that returns deserialized values. That's a fact about the library rather than about this request.</dd>
       <dt>none reached</dt><dd>It exposes values, and produced none here.</dd>
+      <dt>not readable here</dt><dd>The named parameter has no slot in the request shape this library takes, so it was never put to the library. A different fact from the library reporting no value for it, and it is why the parameter is absent from the values beside it.</dd>
     </dl>
     <p>${divergence.some((line) => line.answeredInValues) ? `A case marked <span class="tag">answered in values</span> is one the verdict can't carry: every reading of the specification accepts the request, and what separates them is what comes back. A library exposing no values reaches a verdict on such a case and answers nothing by it, so read those rows down the value line alone.` : `No case in this run is marked <span class="tag">answered in values</span>, which would mean a case the verdict can't carry.`}</p>
   </div>

@@ -67,3 +67,9 @@ reached the value channel.
 Results report values with the `validatedOnly` vantage. A missing parameter name
 in a rejected result means that parameter did not pass through validation into
 the returned value object.
+
+The returned values are keyed by path, query, header and cookie, so a parameter
+declared anywhere else has no slot to be read from. Those are reported by name
+in `unreadable`, with the reason, rather than left out of the values, which
+would say the library reported nothing for the parameter. `in: "querystring"`
+is what reaches this today.

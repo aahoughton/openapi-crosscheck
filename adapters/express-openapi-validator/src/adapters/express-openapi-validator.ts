@@ -210,22 +210,18 @@ function observeValues(
     };
   }
   // The echo carries params, query and headers. A parameter declared anywhere
-  // else has no slot in it, and reporting the rest would publish an empty value
-  // cell as this library's answer for a parameter nothing read. `querystring`
-  // is the location that reaches this today.
-  const unechoed = declaredParameters(testCase.document).filter(
-    (parameter) => parameter.in !== "path" && parameter.in !== "query" && parameter.in !== "header",
-  );
-  if (unechoed.length > 0) {
-    const locations = [...new Set(unechoed.map((parameter) => parameter.in))].sort().join(", ");
-    return {
-      kind: "unexposed",
-      reason:
-        `the echoed request carries params, query and headers, so a parameter declared in ` +
-        `${locations} has no slot to be read from`,
-    };
+  // else has no slot in it, and leaving it out of `value` would say this library
+  // reported nothing for it. `querystring` is the location that reaches this
+  // today. Reported per parameter, so a case declaring one echoed parameter and
+  // one unechoed one still publishes the value for the first.
+  const unreadable: Record<string, string> = {};
+  for (const parameter of declaredParameters(testCase.document)) {
+    if (parameter.in === "path" || parameter.in === "query" || parameter.in === "header") continue;
+    unreadable[parameter.name] =
+      `the echoed request carries params, query and headers, so a parameter declared in ` +
+      `${parameter.in} has no slot to be read from`;
   }
-  return observed(vantage, echoedValues(testCase, body));
+  return observed(vantage, echoedValues(testCase, body), unreadable);
 }
 
 function echoedValues(testCase: AdapterCase, body: unknown): DeserializedValues {

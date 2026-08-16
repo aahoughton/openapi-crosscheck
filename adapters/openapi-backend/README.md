@@ -57,6 +57,11 @@ Results report values with the `parsedBeforeValidation` vantage. The parsed
 values are read independently of the final verdict, so rejected rows can still
 show values.
 
+The library parses the request into path, query, cookie and header bags, so a
+parameter declared anywhere else has no bag to be read from. Those are reported
+by name in `unreadable`, with the reason, rather than left out of the values,
+which would say the library reported nothing for the parameter.
+
 ## Options
 
 `coerceTypes` is enabled because typed parameter validation depends on coercion

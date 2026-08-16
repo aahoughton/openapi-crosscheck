@@ -13,7 +13,7 @@ from openapi_core import OpenAPI
 from openapi_core.datatypes import RequestParameters
 from werkzeug.datastructures import ImmutableMultiDict
 
-PROTOCOL_VERSION = 3
+PROTOCOL_VERSION = 4
 LIBRARY = "openapi-core"
 # Where this library's source lives. Stated by this container, not resolved.
 LIBRARY_SOURCE = "https://github.com/python-openapi/openapi-core"
@@ -285,33 +285,22 @@ def run(message: Mapping[str, Any]) -> Answer:
     }
 
     # A location this library does not expose a bucket for has no value to read,
-    # and reporting the rest would publish an empty cell as this library's
-    # answer for a parameter nothing looked at. "querystring" is the location
-    # that reaches this: RequestParameters carries four fields and none of them
-    # is it. "The library returned nothing" and "this container could not read
-    # it" are different facts.
-    unreadable = sorted(
-        {
-            location
-            for parameter in declared_parameters(document)
-            if isinstance(location := parameter.get("in"), str) and location not in by_location
-        }
-    )
-    if unreadable:
-        return Answer(
-            outcome="rejected" if errors else "accepted",
-            input_mutation=mutation,
-            deserialized={
-                "kind": "unexposed",
-                "reason": (
-                    "this library exposes parameters as path, query, header and cookie "
-                    f"buckets, so a parameter declared in {', '.join(unreadable)} has no "
-                    "bucket to be read from"
-                ),
-            },
-            raw={
-                "errors": [{"type": type(e).__name__, "message": str(e)} for e in errors],
-            },
+    # and leaving the parameter out of "value" would say the library reported
+    # nothing for it. "querystring" is the location that reaches this:
+    # RequestParameters carries four fields and none of them is it. Reported per
+    # parameter, so a case declaring one exposed parameter and one unexposed one
+    # still publishes the value for the first.
+    unreadable: dict[str, str] = {}
+    for parameter in declared_parameters(document):
+        location = parameter.get("in")
+        name = parameter.get("name")
+        if not isinstance(location, str) or not isinstance(name, str):
+            continue
+        if location in by_location:
+            continue
+        unreadable[name] = (
+            "this library exposes parameters as path, query, header and cookie buckets, "
+            f"so a parameter declared in {location} has no bucket to be read from"
         )
 
     values: dict[str, Any] = {}
@@ -335,6 +324,9 @@ def run(message: Mapping[str, Any]) -> Answer:
             "vantage": VANTAGE,
             "value": values,
             "nativeTypes": types,
+            # Omitted when empty: an answer without the field claims every
+            # declared parameter was readable, which is what it means.
+            **({"unreadable": unreadable} if unreadable else {}),
         },
         raw={
             "errors": [{"type": type(e).__name__, "message": str(e)} for e in errors],

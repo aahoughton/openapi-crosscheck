@@ -56,3 +56,8 @@ middleware had already written onto the request.
 Accepted results report values with the `handedToHandler` vantage. Rejected
 results report values with the `parsedBeforeValidation` vantage, and those
 values can be partial.
+
+The echoed request carries params, query and headers, so a parameter declared
+anywhere else has no slot in it. Those are reported by name in `unreadable`,
+with the reason, rather than left out of the values, which would say the library
+reported nothing for the parameter.

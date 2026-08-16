@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	protocolVersion = 3
+	protocolVersion = 4
 	library         = "github.com/getkin/kin-openapi"
 	modulePath      = "github.com/getkin/kin-openapi"
 	// Where this library's source lives. Stated by this container.

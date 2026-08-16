@@ -886,7 +886,7 @@
   "provenance": {
     "kind": "container",
     "slug": "league-openapi-psr7-validator",
-    "imageId": "sha256:9d7f553270fa9bcd217ae8ba595293e87c15fc794e0cf1d9a7c125406ad18816",
+    "imageId": "sha256:92321ce0fcc17f1ecf3794c3eec045117bc176970f2f99c0c2fec64647430b13",
     "ecosystem": "packagist"
   },
   "answers": [

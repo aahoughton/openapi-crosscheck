@@ -96,6 +96,12 @@ and it is the row to look at when a probe appears mismatched to the library.
      returns values at any input, `notReached` when it has one and did not get
      that far. A report that rendered all three the same would lose information,
      so the protocol makes you pick.
+   - Inside `observed`, `unreadable` names a declared parameter your library's
+     request shape has no slot for, with the reason. Reach for it rather than
+     `unexposed`, which says your library has no value channel at all and throws
+     away the values you hold for every other parameter in the case, and rather
+     than leaving the name out of `value`, which says the library reported
+     nothing for it. A name in `unreadable` must not also appear in `value`.
    - `inputMutation` is the other value channel. Snapshot whatever you hand your
      library, compare it after the call, and say what you compared. If your
      library writes deserialized values onto your request object, its callers

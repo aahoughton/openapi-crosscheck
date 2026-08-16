@@ -68,3 +68,8 @@ parameters.
 Results report values with the `validatedOnly` vantage. A missing parameter name
 in a rejected result means that parameter did not pass through validation into
 the returned parameter object.
+
+The library exposes parameters as path, query, header and cookie buckets, so a
+parameter declared anywhere else has no bucket to be read from. Those are
+reported by name in `unreadable`, with the reason, rather than left out of the
+values, which would say the library reported nothing for the parameter.

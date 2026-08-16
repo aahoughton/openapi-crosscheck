@@ -1347,7 +1347,7 @@
   "provenance": {
     "kind": "container",
     "slug": "oaverify-core",
-    "imageId": "sha256:c6d6f139ad148185805b621ac27465cbce423f4ea44f15eb076c49c0b7456f06",
+    "imageId": "sha256:7f04a9814b8008d7abba8a08638e2860950e14392df99ebe0b13a42026c39bf4",
     "ecosystem": "npm"
   },
   "answers": [
@@ -9538,8 +9538,13 @@
         },
         "outcome": "accepted",
         "deserialized": {
-          "kind": "unexposed",
-          "reason": "this library's returned values are keyed by path, query, header and cookie, so a parameter declared in querystring has no slot to be read from; reporting the rest would publish an empty value cell as this library's answer"
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {},
+          "unreadable": {
+            "p": "this library's returned values are keyed by path, query, header and cookie, so a parameter declared in querystring has no slot to be read from"
+          }
         },
         "inputMutation": {
           "kind": "none",
@@ -9659,8 +9664,13 @@
         },
         "outcome": "accepted",
         "deserialized": {
-          "kind": "unexposed",
-          "reason": "this library's returned values are keyed by path, query, header and cookie, so a parameter declared in querystring has no slot to be read from; reporting the rest would publish an empty value cell as this library's answer"
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {},
+          "unreadable": {
+            "p": "this library's returned values are keyed by path, query, header and cookie, so a parameter declared in querystring has no slot to be read from"
+          }
         },
         "inputMutation": {
           "kind": "none",

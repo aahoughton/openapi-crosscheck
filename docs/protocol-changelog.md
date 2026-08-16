@@ -4,6 +4,33 @@ What changed between protocol versions, and what a container has to do about
 it. The current shape is in [container-protocol.md](container-protocol.md);
 this file is just the history.
 
+## 4
+
+The value channel can now answer per parameter. `deserialized.unreadable` is an
+optional map from a declared parameter name to the reason your container could
+not read it, alongside the `value` map it already sends.
+
+Nothing breaks if you ignore it: omit the field and your answers mean exactly
+what they meant at protocol 3. The bump is here because the meaning of an
+absent name in `value` narrowed, and every container should get the chance to
+look at where it was relying on the old one.
+
+What changed underneath. A name absent from `value` says the library reported
+nothing for that parameter, which is a fact about the library. If your container
+also uses that absence for a parameter your library's request shape has no slot
+for, those two facts are now separable and the second belongs in `unreadable`.
+
+If you were returning the whole-case `unexposed` because one parameter was
+unreadable, this is the field you wanted. `unexposed` says the library has no
+value channel at all, so using it for one awkward parameter discards the values
+you hold for the rest of the case, and a case declaring two parameters is often
+asking about exactly that pairing.
+
+Two rules. A name in `unreadable` must not also appear in `value`; the protocol
+suite fails a container that reports both. And this is for a parameter your
+request shape cannot carry, not for one your library dropped or one the request
+never sent: those are answers, and the corpus asks about them on purpose.
+
 ## 3
 
 Documents can now declare `in: "querystring"`, the fifth parameter location

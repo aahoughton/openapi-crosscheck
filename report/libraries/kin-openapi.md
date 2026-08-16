@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/getkin/kin-openapi
 
 Built from: `adapters/kin-openapi/`
 
-Image: `sha256:e48d496f1c2b1882e534725002ffc8acaf5854de31dbb855c07cffc26e216000`
+Image: `sha256:7d1a87db5508a039cffb745dd0df06e52662a1d956bfdb063ac9e3ddfe748452`
 
 Configuration `validate-request-gorillamux`: openapi3.NewLoader().LoadFromData(document) routed with gorillamux and validated through openapi3filter.ValidateRequest, driven from an http.Request built from the raw target. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the router, so the encoding survives to that point. Values are read from a write-back channel: the function that decodes a styled parameter is unexported and no published call returns decoded values, and ValidateRequest writes values it supplies, such as schema defaults for absent query parameters, back onto the http.Request it was handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 

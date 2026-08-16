@@ -30,7 +30,25 @@ export function score(testCase: ConformanceCase, result: AdapterResult): Conform
   if (result.deserialized.kind === "notReached") return "passVerdictOnly";
 
   const observed = result.deserialized.value;
+  const unreadable = result.deserialized.unreadable ?? {};
+
+  // Every expected name is compared before anything is returned, and a real
+  // failure outranks an unreadable one. Returning on the first unreadable name
+  // instead made the score depend on the order the case wrote `expectedValues`:
+  // with one name failing and another unreadable, `{failing, unreadable}`
+  // scored failValue and `{unreadable, failing}` scored passVerdictOnly, so a
+  // library's attributable failure was masked by a key order nothing about the
+  // measurement should turn on.
+  let withheld = false;
   for (const [name, expected] of Object.entries(testCase.expectedValues)) {
+    // A parameter this container could not read is the whole-case `unexposed`
+    // answer narrowed to one name: the value half could not be asked of it, so
+    // it neither passes nor fails. Comparing it would read the container's gap
+    // as the library omitting a value and fail it for the harness's reach.
+    if (Object.hasOwn(unreadable, name)) {
+      withheld = true;
+      continue;
+    }
     // Presence first. Collapsing a missing key into null would score a library
     // that omitted the parameter the same as one that returned null for it,
     // and nullable schemas are exactly where that distinction carries the case.
@@ -38,7 +56,7 @@ export function score(testCase: ConformanceCase, result: AdapterResult): Conform
     const value = observed[name];
     if (value === undefined || !deepEqual(value, expected)) return "failValue";
   }
-  return "pass";
+  return withheld ? "passVerdictOnly" : "pass";
 }
 
 export function deepEqual(a: JsonValue, b: JsonValue): boolean {

@@ -47,6 +47,16 @@ export type Observation<T> =
       readonly vantage: ValueVantage;
       readonly value: T;
       readonly nativeTypes: NativeTypes;
+      /**
+       * Declared parameters this container could not read, each with the reason.
+       *
+       * Keyed by the same declared names as `value`, and a name here must not
+       * appear there: a parameter absent from `value` says the library reported
+       * nothing for it, which is a fact about the library, and this says the
+       * container had nowhere to read it from. Omit when every declared
+       * parameter was readable.
+       */
+      readonly unreadable?: Readonly<Record<string, string>>;
     }
   /** The library has no API that exposes this, at any input. */
   | { readonly kind: "unexposed"; readonly reason: string }

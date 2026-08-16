@@ -43,6 +43,18 @@ export function describeNativeTypes(values: DeserializedValues): NativeTypes {
 export function observed(
   vantage: ValueVantage,
   value: DeserializedValues,
+  /**
+   * Declared parameters this container could not read, each with the reason.
+   * Omitted from the message when empty, because an answer without the field
+   * claims every declared parameter was readable, which is what it means.
+   */
+  unreadable: Readonly<Record<string, string>> = {},
 ): Observation<DeserializedValues> {
-  return { kind: "observed", vantage, value, nativeTypes: describeNativeTypes(value) };
+  const base = {
+    kind: "observed",
+    vantage,
+    value,
+    nativeTypes: describeNativeTypes(value),
+  } as const;
+  return Object.keys(unreadable).length === 0 ? base : { ...base, unreadable };
 }

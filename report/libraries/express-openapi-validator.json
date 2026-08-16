@@ -1219,7 +1219,7 @@
   "provenance": {
     "kind": "container",
     "slug": "express-openapi-validator",
-    "imageId": "sha256:9d866ad6d5bd3e46b987358c874f01a711ce6e470a63d786ac591876125072f2",
+    "imageId": "sha256:4ba93d5098a7f131ae97f7b8b0f442f068ec18b9071170d712c65f23d51cfd26",
     "ecosystem": "npm"
   },
   "answers": [

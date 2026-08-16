@@ -166,6 +166,20 @@ export function protocolSuite(what: string, adapters: readonly Adapter[]): void 
             expect(Object.keys(result.deserialized.nativeTypes).sort()).toEqual(
               Object.keys(result.deserialized.value).sort(),
             );
+            // A parameter cannot be both read and unreadable. The two say
+            // opposite things about the same name, and a reader joining the
+            // maps would have to pick one; refused here rather than resolved
+            // by whichever the renderer happens to consult.
+            const observation = result.deserialized;
+            const unreadable = Object.keys(observation.unreadable ?? {});
+            expect(unreadable.filter((name) => Object.hasOwn(observation.value, name))).toEqual([]);
+            // A reason per name, for the same reason `unexposed` carries one: a
+            // bare marker says a value is missing without saying what stopped
+            // this container reading it, and that is the half a reader needs to
+            // tell a container's reach from a library's silence.
+            for (const reason of Object.values(observation.unreadable ?? {})) {
+              expect(reason.length).toBeGreaterThan(0);
+            }
           }
         }
       });

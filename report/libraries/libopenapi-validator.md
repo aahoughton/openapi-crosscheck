@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/pb33f/libopenapi-validato
 
 Built from: `adapters/libopenapi-validator/`
 
-Image: `sha256:e2e0e033db583f8f687cf014e496eb95cd456aebe7bcabc11350d9b9b31c67c9`
+Image: `sha256:3d643cc09605d86ce8ebf0e53c44d69e6d2e449967a5ec1a2e62112882ae87af`
 
 Configuration `validate-http-request`: libopenapi.NewDocument(document) handed to validator.NewValidator and driven through ValidateHttpRequest, from an http.Request built on the raw target. Routing is the library's: an unmatched path comes back as a validation error of type path rather than as a separate call. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the validator, so the encoding survives to that point. Values are unexposed: ValidateHttpRequest answers with a boolean and a list of validation errors, and the helpers that decode a styled parameter are internal packages, so no published call hands the deserialized values back.
 

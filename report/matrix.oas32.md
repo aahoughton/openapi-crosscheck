@@ -75,16 +75,16 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:d12011fdebc7d0dcca773e65b95e276a8ead7e127b393fdbd0b4220d76891487` |
-| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:9d866ad6d5bd3e46b987358c874f01a711ce6e470a63d786ac591876125072f2` |
-| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:e48d496f1c2b1882e534725002ffc8acaf5854de31dbb855c07cffc26e216000` |
-| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:e2e0e033db583f8f687cf014e496eb95cd456aebe7bcabc11350d9b9b31c67c9` |
-| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:9d7f553270fa9bcd217ae8ba595293e87c15fc794e0cf1d9a7c125406ad18816` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:c6d6f139ad148185805b621ac27465cbce423f4ea44f15eb076c49c0b7456f06` |
-| `openapi-backend` | `adapters/openapi-backend/` | `sha256:aa591845b921c1cbeeaa6e9c941909b2c58f59f8723b384fa49e159cc857c640` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:55b83f88b442c4865e6fb8782658021fdd280e66ed1b1e39273a4bdc42a923cf` |
-| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:c79f9fb1dc515dddfbcd11d879b5d5454ed803fc4dce70386611a2d8931f2dcf` |
-| `openapi_first` | `adapters/openapi-first/` | `sha256:4ef5b670ae6fb7a72ddd97c458fd3cbc14c1f9867c9a16d4408217bd46fd09fe` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:60c3cc71ac6ea762ae0bd75873c1b63e6486f0f359da70e8b4b41a5a7e4c0ad5` |
+| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:4ba93d5098a7f131ae97f7b8b0f442f068ec18b9071170d712c65f23d51cfd26` |
+| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:7d1a87db5508a039cffb745dd0df06e52662a1d956bfdb063ac9e3ddfe748452` |
+| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:3d643cc09605d86ce8ebf0e53c44d69e6d2e449967a5ec1a2e62112882ae87af` |
+| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:92321ce0fcc17f1ecf3794c3eec045117bc176970f2f99c0c2fec64647430b13` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:7f04a9814b8008d7abba8a08638e2860950e14392df99ebe0b13a42026c39bf4` |
+| `openapi-backend` | `adapters/openapi-backend/` | `sha256:719b93e07b0ade0eb055cc75dd4025f550862d835d0f684687353c8c5f7a105e` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:3d6df6d6b113f23de595d4ae69589e7681f1e1d59f15d0c008dd5cc82e3755c5` |
+| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:e5cc30759044a9f5368745abf0c05742fded3807e21dbe5560c637f3c62a1245` |
+| `openapi_first` | `adapters/openapi-first/` | `sha256:9ee342fed72e0a7311c37812362ab6d9ad2c809d7a62049dbfa4a623b016f103` |
 
 ## Conformance
 
@@ -610,6 +610,7 @@ Each row holds two separate results, and the key for both is:
 | `` `{"p":"blue"}` `` | the values it handed back, as it returned them, with the vantage they were read from |
 | `not exposed by this library` | it reached a verdict and publishes no call that returns deserialized values, which is a fact about the library rather than about this request |
 | `none reached` | it does expose values, and produced none here |
+| `and this container could not read `p`` | the parameter has no slot in the request shape this library takes, so it was never put to the library. A different fact from the library reporting no value for it |
 
 A case marked **answered in the values** is one the verdict cannot carry: every
 reading of the specification accepts the request, and what separates them is

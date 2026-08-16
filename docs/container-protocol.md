@@ -1,4 +1,4 @@
-# Container protocol, version 3
+# Container protocol, version 4
 
 Every library under test runs in its own container and answers this protocol.
 The harness speaks only this protocol, so adding a library in any language means
@@ -48,7 +48,7 @@ Called once, before any case. Answers what the library can be asked.
 
 ```json
 {
-  "protocol": 3,
+  "protocol": 4,
   "library": "@oaverify/core",
   "libraryVersion": "7.0.0",
   "librarySource": "https://github.com/oaverify/oaverify",
@@ -164,7 +164,7 @@ Called once per case.
 
 ```json
 {
-  "protocol": 3,
+  "protocol": 4,
   "caseId": "path-matrix-scalar-canonical-oas31",
   "document": { "openapi": "3.1.1", "...": "the case's document, verbatim" },
   "request": {
@@ -263,7 +263,7 @@ with any other container's.
 
 ```json
 {
-  "protocol": 3,
+  "protocol": 4,
   "outcome": "accepted",
   "deserialized": {
     "kind": "observed",
@@ -323,6 +323,36 @@ and a report that renders them alike loses information.
 `value` is keyed by the parameter names the case declares, read from the
 location each was declared in. Reporting every key the request happened to carry
 would report values the case never asked about.
+
+`unreadable` is for a declared parameter your container cannot read, keyed by
+the same declared names and carrying the reason for each:
+
+```json
+{
+  "kind": "observed",
+  "vantage": "validatedOnly",
+  "value": { "p": "blue" },
+  "nativeTypes": { "p": "string" },
+  "unreadable": { "q": "this library exposes no slot for a querystring parameter" }
+}
+```
+
+It exists because a name absent from `value` already meant something: the
+library reported nothing for that parameter. A container whose library has no
+slot for a parameter had no way to say so per name, so its own gap and the
+library's silence arrived here identically, and the report published the second.
+The whole-case `unexposed` was the only honest alternative, and it throws away
+the values the container does hold for every other parameter in the case, which
+a case declaring two parameters is often asking about.
+
+A name in `unreadable` must not appear in `value`. The two say opposite things
+about the same parameter, and the protocol suite refuses a container that
+reports both. Omit the field when every declared parameter was readable, which
+is what an answer without it has always claimed.
+
+Reach for it only for a parameter your library's request shape cannot carry.
+Neither an absent optional parameter nor one the library dropped belongs here:
+both are answers, and the first is a case the corpus asks on purpose.
 
 ### `inputMutation`
 
@@ -399,7 +429,7 @@ are both describing themselves accurately. They are displayed, never compared.
 
 ## Protocol version
 
-`protocol` is `3` on every message in both directions. The harness refuses a
+`protocol` is `4` on every message in both directions. The harness refuses a
 container answering a different number rather than guessing at compatibility. A
 change that would alter what a cell means is a version bump.
 

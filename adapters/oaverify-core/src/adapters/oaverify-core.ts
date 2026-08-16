@@ -187,41 +187,37 @@ function cookieMap(
 }
 
 /**
- * The value channel, or a statement that this container cannot read it.
+ * The value channel, with a reason for any parameter this container cannot read.
  *
- * A location this library has no bag for is not a parameter that came back
- * empty, and publishing `observed` with the parameter missing says the second.
- * `querystring` is the live instance: this library's returned values are keyed
- * by the four locations it knows, so a querystring parameter has nowhere to be
- * read from, and a case whose whole question is the value would have published
- * an empty value cell as the library's answer.
+ * This library's returned values are keyed by the four locations it knows, so a
+ * parameter declared anywhere else has no slot to be read from. Leaving it out
+ * of `value` would say the library reported nothing for it, which is a fact
+ * about the library rather than about this container's reach, and the whole
+ * case `unexposed` this used to return threw away the values held for every
+ * other parameter to avoid saying it.
  *
- * Skipping it silently was worse than the fallthrough it replaced. The
- * fallthrough read the cookies bag and could invent a value; the skip published
- * a hole that reads as the library returning nothing.
+ * Protocol 4 gives the parameter its own answer, so a case declaring one
+ * readable parameter and one unreadable one publishes both facts.
  */
 function observation(
   testCase: AdapterCase,
   values: RequestValues,
 ): Observation<DeserializedValues> {
-  const unreadable = declaredParameters(testCase.document).filter(
-    (parameter) =>
-      parameter.in !== "path" &&
-      parameter.in !== "query" &&
-      parameter.in !== "header" &&
-      parameter.in !== "cookie",
-  );
-  if (unreadable.length > 0) {
-    const locations = [...new Set(unreadable.map((parameter) => parameter.in))].sort().join(", ");
-    return {
-      kind: "unexposed",
-      reason:
-        `this library's returned values are keyed by path, query, header and cookie, so a ` +
-        `parameter declared in ${locations} has no slot to be read from; reporting the rest ` +
-        `would publish an empty value cell as this library's answer`,
-    };
+  const unreadable: Record<string, string> = {};
+  for (const parameter of declaredParameters(testCase.document)) {
+    if (
+      parameter.in === "path" ||
+      parameter.in === "query" ||
+      parameter.in === "header" ||
+      parameter.in === "cookie"
+    ) {
+      continue;
+    }
+    unreadable[parameter.name] =
+      `this library's returned values are keyed by path, query, header and cookie, so a ` +
+      `parameter declared in ${parameter.in} has no slot to be read from`;
   }
-  return observed("validatedOnly", returnedValues(testCase, values));
+  return observed("validatedOnly", returnedValues(testCase, values), unreadable);
 }
 
 function returnedValues(testCase: AdapterCase, values: RequestValues): DeserializedValues {

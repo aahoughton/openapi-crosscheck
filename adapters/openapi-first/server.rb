@@ -8,7 +8,7 @@ require "webrick"
 
 require "openapi_first"
 
-PROTOCOL_VERSION = 3
+PROTOCOL_VERSION = 4
 LIBRARY = "openapi_first"
 # Where this library's source lives. Stated by this container.
 LIBRARY_SOURCE = "https://github.com/ahx/openapi_first"
@@ -157,21 +157,20 @@ def observed_values(document, validated)
   }
 
   # A location this library does not parse into a hash has no value to read, and
-  # reporting the rest would publish an empty cell as this library's answer for
-  # a parameter nothing looked at. "querystring" is the location that reaches
-  # this. "The library returned nothing" and "this container could not read it"
-  # are different facts.
-  unreadable = declared_parameters(document).filter_map do |parameter|
+  # leaving the parameter out of "value" would say the library reported nothing
+  # for it. "querystring" is the location that reaches this. Reported per
+  # parameter, so a case declaring one parsed parameter and one unparsed one
+  # still publishes the value for the first.
+  unreadable = {}
+  declared_parameters(document).each do |parameter|
+    name = parameter["name"]
     location = parameter["in"]
-    location if location.is_a?(String) && !by_location.key?(location)
-  end
-  unless unreadable.empty?
-    return {
-      "kind" => "unexposed",
-      "reason" =>
-        "this library parses the request into path, query, header and cookie hashes, so a " \
-        "parameter declared in #{unreadable.uniq.sort.join(', ')} has no hash to be read from"
-    }
+    next unless name.is_a?(String) && location.is_a?(String)
+    next if by_location.key?(location)
+
+    unreadable[name] =
+      "this library parses the request into path, query, header and cookie hashes, so a " \
+      "parameter declared in #{location} has no hash to be read from"
   end
 
   values = {}
@@ -188,7 +187,11 @@ def observed_values(document, validated)
     types[name] = native_type(bucket[name])
   end
 
-  { "kind" => "observed", "vantage" => VANTAGE, "value" => values, "nativeTypes" => types }
+  observation = { "kind" => "observed", "vantage" => VANTAGE, "value" => values, "nativeTypes" => types }
+  # Omitted when empty: an answer without the field claims every declared
+  # parameter was readable, which is what it means.
+  observation["unreadable"] = unreadable unless unreadable.empty?
+  observation
 end
 
 def not_reached(reason)

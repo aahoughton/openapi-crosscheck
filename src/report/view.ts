@@ -1123,7 +1123,15 @@ export function describeValues(result: AdapterResult): string {
   const observation = result.deserialized;
   if (observation.kind === "unexposed") return "not exposed by this library";
   if (observation.kind === "notReached") return "none reached";
-  return JSON.stringify(observation.value);
+  // A parameter the container could not read is named, for the same reason the
+  // three observation kinds are kept apart: it is absent from `value` exactly
+  // as a parameter the library reported nothing for is, and the two are
+  // different facts.
+  const unreadable = Object.keys(observation.unreadable ?? {}).sort();
+  const values = JSON.stringify(observation.value);
+  return unreadable.length === 0
+    ? values
+    : `${values} (not readable here: ${unreadable.join(", ")})`;
 }
 
 /**

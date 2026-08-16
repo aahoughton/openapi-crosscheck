@@ -2,12 +2,15 @@ import { describe, expect, it } from "vitest";
 import type { Case, ConformanceCase, DivergenceCase, ProbeAxis } from "../../src/types/case";
 import type { LibraryMeasurement } from "../../src/types/measurement";
 import type { AdapterResult, DeserializedValues } from "../../src/types/result";
+import { renderMarkdown } from "../../src/report/render";
+import { score } from "../../src/report/score";
 import {
   caseNote,
   caseNotes,
   conformanceTallies,
   contentConditionOf,
   corpusAgreement,
+  describeValues,
   disagreements,
   divergenceGrid,
   orderEntries,
@@ -113,6 +116,29 @@ function divergenceCase(id: string): DivergenceCase {
 }
 
 const cases: readonly Case[] = [conformanceCase("a"), conformanceCase("b")];
+
+/** An answer that reports some values and names a parameter it could not read. */
+function acceptedWithUnreadable(
+  values: DeserializedValues,
+  unreadable: Record<string, string>,
+): AdapterResult {
+  return {
+    library: "lib",
+    libraryVersion: "1.0.0",
+    configurationId: "fixture",
+    preparse: null,
+    outcome: "accepted",
+    deserialized: {
+      kind: "observed",
+      vantage: "handedToHandler",
+      value: values,
+      nativeTypes: {},
+      unreadable,
+    },
+    inputMutation: { kind: "none", detail: "fixture" },
+    raw: null,
+  };
+}
 
 function accepted(values: DeserializedValues | null): AdapterResult {
   return {
@@ -714,5 +740,73 @@ describe("corpus agreement", () => {
     ]);
     expect(check.agreed).toBe(false);
     expect(check.digests).toHaveLength(2);
+  });
+});
+
+describe("a parameter the container could not read", () => {
+  const unreadable = { q: "this library's request shape has no slot for it" };
+
+  it("scores as a verdict-only pass rather than a value failure", () => {
+    // The whole-case `unexposed` answer narrowed to one name, and it scores the
+    // same way. Reading the container's reach as the library omitting a value
+    // would fail a library for the harness's limit.
+    const testCase = { ...conformanceCase("c"), expectedValues: { q: "blue" } };
+    expect(score(testCase, acceptedWithUnreadable({}, unreadable))).toBe("passVerdictOnly");
+  });
+
+  it("still scores the values it did report", () => {
+    // Only the named parameter is withheld. A case expecting a value this
+    // container did read is compared as it always was, so the field cannot be
+    // used to opt out of the value half wholesale.
+    const testCase = { ...conformanceCase("c"), expectedValues: { p: "blue" } };
+    expect(score(testCase, acceptedWithUnreadable({ p: "blue" }, unreadable))).toBe("pass");
+    expect(score(testCase, acceptedWithUnreadable({ p: "red" }, unreadable))).toBe("failValue");
+  });
+
+  it("does not let an unreadable name mask a value that failed", () => {
+    // Both orders, because the score must not depend on the order the case
+    // wrote `expectedValues`. Returning on the first unreadable name scored
+    // this `passVerdictOnly` when the unreadable one came first, hiding an
+    // attributable failure behind a key order.
+    const answer = acceptedWithUnreadable({ p: "red" }, unreadable);
+    expect(score({ ...conformanceCase("c"), expectedValues: { p: "blue", q: "x" } }, answer)).toBe(
+      "failValue",
+    );
+    expect(score({ ...conformanceCase("c"), expectedValues: { q: "x", p: "blue" } }, answer)).toBe(
+      "failValue",
+    );
+  });
+
+  it("withholds only when every expected value it could compare matched", () => {
+    const answer = acceptedWithUnreadable({ p: "blue" }, unreadable);
+    expect(score({ ...conformanceCase("c"), expectedValues: { q: "x", p: "blue" } }, answer)).toBe(
+      "passVerdictOnly",
+    );
+  });
+
+  it("is named in the value cell rather than left out of it", () => {
+    // Absent from `value` is what a library reporting nothing looks like, so a
+    // cell printing only the values it has says that when this is true instead.
+    expect(describeValues(acceptedWithUnreadable({ p: "blue" }, unreadable))).toBe(
+      '{"p":"blue"} (not readable here: q)',
+    );
+  });
+
+  it("reads as an ordinary value cell when there is none", () => {
+    expect(describeValues(accepted({ p: "blue" }))).toBe('{"p":"blue"}');
+  });
+
+  it("is named with its reason in the rendered matrix", () => {
+    // The markdown path formats this separately from the cell above, so it is
+    // asserted separately. A divergence case is the one that prints a value
+    // table per library, which is where a reader meets this.
+    const testCase = divergenceCase("cookie-form-array-duplicate-name-oas31");
+    const artifacts = renderMarkdown(
+      [testCase],
+      [measurement("lib", "1.0.0", { [testCase.id]: acceptedWithUnreadable({ p: "blue" }, unreadable) })],
+    );
+    const matrix = artifacts["matrix.oas31.md"] ?? "";
+    expect(matrix).toContain("this container could not read `q`");
+    expect(matrix).toContain("this library's request shape has no slot for it");
   });
 });

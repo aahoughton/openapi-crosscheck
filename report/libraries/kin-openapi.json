@@ -775,7 +775,7 @@
   "provenance": {
     "kind": "container",
     "slug": "kin-openapi",
-    "imageId": "sha256:e48d496f1c2b1882e534725002ffc8acaf5854de31dbb855c07cffc26e216000",
+    "imageId": "sha256:7d1a87db5508a039cffb745dd0df06e52662a1d956bfdb063ac9e3ddfe748452",
     "ecosystem": "go"
   },
   "answers": [

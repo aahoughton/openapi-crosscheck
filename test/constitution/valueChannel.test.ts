@@ -69,3 +69,51 @@ describe("a library that writes back has a value channel", () => {
     expect(silent).toEqual([]);
   });
 });
+
+describe("a parameter reported unreadable is reported once", () => {
+  /**
+   * The protocol says a name in `unreadable` must not also appear in `value`,
+   * and the protocol suite says so against a probe document declaring one path
+   * parameter, which no container can call unreadable. That check passes
+   * vacuously for every container, so the rule was stated in three documents
+   * and enforced nowhere the corpus reaches.
+   *
+   * Read off the committed measurements instead, which is where a container
+   * that got this wrong would have already published it.
+   */
+  it("names no parameter as both read and unreadable", () => {
+    const contradicted: string[] = [];
+    for (const measurement of measurements()) {
+      for (const answer of measurement.answers) {
+        const { result } = answer;
+        if (result.outcome !== "accepted" && result.outcome !== "rejected") continue;
+        if (result.deserialized.kind !== "observed") continue;
+        for (const name of Object.keys(result.deserialized.unreadable ?? {})) {
+          if (Object.hasOwn(result.deserialized.value, name)) {
+            contradicted.push(`${measurement.library} on ${answer.caseId}: ${name}`);
+          }
+        }
+      }
+    }
+    expect(contradicted).toEqual([]);
+  });
+
+  it("says why, on every parameter it withholds", () => {
+    // The same standard `unexposed` is held to. A bare marker says a value is
+    // missing without saying what stopped the container reading it, and that is
+    // the half that separates a container's reach from a library's silence.
+    const silent: string[] = [];
+    for (const measurement of measurements()) {
+      for (const answer of measurement.answers) {
+        const { result } = answer;
+        if (result.outcome !== "accepted" && result.outcome !== "rejected") continue;
+        if (result.deserialized.kind !== "observed") continue;
+        for (const [name, reason] of Object.entries(result.deserialized.unreadable ?? {})) {
+          if (reason.length === 0)
+            silent.push(`${measurement.library} on ${answer.caseId}: ${name}`);
+        }
+      }
+    }
+    expect(silent).toEqual([]);
+  });
+});

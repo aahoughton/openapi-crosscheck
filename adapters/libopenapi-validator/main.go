@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	protocolVersion = 3
+	protocolVersion = 4
 	library         = "github.com/pb33f/libopenapi-validator"
 	modulePath      = "github.com/pb33f/libopenapi-validator"
 	// Where this library's source lives. Stated by this container.

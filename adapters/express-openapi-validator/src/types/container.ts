@@ -12,7 +12,7 @@ import type { OpenApiDocument } from "./openapi";
  * rows that mean the same thing as any other container's, whatever language it
  * is written in.
  */
-export const PROTOCOL_VERSION = 3;
+export const PROTOCOL_VERSION = 4;
 
 /**
  * A request as it crosses the boundary.

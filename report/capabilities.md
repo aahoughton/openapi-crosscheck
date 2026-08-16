@@ -55,46 +55,52 @@ there was a point at which values could have been reported. `observed`,
 outside it, because a case the library was never given and a case it threw on
 never reached that point at all.
 
-| library | reached a verdict | observed | unexposed | not reached | never asked | raised |
-| --- | --- | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | 140 | 0 | 140 | 0 | 51 | 0 |
-| `express-openapi-validator` | 162 | 152 | 10 | 0 | 23 | 6 |
-| `github.com/getkin/kin-openapi` | 166 | 2 | 164 | 0 | 25 | 0 |
-| `github.com/pb33f/libopenapi-validator` | 191 | 0 | 191 | 0 | 0 | 0 |
-| `league/openapi-psr7-validator` | 162 | 0 | 162 | 0 | 21 | 8 |
-| `@oaverify/core` | 175 | 173 | 2 | 0 | 9 | 7 |
-| `openapi-backend` | 161 | 161 | 0 | 0 | 25 | 5 |
-| `openapi-core` | 166 | 166 | 0 | 0 | 19 | 6 |
-| `openapi-request-validator` | 18 | 2 | 16 | 0 | 173 | 0 |
-| `openapi_first` | 170 | 170 | 0 | 0 | 21 | 0 |
+`observed` counts an answer that named a parameter this container could not read, and
+`of those, one withheld` says how many. A parameter with no slot in a
+container's request shape was never put to the library, so counting it as a
+value the library declined to report would attribute the container's reach to
+it.
+
+| library | reached a verdict | observed | of those, one withheld | unexposed | not reached | never asked | raised |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | 140 | 0 | 0 | 140 | 0 | 51 | 0 |
+| `express-openapi-validator` | 162 | 152 | 0 | 10 | 0 | 23 | 6 |
+| `github.com/getkin/kin-openapi` | 166 | 2 | 0 | 164 | 0 | 25 | 0 |
+| `github.com/pb33f/libopenapi-validator` | 191 | 0 | 0 | 191 | 0 | 0 | 0 |
+| `league/openapi-psr7-validator` | 162 | 0 | 0 | 162 | 0 | 21 | 8 |
+| `@oaverify/core` | 175 | 175 | 2 | 0 | 0 | 9 | 7 |
+| `openapi-backend` | 161 | 161 | 0 | 0 | 0 | 25 | 5 |
+| `openapi-core` | 166 | 166 | 0 | 0 | 0 | 19 | 6 |
+| `openapi-request-validator` | 18 | 2 | 0 | 16 | 0 | 173 | 0 |
+| `openapi_first` | 170 | 170 | 0 | 0 | 0 | 21 | 0 |
 
 Split by the verdict the values were reported alongside, because a library that
 exposes what it parsed even for a request it rejected is stating something a
 library that withholds on rejection is not. Both are legitimate and neither is
 a failure.
 
-| library | verdict | observed | unexposed | not reached | vantages |
-| --- | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | accepted | 0 | 70 | 0 | none |
-| `com.atlassian.oai:openapi-request-validator-core` | rejected | 0 | 70 | 0 | none |
-| `express-openapi-validator` | accepted | 90 | 10 | 0 | handed to the handler |
-| `express-openapi-validator` | rejected | 62 | 0 | 0 | parsed before validation |
-| `github.com/getkin/kin-openapi` | accepted | 2 | 121 | 0 | parsed before validation |
-| `github.com/getkin/kin-openapi` | rejected | 0 | 43 | 0 | none |
-| `github.com/pb33f/libopenapi-validator` | accepted | 0 | 170 | 0 | none |
-| `github.com/pb33f/libopenapi-validator` | rejected | 0 | 21 | 0 | none |
-| `league/openapi-psr7-validator` | accepted | 0 | 86 | 0 | none |
-| `league/openapi-psr7-validator` | rejected | 0 | 76 | 0 | none |
-| `@oaverify/core` | accepted | 143 | 2 | 0 | validated only, so an absent name failed its schema |
-| `@oaverify/core` | rejected | 30 | 0 | 0 | validated only, so an absent name failed its schema |
-| `openapi-backend` | accepted | 76 | 0 | 0 | parsed before validation |
-| `openapi-backend` | rejected | 85 | 0 | 0 | parsed before validation |
-| `openapi-core` | accepted | 92 | 0 | 0 | validated only, so an absent name failed its schema |
-| `openapi-core` | rejected | 74 | 0 | 0 | validated only, so an absent name failed its schema |
-| `openapi-request-validator` | accepted | 2 | 4 | 0 | parsed before validation |
-| `openapi-request-validator` | rejected | 0 | 12 | 0 | none |
-| `openapi_first` | accepted | 140 | 0 | 0 | parsed before validation |
-| `openapi_first` | rejected | 30 | 0 | 0 | parsed before validation |
+| library | verdict | observed | of those, one withheld | unexposed | not reached | vantages |
+| --- | --- | --- | --- | --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | accepted | 0 | 0 | 70 | 0 | none |
+| `com.atlassian.oai:openapi-request-validator-core` | rejected | 0 | 0 | 70 | 0 | none |
+| `express-openapi-validator` | accepted | 90 | 0 | 10 | 0 | handed to the handler |
+| `express-openapi-validator` | rejected | 62 | 0 | 0 | 0 | parsed before validation |
+| `github.com/getkin/kin-openapi` | accepted | 2 | 0 | 121 | 0 | parsed before validation |
+| `github.com/getkin/kin-openapi` | rejected | 0 | 0 | 43 | 0 | none |
+| `github.com/pb33f/libopenapi-validator` | accepted | 0 | 0 | 170 | 0 | none |
+| `github.com/pb33f/libopenapi-validator` | rejected | 0 | 0 | 21 | 0 | none |
+| `league/openapi-psr7-validator` | accepted | 0 | 0 | 86 | 0 | none |
+| `league/openapi-psr7-validator` | rejected | 0 | 0 | 76 | 0 | none |
+| `@oaverify/core` | accepted | 145 | 2 | 0 | 0 | validated only, so an absent name failed its schema |
+| `@oaverify/core` | rejected | 30 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-backend` | accepted | 76 | 0 | 0 | 0 | parsed before validation |
+| `openapi-backend` | rejected | 85 | 0 | 0 | 0 | parsed before validation |
+| `openapi-core` | accepted | 92 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-core` | rejected | 74 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-request-validator` | accepted | 2 | 0 | 4 | 0 | parsed before validation |
+| `openapi-request-validator` | rejected | 0 | 0 | 12 | 0 | none |
+| `openapi_first` | accepted | 140 | 0 | 0 | 0 | parsed before validation |
+| `openapi_first` | rejected | 30 | 0 | 0 | 0 | parsed before validation |
 
 ## Values written back onto the caller's input
 

@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/oaverify/oaverify
 
 Built from: `adapters/oaverify-core/`
 
-Image: `sha256:c6d6f139ad148185805b621ac27465cbce423f4ea44f15eb076c49c0b7456f06`
+Image: `sha256:7f04a9814b8008d7abba8a08638e2860950e14392df99ebe0b13a42026c39bf4`
 
 Configuration `request-return-values`: createValidator(document, { returnValues: true }), driven through validateRequest, which the library documents as its per-call HTTP entry point and validateFetchRequest as a convenience wrapper over. The path is handed over with its query string still in it, because the library documents that it reads the query out of the path when the query field is unset, so splitting the query stays its work. Headers are handed over as its request shape spells them, one entry per name with repeats collected, and with their case as the wire carried it, so matching a header name to the declaration stays its work too. Cookies are the harness's split, which this configuration declares, and the request shape holds one string per cookie name, so a case sending a name twice or a crumb with no `=` is answered as a case this shape cannot represent, rather than on what survived. Reading its values: the library documents that a parameter appears in the value channel when this call reached it, deserialized it, and its schema accepted the result. So an empty value cell on a rejected row means the parameter did not pass, which is a different fact from a library that reports a coerced value alongside its own rejection.
 

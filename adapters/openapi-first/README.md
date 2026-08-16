@@ -59,6 +59,11 @@ value on a rejected row is what the library had parsed at the point it refused
 rather than something it accepted. A rejection reached before any parameter was
 parsed reports `notReached`.
 
+The library parses the request into path, query, header and cookie hashes, so a
+parameter declared anywhere else has no hash to be read from. Those are reported
+by name in `unreadable`, with the reason, rather than left out of the values,
+which would say the library reported nothing for the parameter.
+
 ## Known Boundary
 
 Rack's environment has one slot per header name, upcased, so header casing is

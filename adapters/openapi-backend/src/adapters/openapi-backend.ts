@@ -180,26 +180,23 @@ function parsedValues(
     }
     const declared = pathItem.get?.parameters ?? pathItem.post?.parameters ?? [];
     // A location this library does not parse into a bag has no value to read,
-    // and reporting the rest would publish an empty cell as this library's
-    // answer for a parameter nothing looked at. `querystring` is the location
-    // that reaches this, and "the library returned nothing" is a different fact
-    // from "this container could not read it".
-    const unreadable = declared.filter((parameter) => byLocation[parameter.in] === undefined);
-    if (unreadable.length > 0) {
-      const locations = [...new Set(unreadable.map((parameter) => parameter.in))].sort().join(", ");
-      return {
-        kind: "unexposed",
-        reason:
-          `this library parses the request into path, query, cookie and header bags, so a ` +
-          `parameter declared in ${locations} has no bag to be read from`,
-      };
+    // and leaving the parameter out of `value` would say the library reported
+    // nothing for it. `querystring` is the location that reaches this. Reported
+    // per parameter, so a case declaring one parsed parameter and one unparsed
+    // one still publishes the value for the first.
+    const unreadable: Record<string, string> = {};
+    for (const parameter of declared) {
+      if (byLocation[parameter.in] !== undefined) continue;
+      unreadable[parameter.name] =
+        `this library parses the request into path, query, cookie and header bags, so a ` +
+        `parameter declared in ${parameter.in} has no bag to be read from`;
     }
     for (const parameter of declared) {
       const key = parameter.in === "header" ? parameter.name.toLowerCase() : parameter.name;
       const value = byLocation[parameter.in]?.[key];
       if (value !== undefined) values[parameter.name] = value;
     }
-    return observed("parsedBeforeValidation", values);
+    return observed("parsedBeforeValidation", values, unreadable);
   } catch (error) {
     return {
       kind: "notReached",
