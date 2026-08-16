@@ -2,6 +2,769 @@
   "schemaVersion": 1,
   "cases": [
     {
+      "id": "cookie-cookie-array-canonical-explode-oas32",
+      "title": "cookie, cookie style, array, explode defaulted true, canonical",
+      "inShort": "Repeats the cookie name once per item, separated by the semicolon and space cookies use. The style table gives exactly these crumbs.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-explode",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-explode",
+          "quoted": "When this is true, parameter values of type array or object generate separate parameters for each value of the array or key-value pair of the map. For other types of parameters, or when style is \"deepObject\", this field has no effect. When style is \"form\" or \"cookie\", the default value is true. For all other styles, the default value is false."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-values",
+          "quoted": "| cookie | primitive, array, object | cookie | Analogous to form, but following [RFC6265] Cookie syntax rules, meaning that name-value pairs are separated by a semicolon followed by a single space (e.g. n1=v1; n2=v2), and no percent-encoding or other escaping is applied; data values that require any sort of escaping MUST be provided in escaped form. |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-examples",
+          "quoted": "| cookie | true | color= | color=blue | color=blue; color=black; color=brown | R=100; G=200; B=150 |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": [
+          "blue",
+          "black",
+          "brown"
+        ]
+      },
+      "rationale": "explode is left out and defaults to true for the cookie style, so the exploded row applies, and it writes an array as the name repeated with a semicolon and a space between the pairs. The request carries that, character for character.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "cookie",
+                  "required": true,
+                  "style": "cookie",
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ],
+          [
+            "Cookie",
+            "p=blue; p=black; p=brown"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "cookie",
+        "style": "cookie",
+        "explode": true,
+        "declaredStyle": "cookie",
+        "declaredExplode": "unset",
+        "schema": "array",
+        "probeAxis": "canonical"
+      },
+      "varies": [],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style",
+        "explode is left to the version's default"
+      ]
+    },
+    {
+      "id": "cookie-cookie-array-no-explode-oas32",
+      "title": "cookie, cookie style, array, explode false",
+      "inShort": "Joins the array with commas inside one crumb, which is the unexploded row.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-explode",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-explode",
+          "quoted": "When this is true, parameter values of type array or object generate separate parameters for each value of the array or key-value pair of the map. For other types of parameters, or when style is \"deepObject\", this field has no effect. When style is \"form\" or \"cookie\", the default value is true. For all other styles, the default value is false."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-values",
+          "quoted": "| cookie | primitive, array, object | cookie | Analogous to form, but following [RFC6265] Cookie syntax rules, meaning that name-value pairs are separated by a semicolon followed by a single space (e.g. n1=v1; n2=v2), and no percent-encoding or other escaping is applied; data values that require any sort of escaping MUST be provided in escaped form. |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-examples",
+          "quoted": "| cookie | false | color= | color=blue | color=blue,black,brown | color=R,100,G,200,B,150 |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": [
+          "blue",
+          "black",
+          "brown"
+        ]
+      },
+      "rationale": "The unexploded cookie row joins an array with commas under one name, which is one crumb, and the request carries that crumb.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "cookie",
+                  "required": true,
+                  "style": "cookie",
+                  "explode": false,
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ],
+          [
+            "Cookie",
+            "p=blue,black,brown"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "cookie",
+        "style": "cookie",
+        "explode": false,
+        "declaredStyle": "cookie",
+        "declaredExplode": false,
+        "schema": "array",
+        "probeAxis": "canonical"
+      },
+      "varies": [],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style"
+      ]
+    },
+    {
+      "id": "cookie-cookie-object-canonical-explode-oas32",
+      "title": "cookie, cookie style, object, explode defaulted true, canonical",
+      "inShort": "Sends the object's properties as their own crumbs, R and G, which is what the exploded row writes and what a browser would send.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-explode",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-explode",
+          "quoted": "When this is true, parameter values of type array or object generate separate parameters for each value of the array or key-value pair of the map. For other types of parameters, or when style is \"deepObject\", this field has no effect. When style is \"form\" or \"cookie\", the default value is true. For all other styles, the default value is false."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-values",
+          "quoted": "| cookie | primitive, array, object | cookie | Analogous to form, but following [RFC6265] Cookie syntax rules, meaning that name-value pairs are separated by a semicolon followed by a single space (e.g. n1=v1; n2=v2), and no percent-encoding or other escaping is applied; data values that require any sort of escaping MUST be provided in escaped form. |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-examples",
+          "quoted": "| cookie | true | color= | color=blue | color=blue; color=black; color=brown | R=100; G=200; B=150 |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": {
+          "R": "100",
+          "G": "200"
+        }
+      },
+      "rationale": "An exploded cookie object drops the parameter name and writes one crumb per property, delimited by a semicolon and a space. Recovering p from those crumbs is what the row describes, so the object is the value under the declared name.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "cookie",
+                  "required": true,
+                  "style": "cookie",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "R": {
+                        "type": "string"
+                      },
+                      "G": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ],
+          [
+            "Cookie",
+            "R=100; G=200"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "cookie",
+        "style": "cookie",
+        "explode": true,
+        "declaredStyle": "cookie",
+        "declaredExplode": "unset",
+        "schema": "object",
+        "probeAxis": "canonical"
+      },
+      "varies": [],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style",
+        "explode is left to the version's default"
+      ]
+    },
+    {
+      "id": "cookie-cookie-object-no-explode-oas32",
+      "title": "cookie, cookie style, object, explode false",
+      "inShort": "Packs the object into one crumb as R,100,G,200, which is the unexploded row.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-explode",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-explode",
+          "quoted": "When this is true, parameter values of type array or object generate separate parameters for each value of the array or key-value pair of the map. For other types of parameters, or when style is \"deepObject\", this field has no effect. When style is \"form\" or \"cookie\", the default value is true. For all other styles, the default value is false."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-values",
+          "quoted": "| cookie | primitive, array, object | cookie | Analogous to form, but following [RFC6265] Cookie syntax rules, meaning that name-value pairs are separated by a semicolon followed by a single space (e.g. n1=v1; n2=v2), and no percent-encoding or other escaping is applied; data values that require any sort of escaping MUST be provided in escaped form. |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-examples",
+          "quoted": "| cookie | false | color= | color=blue | color=blue,black,brown | color=R,100,G,200,B,150 |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": {
+          "R": "100",
+          "G": "200"
+        }
+      },
+      "rationale": "The unexploded cookie row writes an object as its property names and values joined by commas under the parameter's own name, which is the crumb the request carries.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "cookie",
+                  "required": true,
+                  "style": "cookie",
+                  "explode": false,
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "R": {
+                        "type": "string"
+                      },
+                      "G": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ],
+          [
+            "Cookie",
+            "p=R,100,G,200"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "cookie",
+        "style": "cookie",
+        "explode": false,
+        "declaredStyle": "cookie",
+        "declaredExplode": false,
+        "schema": "object",
+        "probeAxis": "canonical"
+      },
+      "varies": [],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style"
+      ]
+    },
+    {
+      "id": "cookie-cookie-scalar-canonical-oas32",
+      "title": "cookie, cookie style, scalar, canonical",
+      "inShort": "One cookie, one value, under the style written for cookies. The ambiguity earlier versions leave over this crumb is what the style removes.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-explode",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-explode",
+          "quoted": "When this is true, parameter values of type array or object generate separate parameters for each value of the array or key-value pair of the map. For other types of parameters, or when style is \"deepObject\", this field has no effect. When style is \"form\" or \"cookie\", the default value is true. For all other styles, the default value is false."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-values",
+          "quoted": "| cookie | primitive, array, object | cookie | Analogous to form, but following [RFC6265] Cookie syntax rules, meaning that name-value pairs are separated by a semicolon followed by a single space (e.g. n1=v1; n2=v2), and no percent-encoding or other escaping is applied; data values that require any sort of escaping MUST be provided in escaped form. |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-examples",
+          "quoted": "| cookie | true | color= | color=blue | color=blue; color=black; color=brown | R=100; G=200; B=150 |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": "blue"
+      },
+      "rationale": "Both cookie rows give name=value for a string, so the defaulted explode selects between two rows that agree, and the crumb the request carries is that pair.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "cookie",
+                  "required": true,
+                  "style": "cookie",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ],
+          [
+            "Cookie",
+            "p=blue"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "cookie",
+        "style": "cookie",
+        "explode": true,
+        "declaredStyle": "cookie",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "canonical"
+      },
+      "varies": [],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "value well-formed",
+        "canonical encoding"
+      ]
+    },
+    {
+      "id": "cookie-cookie-scalar-no-explode-oas32",
+      "title": "cookie, cookie style, scalar, explode false",
+      "inShort": "The same single crumb with explode written out as false. There is nothing to distribute over one value, so the flag should change nothing.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-explode",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-explode",
+          "quoted": "When this is true, parameter values of type array or object generate separate parameters for each value of the array or key-value pair of the map. For other types of parameters, or when style is \"deepObject\", this field has no effect. When style is \"form\" or \"cookie\", the default value is true. For all other styles, the default value is false."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-values",
+          "quoted": "| cookie | primitive, array, object | cookie | Analogous to form, but following [RFC6265] Cookie syntax rules, meaning that name-value pairs are separated by a semicolon followed by a single space (e.g. n1=v1; n2=v2), and no percent-encoding or other escaping is applied; data values that require any sort of escaping MUST be provided in escaped form. |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-examples",
+          "quoted": "| cookie | false | color= | color=blue | color=blue,black,brown | color=R,100,G,200,B,150 |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": "blue"
+      },
+      "rationale": "The unexploded cookie row gives name=value for a string, the same crumb the exploded row gives. The case exists because a library can branch on the flag before noticing that a scalar has nothing to distribute.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "cookie",
+                  "required": true,
+                  "style": "cookie",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ],
+          [
+            "Cookie",
+            "p=blue"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "cookie",
+        "style": "cookie",
+        "explode": false,
+        "declaredStyle": "cookie",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "canonical"
+      },
+      "varies": [
+        "explode is written out"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "value well-formed",
+        "canonical encoding"
+      ]
+    },
+    {
+      "id": "cookie-cookie-scalar-percent-triple-oas32",
+      "title": "cookie, cookie style, scalar, a value carrying a percent triple",
+      "inShort": "The crumb reads blue%20black. Under this style a percent triple is three characters of data, and decoding it would hand the caller a value nobody sent.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-values",
+          "quoted": "| cookie | primitive, array, object | cookie | Analogous to form, but following [RFC6265] Cookie syntax rules, meaning that name-value pairs are separated by a semicolon followed by a single space (e.g. n1=v1; n2=v2), and no percent-encoding or other escaping is applied; data values that require any sort of escaping MUST be provided in escaped form. |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "fixed-fields-for-rfc6570-style-serialization",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-rfc6570-style-serialization",
+          "quoted": "Care is needed for parameters with schema that have in: \"header\" or in: \"cookie\", style: \"cookie\": When serializing these values, URI percent-encoding MUST NOT be applied. When parsing these parameters, any apparent percent-encoding MUST NOT be decoded. If using an RFC6570 implementation that automatically performs encoding or decoding steps, the steps MUST be undone before use."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": "blue%20black"
+      },
+      "answeredInValues": true,
+      "rationale": "The style applies no percent-encoding and the parsing rule says apparent percent-encoding MUST NOT be decoded, so the value is the twelve characters sent. The schema admits any string, so the verdict is the same either way and the value is where the answer is.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "cookie",
+                  "required": true,
+                  "style": "cookie",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ],
+          [
+            "Cookie",
+            "p=blue%20black"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "cookie",
+        "style": "cookie",
+        "explode": true,
+        "declaredStyle": "cookie",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "encodingVariant"
+      },
+      "varies": [
+        "the value carries characters that look like an encoding of something else"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style"
+      ]
+    },
+    {
       "id": "cookie-form-array-canonical-no-explode-oas30",
       "title": "cookie, form, array, explode false, canonical",
       "inShort": "Puts a comma-joined list in one cookie crumb. The style table says that is how it is written, and an appendix says form in a cookie is wrong for more than one value.",
@@ -311,6 +1074,84 @@
       "holdsConstant": [
         "identifier is the declared one",
         "the style and explode are declared"
+      ]
+    },
+    {
+      "id": "cookie-form-array-explode-oas32",
+      "title": "cookie, form defaulted, array, explode defaulted true",
+      "inShort": "The same repeated crumbs with the style left to its default, which is still form. An appendix says form uses the wrong delimiter here and stops there.",
+      "tier": "divergence",
+      "oasVersion": "3.2",
+      "question": "A cookie parameter that declares no style still resolves to form, kept for compatibility, and the appendix says the exploded form default uses the wrong delimiter for cookies: an ampersand where a cookie writes a semicolon and a space. The request carries the cookie delimiter. Whether a library reads the crumbs the location actually uses, or refuses a serialization the specification calls wrong now that a style exists which means it, is not settled.",
+      "basis": {
+        "oasVersion": "3.2",
+        "anchor": "percent-encoding-and-cookies",
+        "url": "https://spec.openapis.org/oas/v3.2.0.html#percent-encoding-and-cookies",
+        "quoted": "If automatic percent-encoding is desired, style: \"form\" with a primitive value or with the non-default explode value of false provides this behavior. However, note that the default value of explode: true for style: \"form\" with non-primitive values uses the wrong delimiter for cookies (& instead of ; followed by a single space) to set multiple cookie values."
+      },
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "cookie",
+                  "required": true,
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ],
+          [
+            "Cookie",
+            "p=blue; p=black"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "cookie",
+        "style": "form",
+        "explode": true,
+        "declaredStyle": "unset",
+        "declaredExplode": "unset",
+        "schema": "array",
+        "probeAxis": "foreignWireShape"
+      },
+      "varies": [
+        "the location separates repeats differently from the location the table shows"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "the style is the defaulted one",
+        "the wire is the same as the cookie-style twin"
       ]
     },
     {
@@ -7818,6 +8659,171 @@
       ]
     },
     {
+      "id": "path-simple-scalar-allow-reserved-declared-oas32",
+      "title": "path, simple, scalar, allowReserved declared and reserved characters unencoded",
+      "inShort": "The segment carries an unencoded colon and at-sign, and allowReserved says to let reserved characters through. This version is the first where the field reaches a path.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-allow-reserved",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-allow-reserved",
+          "quoted": "When this is true, parameter values are serialized using reserved expansion, as defined by [RFC6570] Section 3.2.3, which allows RFC3986's reserved character set, as well as percent-encoded triples, to pass through unchanged, while still percent-encoding all other disallowed characters (including % outside of percent-encoded triples). Applications are still responsible for percent-encoding reserved characters that are not allowed by the rules of the in destination or media type, or are not allowed in the path by this specification; see URL Percent-Encoding for details. The default value is false. This field only applies to in and style values that automatically percent-encode."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-examples",
+          "quoted": "| simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": "a:b@c"
+      },
+      "rationale": "simple is the default style for a path parameter and it percent-encodes, which is the scope this version gives allowReserved. With the field declared, the reserved set passes through unencoded, and the segment carries exactly that. The colon and the at-sign are the value rather than delimiters of anything.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": true,
+                  "allowReserved": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/a:b@c",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "unset",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "declarationFlag"
+      },
+      "varies": [
+        "allowReserved is declared, in a location no earlier version applies it to"
+      ],
+      "holdsConstant": [
+        "the identifier is the declared one",
+        "the style is the defaulted one"
+      ]
+    },
+    {
+      "id": "path-simple-scalar-allow-reserved-unset-oas32",
+      "title": "path, simple, scalar, reserved characters unencoded with allowReserved left unset",
+      "inShort": "The same segment with the field left off, so a client should have encoded the colon. The rule is written about the sender and says nothing about the reader.",
+      "tier": "divergence",
+      "oasVersion": "3.2",
+      "question": "allowReserved defaults to false, so the reserved characters should have arrived percent-encoded, and they did not. The specification states what serialization the declaration prescribes and not what a validator owes a request that ignored it. Reading the colon and the at-sign as data and refusing the segment as mis-serialized are both consistent with a rule addressed to whoever built the URL.",
+      "basis": {
+        "oasVersion": "3.2",
+        "anchor": "parameter-allow-reserved",
+        "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-allow-reserved",
+        "quoted": "When this is true, parameter values are serialized using reserved expansion, as defined by [RFC6570] Section 3.2.3, which allows RFC3986's reserved character set, as well as percent-encoded triples, to pass through unchanged, while still percent-encoding all other disallowed characters (including % outside of percent-encoded triples). Applications are still responsible for percent-encoding reserved characters that are not allowed by the rules of the in destination or media type, or are not allowed in the path by this specification; see URL Percent-Encoding for details. The default value is false. This field only applies to in and style values that automatically percent-encode."
+      },
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/a:b@c",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "unset",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "encodingVariant"
+      },
+      "varies": [
+        "the wire carries reserved characters the declaration did not permit unencoded"
+      ],
+      "holdsConstant": [
+        "the identifier is the declared one",
+        "allowReserved is left unset"
+      ]
+    },
+    {
       "id": "path-simple-scalar-canonical-oas30",
       "title": "path, simple, scalar, canonical",
       "inShort": "The plainest path case: one segment, one value.",
@@ -9526,6 +10532,111 @@
       ]
     },
     {
+      "id": "query-deep-object-canonical-oas32",
+      "title": "query, deepObject, object, explode true, canonical",
+      "inShort": "Sends p[R]=100&p[G]=200, the bracketed spelling deepObject uses for an object.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-values",
+          "quoted": "| deepObject | object | query | Allows objects with scalar properties to be represented using form parameters. The representation of array or object properties is not defined (but see Extending Support for Querystring Formats for alternatives). |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-examples",
+          "quoted": "| deepObject | _n/a_ | _n/a_ | _n/a_ | _n/a_ | color%5BR%5D=100&color%5BG%5D=200&color%5BB%5D=150 |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": {
+          "R": "100",
+          "G": "200"
+        }
+      },
+      "rationale": "The deepObject row gives one bracketed pair per scalar property, and the request carries exactly that with the brackets percent-encoded as the row writes them.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "style": "deepObject",
+                  "explode": true,
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "R": {
+                        "type": "string"
+                      },
+                      "G": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p%5BR%5D=100&p%5BG%5D=200",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "deepObject",
+        "explode": true,
+        "declaredStyle": "deepObject",
+        "declaredExplode": true,
+        "schema": "object",
+        "probeAxis": "canonical"
+      },
+      "varies": [],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "canonical encoding of the brackets"
+      ]
+    },
+    {
       "id": "query-deep-object-no-explode-oas30",
       "title": "query, deepObject, object, explode false",
       "inShort": "deepObject with explode false, a combination the specification calls undefined, sent as the bracketed pairs anyway.",
@@ -9683,6 +10794,119 @@
       "holdsConstant": [
         "identifier is the declared one",
         "wire shape as for the defined combination"
+      ]
+    },
+    {
+      "id": "query-deep-object-no-explode-oas32",
+      "title": "query, deepObject, object, explode false",
+      "inShort": "The same bracketed pairs with explode false, which this version says has no effect for this style. Earlier versions call the pairing undefined.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-explode",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-explode",
+          "quoted": "When this is true, parameter values of type array or object generate separate parameters for each value of the array or key-value pair of the map. For other types of parameters, or when style is \"deepObject\", this field has no effect. When style is \"form\" or \"cookie\", the default value is true. For all other styles, the default value is false."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-values",
+          "quoted": "| deepObject | object | query | Allows objects with scalar properties to be represented using form parameters. The representation of array or object properties is not defined (but see Extending Support for Querystring Formats for alternatives). |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#style-examples",
+          "quoted": "| deepObject | _n/a_ | _n/a_ | _n/a_ | _n/a_ | color%5BR%5D=100&color%5BG%5D=200&color%5BB%5D=150 |"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": {
+          "R": "100",
+          "G": "200"
+        }
+      },
+      "rationale": "explode has no effect when the style is deepObject, and the table gives one row for the style rather than one per explode value. So the declaration describes the same serialization as its exploded twin, and the request carries it.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "style": "deepObject",
+                  "explode": false,
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "R": {
+                        "type": "string"
+                      },
+                      "G": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p%5BR%5D=100&p%5BG%5D=200",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "deepObject",
+        "explode": false,
+        "declaredStyle": "deepObject",
+        "declaredExplode": false,
+        "schema": "object",
+        "probeAxis": "declarationFlag"
+      },
+      "varies": [
+        "explode, into a pairing earlier versions call undefined and this one defines"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape as for the exploded twin"
       ]
     },
     {

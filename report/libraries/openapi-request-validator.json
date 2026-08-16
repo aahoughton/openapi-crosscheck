@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:4aaa21b483d4925d27dbba5996cb4a28d993e0f5f28c002936b2300a5b3e44dc",
+  "corpusDigest": "sha256:289ed7aac537f32567e25e85b367a67ed5c346a4652c7372efcce3e597f6733a",
   "capabilities": {
     "stages": {
       "routing": false,
@@ -1010,6 +1010,90 @@
   },
   "answers": [
     {
+      "caseId": "cookie-cookie-array-canonical-explode-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-array-no-explode-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-canonical-explode-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-no-explode-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-canonical-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-no-explode-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-percent-triple-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
       "caseId": "cookie-form-array-canonical-no-explode-oas30",
       "result": {
         "library": "openapi-request-validator",
@@ -1055,6 +1139,18 @@
         "outcome": "unsupported",
         "reason": "stageNotOwned",
         "detail": "this case probes styleDeserialization for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
       }
     },
     {
@@ -2042,6 +2138,30 @@
       }
     },
     {
+      "caseId": "path-simple-scalar-allow-reserved-declared-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-allow-reserved-unset-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
       "caseId": "path-simple-scalar-canonical-oas30",
       "result": {
         "library": "openapi-request-validator",
@@ -2318,6 +2438,18 @@
       }
     },
     {
+      "caseId": "query-deep-object-canonical-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
       "caseId": "query-deep-object-no-explode-oas30",
       "result": {
         "library": "openapi-request-validator",
@@ -2339,6 +2471,18 @@
         "outcome": "unsupported",
         "reason": "stageNotOwned",
         "detail": "this case probes styleDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas32",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
       }
     },
     {

@@ -200,3 +200,56 @@ nothing is attributed to it.
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | not asked (cannotRepresentCase) | - |
 | [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | raised, no verdict | - |
 | [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | rejected | `{}` |
+
+## OpenAPI 3.2
+
+### Conformance
+
+The specification settles these, so a failure is attributable and the rule it
+rests on is quoted with the case in [matrix.oas32.md](../matrix.oas32.md).
+These counts are of one library and say nothing about any other. Every
+OpenAPI 3.2 conformance case falls in one row, including the ones this
+library was not asked, so the rows sum to the total and the denominator is on
+the page with the numbers.
+
+| result | cases |
+| --- | --- |
+| pass | 3 |
+| FAIL (verdict) | 6 |
+| not asked | 1 |
+| every conformance case | 10 |
+
+#### Cases it did not pass
+
+| case | expected | it answered | values |
+| --- | --- | --- | --- |
+| [`cookie-cookie-array-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-canonical-explode-oas32) | accepted | rejected | `{}` |
+| [`cookie-cookie-array-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-no-explode-oas32) | accepted | rejected | `{}` |
+| [`cookie-cookie-object-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-canonical-explode-oas32) | accepted | rejected | `{}` |
+| [`cookie-cookie-object-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-no-explode-oas32) | accepted | rejected | `{}` |
+| [`query-deep-object-canonical-oas32`](../matrix.oas32.md#query-deep-object-canonical-oas32) | accepted | rejected | `{}` |
+| [`query-deep-object-no-explode-oas32`](../matrix.oas32.md#query-deep-object-no-explode-oas32) | accepted | rejected | `{}` |
+
+Each case id links to the case in full, with the rule the expected verdict
+rests on quoted beside it. Each row traces to the stored raw output in
+`libraries/openapi-core.json` by case id. An inaccurate
+row can come from the adapter, the case, or the corpus tier, and
+the harness repository's `docs/adding-an-adapter.md` says how to identify it
+and what counts as a fix.
+
+#### Cases it was not asked
+
+Not a gap in the measurement. Each is a stage this library leaves to its
+caller, so an answer would describe the harness rather than the library.
+
+- [`cookie-cookie-scalar-percent-triple-oas32`](../matrix.oas32.md#cookie-cookie-scalar-percent-triple-oas32) (stageNotOwned)
+
+### Divergence
+
+The specification does not settle these. What it returned is recorded and
+nothing is attributed to it.
+
+| case | verdict | values |
+| --- | --- | --- |
+| [`cookie-form-array-explode-oas32`](../matrix.oas32.md#cookie-form-array-explode-oas32) | accepted | `{"p":["blue","black"]}` |
+| [`path-simple-scalar-allow-reserved-unset-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-unset-oas32) | accepted | `{"p":"a:b@c"}` |

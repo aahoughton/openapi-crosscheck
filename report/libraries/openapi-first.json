@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "gem \"openapi_first\""
   },
-  "corpusDigest": "sha256:4aaa21b483d4925d27dbba5996cb4a28d993e0f5f28c002936b2300a5b3e44dc",
+  "corpusDigest": "sha256:289ed7aac537f32567e25e85b367a67ed5c346a4652c7372efcce3e597f6733a",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -715,6 +715,90 @@
   },
   "answers": [
     {
+      "caseId": "cookie-cookie-array-canonical-explode-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-array-no-explode-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-canonical-explode-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-no-explode-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-canonical-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-no-explode-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-percent-triple-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
       "caseId": "cookie-form-array-canonical-no-explode-oas30",
       "result": {
         "library": "openapi_first",
@@ -834,6 +918,18 @@
           "valid": true,
           "error": null
         }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
       }
     },
     {
@@ -3273,6 +3369,30 @@
       }
     },
     {
+      "caseId": "path-simple-scalar-allow-reserved-declared-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-allow-reserved-unset-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
       "caseId": "path-simple-scalar-canonical-oas30",
       "result": {
         "library": "openapi_first",
@@ -3813,6 +3933,18 @@
       }
     },
     {
+      "caseId": "query-deep-object-canonical-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
       "caseId": "query-deep-object-no-explode-oas30",
       "result": {
         "library": "openapi_first",
@@ -3872,6 +4004,18 @@
           "valid": true,
           "error": null
         }
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
       }
     },
     {

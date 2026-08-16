@@ -172,3 +172,43 @@ nothing is attributed to it.
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | accepted | not exposed by this library |
 | [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | rejected | not exposed by this library |
 | [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | accepted | not exposed by this library |
+
+## OpenAPI 3.2
+
+### Conformance
+
+The specification settles these, so a failure is attributable and the rule it
+rests on is quoted with the case in [matrix.oas32.md](../matrix.oas32.md).
+These counts are of one library and say nothing about any other. Every
+OpenAPI 3.2 conformance case falls in one row, including the ones this
+library was not asked, so the rows sum to the total and the denominator is on
+the page with the numbers.
+
+| result | cases |
+| --- | --- |
+| pass (verdict only) | 9 |
+| FAIL (verdict) | 1 |
+| every conformance case | 10 |
+
+#### Cases it did not pass
+
+| case | expected | it answered | values |
+| --- | --- | --- | --- |
+| [`cookie-cookie-object-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-canonical-explode-oas32) | accepted | rejected | not exposed by this library |
+
+Each case id links to the case in full, with the rule the expected verdict
+rests on quoted beside it. Each row traces to the stored raw output in
+`libraries/libopenapi-validator.json` by case id. An inaccurate
+row can come from the adapter, the case, or the corpus tier, and
+the harness repository's `docs/adding-an-adapter.md` says how to identify it
+and what counts as a fix.
+
+### Divergence
+
+The specification does not settle these. What it returned is recorded and
+nothing is attributed to it.
+
+| case | verdict | values |
+| --- | --- | --- |
+| [`cookie-form-array-explode-oas32`](../matrix.oas32.md#cookie-form-array-explode-oas32) | accepted | not exposed by this library |
+| [`path-simple-scalar-allow-reserved-unset-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-unset-oas32) | accepted | not exposed by this library |

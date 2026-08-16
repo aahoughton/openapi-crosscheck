@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "openapi-core"
   },
-  "corpusDigest": "sha256:4aaa21b483d4925d27dbba5996cb4a28d993e0f5f28c002936b2300a5b3e44dc",
+  "corpusDigest": "sha256:289ed7aac537f32567e25e85b367a67ed5c346a4652c7372efcce3e597f6733a",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1142,6 +1142,308 @@
   },
   "answers": [
     {
+      "caseId": "cookie-cookie-array-canonical-explode-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ],
+              [
+                "p",
+                "black"
+              ],
+              [
+                "p",
+                "brown"
+              ]
+            ]
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [
+            {
+              "type": "InvalidParameter",
+              "message": "Invalid cookie parameter: p"
+            }
+          ],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-array-no-explode-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": [
+              [
+                "p",
+                "blue,black,brown"
+              ]
+            ]
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [
+            {
+              "type": "InvalidParameter",
+              "message": "Invalid cookie parameter: p"
+            }
+          ],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-canonical-explode-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": [
+              [
+                "R",
+                "100"
+              ],
+              [
+                "G",
+                "200"
+              ]
+            ]
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [
+            {
+              "type": "MissingRequiredParameter",
+              "message": "Missing required cookie parameter: p"
+            }
+          ],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-no-explode-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": [
+              [
+                "p",
+                "R,100,G,200"
+              ]
+            ]
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [
+            {
+              "type": "InvalidParameter",
+              "message": "Invalid cookie parameter: p"
+            }
+          ],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-canonical-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "str"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {
+              "p": "blue"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-no-explode-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "str"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {
+              "p": "blue"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-percent-triple-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
       "caseId": "cookie-form-array-canonical-no-explode-oas30",
       "result": {
         "library": "openapi-core",
@@ -1306,6 +1608,63 @@
     },
     {
       "caseId": "cookie-form-array-explode-oas31",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ],
+              [
+                "p",
+                "black"
+              ]
+            ]
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": [
+              "blue",
+              "black"
+            ]
+          },
+          "nativeTypes": {
+            "p": "list[str]"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {
+              "p": [
+                "blue",
+                "black"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas32",
       "result": {
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
@@ -4894,6 +5253,90 @@
       }
     },
     {
+      "caseId": "path-simple-scalar-allow-reserved-declared-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "a:b@c"
+          },
+          "nativeTypes": {
+            "p": "str"
+          }
+        },
+        "inputMutation": {
+          "kind": "observed",
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'a:b@c'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
+        },
+        "raw": {
+          "errors": [],
+          "parameters": {
+            "path": {
+              "p": "a:b@c"
+            },
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-allow-reserved-unset-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "a:b@c"
+          },
+          "nativeTypes": {
+            "p": "str"
+          }
+        },
+        "inputMutation": {
+          "kind": "observed",
+          "detail": "the RequestParameters object handed to unmarshal_request; it is now RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={'p': 'a:b@c'}) where it was RequestParameters(query=ImmutableMultiDict([]), header={'Host': 'harness.invalid'}, cookie=ImmutableMultiDict([]), path={})"
+        },
+        "raw": {
+          "errors": [],
+          "parameters": {
+            "path": {
+              "p": "a:b@c"
+            },
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
       "caseId": "path-simple-scalar-canonical-oas30",
       "result": {
         "library": "openapi-core",
@@ -5560,6 +6003,56 @@
       }
     },
     {
+      "caseId": "query-deep-object-canonical-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p%5BR%5D",
+                "100"
+              ],
+              [
+                "p%5BG%5D",
+                "200"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [
+            {
+              "type": "MissingRequiredParameter",
+              "message": "Missing required query parameter: p"
+            }
+          ],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
       "caseId": "query-deep-object-no-explode-oas30",
       "result": {
         "library": "openapi-core",
@@ -5611,6 +6104,56 @@
     },
     {
       "caseId": "query-deep-object-no-explode-oas31",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p%5BR%5D",
+                "100"
+              ],
+              [
+                "p%5BG%5D",
+                "200"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [
+            {
+              "type": "ParameterValidationError",
+              "message": "Query parameter error: p"
+            }
+          ],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas32",
       "result": {
         "library": "openapi-core",
         "libraryVersion": "0.23.1",

@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:4aaa21b483d4925d27dbba5996cb4a28d993e0f5f28c002936b2300a5b3e44dc",
+  "corpusDigest": "sha256:289ed7aac537f32567e25e85b367a67ed5c346a4652c7372efcce3e597f6733a",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -780,6 +780,90 @@
   },
   "answers": [
     {
+      "caseId": "cookie-cookie-array-canonical-explode-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: serialization method with style=\"cookie\" and explode=true is not supported by a cookie parameter"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-array-no-explode-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: serialization method with style=\"cookie\" and explode=false is not supported by a cookie parameter"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-canonical-explode-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: serialization method with style=\"cookie\" and explode=true is not supported by a cookie parameter"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-no-explode-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: serialization method with style=\"cookie\" and explode=false is not supported by a cookie parameter"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-canonical-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: serialization method with style=\"cookie\" and explode=true is not supported by a cookie parameter"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-no-explode-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: serialization method with style=\"cookie\" and explode=false is not supported by a cookie parameter"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-percent-triple-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: serialization method with style=\"cookie\" and explode=true is not supported by a cookie parameter"
+      }
+    },
+    {
       "caseId": "cookie-form-array-canonical-no-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
@@ -853,6 +937,32 @@
     },
     {
       "caseId": "cookie-form-array-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in cookie has an error: invalid serialization method: style=\"form\", explode=true",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
         "libraryVersion": "0.146.0",
@@ -2898,6 +3008,56 @@
       }
     },
     {
+      "caseId": "path-simple-scalar-allow-reserved-declared-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "a:b@c"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-allow-reserved-unset-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {
+            "p": "a:b@c"
+          },
+          "stage": "validation"
+        }
+      }
+    },
+    {
       "caseId": "path-simple-scalar-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
@@ -3296,6 +3456,29 @@
       }
     },
     {
+      "caseId": "query-deep-object-canonical-oas32",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
       "caseId": "query-deep-object-no-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
@@ -3309,6 +3492,18 @@
     },
     {
       "caseId": "query-deep-object-no-explode-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.146.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: serialization method with style=\"deepObject\" and explode=false is not supported by a query parameter"
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
         "libraryVersion": "0.146.0",

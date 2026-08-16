@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:4aaa21b483d4925d27dbba5996cb4a28d993e0f5f28c002936b2300a5b3e44dc",
+  "corpusDigest": "sha256:289ed7aac537f32567e25e85b367a67ed5c346a4652c7372efcce3e597f6733a",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1352,6 +1352,307 @@
   },
   "answers": [
     {
+      "caseId": "cookie-cookie-array-canonical-explode-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ],
+              [
+                "p",
+                "black"
+              ],
+              [
+                "p",
+                "brown"
+              ]
+            ]
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "cannotRepresentCase",
+        "detail": "the request shape holds one string per cookie name, so neither a repeated name nor a crumb that carried no `=` has a spelling in it; handing over what survived would put the library's verdict on an input the case did not send"
+      }
+    },
+    {
+      "caseId": "cookie-cookie-array-no-explode-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": [
+              [
+                "p",
+                "blue,black,brown"
+              ]
+            ]
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": [
+              "blue",
+              "black",
+              "brown"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array<string>"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {
+              "p": [
+                "blue",
+                "black",
+                "brown"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-canonical-explode-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": [
+              [
+                "R",
+                "100"
+              ],
+              [
+                "G",
+                "200"
+              ]
+            ]
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "errors": [
+            {
+              "code": "cookie-param",
+              "path": [
+                "cookie",
+                "p"
+              ],
+              "message": "missing required cookie parameter \"p\"",
+              "params": {
+                "name": "p",
+                "in": "cookie"
+              },
+              "children": []
+            }
+          ],
+          "truncated": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-no-explode-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": [
+              [
+                "p",
+                "R,100,G,200"
+              ]
+            ]
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Object<string,string>"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {
+              "p": {
+                "R": "100",
+                "G": "200"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-canonical-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {
+              "p": "blue"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-no-explode-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {
+              "p": "blue"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-percent-triple-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes splitting for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
       "caseId": "cookie-form-array-canonical-no-explode-oas30",
       "result": {
         "library": "@oaverify/core",
@@ -1484,6 +1785,33 @@
     },
     {
       "caseId": "cookie-form-array-explode-oas31",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": [
+              [
+                "p",
+                "blue"
+              ],
+              [
+                "p",
+                "black"
+              ]
+            ]
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "cannotRepresentCase",
+        "detail": "the request shape holds one string per cookie name, so neither a repeated name nor a crumb that carried no `=` has a spelling in it; handing over what survived would put the library's verdict on an input the case did not send"
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas32",
       "result": {
         "library": "@oaverify/core",
         "libraryVersion": "7.0.0",
@@ -5182,6 +5510,88 @@
       }
     },
     {
+      "caseId": "path-simple-scalar-allow-reserved-declared-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "a:b@c"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {
+              "p": "a:b@c"
+            },
+            "query": {},
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-allow-reserved-unset-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "a:b@c"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {
+              "p": "a:b@c"
+            },
+            "query": {},
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
       "caseId": "path-simple-scalar-canonical-oas30",
       "result": {
         "library": "@oaverify/core",
@@ -6016,6 +6426,53 @@
       }
     },
     {
+      "caseId": "query-deep-object-canonical-oas32",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Object<string,string>"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {},
+            "query": {
+              "p": {
+                "R": "100",
+                "G": "200"
+              }
+            },
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
       "caseId": "query-deep-object-no-explode-oas30",
       "result": {
         "library": "@oaverify/core",
@@ -6064,6 +6521,53 @@
     },
     {
       "caseId": "query-deep-object-no-explode-oas31",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.0.0",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": {
+              "R": "100",
+              "G": "200"
+            }
+          },
+          "nativeTypes": {
+            "p": "Object<string,string>"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {},
+            "query": {
+              "p": {
+                "R": "100",
+                "G": "200"
+              }
+            },
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas32",
       "result": {
         "library": "@oaverify/core",
         "libraryVersion": "7.0.0",

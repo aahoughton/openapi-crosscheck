@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:4aaa21b483d4925d27dbba5996cb4a28d993e0f5f28c002936b2300a5b3e44dc",
+  "corpusDigest": "sha256:289ed7aac537f32567e25e85b367a67ed5c346a4652c7372efcce3e597f6733a",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -786,6 +786,167 @@
   },
   "answers": [
     {
+      "caseId": "cookie-cookie-array-canonical-explode-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-array-no-explode-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-canonical-explode-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [
+            {
+              "message": "Cookie parameter 'p' is missing",
+              "reason": "The cookie parameter 'p' is defined as being required, however it's missing from the request",
+              "validationSubType": "cookie",
+              "validationType": "parameter"
+            }
+          ],
+          "valid": false
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-object-no-explode-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-canonical-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-no-explode-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "cookie-cookie-scalar-percent-triple-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
       "caseId": "cookie-form-array-canonical-no-explode-oas30",
       "result": {
         "library": "github.com/pb33f/libopenapi-validator",
@@ -853,6 +1014,28 @@
     },
     {
       "caseId": "cookie-form-array-explode-oas31",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "cookie-form-array-explode-oas32",
       "result": {
         "library": "github.com/pb33f/libopenapi-validator",
         "libraryVersion": "0.14.0",
@@ -2720,6 +2903,50 @@
       }
     },
     {
+      "caseId": "path-simple-scalar-allow-reserved-declared-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-allow-reserved-unset-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
       "caseId": "path-simple-scalar-canonical-oas30",
       "result": {
         "library": "github.com/pb33f/libopenapi-validator",
@@ -3144,6 +3371,28 @@
       }
     },
     {
+      "caseId": "query-deep-object-canonical-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
       "caseId": "query-deep-object-no-explode-oas30",
       "result": {
         "library": "github.com/pb33f/libopenapi-validator",
@@ -3167,6 +3416,28 @@
     },
     {
       "caseId": "query-deep-object-no-explode-oas31",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "query-deep-object-no-explode-oas32",
       "result": {
         "library": "github.com/pb33f/libopenapi-validator",
         "libraryVersion": "0.14.0",
