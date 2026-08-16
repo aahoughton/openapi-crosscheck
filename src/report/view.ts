@@ -864,23 +864,33 @@ export function placeContentCases(cases: readonly Case[]): {
 }
 
 export function coverage(cases: readonly Case[]): CoverageView {
-  // Per version and then summed, because the style surface is per version: 3.2
-  // defines a style the earlier ones do not, and a cell filled under one
-  // version is not filled under another. Counting one surface for the whole
-  // corpus would credit a 3.1 case for a 3.2 cell nobody has written.
-  const style = presentVersions(cases).map((version) => {
+  // Both surfaces are counted per version and then summed, so the two
+  // denominators in the same grid mean the same thing. A cell filled under one
+  // version is not filled under another: counting one surface for the whole
+  // corpus would credit a 3.1 case for a 3.2 cell nobody has written, and 3.2
+  // defines a style the earlier versions do not. The content surface does not
+  // vary by version, which makes the summing look like multiplication, and it
+  // is the same statement either way: every version is asked the question and
+  // the versions nobody wrote a content case for are published as empty.
+  const versions = presentVersions(cases);
+  const perVersion = versions.map((version) => {
+    const versionCases = cases.filter((c) => c.oasVersion === version);
     const keys = new Set(
-      cases
-        .filter((c) => c.oasVersion === version)
-        .flatMap((c) => (c.dimensions.declaration === "schema" ? [cellKey(c.dimensions)] : [])),
+      versionCases.flatMap((c) =>
+        c.dimensions.declaration === "schema" ? [cellKey(c.dimensions)] : [],
+      ),
     );
     const surface = definedSurface(version);
+    const content = placeContentCases(versionCases);
     return {
-      defined: surface.length,
-      covered: surface.filter((cell) => keys.has(cellKey(cell))).length,
+      styleDefined: surface.length,
+      styleCovered: surface.filter((cell) => keys.has(cellKey(cell))).length,
+      contentDefined: content.defined.length,
+      contentCovered: content.covered.size,
     };
   });
-  const content = placeContentCases(cases);
+  const summed = (of: (entry: (typeof perVersion)[number]) => number): number =>
+    perVersion.reduce((total, entry) => total + of(entry), 0);
 
   const typed = DECLARED_TYPES.map((type) => {
     const declaredBy = cases.filter((c) => declaredTypes(c.document).has(type));
@@ -895,10 +905,10 @@ export function coverage(cases: readonly Case[]): CoverageView {
 
   return {
     byType: typed,
-    styleDefined: style.reduce((total, entry) => total + entry.defined, 0),
-    styleCovered: style.reduce((total, entry) => total + entry.covered, 0),
-    contentDefined: content.defined.length,
-    contentCovered: content.covered.size,
+    styleDefined: summed((entry) => entry.styleDefined),
+    styleCovered: summed((entry) => entry.styleCovered),
+    contentDefined: summed((entry) => entry.contentDefined),
+    contentCovered: summed((entry) => entry.contentCovered),
     // `valueExposure` is absent by construction rather than empty: no case can
     // probe it, because a case probes a stage by varying something until the
     // verdict moves and exposure moves no verdict.
