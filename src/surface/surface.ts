@@ -149,6 +149,17 @@ export interface SurfaceCell {
  * on the surface and makes each one a case worth writing: a library that
  * branches on the flag answers the two differently, and one cell could not show
  * that.
+ *
+ * So `n/a` in a 3.2 style table is read two ways here, and the difference is in
+ * the specification rather than in this function. For `pipeDelimited` and
+ * `spaceDelimited` the explode column is the only thing marking the exploded
+ * combination, and the table's preamble calls a combination marked n/a
+ * undefined, so the cell leaves the surface. For `deepObject` the explode
+ * field's own text says the flag has no effect, which settles the behavior of
+ * both values rather than leaving either undefined; the table's single row is
+ * then one row because the flag does not select between rows. A cell whose
+ * behavior the specification states is on the surface however the table spells
+ * it, which is why the 3.2 denominator is 48 rather than 47.
  */
 export function isDefined(cell: SurfaceCell, version: OasVersion): boolean {
   if (!STYLE_LOCATIONS[version][cell.style].includes(cell.location)) return false;
