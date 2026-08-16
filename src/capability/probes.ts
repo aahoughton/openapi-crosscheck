@@ -77,6 +77,23 @@ export interface CapabilityProbe {
   readonly reject: WireRequest;
 }
 
+/**
+ * The `openapi` value each probe's document carries: the newest published
+ * patch of each line at the time this file was written. Version claims are
+ * about a minor line (3.1 means 3.1.x documents), and the citations pin exact
+ * patch revisions where exactness matters.
+ *
+ * Every probe document in this file comes from here, including the ones that
+ * ask nothing about versions. A stage probe carrying a different patch than
+ * the version probe next to it would be a second answer to a question this
+ * table already answers.
+ */
+const PROBE_DOCUMENT_VERSIONS: Readonly<Record<OasVersion, string>> = {
+  "3.0": "3.0.4",
+  "3.1": "3.1.1",
+  "3.2": "3.2.0",
+};
+
 const BLUE_ONLY: JsonValue = { type: "string", enum: ["blue"] };
 const BLUE_ONLY_DEFAULT: JsonValue = { type: "string", enum: ["blue"], default: "blue" };
 const BLUE_BLACK_ARRAY: JsonValue = {
@@ -101,7 +118,7 @@ const R_OBJECT: JsonValue = {
  */
 function document(parameters: readonly ParameterObject[], template: string): OpenApiDocument {
   return {
-    openapi: "3.1.0",
+    openapi: PROBE_DOCUMENT_VERSIONS["3.1"],
     info: { title: "capability probe", version: "1" },
     paths: {
       [template]: {
@@ -321,18 +338,6 @@ export interface VersionProbe {
   readonly accept: WireRequest;
   readonly reject: WireRequest;
 }
-
-/**
- * The `openapi` value each probe's document carries: the newest published
- * patch of each line at the time this file was written. Version claims are
- * about a minor line (3.1 means 3.1.x documents), and the citations pin exact
- * patch revisions where exactness matters.
- */
-const PROBE_DOCUMENT_VERSIONS: Readonly<Record<OasVersion, string>> = {
-  "3.0": "3.0.4",
-  "3.1": "3.1.1",
-  "3.2": "3.2.0",
-};
 
 export const VERSION_PROBES: readonly VersionProbe[] = OAS_VERSIONS.map((oasVersion) => ({
   probeId: `oas-${oasVersion}-document`,
