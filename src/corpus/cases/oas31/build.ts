@@ -5,7 +5,7 @@ import { documentBuilders } from "../../build";
  * directory carries. Case files import from here rather than from `../../build`
  * so the version is named exactly once for the directory.
  */
-export const { document, documentWithPaths } = documentBuilders("3.1.0");
+export const { document, documentWithPaths } = documentBuilders("3.1.1");
 
 export {
   BOOLEAN,

@@ -855,7 +855,7 @@
         "quoted": "For multiple values, style: \"form\" is always incorrect as name=value pairs in cookies are delimited by ; (a semicolon followed by a space character) rather than &."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -1011,7 +1011,7 @@
         "quoted": "| form | true | ?color= | ?color=blue | ?color=blue&color=black&color=brown | ?R=100&G=200&B=150 |"
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -1250,7 +1250,7 @@
         "quoted": "For multiple values, style: \"form\" is always incorrect as name=value pairs in cookies are delimited by ; (a semicolon followed by a space character) rather than &."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -1416,7 +1416,7 @@
         "quoted": "| form | true | ?color= | ?color=blue | ?color=blue&color=black&color=brown | ?R=100&G=200&B=150 |"
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -1573,7 +1573,7 @@
         "quoted": "Using style: \"form\" with in: \"cookie\" is ambiguous for a single value, and incorrect for multiple values. This is true whether the multiple values are the result of using explode: true or not. ... Because implementations that rely on an RFC6570 implementation and those that perform custom serialization based on the style example will produce different results, it is implementation-defined as to which of the two results is correct."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -1722,7 +1722,7 @@
         "quoted": "Using style: \"form\" with in: \"cookie\" is ambiguous for a single value, and incorrect for multiple values. This is true whether the multiple values are the result of using explode: true or not. ... Because implementations that rely on an RFC6570 implementation and those that perform custom serialization based on the style example will produce different results, it is implementation-defined as to which of the two results is correct."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -1947,7 +1947,7 @@
       },
       "rationale": "The parameter declares one representation, application/json, and the header carries a well-formed JSON object matching the schema. No style applies, because the parameter declares content rather than schema, and the specification gives those as the two ways serialization is specified.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -2135,7 +2135,7 @@
       },
       "rationale": "simple is the default style for header parameters; an array is comma separated.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -2329,7 +2329,7 @@
       },
       "rationale": "Header names are case insensitive, so a header sent as P satisfies a parameter declared as p. This is the one location where a casing variant must not change the verdict.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -2477,7 +2477,7 @@
       "question": "Two headers of the declared name arrive. Is that the array, a repeated scalar, or an error? The Style Examples table gives one comma-separated header for an array and says nothing about repetition.",
       "basis": null,
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -2668,7 +2668,7 @@
       },
       "rationale": "The same request as the canonical header case, with style written out instead of left to the default. The two cases differ only in whether the declaration relies on the default, so when a library handles one and not the other, default resolution is the difference; the style itself is supported.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -2855,7 +2855,7 @@
       },
       "rationale": "The simple rows agree on arrays: exploded or not, the items are comma joined. A library that treats explode as meaning repeated headers here is reading a rule the table does not give.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -3044,7 +3044,7 @@
       },
       "rationale": "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -3238,7 +3238,7 @@
       },
       "rationale": "This is the one place explode changes a simple serialization: the properties are joined to their values with equals rather than laid out as a flat comma list.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -3418,7 +3418,7 @@
       },
       "rationale": "The declared style is simple, which is also the header default, and a simple scalar is the bare value. The canonical case for the location, against which the header variants are read.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -3590,7 +3590,7 @@
       },
       "rationale": "Both simple rows give the bare value for a scalar, so explode changes nothing that can be observed on the wire. What it can change is whether a library takes a different path to the same answer.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -3821,7 +3821,7 @@
       },
       "rationale": "The value is a percent-encoded JSON object, which is what a path segment can carry of the declared representation. Percent-decoding is ordinary URI processing and applies to a path segment as to any other component, so what reaches the schema is the object. The query twin scores the same way on the same citations; nothing the specification says about templating or content distinguishes the locations here, and the segment matches the template as one segment either way.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -4003,7 +4003,7 @@
       },
       "rationale": "label with explode false serializes an array as a dot followed by CSV.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -4181,7 +4181,7 @@
       },
       "rationale": "Exploding a label array separates items with dots rather than commas, so the wire form differs from the unexploded case on the same values. The pair isolates whether a library reads explode at all for this style.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -4363,7 +4363,7 @@
       "expectedValues": null,
       "rationale": "Every label serialization begins with a dot. A value with no dot is the simple style's shape, and is not a label expansion of anything.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -4546,7 +4546,7 @@
       },
       "rationale": "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -4732,7 +4732,7 @@
       },
       "rationale": "An exploded label object pairs each property to its value with equals and separates the pairs with the dot that also opens the segment, so the first dot and the separating dots are the same character doing two jobs.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -4904,7 +4904,7 @@
       },
       "rationale": "A label scalar is a dot followed by the value. The leading dot is part of the serialization rather than part of the value, which is the whole of what this case asks.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -5068,7 +5068,7 @@
       },
       "rationale": "Both label rows give a dot and the value for a scalar, so explode is unobservable here and the leading dot is still not part of the value.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -5243,7 +5243,7 @@
       },
       "rationale": "The textbook RFC6570 expansion of an exploded matrix array: the name repeats once per item. This is the case every other matrix probe varies away from.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -5437,7 +5437,7 @@
       "expectedValues": null,
       "rationale": "The segment is well-formed matrix syntax, and every name in it is a name other than the declared one. Parameter names are case sensitive and identify the parameter, so no value of p is present, and p is required. Distinct from a segment that never parsed as matrix at all.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -5619,7 +5619,7 @@
       "expectedValues": null,
       "rationale": "The segment carries no matrix syntax, so it is not an expansion of p, and p is required. Distinct from a segment that parsed as matrix and yielded nothing: this one never parsed.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -5797,7 +5797,7 @@
       },
       "rationale": "Without explode a matrix array names the parameter once and comma joins the items, rather than repeating the name as the exploded row does.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -6008,7 +6008,7 @@
       "expectedValues": null,
       "rationale": "Two parameters are declared, and each segment carries the other's name. Both names appear in the request, so a check that merely looks for a name somewhere is satisfied, while neither parameter has a value in its own position.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -6198,7 +6198,7 @@
       },
       "rationale": "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -6386,7 +6386,7 @@
       },
       "rationale": "An exploded matrix object drops the parameter name entirely and names the object properties instead, so nothing on the wire carries the declared identifier. A library keying off the parameter name has nothing to find.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -6560,7 +6560,7 @@
       },
       "rationale": "A matrix scalar serializes as ;name=value.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -6724,7 +6724,7 @@
       },
       "rationale": "Both matrix rows give the same segment for a scalar, so explode is unobservable, and the name inside the segment is still the declared one.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -6911,7 +6911,7 @@
       "expectedValues": null,
       "rationale": "The segment names q. The declared parameter is p and it is required. No serialization of p produces ;q=blue, so p has no value here.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -7112,7 +7112,7 @@
       "expectedValues": null,
       "rationale": "The parameter is declared as an integer and the value inside the segment is alphabetic, so no conversion left to implementations makes it one. The wrong-typed sibling in `simple` asks the same question of a segment that is already the value; here the matrix syntax has to come off first, which is why a library that leaves path style to its caller is not asked this at all. Rejecting `;p=blue` for the semicolon would be the right verdict for the wrong reason, and the value channel is where the two come apart.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -7280,7 +7280,7 @@
       },
       "answeredInValues": true,
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -7499,7 +7499,7 @@
       "expectedValues": null,
       "rationale": "Concrete paths are matched before their templated counterparts, and the specification gives exactly this pair as its example. The concrete operation requires a query parameter the request does not carry, so matching it correctly means rejecting. A library that matched the templated path instead would accept, which is why the operations differ in what they require: the verdict alone distinguishes them, without needing the value channel. The matching sentences carry no RFC 2119 keyword; they are read here as defining what a Paths Object means, the way the style tables define serialization without saying MUST.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -7698,7 +7698,7 @@
       },
       "answeredInValues": true,
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -7906,7 +7906,7 @@
       },
       "rationale": "simple is the default path style; an array is comma separated with no prefix.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -8045,7 +8045,7 @@
       "question": "A percent-encoded comma sits where the delimiter would be. Is this one item containing a comma, or two items? Decoding before splitting and splitting before decoding give different answers, and the specification prescribes no order.",
       "basis": null,
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -8225,7 +8225,7 @@
       },
       "rationale": "Exploding a simple array changes nothing: the table gives the same wire form for both values of explode. So this case and the unexploded one are the same bytes with different declarations, and a library that treats explode as meaningful here will disagree with one that reads the table.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -8408,7 +8408,7 @@
       },
       "rationale": "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -8594,7 +8594,7 @@
       },
       "rationale": "An exploded simple object joins each property to its value with equals, where the unexploded row lays the same properties out as a flat comma list.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -8931,7 +8931,7 @@
       },
       "rationale": "A simple scalar is the value itself, so the wire form and the value are the same string. Nothing has to be deserialized for the schema question to be reachable.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -9095,7 +9095,7 @@
       },
       "rationale": "Simple is the defaulted style for a path and a scalar is the bare segment, exploded or not. The declared-explode counterpart of the canonical case.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -9259,7 +9259,7 @@
       },
       "rationale": "A path parameter with no serialization keywords, which the library must resolve to simple before reading the segment. Pairs with the declared-style case on the same wire bytes, so the two differ only in whether the default was resolved.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -9433,7 +9433,7 @@
       "expectedValues": null,
       "rationale": "The parameter is declared as an integer and the value is alphabetic. No conversion left to implementations makes this an integer, so the disagreement about coercing numeric strings does not reach this case.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -9607,7 +9607,7 @@
         "quoted": "The rules for serialization of the parameter are specified in one of two ways. Parameter Objects MUST include either a content field or a schema field, but not both."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -9866,7 +9866,7 @@
       },
       "rationale": "The value is a percent-encoded JSON object, which is what a query string can carry of the declared representation. Percent-decoding is ordinary URI processing and happens before the value is read as its media type, so what reaches the schema is the object.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -10092,7 +10092,7 @@
       "expectedValues": null,
       "rationale": "The declared representation is application/json and the value is not JSON, so there is nothing for the schema to be evaluated against. Distinct from a value that parses and then fails its schema.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -10265,7 +10265,7 @@
         "quoted": "A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -10467,7 +10467,7 @@
       },
       "rationale": "deepObject with explode true is the one defined deepObject combination.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -10730,7 +10730,7 @@
         "quoted": "When this is true, parameter values of type array or object generate separate parameters for each value of the array or key-value pair of the map. For other types of parameters this field has no effect. When style is \"form\", the default value is true. For all other styles, the default value is false. Note that despite false being the default for deepObject, the combination of false with deepObject is undefined."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -11039,7 +11039,7 @@
       },
       "rationale": "form with explode true repeats the name once per item, and is the query default.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -11228,7 +11228,7 @@
       },
       "rationale": "form with explode false is one occurrence of the name carrying CSV.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -11366,7 +11366,7 @@
       "question": "The declaration says explode false, and the wire carries the exploded shape. Does an implementation follow the declaration, follow the wire, or refuse?",
       "basis": null,
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -11516,7 +11516,7 @@
         "quoted": "| form | false | ?color= | ?color=blue | ?color=blue,black,brown | ?color=R,100,G,200,B,150 |"
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -11666,7 +11666,7 @@
         "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -11856,7 +11856,7 @@
       },
       "rationale": "The declaration writes neither style nor explode, so the library must resolve form for a query parameter and then true for explode under form, before it can deserialize anything. The wire form is identical to the case that declares both, so the pair differs only in whether a default had to be resolved. The defaulted form is reported to be much the more common in published documents; that report is not this repository's measurement, and is recorded under Figures from elsewhere in coverage.md.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -12001,7 +12001,7 @@
         "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -12177,7 +12177,7 @@
       "expectedValues": null,
       "rationale": "The JSON Schema data model recognises booleans as one of its four primitive types, and the word blue is not one under any reading. A library that converts text to primitives has nothing to convert it to; a library that converts nothing is holding a string against a boolean. Both reject, so the conversion question Appendix B leaves open does not reach this and the verdict is attributable.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -12369,7 +12369,7 @@
       },
       "rationale": "An exploded form object serializes as its own properties, so the declared parameter name appears nowhere in the query string. This is the shape most likely to be confused with two unrelated query parameters.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -12567,7 +12567,7 @@
       },
       "rationale": "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -12725,7 +12725,7 @@
         "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -12921,7 +12921,7 @@
       "expectedValues": null,
       "rationale": "A required exploded form object serializes as its own properties, so its absence looks like an empty query string rather than a missing named parameter. There is nothing whose absence a name check could notice, which is the condition under which a library is most likely to accept nothing at all. The schema requires both properties: without that, the empty object would validate, and RFC 6570 treats a zero-member associative array as undefined, making an empty query string a legitimate serialization of a schema-valid value and the rejection unsettled.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -13117,7 +13117,7 @@
       "expectedValues": null,
       "rationale": "The object deserializes cleanly and one property then fails its declared type. The value is alphabetic against an integer, so no conversion left to implementations reaches it. This asks whether schema validation runs through to an object's properties, which the accepting object cases cannot ask.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -13268,7 +13268,7 @@
         "quoted": "If true, clients MAY pass a zero-length string value in place of parameters that would otherwise be omitted entirely, which the server SHOULD interpret as the parameter being unused. Default value is false. ... Interactions between this field and the parameter's Schema Object are implementation-defined. This field is valid only for query parameters. Use of this field is NOT RECOMMENDED, and it is likely to be removed in a later revision."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -13446,7 +13446,7 @@
       },
       "rationale": "allowReserved is declared, so the reserved set passes through unencoded, and the request carries exactly that. The slash and the colon are the value rather than delimiters, and nothing else in the request is unusual.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -13590,7 +13590,7 @@
       },
       "answeredInValues": true,
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -13731,7 +13731,7 @@
         "quoted": "When this is true, parameter values are serialized using reserved expansion, as defined by [RFC6570] Section 3.2.3, which allows RFC3986's reserved character set, as well as percent-encoded triples, to pass through unchanged, while still percent-encoding all other disallowed characters (including % outside of percent-encoded triples). ... This field only applies to parameters with an in value of query. The default value is false."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -13874,7 +13874,7 @@
         "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -14020,7 +14020,7 @@
         "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -14197,7 +14197,7 @@
       "expectedValues": null,
       "rationale": "A required parameter is absent, and a different name is present in its place. The presence of some query parameter is not the presence of this one.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -14342,7 +14342,7 @@
         "quoted": "| form | false | ?color= | ?color=blue | ?color=blue,black,brown | ?color=R,100,G,200,B,150 |"
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -14486,7 +14486,7 @@
         "quoted": "[RFC6570] Section 2.3 specifies which values, including but not limited to null, are considered undefined and therefore treated specially in the expansion process when serializing based on that specification"
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -14680,7 +14680,7 @@
       "expectedValues": null,
       "rationale": "The name is present with a zero-length value, and the schema admits both a string and null. Read as the empty string, which the specification says is not undefined, it is a value the schema accepts; read as the serialization of an undefined null, the Style Examples table's ?color= column, it is the other value the schema accepts. Every reading accepts, so the verdict is settled. Which value comes back is not, so no values are expected: the readings part only in the value channel.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -14862,7 +14862,7 @@
       "expectedValues": null,
       "rationale": "The wire carries the four characters n, u, l, l for a schema admitting a string or null. Read as a string they are an ordinary value the schema accepts; read through the implementation-defined conversion Appendix B allows, they are the null the schema also accepts. Every reading accepts, so the verdict is settled. The value handed back is where the readings part, and no values are expected because the specification does not choose between them.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -15027,7 +15027,7 @@
       "expectedValues": null,
       "rationale": "required defaults to false and this declaration writes it out, so a request without the parameter is valid and a library that rejects it has inverted its required check. What the caller receives is open: the key absent from the values, the key present as null, and the key present with something the library supplied are each defensible, so no values are expected and the value channel is where libraries part. Until this case, every declaration in the corpus was required, which was a constant the corpus was holding fixed.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -15204,7 +15204,7 @@
       "expectedValues": null,
       "rationale": "The same absent optional parameter, with a default in its schema. Acceptance is settled by required being false. The value channel is where this case lives: in 3.1 the Schema Object is a superset of JSON Schema 2020-12, where default is an annotation, and annotations do not modify the instance, so a validator that injects blue supplies a value the specification does not ask for. Libraries differ, the values answer, and none are expected.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -15371,7 +15371,7 @@
       },
       "rationale": "The most common shape in published documents: a query parameter with a scalar schema and no serialization keywords at all. Explode has no effect on a scalar, so only the style default is under test here.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -15544,7 +15544,7 @@
       },
       "rationale": "pipeDelimited with explode false separates items with an encoded pipe.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -15725,7 +15725,7 @@
       },
       "rationale": "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -15906,7 +15906,7 @@
       },
       "rationale": "spaceDelimited with explode false separates items with an encoded space.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -16054,7 +16054,7 @@
         "quoted": "The behavior of combinations marked _n/a_ is undefined"
       },
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"
@@ -16237,7 +16237,7 @@
       },
       "rationale": "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
       "document": {
-        "openapi": "3.1.0",
+        "openapi": "3.1.1",
         "info": {
           "title": "crosscheck",
           "version": "1"

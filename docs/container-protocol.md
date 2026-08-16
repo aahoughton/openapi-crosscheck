@@ -166,7 +166,7 @@ Called once per case.
 {
   "protocol": 2,
   "caseId": "path-matrix-scalar-canonical-oas31",
-  "document": { "openapi": "3.1.0", "...": "the case's document, verbatim" },
+  "document": { "openapi": "3.1.1", "...": "the case's document, verbatim" },
   "request": {
     "method": "GET",
     "targetBase64": "L3QvO3A9Ymx1ZQ==",
