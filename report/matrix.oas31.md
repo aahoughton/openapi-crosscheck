@@ -58,7 +58,7 @@ it was given.
 | [`github.com/getkin/kin-openapi`](libraries/kin-openapi.md) | 0.146.0 | `validate-request-gorillamux` |
 | [`github.com/pb33f/libopenapi-validator`](libraries/libopenapi-validator.md) | 0.14.0 | `validate-http-request` |
 | [`league/openapi-psr7-validator`](libraries/league-openapi-psr7-validator.md) | 0.24 | `request-validator-psr7` |
-| [`@oaverify/core`](libraries/oaverify-core.md) | 7.0.0 | `request-return-values` |
+| [`@oaverify/core`](libraries/oaverify-core.md) | 7.1.0 | `request-return-values` |
 | [`openapi-backend`](libraries/openapi-backend.md) | 5.20.0 | `coerce-types-on` |
 | [`openapi-core`](libraries/openapi-core.md) | 0.23.1 | `unmarshal-request-protocol` |
 | [`openapi-request-validator`](libraries/openapi-request-validator.md) | 12.1.3 | `parameters-only` |
@@ -75,16 +75,16 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:bcb114332900fa8fdc00ac642a0d4bd68629013fde1ecaf8706b4986d08e2cbc` |
-| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:f388656842fbd0d86979db6d14213351c4517c6dee8c2a582c7f0f62ac70c5fa` |
-| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:a55995e8e5097fa300b70679ba851814d0e54591bb250ef414c35796d2b5acf1` |
-| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:44acb68384d6e8f1742e34803e653ee531be849fbf2f764f7bfb8b0479f07916` |
-| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:60038969bc4330fb444ea4637513ab0136b27d45b04761dceeb22c86a68fc6f8` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:9a6df56179ab4aae8e28ac46a44423fb285358b416cfd29faacd717e12b3399f` |
-| `openapi-backend` | `adapters/openapi-backend/` | `sha256:d7db10df17a3b7b943316683a2ad7e37526e50f3305f684fef30632064a3be31` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:8f5ab2a02d33ea6561b4bdfad15032ba05ad4e7eac65b01b66f0c1ecfce1a435` |
-| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:856942871de748159a50a0c1bd988c482f6ee33874fe33a500f4cb1e7ce5a5f2` |
-| `openapi_first` | `adapters/openapi-first/` | `sha256:3887153f2558a770d89be6e689804184e593a545453caae68c5c0e0a41e7efe7` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:165a69777926a05b7620827753a14a80f4cea012e4f8953b3ef9f1dadcc6377e` |
+| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:ad48acb76aa43e57a0f85ab4cae8f3edbc909741e96390032308bd6f8f7f37fd` |
+| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:fe0e5b3baaad5d32942d63a21af9e0acf9a98884fdfe145e44bdd85976e8cfd3` |
+| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:3e9694a49bf191218ee36aed396c89b298237944e892ee3f556f5c58965a8fa6` |
+| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:dab8a66b221964cf5db9e6b957396cd4a750ec395686c3e5608473b5ece6b6f4` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:a58b653695fab3fa4a73ac8a99eb1ad70de44ab7e4c79e4301d88e48d362f05e` |
+| `openapi-backend` | `adapters/openapi-backend/` | `sha256:da3b5bb95f321b605ae889d8cb125e266d6455e378a96cbbc52b30acce20a2d4` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:0d41fa0704ef78ff9909329d6bd68bf23c999eaf5deb727a9326fb2aa0dd4613` |
+| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:202e5282012ac8bc30525a7217ba29559bfc68bcfb7167aa411ceae51c0e6946` |
+| `openapi_first` | `adapters/openapi-first/` | `sha256:f8cde4f09888a56430f7f82c8a545a0af935badd43cfaa694a64bff8846fa83f` |
 
 ## Conformance
 
@@ -105,24 +105,24 @@ rules the expected verdict rests on, and the argument for it.
 | [`header-simple-array-explicit-style-oas31`](#header-simple-array-explicit-style-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`header-simple-array-explode-oas31`](#header-simple-array-explode-oas31) | accepted | FAIL (verdict) | FAIL (value) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`header-simple-object-canonical-oas31`](#header-simple-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
-| [`header-simple-object-explode-oas31`](#header-simple-object-explode-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | FAIL (value) | FAIL (verdict) | pass | n/a | pass |
+| [`header-simple-object-explode-oas31`](#header-simple-object-explode-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`header-simple-scalar-canonical-oas31`](#header-simple-scalar-canonical-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`header-simple-scalar-explode-oas31`](#header-simple-scalar-explode-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`path-content-json-object-canonical-oas31`](#path-content-json-object-canonical-oas31) | accepted | n/a | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | n/a | FAIL (verdict) |
 | [`path-label-array-canonical-oas31`](#path-label-array-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (verdict) | FAIL (verdict) | n/a | FAIL (value) |
 | [`path-label-array-explode-oas31`](#path-label-array-explode-oas31) | accepted | FAIL (verdict) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (verdict) | FAIL (verdict) | n/a | pass |
-| [`path-label-array-foreign-shape-oas31`](#path-label-array-foreign-shape-oas31) | rejected | pass | pass | pass | FAIL (verdict) | pass | FAIL (verdict) | pass | pass | n/a | FAIL (verdict) |
-| [`path-label-object-canonical-oas31`](#path-label-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | FAIL (value) | FAIL (verdict) | FAIL (verdict) | n/a | FAIL (verdict) |
-| [`path-label-object-explode-oas31`](#path-label-object-explode-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | FAIL (value) | FAIL (verdict) | FAIL (verdict) | n/a | FAIL (value) |
+| [`path-label-array-foreign-shape-oas31`](#path-label-array-foreign-shape-oas31) | rejected | pass | pass | pass | FAIL (verdict) | pass | pass | pass | pass | n/a | FAIL (verdict) |
+| [`path-label-object-canonical-oas31`](#path-label-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | n/a | FAIL (verdict) |
+| [`path-label-object-explode-oas31`](#path-label-object-explode-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | n/a | FAIL (value) |
 | [`path-label-scalar-canonical-oas31`](#path-label-scalar-canonical-oas31) | accepted | pass (verdict only) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (value) | FAIL (verdict) | n/a | FAIL (value) |
 | [`path-label-scalar-explode-oas31`](#path-label-scalar-explode-oas31) | accepted | pass (verdict only) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (value) | FAIL (verdict) | n/a | FAIL (value) |
 | [`path-matrix-array-canonical-oas31`](#path-matrix-array-canonical-oas31) | accepted | FAIL (verdict) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (verdict) | FAIL (verdict) | n/a | pass |
 | [`path-matrix-array-empty-after-parse-oas31`](#path-matrix-array-empty-after-parse-oas31) | rejected | pass | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | pass | pass | pass | n/a | FAIL (verdict) |
-| [`path-matrix-array-foreign-shape-oas31`](#path-matrix-array-foreign-shape-oas31) | rejected | pass | FAIL (verdict) | pass | FAIL (verdict) | pass | FAIL (verdict) | pass | pass | n/a | FAIL (verdict) |
+| [`path-matrix-array-foreign-shape-oas31`](#path-matrix-array-foreign-shape-oas31) | rejected | pass | FAIL (verdict) | pass | FAIL (verdict) | pass | pass | pass | pass | n/a | FAIL (verdict) |
 | [`path-matrix-array-no-explode-oas31`](#path-matrix-array-no-explode-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (verdict) | FAIL (verdict) | n/a | pass |
 | [`path-matrix-competing-parameters-oas31`](#path-matrix-competing-parameters-oas31) | rejected | FAIL (verdict) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | FAIL (verdict) |
-| [`path-matrix-object-canonical-oas31`](#path-matrix-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | FAIL (value) | FAIL (verdict) | FAIL (verdict) | n/a | pass |
-| [`path-matrix-object-explode-oas31`](#path-matrix-object-explode-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | FAIL (value) | FAIL (verdict) | FAIL (verdict) | n/a | FAIL (value) |
+| [`path-matrix-object-canonical-oas31`](#path-matrix-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | n/a | pass |
+| [`path-matrix-object-explode-oas31`](#path-matrix-object-explode-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | n/a | FAIL (value) |
 | [`path-matrix-scalar-canonical-oas31`](#path-matrix-scalar-canonical-oas31) | accepted | pass (verdict only) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (value) | FAIL (verdict) | n/a | FAIL (value) |
 | [`path-matrix-scalar-explode-oas31`](#path-matrix-scalar-explode-oas31) | accepted | pass (verdict only) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (value) | FAIL (verdict) | n/a | FAIL (value) |
 | [`path-matrix-scalar-foreign-name-oas31`](#path-matrix-scalar-foreign-name-oas31) | rejected | FAIL (verdict) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | FAIL (verdict) |
@@ -131,7 +131,7 @@ rules the expected verdict rests on, and the argument for it.
 | [`path-simple-array-canonical-oas31`](#path-simple-array-canonical-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`path-simple-array-explode-oas31`](#path-simple-array-explode-oas31) | accepted | FAIL (verdict) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`path-simple-object-canonical-oas31`](#path-simple-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
-| [`path-simple-object-explode-oas31`](#path-simple-object-explode-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | FAIL (value) | FAIL (verdict) | pass | n/a | pass |
+| [`path-simple-object-explode-oas31`](#path-simple-object-explode-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`path-simple-scalar-canonical-oas31`](#path-simple-scalar-canonical-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`path-simple-scalar-explode-oas31`](#path-simple-scalar-explode-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`path-simple-scalar-unset-style-oas31`](#path-simple-scalar-unset-style-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
@@ -155,9 +155,9 @@ rules the expected verdict rests on, and the argument for it.
 | [`query-form-scalar-optional-default-absent-oas31`](#query-form-scalar-optional-default-absent-oas31) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-unset-style-oas31`](#query-form-scalar-unset-style-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`query-pipe-delimited-array-canonical-oas31`](#query-pipe-delimited-array-canonical-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | FAIL (value) | n/a | pass |
-| [`query-pipe-delimited-object-canonical-oas31`](#query-pipe-delimited-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | FAIL (verdict) | FAIL (value) | FAIL (verdict) | FAIL (value) | n/a | pass |
+| [`query-pipe-delimited-object-canonical-oas31`](#query-pipe-delimited-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (value) | n/a | pass |
 | [`query-space-delimited-array-canonical-oas31`](#query-space-delimited-array-canonical-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
-| [`query-space-delimited-object-canonical-oas31`](#query-space-delimited-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | FAIL (verdict) | FAIL (value) | FAIL (verdict) | pass | n/a | pass |
+| [`query-space-delimited-object-canonical-oas31`](#query-space-delimited-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 
 Legend: `pass (verdict only)` means the library reached the right verdict and
 exposes no deserialized values, so the value half of the case could not be
@@ -2230,7 +2230,7 @@ The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapi
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
-| `@oaverify/core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `@oaverify/core` | accepted | `{"p":{"R":100,"G":200}}` (validated only, so an absent name failed its schema) |
 | `openapi-backend` | rejected | `{"p":["R","100","G","200"]}` (parsed before validation) |
 | `openapi-core` | accepted | `{"p":{"R":100,"G":200}}` (validated only, so an absent name failed its schema) |
 | `openapi-request-validator` | not asked (stageNotOwned) | - |

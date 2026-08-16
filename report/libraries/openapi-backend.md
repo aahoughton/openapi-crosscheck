@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/openapistack/openapi-back
 
 Built from: `adapters/openapi-backend/`
 
-Image: `sha256:d7db10df17a3b7b943316683a2ad7e37526e50f3305f684fef30632064a3be31`
+Image: `sha256:da3b5bb95f321b605ae889d8cb125e266d6455e378a96cbbc52b30acce20a2d4`
 
 Configuration `coerce-types-on`: new OpenAPIBackend({ definition, quick: false, coerceTypes: true }) then init(), driven through validateRequest with the raw path and raw query string. coerceTypes is enabled because leaving it off rejects every typed parameter; both settings were measured and the results were identical for path parameters.
 

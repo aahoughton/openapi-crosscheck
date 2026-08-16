@@ -1005,7 +1005,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-request-validator",
-    "imageId": "sha256:856942871de748159a50a0c1bd988c482f6ee33874fe33a500f4cb1e7ce5a5f2",
+    "imageId": "sha256:202e5282012ac8bc30525a7217ba29559bfc68bcfb7167aa411ceae51c0e6946",
     "ecosystem": "npm"
   },
   "answers": [

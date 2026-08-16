@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/thephpleague/openapi-psr7
 
 Built from: `adapters/league-openapi-psr7-validator/`
 
-Image: `sha256:60038969bc4330fb444ea4637513ab0136b27d45b04761dceeb22c86a68fc6f8`
+Image: `sha256:dab8a66b221964cf5db9e6b957396cd4a750ec395686c3e5608473b5ece6b6f4`
 
 Configuration `request-validator-psr7`: ValidatorBuilder::fromJson(document) driven through getRequestValidator()->validate(), with a PSR-7 RequestInterface built from the raw target. The plain request validator is used rather than the server request one, because the plain one reads the Cookie header itself where the server one takes a cookie array from its caller, so every location stays the library's. Known limitation: the PSR-7 URI type parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. Existing percent-encoded sequences reach the validator unchanged. Values are unexposed: validate() answers with an OperationAddress or raises, and the deserializer that converts a styled parameter is not reachable from the published validation call.
 

@@ -85,8 +85,8 @@ a failure.
 | `github.com/pb33f/libopenapi-validator` | rejected | 0 | 21 | 0 | none |
 | `league/openapi-psr7-validator` | accepted | 0 | 86 | 0 | none |
 | `league/openapi-psr7-validator` | rejected | 0 | 76 | 0 | none |
-| `@oaverify/core` | accepted | 144 | 0 | 0 | validated only, so an absent name failed its schema |
-| `@oaverify/core` | rejected | 29 | 0 | 0 | validated only, so an absent name failed its schema |
+| `@oaverify/core` | accepted | 143 | 0 | 0 | validated only, so an absent name failed its schema |
+| `@oaverify/core` | rejected | 30 | 0 | 0 | validated only, so an absent name failed its schema |
 | `openapi-backend` | accepted | 76 | 0 | 0 | parsed before validation |
 | `openapi-backend` | rejected | 85 | 0 | 0 | parsed before validation |
 | `openapi-core` | accepted | 92 | 0 | 0 | validated only, so an absent name failed its schema |
