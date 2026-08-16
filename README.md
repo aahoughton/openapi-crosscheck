@@ -24,6 +24,30 @@ It does not measure performance, response validation, security posture,
 framework ergonomics, or which library is best overall. No conformance outcome
 is totalled across libraries and nothing is ranked.
 
+### What each specification version is asked
+
+The corpus carries three versions and asks them different numbers of questions,
+which the coverage maps show and this says why.
+
+3.0.4 and 3.1.1 are asked the same questions. Their style tables converged in
+the 2024 patch releases, so the 3.0 cases mirror the 3.1 cases coordinate for
+coordinate and a difference in the results is a difference in what a library
+does with the `openapi` field.
+
+3.2.0 is asked only what 3.2.0 changed: the `cookie` style, the `deepObject`
+explode pairing it defines where earlier versions call it undefined, and
+`allowReserved` in a location no earlier version applies it to. Most of
+[report/coverage.oas32.md](report/coverage.oas32.md) is therefore empty, and
+that is a decision rather than an oversight. Six of the ten measured libraries
+do not accept a 3.2 document at all, which the version probes in
+[report/capabilities.md](report/capabilities.md) already record once per
+library; mirroring the whole corpus under 3.2 would record the same rejection
+another eighty times. Whether the mirror is worth writing anyway is
+[issue 2](https://github.com/aahoughton/openapi-crosscheck/issues/2), and 3.2's
+fifth parameter location, `in: "querystring"`, is
+[issue 1](https://github.com/aahoughton/openapi-crosscheck/issues/1): it needs
+a container protocol version before it needs a case.
+
 ### Request bodies are out of scope
 
 Every case sends a method, a target and headers, and no case sends a body:

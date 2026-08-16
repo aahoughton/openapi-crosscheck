@@ -7,6 +7,9 @@ import { cookieCases } from "./cases/oas31/cookie";
 import { headerCases } from "./cases/oas31/header";
 import { pathCases } from "./cases/oas31/path";
 import { queryCases } from "./cases/oas31/query";
+import { cookieCases32 } from "./cases/oas32/cookie";
+import { pathCases32 } from "./cases/oas32/path";
+import { queryCases32 } from "./cases/oas32/query";
 
 /**
  * The corpus, in ASCII order of case id.
@@ -39,10 +42,13 @@ import { queryCases } from "./cases/oas31/query";
 export const cases: readonly Case[] = [
   ...cookieCases30,
   ...cookieCases,
+  ...cookieCases32,
   ...headerCases30,
   ...headerCases,
   ...pathCases30,
   ...pathCases,
+  ...pathCases32,
   ...queryCases30,
   ...queryCases,
+  ...queryCases32,
 ].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
