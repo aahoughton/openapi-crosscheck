@@ -286,10 +286,8 @@ def run(message: Mapping[str, Any]) -> Answer:
 
     # A location this library does not expose a bucket for has no value to read,
     # and leaving the parameter out of "value" would say the library reported
-    # nothing for it. "querystring" is the location that reaches this:
-    # RequestParameters carries four fields and none of them is it. Reported per
-    # parameter, so a case declaring one exposed parameter and one unexposed one
-    # still publishes the value for the first.
+    # nothing for it. Reported per parameter, so a case declaring one exposed
+    # parameter and one unexposed one still publishes the value for the first.
     unreadable: dict[str, str] = {}
     for parameter in declared_parameters(document):
         location = parameter.get("in")

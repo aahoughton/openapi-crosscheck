@@ -181,9 +181,8 @@ function parsedValues(
     const declared = pathItem.get?.parameters ?? pathItem.post?.parameters ?? [];
     // A location this library does not parse into a bag has no value to read,
     // and leaving the parameter out of `value` would say the library reported
-    // nothing for it. `querystring` is the location that reaches this. Reported
-    // per parameter, so a case declaring one parsed parameter and one unparsed
-    // one still publishes the value for the first.
+    // nothing for it. Reported per parameter, so a case declaring one parsed
+    // parameter and one unparsed one still publishes the value for the first.
     const unreadable: Record<string, string> = {};
     for (const parameter of declared) {
       if (byLocation[parameter.in] !== undefined) continue;

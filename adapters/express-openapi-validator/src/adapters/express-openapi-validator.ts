@@ -211,9 +211,9 @@ function observeValues(
   }
   // The echo carries params, query and headers. A parameter declared anywhere
   // else has no slot in it, and leaving it out of `value` would say this library
-  // reported nothing for it. `querystring` is the location that reaches this
-  // today. Reported per parameter, so a case declaring one echoed parameter and
-  // one unechoed one still publishes the value for the first.
+  // reported nothing for it. Reported per parameter, so a case declaring one
+  // echoed parameter and one unechoed one still publishes the value for the
+  // first.
   const unreadable: Record<string, string> = {};
   for (const parameter of declaredParameters(testCase.document)) {
     if (parameter.in === "path" || parameter.in === "query" || parameter.in === "header") continue;
