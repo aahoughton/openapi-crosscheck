@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "library": "github.com/getkin/kin-openapi",
-  "libraryVersion": "0.146.0",
+  "libraryVersion": "0.147.0",
   "librarySource": "https://github.com/getkin/kin-openapi",
   "libraryResolution": {
     "kind": "registry",
@@ -775,7 +775,7 @@
   "provenance": {
     "kind": "container",
     "slug": "kin-openapi",
-    "imageId": "sha256:7d1a87db5508a039cffb745dd0df06e52662a1d956bfdb063ac9e3ddfe748452",
+    "imageId": "sha256:04451de6025f193d85f47022a489e0a87f56ee8ef809cc1248381e91af21e694",
     "ecosystem": "go"
   },
   "answers": [
@@ -783,7 +783,7 @@
       "caseId": "cookie-cookie-array-canonical-explode-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -795,7 +795,7 @@
       "caseId": "cookie-cookie-array-no-explode-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -807,7 +807,7 @@
       "caseId": "cookie-cookie-object-canonical-explode-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -819,7 +819,7 @@
       "caseId": "cookie-cookie-object-no-explode-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -831,7 +831,7 @@
       "caseId": "cookie-cookie-scalar-canonical-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -843,7 +843,7 @@
       "caseId": "cookie-cookie-scalar-no-explode-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -855,7 +855,7 @@
       "caseId": "cookie-cookie-scalar-percent-triple-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -867,7 +867,7 @@
       "caseId": "cookie-form-array-canonical-no-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -890,7 +890,7 @@
       "caseId": "cookie-form-array-canonical-no-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -913,7 +913,7 @@
       "caseId": "cookie-form-array-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -939,7 +939,7 @@
       "caseId": "cookie-form-array-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -965,7 +965,7 @@
       "caseId": "cookie-form-array-explode-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -991,7 +991,7 @@
       "caseId": "cookie-form-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1014,7 +1014,7 @@
       "caseId": "cookie-form-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1037,7 +1037,7 @@
       "caseId": "cookie-form-object-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -1063,7 +1063,7 @@
       "caseId": "cookie-form-object-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -1089,7 +1089,7 @@
       "caseId": "cookie-form-scalar-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1112,7 +1112,7 @@
       "caseId": "cookie-form-scalar-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1135,7 +1135,7 @@
       "caseId": "cookie-form-scalar-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1158,7 +1158,7 @@
       "caseId": "cookie-form-scalar-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1181,7 +1181,7 @@
       "caseId": "header-content-json-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1204,7 +1204,7 @@
       "caseId": "header-content-json-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1227,7 +1227,7 @@
       "caseId": "header-simple-array-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1250,7 +1250,7 @@
       "caseId": "header-simple-array-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1273,7 +1273,7 @@
       "caseId": "header-simple-array-case-variant-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1296,7 +1296,7 @@
       "caseId": "header-simple-array-case-variant-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1319,7 +1319,7 @@
       "caseId": "header-simple-array-duplicate-name-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1342,7 +1342,7 @@
       "caseId": "header-simple-array-duplicate-name-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1365,7 +1365,7 @@
       "caseId": "header-simple-array-explicit-style-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1388,7 +1388,7 @@
       "caseId": "header-simple-array-explicit-style-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1411,7 +1411,7 @@
       "caseId": "header-simple-array-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1434,7 +1434,7 @@
       "caseId": "header-simple-array-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1457,7 +1457,7 @@
       "caseId": "header-simple-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1480,7 +1480,7 @@
       "caseId": "header-simple-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1503,7 +1503,7 @@
       "caseId": "header-simple-object-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1526,7 +1526,7 @@
       "caseId": "header-simple-object-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1549,7 +1549,7 @@
       "caseId": "header-simple-scalar-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1572,7 +1572,7 @@
       "caseId": "header-simple-scalar-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1595,7 +1595,7 @@
       "caseId": "header-simple-scalar-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1618,7 +1618,7 @@
       "caseId": "header-simple-scalar-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1641,7 +1641,7 @@
       "caseId": "path-content-json-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -1669,7 +1669,7 @@
       "caseId": "path-content-json-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -1697,7 +1697,7 @@
       "caseId": "path-label-array-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1722,7 +1722,7 @@
       "caseId": "path-label-array-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1747,7 +1747,7 @@
       "caseId": "path-label-array-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1772,7 +1772,7 @@
       "caseId": "path-label-array-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1797,7 +1797,7 @@
       "caseId": "path-label-array-foreign-shape-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -1825,7 +1825,7 @@
       "caseId": "path-label-array-foreign-shape-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -1853,7 +1853,7 @@
       "caseId": "path-label-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1878,7 +1878,7 @@
       "caseId": "path-label-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1903,7 +1903,7 @@
       "caseId": "path-label-object-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1928,7 +1928,7 @@
       "caseId": "path-label-object-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1953,7 +1953,7 @@
       "caseId": "path-label-scalar-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -1978,7 +1978,7 @@
       "caseId": "path-label-scalar-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2003,7 +2003,7 @@
       "caseId": "path-label-scalar-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2028,7 +2028,7 @@
       "caseId": "path-label-scalar-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2053,7 +2053,7 @@
       "caseId": "path-matrix-array-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2078,7 +2078,7 @@
       "caseId": "path-matrix-array-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2103,7 +2103,7 @@
       "caseId": "path-matrix-array-empty-after-parse-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2131,7 +2131,7 @@
       "caseId": "path-matrix-array-empty-after-parse-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2159,7 +2159,7 @@
       "caseId": "path-matrix-array-foreign-shape-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2187,7 +2187,7 @@
       "caseId": "path-matrix-array-foreign-shape-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2215,7 +2215,7 @@
       "caseId": "path-matrix-array-no-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2240,7 +2240,7 @@
       "caseId": "path-matrix-array-no-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2265,7 +2265,7 @@
       "caseId": "path-matrix-competing-parameters-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2294,7 +2294,7 @@
       "caseId": "path-matrix-competing-parameters-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2323,7 +2323,7 @@
       "caseId": "path-matrix-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2348,7 +2348,7 @@
       "caseId": "path-matrix-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2373,7 +2373,7 @@
       "caseId": "path-matrix-object-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2398,7 +2398,7 @@
       "caseId": "path-matrix-object-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2423,7 +2423,7 @@
       "caseId": "path-matrix-scalar-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2448,7 +2448,7 @@
       "caseId": "path-matrix-scalar-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2473,7 +2473,7 @@
       "caseId": "path-matrix-scalar-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2498,7 +2498,7 @@
       "caseId": "path-matrix-scalar-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2523,7 +2523,7 @@
       "caseId": "path-matrix-scalar-foreign-name-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2551,7 +2551,7 @@
       "caseId": "path-matrix-scalar-foreign-name-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2579,7 +2579,7 @@
       "caseId": "path-matrix-scalar-wrong-type-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2607,7 +2607,7 @@
       "caseId": "path-matrix-scalar-wrong-type-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2635,7 +2635,7 @@
       "caseId": "path-routing-ambiguous-templates-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2660,7 +2660,7 @@
       "caseId": "path-routing-ambiguous-templates-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2685,7 +2685,7 @@
       "caseId": "path-routing-concrete-before-templated-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2711,7 +2711,7 @@
       "caseId": "path-routing-concrete-before-templated-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -2737,7 +2737,7 @@
       "caseId": "path-routing-identical-templates-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -2749,7 +2749,7 @@
       "caseId": "path-routing-identical-templates-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -2761,7 +2761,7 @@
       "caseId": "path-simple-array-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2786,7 +2786,7 @@
       "caseId": "path-simple-array-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2811,7 +2811,7 @@
       "caseId": "path-simple-array-encoded-delimiter-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2836,7 +2836,7 @@
       "caseId": "path-simple-array-encoded-delimiter-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2861,7 +2861,7 @@
       "caseId": "path-simple-array-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2886,7 +2886,7 @@
       "caseId": "path-simple-array-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2911,7 +2911,7 @@
       "caseId": "path-simple-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2936,7 +2936,7 @@
       "caseId": "path-simple-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2961,7 +2961,7 @@
       "caseId": "path-simple-object-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -2986,7 +2986,7 @@
       "caseId": "path-simple-object-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3011,7 +3011,7 @@
       "caseId": "path-simple-scalar-allow-reserved-declared-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3036,7 +3036,7 @@
       "caseId": "path-simple-scalar-allow-reserved-unset-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3061,7 +3061,7 @@
       "caseId": "path-simple-scalar-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3086,7 +3086,7 @@
       "caseId": "path-simple-scalar-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3111,7 +3111,7 @@
       "caseId": "path-simple-scalar-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3136,7 +3136,7 @@
       "caseId": "path-simple-scalar-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3161,7 +3161,7 @@
       "caseId": "path-simple-scalar-unset-style-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3186,7 +3186,7 @@
       "caseId": "path-simple-scalar-unset-style-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3211,7 +3211,7 @@
       "caseId": "path-simple-scalar-wrong-type-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -3239,7 +3239,7 @@
       "caseId": "path-simple-scalar-wrong-type-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -3267,7 +3267,7 @@
       "caseId": "query-content-and-schema-declared-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -3279,7 +3279,7 @@
       "caseId": "query-content-and-schema-declared-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -3291,7 +3291,7 @@
       "caseId": "query-content-json-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3314,7 +3314,7 @@
       "caseId": "query-content-json-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3337,7 +3337,7 @@
       "caseId": "query-content-json-object-malformed-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -3363,7 +3363,7 @@
       "caseId": "query-content-json-object-malformed-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -3389,7 +3389,7 @@
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -3401,7 +3401,7 @@
       "caseId": "query-content-two-media-types-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -3413,7 +3413,7 @@
       "caseId": "query-deep-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3436,7 +3436,7 @@
       "caseId": "query-deep-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3459,7 +3459,7 @@
       "caseId": "query-deep-object-canonical-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3482,7 +3482,7 @@
       "caseId": "query-deep-object-no-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -3494,7 +3494,7 @@
       "caseId": "query-deep-object-no-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -3506,7 +3506,7 @@
       "caseId": "query-deep-object-no-explode-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -3518,7 +3518,7 @@
       "caseId": "query-form-array-canonical-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3541,7 +3541,7 @@
       "caseId": "query-form-array-canonical-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3564,7 +3564,7 @@
       "caseId": "query-form-array-canonical-no-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3587,7 +3587,7 @@
       "caseId": "query-form-array-canonical-no-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3610,7 +3610,7 @@
       "caseId": "query-form-array-duplicate-name-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3633,7 +3633,7 @@
       "caseId": "query-form-array-duplicate-name-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3656,7 +3656,7 @@
       "caseId": "query-form-array-empty-value-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -3682,7 +3682,7 @@
       "caseId": "query-form-array-empty-value-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -3708,7 +3708,7 @@
       "caseId": "query-form-array-integer-items-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3731,7 +3731,7 @@
       "caseId": "query-form-array-integer-items-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3754,7 +3754,7 @@
       "caseId": "query-form-array-unset-style-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3777,7 +3777,7 @@
       "caseId": "query-form-array-unset-style-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3800,7 +3800,7 @@
       "caseId": "query-form-boolean-literal-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3823,7 +3823,7 @@
       "caseId": "query-form-boolean-literal-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3846,7 +3846,7 @@
       "caseId": "query-form-boolean-wrong-type-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -3872,7 +3872,7 @@
       "caseId": "query-form-boolean-wrong-type-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -3898,7 +3898,7 @@
       "caseId": "query-form-object-canonical-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3921,7 +3921,7 @@
       "caseId": "query-form-object-canonical-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3944,7 +3944,7 @@
       "caseId": "query-form-object-canonical-no-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3967,7 +3967,7 @@
       "caseId": "query-form-object-canonical-no-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -3990,7 +3990,7 @@
       "caseId": "query-form-object-integer-properties-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4013,7 +4013,7 @@
       "caseId": "query-form-object-integer-properties-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4036,7 +4036,7 @@
       "caseId": "query-form-object-missing-name-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4062,7 +4062,7 @@
       "caseId": "query-form-object-missing-name-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4088,7 +4088,7 @@
       "caseId": "query-form-object-wrong-type-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4114,7 +4114,7 @@
       "caseId": "query-form-object-wrong-type-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4140,7 +4140,7 @@
       "caseId": "query-form-scalar-allow-empty-value-declared-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4163,7 +4163,7 @@
       "caseId": "query-form-scalar-allow-empty-value-declared-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4186,7 +4186,7 @@
       "caseId": "query-form-scalar-allow-reserved-declared-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4209,7 +4209,7 @@
       "caseId": "query-form-scalar-allow-reserved-declared-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4232,7 +4232,7 @@
       "caseId": "query-form-scalar-allow-reserved-percent-triple-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4255,7 +4255,7 @@
       "caseId": "query-form-scalar-allow-reserved-percent-triple-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4278,7 +4278,7 @@
       "caseId": "query-form-scalar-allow-reserved-unset-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4301,7 +4301,7 @@
       "caseId": "query-form-scalar-allow-reserved-unset-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4324,7 +4324,7 @@
       "caseId": "query-form-scalar-integer-fractional-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4350,7 +4350,7 @@
       "caseId": "query-form-scalar-integer-fractional-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4376,7 +4376,7 @@
       "caseId": "query-form-scalar-integer-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4399,7 +4399,7 @@
       "caseId": "query-form-scalar-integer-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4422,7 +4422,7 @@
       "caseId": "query-form-scalar-missing-name-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4448,7 +4448,7 @@
       "caseId": "query-form-scalar-missing-name-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4474,7 +4474,7 @@
       "caseId": "query-form-scalar-name-without-value-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4497,7 +4497,7 @@
       "caseId": "query-form-scalar-name-without-value-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4520,7 +4520,7 @@
       "caseId": "query-form-scalar-nullable-absent-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4546,7 +4546,7 @@
       "caseId": "query-form-scalar-nullable-absent-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4572,7 +4572,7 @@
       "caseId": "query-form-scalar-nullable-empty-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4595,7 +4595,7 @@
       "caseId": "query-form-scalar-nullable-empty-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4618,7 +4618,7 @@
       "caseId": "query-form-scalar-nullable-literal-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4641,7 +4641,7 @@
       "caseId": "query-form-scalar-nullable-literal-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4664,7 +4664,7 @@
       "caseId": "query-form-scalar-optional-absent-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4687,7 +4687,7 @@
       "caseId": "query-form-scalar-optional-absent-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4710,7 +4710,7 @@
       "caseId": "query-form-scalar-optional-default-absent-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4739,7 +4739,7 @@
       "caseId": "query-form-scalar-optional-default-absent-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4768,7 +4768,7 @@
       "caseId": "query-form-scalar-unset-style-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4791,7 +4791,7 @@
       "caseId": "query-form-scalar-unset-style-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4814,7 +4814,7 @@
       "caseId": "query-pipe-delimited-array-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4837,7 +4837,7 @@
       "caseId": "query-pipe-delimited-array-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4860,7 +4860,7 @@
       "caseId": "query-pipe-delimited-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4886,7 +4886,7 @@
       "caseId": "query-pipe-delimited-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -4912,7 +4912,7 @@
       "caseId": "query-space-delimited-array-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4935,7 +4935,7 @@
       "caseId": "query-space-delimited-array-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4958,7 +4958,7 @@
       "caseId": "query-space-delimited-array-explode-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -4981,7 +4981,7 @@
       "caseId": "query-space-delimited-array-explode-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "accepted",
@@ -5004,7 +5004,7 @@
       "caseId": "query-space-delimited-object-canonical-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -5030,7 +5030,7 @@
       "caseId": "query-space-delimited-object-canonical-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "rejected",
@@ -5056,7 +5056,7 @@
       "caseId": "querystring-absent-no-question-mark-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -5068,7 +5068,7 @@
       "caseId": "querystring-beside-query-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -5080,7 +5080,7 @@
       "caseId": "querystring-content-with-style-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -5092,7 +5092,7 @@
       "caseId": "querystring-declared-twice-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -5104,7 +5104,7 @@
       "caseId": "querystring-declared-with-schema-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -5116,7 +5116,7 @@
       "caseId": "querystring-empty-after-question-mark-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -5128,7 +5128,7 @@
       "caseId": "querystring-form-urlencoded-object-canonical-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -5140,7 +5140,7 @@
       "caseId": "querystring-form-urlencoded-object-wrong-type-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",
@@ -5152,7 +5152,7 @@
       "caseId": "querystring-json-object-canonical-oas32",
       "result": {
         "library": "github.com/getkin/kin-openapi",
-        "libraryVersion": "0.146.0",
+        "libraryVersion": "0.147.0",
         "configurationId": "validate-request-gorillamux",
         "preparse": null,
         "outcome": "unsupported",

@@ -68,7 +68,7 @@ it.
 | `github.com/getkin/kin-openapi` | 166 | 2 | 0 | 164 | 0 | 25 | 0 |
 | `github.com/pb33f/libopenapi-validator` | 191 | 0 | 0 | 191 | 0 | 0 | 0 |
 | `league/openapi-psr7-validator` | 162 | 0 | 0 | 162 | 0 | 21 | 8 |
-| `@oaverify/core` | 175 | 175 | 2 | 0 | 0 | 9 | 7 |
+| `@oaverify/core` | 173 | 173 | 0 | 0 | 0 | 18 | 0 |
 | `openapi-backend` | 161 | 161 | 0 | 0 | 0 | 25 | 5 |
 | `openapi-core` | 166 | 166 | 0 | 0 | 0 | 19 | 6 |
 | `openapi-request-validator` | 18 | 2 | 0 | 16 | 0 | 173 | 0 |
@@ -91,7 +91,7 @@ a failure.
 | `github.com/pb33f/libopenapi-validator` | rejected | 0 | 0 | 21 | 0 | none |
 | `league/openapi-psr7-validator` | accepted | 0 | 0 | 86 | 0 | none |
 | `league/openapi-psr7-validator` | rejected | 0 | 0 | 76 | 0 | none |
-| `@oaverify/core` | accepted | 145 | 2 | 0 | 0 | validated only, so an absent name failed its schema |
+| `@oaverify/core` | accepted | 143 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
 | `@oaverify/core` | rejected | 30 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
 | `openapi-backend` | accepted | 76 | 0 | 0 | 0 | parsed before validation |
 | `openapi-backend` | rejected | 85 | 0 | 0 | 0 | parsed before validation |
@@ -127,7 +127,7 @@ failure.
 | `github.com/getkin/kin-openapi` | yes | 2 | 164 | 0 |
 | `github.com/pb33f/libopenapi-validator` | no | 0 | 191 | 0 |
 | `league/openapi-psr7-validator` | no | 0 | 162 | 0 |
-| `@oaverify/core` | yes | 0 | 175 | 0 |
+| `@oaverify/core` | yes | 0 | 173 | 0 |
 | `openapi-backend` | yes | 0 | 161 | 0 |
 | `openapi-core` | yes | 62 | 104 | 0 |
 | `openapi-request-validator` | yes | 2 | 16 | 0 |
