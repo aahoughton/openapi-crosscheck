@@ -15,11 +15,18 @@ import { adapterDirs } from "../support/adapterDirs";
  * for: every other test reads the measurements on disk, and this is what says
  * those measurements are still what the libraries do.
  *
- * The gate does not reach the network, so it measures whatever is installed.
- * With a lockfile that is deterministic, and a difference here means either the
- * harness changed or the measurement moved. Moving to new library versions is
- * `pnpm update` plus a deliberate `pnpm regenerate`, rather than something that
- * happens to a reviewer mid-review.
+ * Building an image reaches the network, because every container installs its
+ * library at the current release. So a difference here means the harness
+ * changed, the measurement moved, or the library released since the report was
+ * committed. All three want the same response: a deliberate `pnpm regenerate`
+ * rather than something that happens to a reviewer mid-review.
+ *
+ * Every byte is compared except the image id, which is excluded because it is
+ * the one field defined not to reproduce: it identifies the build that
+ * answered, so two builds of one version differ there on purpose. Comparing it
+ * would fail whenever the layer cache is cold and nothing at all is stale.
+ * `corpusDigest` is a digest too and stays compared, so the exclusion is
+ * written against the field rather than against the shape of a hash.
  *
  * This only compares. `pnpm measure` is what writes, so the thing that produces
  * a measurement and the thing that checks it are separate programs, and a bug
@@ -28,6 +35,11 @@ import { adapterDirs } from "../support/adapterDirs";
 
 const reportDir = fileURLToPath(new URL("../../report", import.meta.url));
 const librariesDir = join(reportDir, "libraries");
+
+/** Blank the image id, naming the field so no other digest is caught. */
+function exceptImageId(measurement: string): string {
+  return measurement.replace(/("imageId": ")sha256:[0-9a-f]{64}(")/g, "$1<image>$2");
+}
 
 const adapters = await createAdapters(adapterDirs());
 // Computed at module scope rather than in a hook, because the per-library tests
@@ -49,7 +61,9 @@ describe("the committed measurements match a fresh run", () => {
   for (const measurement of measurements) {
     const name = `libraries/${measurement.provenance.slug}.json`;
     it(name, () => {
-      expect(renderMeasurement(measurement)).toBe(readFileSync(join(reportDir, name), "utf8"));
+      expect(exceptImageId(renderMeasurement(measurement))).toBe(
+        exceptImageId(readFileSync(join(reportDir, name), "utf8")),
+      );
     });
   }
 });
