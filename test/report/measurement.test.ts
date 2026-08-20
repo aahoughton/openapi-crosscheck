@@ -13,6 +13,10 @@ import { OAS_VERSIONS } from "../../src/types/openapi";
  * comparison in
  * `test/adapters/freshRun.test.ts` carries them to a fresh run: a fresh
  * measurement equal to a committed measurement holding these holds them too.
+ *
+ * The image id is the exception, because that comparison excludes it. Its
+ * form is asserted here and nowhere else, and what produces it is the builder
+ * rather than anything this repository writes.
  */
 
 const run = readRun(fileURLToPath(new URL("../../report", import.meta.url)));
@@ -101,6 +105,13 @@ describe("the committed measurements", () => {
           cookies: recorded?.["cookies"] === undefined ? undefined : "supplied",
         }).toEqual({ caseId, ...expected });
       }
+    }
+  });
+
+  it("name the image that answered, in the form the builder reports", () => {
+    for (const measurement of run.measurements) {
+      expect(measurement.provenance.kind).toBe("container");
+      expect(measurement.provenance.imageId).toMatch(/^sha256:[0-9a-f]{64}$/);
     }
   });
 

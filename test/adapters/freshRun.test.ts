@@ -36,9 +36,16 @@ import { adapterDirs } from "../support/adapterDirs";
 const reportDir = fileURLToPath(new URL("../../report", import.meta.url));
 const librariesDir = join(reportDir, "libraries");
 
-/** Blank the image id, naming the field so no other digest is caught. */
+/**
+ * Blank the image id, whatever it says.
+ *
+ * Matched on the field rather than on the shape of a hash, so `corpusDigest`
+ * is untouched and an id in some form a future builder reports is excluded
+ * like any other. Matching the shape too would leave such an id compared, and
+ * it would surface as a measurement that moved rather than as what it is.
+ */
 function exceptImageId(measurement: string): string {
-  return measurement.replace(/("imageId": ")sha256:[0-9a-f]{64}(")/g, "$1<image>$2");
+  return measurement.replace(/("imageId": ")[^"]*(")/g, "$1<image>$2");
 }
 
 const adapters = await createAdapters(adapterDirs());
