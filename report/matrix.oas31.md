@@ -55,11 +55,11 @@ it was given.
 | --- | --- | --- |
 | [`com.atlassian.oai:openapi-request-validator-core`](libraries/com-atlassian-oai-openapi-request-validator-core.md) | 3.0.0 | `inline-spec-simple-request` |
 | [`express-openapi-validator`](libraries/express-openapi-validator.md) | 5.6.2 | `middleware-validate-requests` |
-| [`github.com/getkin/kin-openapi`](libraries/kin-openapi.md) | 0.147.0 | `validate-request-gorillamux` |
+| [`github.com/getkin/kin-openapi`](libraries/kin-openapi.md) | 0.149.0 | `validate-request-gorillamux` |
 | [`github.com/pb33f/libopenapi-validator`](libraries/libopenapi-validator.md) | 0.14.0 | `validate-http-request` |
 | [`league/openapi-psr7-validator`](libraries/league-openapi-psr7-validator.md) | 0.24 | `request-validator-psr7` |
-| [`@oaverify/core`](libraries/oaverify-core.md) | 7.2.0 | `request-return-values` |
-| [`openapi-backend`](libraries/openapi-backend.md) | 5.20.0 | `coerce-types-on` |
+| [`@oaverify/core`](libraries/oaverify-core.md) | 7.2.2 | `request-return-values` |
+| [`openapi-backend`](libraries/openapi-backend.md) | 5.20.1 | `coerce-types-on` |
 | [`openapi-core`](libraries/openapi-core.md) | 0.23.1 | `unmarshal-request-protocol` |
 | [`openapi-request-validator`](libraries/openapi-request-validator.md) | 12.1.3 | `parameters-only` |
 | [`openapi_first`](libraries/openapi-first.md) | 3.4.3 | `validate-request-rack` |
@@ -75,16 +75,16 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:c0920d566b55dc8c1a98d6ec98e050f96ffaf2eb11312379f4d9e0d308f8c84d` |
-| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:4ba93d5098a7f131ae97f7b8b0f442f068ec18b9071170d712c65f23d51cfd26` |
-| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:04451de6025f193d85f47022a489e0a87f56ee8ef809cc1248381e91af21e694` |
-| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:bf906d56c61b86943e13a3cd7f658a53d4d1b523c17c8cb4256911987550893c` |
-| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:92321ce0fcc17f1ecf3794c3eec045117bc176970f2f99c0c2fec64647430b13` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:cb928d8048718d94b3abc85c7983dead4d058eca8569b135fdadc017d533bd4d` |
-| `openapi-backend` | `adapters/openapi-backend/` | `sha256:719b93e07b0ade0eb055cc75dd4025f550862d835d0f684687353c8c5f7a105e` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:3d6df6d6b113f23de595d4ae69589e7681f1e1d59f15d0c008dd5cc82e3755c5` |
-| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:e5cc30759044a9f5368745abf0c05742fded3807e21dbe5560c637f3c62a1245` |
-| `openapi_first` | `adapters/openapi-first/` | `sha256:9ee342fed72e0a7311c37812362ab6d9ad2c809d7a62049dbfa4a623b016f103` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:bbe20a52ccc987b7fd5fbbc8d66023f63b9a5bf48ff42291fc94a2c5ca1afb67` |
+| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:c14045e1d9235a7c910bea7448ddebfcb788fe80b5b525a62a954dad65ca37af` |
+| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:b7a537d731b30251fca1d4e608b04da1784725e50ff03a30efa87a8eccc209ce` |
+| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:b049d27f5c5485def62a8d75571022e47a0ddb7a7a604e05bc29c951187d857d` |
+| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:9a6b54a4d308227fab4fe624958d8b174511eba72f57fd2635c77108b41dc554` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:46326ac7b2c5adec8d051f872d031f4c3d92bb1b41b38c71a2c39c1459bcb884` |
+| `openapi-backend` | `adapters/openapi-backend/` | `sha256:4bc3374d4e1ea6456b84a0f4a8be515708543f50b6780bdaeb6413380841e44f` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:c84ba8498de3146ef936ff7112b3047d88c3a058d35ac338e2226a7d166fcb3f` |
+| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:403dd46f734140330ef681a3996672a9e296276f339f6d67721936f92d3143de` |
+| `openapi_first` | `adapters/openapi-first/` | `sha256:b35f72f2df1b6fb37efbf7592272dc87822522a591b53419858ff20f5af2e1cd` |
 
 ## Conformance
 

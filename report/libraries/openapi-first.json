@@ -710,7 +710,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-first",
-    "imageId": "sha256:9ee342fed72e0a7311c37812362ab6d9ad2c809d7a62049dbfa4a623b016f103",
+    "imageId": "sha256:b35f72f2df1b6fb37efbf7592272dc87822522a591b53419858ff20f5af2e1cd",
     "ecosystem": "rubygems"
   },
   "answers": [
