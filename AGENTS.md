@@ -211,6 +211,12 @@ Applies to docs, comments, commit messages and generated output.
 - Generated output (reports, error messages, logs) is ASCII, simple and concise.
   Data passed through from a specification or a library's own output is
   unchanged.
+- No internal history. This repository begins at its public snapshot, so docs,
+  comments and rendered strings say what is true now rather than what came
+  before ("we used to do X", "the old harness did Y"). A finding that explains
+  a current choice survives as commentary on that choice.
+  `docs/protocol-changelog.md` is the one place history is the subject, and it
+  starts at protocol 1, the first version that publicly existed.
 
 ## Commits
 
