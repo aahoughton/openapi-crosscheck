@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
+  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -5523,6 +5523,66 @@
             "params": {
               "p": "blue"
             },
+            "query": {},
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-required-false-oas30",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "the middleware raised; the app answered 500",
+        "raw": {
+          "status": 500,
+          "body": {
+            "message": "openapi.validator: args.apiDoc was invalid.  See the output.",
+            "errors": null,
+            "params": {},
+            "query": {},
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-required-false-oas31",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "the middleware raised; the app answered 500",
+        "raw": {
+          "status": 500,
+          "body": {
+            "message": "openapi.validator: args.apiDoc was invalid.  See the output.",
+            "errors": null,
+            "params": {},
             "query": {},
             "headers": {
               "host": "harness.invalid",

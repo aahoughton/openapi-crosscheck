@@ -81,6 +81,7 @@ nothing is attributed to it.
 | [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | `{"id":"me"}` |
 | [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | not asked (libraryInitUnsupported) | - |
 | [`path-simple-array-encoded-delimiter-oas30`](../matrix.oas30.md#path-simple-array-encoded-delimiter-oas30) | accepted | `{"p":["blue","black"]}` |
+| [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | accepted | `{"p":"blue"}` |
 | [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` |
 | [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` |
 | [`query-deep-object-no-explode-oas30`](../matrix.oas30.md#query-deep-object-no-explode-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` |
@@ -147,6 +148,7 @@ nothing is attributed to it.
 | [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | `{"id":"me"}` |
 | [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | not asked (libraryInitUnsupported) | - |
 | [`path-simple-array-encoded-delimiter-oas31`](../matrix.oas31.md#path-simple-array-encoded-delimiter-oas31) | accepted | `{"p":["blue","black"]}` |
+| [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | accepted | `{"p":"blue"}` |
 | [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` |
 | [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` |
 | [`query-deep-object-no-explode-oas31`](../matrix.oas31.md#query-deep-object-no-explode-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` |

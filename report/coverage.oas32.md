@@ -285,7 +285,8 @@ cannot show.
 | competingParameter | 1 |
 | competingPath | 0 |
 | constraintViolation | 0 |
-| declarationFlag | 4 |
+| declarationFlag | 2 |
+| documentRule | 2 |
 | duplicateName | 1 |
 | emptyAfterParse | 0 |
 | emptyContainer | 1 |

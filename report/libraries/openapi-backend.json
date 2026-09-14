@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
+  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -6175,6 +6175,100 @@
     },
     {
       "caseId": "path-simple-scalar-explode-oas31",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "coerced": {
+            "method": "GET",
+            "path": "/t/blue",
+            "query": {},
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "params": {
+              "p": "blue"
+            }
+          },
+          "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-required-false-oas30",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "coerced": {
+            "method": "GET",
+            "path": "/t/blue",
+            "query": {},
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "params": {
+              "p": "blue"
+            }
+          },
+          "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-required-false-oas31",
       "result": {
         "library": "openapi-backend",
         "libraryVersion": "5.20.1",

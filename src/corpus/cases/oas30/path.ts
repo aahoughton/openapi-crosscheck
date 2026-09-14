@@ -678,6 +678,48 @@ export const pathCases30: readonly Case[] = [
     holdsConstant: ["wire shape matches the declared style", "value well-formed", "one parameter"],
   },
   {
+    id: "path-matrix-scalar-wrong-type-oas30",
+    title: "path, matrix, scalar, a value well-formed for a different type",
+    inShort:
+      "The segment says ;p=blue where the schema says integer. The name is inside the " +
+      "segment, so the value has to be read out of it before any type can be judged.",
+    tier: "conformance",
+    oasVersion: "3.0",
+    citations: [
+      cite.PARAMETER_STYLE,
+      cite.STYLE_EXAMPLE_MATRIX_NO_EXPLODE,
+      cite.PARAMETER_SCHEMA,
+      cite.SCHEMA_OBJECT,
+      cite.JSON_SCHEMA_DATA_MODEL,
+    ],
+    expected: "rejected",
+    expectedValues: null,
+    rationale:
+      "The parameter is declared as an integer and the value inside the segment is " +
+      "alphabetic, so no conversion left to implementations makes it one. The wrong-typed " +
+      "sibling in `simple` asks the same question of a segment that is already the value; " +
+      "here the matrix syntax has to come off first, which is why a library that leaves " +
+      "path style to its caller is not asked this at all. Rejecting `;p=blue` for the " +
+      "semicolon would be the right verdict for the wrong reason, and the value channel " +
+      "is where the two come apart.",
+    document: document([
+      { name: "p", in: "path", required: true, style: "matrix", explode: false, schema: INTEGER },
+    ]),
+    request: request("/t/;p=blue"),
+    dimensions: {
+      declaration: "schema",
+      location: "path",
+      style: "matrix",
+      explode: false,
+      schema: "scalar",
+      declaredStyle: "matrix",
+      declaredExplode: false,
+      probeAxis: "wrongTypeValue",
+    },
+    varies: ["the value is well-formed for a different type"],
+    holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
+  },
+  {
     id: "path-routing-ambiguous-templates-oas30",
     title: "path, two templates that both match the request",
     inShort:
@@ -1063,6 +1105,48 @@ export const pathCases30: readonly Case[] = [
     holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
   },
   {
+    id: "path-simple-scalar-required-false-oas30",
+    title: "path, simple, scalar, declared required: false",
+    inShort:
+      "Declares a path parameter with required: false, which the specification forbids. " +
+      "The segment arrives either way, so what can move is refusal of the document.",
+    tier: "divergence",
+    oasVersion: "3.0",
+    question:
+      "The required field of a path parameter MUST be true, and this document writes " +
+      "false. The rule constrains the document author and does not say what a validator " +
+      "does with a document breaking it: refusing the document, reading the field as " +
+      "written, and repairing it to true are each defensible. A matched template always " +
+      "carries a segment, so an optional path parameter has no absent request to observe " +
+      "and the readings part at the document boundary.",
+    basis: cite.PARAMETER_REQUIRED,
+    document: document([
+      { name: "p", in: "path", required: false, style: "simple", explode: false, schema: STRING },
+    ]),
+    request: request("/t/blue"),
+    dimensions: {
+      declaration: "schema",
+      location: "path",
+      style: "simple",
+      explode: false,
+      declaredStyle: "simple",
+      declaredExplode: false,
+      schema: "scalar",
+      probeAxis: "documentRule",
+    },
+    breaksDocumentRule: {
+      citation: cite.PARAMETER_REQUIRED,
+      detail: "a path parameter declares required: false where the field MUST be true",
+      detectedByMetaSchema: true,
+    },
+    varies: ["the declaration writes required: false on a path parameter"],
+    holdsConstant: [
+      "identifier is the declared one",
+      "wire shape matches the declared style",
+      "value well-formed for its type",
+    ],
+  },
+  {
     id: "path-simple-scalar-unset-style-oas30",
     title: "path, scalar, style and explode both left to the default",
     inShort:
@@ -1091,48 +1175,6 @@ export const pathCases30: readonly Case[] = [
     },
     varies: ["style and explode are left to the default"],
     holdsConstant: ["identifier is the declared one", "value well-formed"],
-  },
-  {
-    id: "path-matrix-scalar-wrong-type-oas30",
-    title: "path, matrix, scalar, a value well-formed for a different type",
-    inShort:
-      "The segment says ;p=blue where the schema says integer. The name is inside the " +
-      "segment, so the value has to be read out of it before any type can be judged.",
-    tier: "conformance",
-    oasVersion: "3.0",
-    citations: [
-      cite.PARAMETER_STYLE,
-      cite.STYLE_EXAMPLE_MATRIX_NO_EXPLODE,
-      cite.PARAMETER_SCHEMA,
-      cite.SCHEMA_OBJECT,
-      cite.JSON_SCHEMA_DATA_MODEL,
-    ],
-    expected: "rejected",
-    expectedValues: null,
-    rationale:
-      "The parameter is declared as an integer and the value inside the segment is " +
-      "alphabetic, so no conversion left to implementations makes it one. The wrong-typed " +
-      "sibling in `simple` asks the same question of a segment that is already the value; " +
-      "here the matrix syntax has to come off first, which is why a library that leaves " +
-      "path style to its caller is not asked this at all. Rejecting `;p=blue` for the " +
-      "semicolon would be the right verdict for the wrong reason, and the value channel " +
-      "is where the two come apart.",
-    document: document([
-      { name: "p", in: "path", required: true, style: "matrix", explode: false, schema: INTEGER },
-    ]),
-    request: request("/t/;p=blue"),
-    dimensions: {
-      declaration: "schema",
-      location: "path",
-      style: "matrix",
-      explode: false,
-      schema: "scalar",
-      declaredStyle: "matrix",
-      declaredExplode: false,
-      probeAxis: "wrongTypeValue",
-    },
-    varies: ["the value is well-formed for a different type"],
-    holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
   },
   {
     id: "path-simple-scalar-wrong-type-oas30",

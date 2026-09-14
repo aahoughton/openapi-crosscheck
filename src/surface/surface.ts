@@ -73,6 +73,7 @@ const PROBE_AXIS_LISTED = {
   competingPath: true,
   constraintViolation: true,
   declarationFlag: true,
+  documentRule: true,
   duplicateName: true,
   emptyAfterParse: true,
   emptyContainer: true,

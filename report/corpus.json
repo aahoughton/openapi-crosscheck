@@ -9484,6 +9484,172 @@
       ]
     },
     {
+      "id": "path-simple-scalar-required-false-oas30",
+      "title": "path, simple, scalar, declared required: false",
+      "inShort": "Declares a path parameter with required: false, which the specification forbids. The segment arrives either way, so what can move is refusal of the document.",
+      "tier": "divergence",
+      "oasVersion": "3.0",
+      "question": "The required field of a path parameter MUST be true, and this document writes false. The rule constrains the document author and does not say what a validator does with a document breaking it: refusing the document, reading the field as written, and repairing it to true are each defensible. A matched template always carries a segment, so an optional path parameter has no absent request to observe and the readings part at the document boundary.",
+      "basis": {
+        "oasVersion": "3.0",
+        "anchor": "parameter-required",
+        "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-required",
+        "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+      },
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": false,
+                  "style": "simple",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/blue",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "documentRule"
+      },
+      "breaksDocumentRule": {
+        "citation": {
+          "oasVersion": "3.0",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        },
+        "detail": "a path parameter declares required: false where the field MUST be true",
+        "detectedByMetaSchema": true
+      },
+      "varies": [
+        "the declaration writes required: false on a path parameter"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style",
+        "value well-formed for its type"
+      ]
+    },
+    {
+      "id": "path-simple-scalar-required-false-oas31",
+      "title": "path, simple, scalar, declared required: false",
+      "inShort": "Declares a path parameter with required: false, which the specification forbids. The segment arrives either way, so what can move is refusal of the document.",
+      "tier": "divergence",
+      "oasVersion": "3.1",
+      "question": "The required field of a path parameter MUST be true, and this document writes false. The rule constrains the document author and does not say what a validator does with a document breaking it: refusing the document, reading the field as written, and repairing it to true are each defensible. A matched template always carries a segment, so an optional path parameter has no absent request to observe and the readings part at the document boundary.",
+      "basis": {
+        "oasVersion": "3.1",
+        "anchor": "parameter-required",
+        "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-required",
+        "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+      },
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": false,
+                  "style": "simple",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/blue",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "documentRule"
+      },
+      "breaksDocumentRule": {
+        "citation": {
+          "oasVersion": "3.1",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        },
+        "detail": "a path parameter declares required: false where the field MUST be true",
+        "detectedByMetaSchema": true
+      },
+      "varies": [
+        "the declaration writes required: false on a path parameter"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style",
+        "value well-formed for its type"
+      ]
+    },
+    {
       "id": "path-simple-scalar-unset-style-oas30",
       "title": "path, scalar, style and explode both left to the default",
       "inShort": "Sends blue as the path segment with nothing declared about its format, so the path default has to be resolved before reading it.",
@@ -17589,7 +17755,7 @@
         "location": "querystring",
         "mediaType": "application/x-www-form-urlencoded",
         "schema": "object",
-        "probeAxis": "declarationFlag"
+        "probeAxis": "documentRule"
       },
       "varies": [
         "the parameter carries a style"
@@ -17775,7 +17941,7 @@
         "location": "querystring",
         "mediaType": "application/x-www-form-urlencoded",
         "schema": "object",
-        "probeAxis": "declarationFlag"
+        "probeAxis": "documentRule"
       },
       "varies": [
         "the parameter is declared with schema rather than content"

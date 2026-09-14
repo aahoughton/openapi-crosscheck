@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "LATEST"
   },
-  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
+  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -3861,6 +3861,42 @@
           "hasErrors": false,
           "messages": []
         }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-required-false-oas30",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "com.atlassian.oai.validator.OpenApiInteractionValidator$ApiLoadException: Unable to load API spec from provided URL or payload:\n\t- paths.For path parameter p the required value should be true"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-required-false-oas31",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "com.atlassian.oai.validator.OpenApiInteractionValidator$ApiLoadException: Unable to load API spec from provided URL or payload:\n\t- paths.For path parameter p the required value should be true"
       }
     },
     {

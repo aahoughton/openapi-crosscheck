@@ -409,11 +409,20 @@ export function probedStage(dimensions: Dimensions): PipelineStage {
   // cleanly and is the declared type, so the only stage left to reject it is
   // the schema. All four stay askable of a schema-only library.
   //
+  // A document-rule violation is settled wherever the field the rule forbids is
+  // read, and the two fields this axis carries outside `in: "querystring"`,
+  // `required` on a path parameter and a 3.0 `type` written as an array, are
+  // both read at this boundary: no serialization consults either, and a library
+  // handed the declaration and an already-split request can reach a verdict on
+  // both. The location is what excludes `in: "querystring"`, whose forbidden
+  // fields are the serialization ones and whose rule sits below.
+  //
   // Wrong-typedness is a value that deserialized cleanly and is well-formed for
   // some other type. A value the declared serialization cannot read at all does
   // not reach the schema, and carries `foreignWireShape` instead.
   if (
     probeAxis === "constraintViolation" ||
+    (probeAxis === "documentRule" && location !== "querystring") ||
     probeAxis === "missingName" ||
     probeAxis === "optionalAbsent" ||
     probeAxis === "reservedName" ||
@@ -444,7 +453,10 @@ export function probedStage(dimensions: Dimensions): PipelineStage {
   //
   // Stated for the location rather than for each axis, and placed above them
   // for the same reason the path rule is: the axis alone does not say which
-  // stage a variation lands on, and the location is what decides it.
+  // stage a variation lands on, and the location is what decides it. A
+  // document-rule violation is read here too: the fields this location may not
+  // carry are the serialization ones, so which stage settles the violation is
+  // the one that reads them.
   if (location === "querystring") return deserialization;
 
   // A flag that changes how a value is read is a question about the reading,

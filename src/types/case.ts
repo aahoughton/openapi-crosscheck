@@ -56,11 +56,29 @@ export type ProbeAxis =
    * `allowReserved`, `allowEmptyValue`, or an `explode` that turns the declared
    * combination into one the specification leaves undefined.
    *
-   * Every other axis varies the wire and holds the declaration fixed. This one
-   * varies the declaration, which was a constant across the whole corpus until
-   * it existed, and so a blind spot no wire-shaped axis could reach.
+   * This varies a declaration the document version admits and asks how it
+   * changes request processing. `documentRule` covers a declaration the
+   * document version itself forbids.
    */
   | "declarationFlag"
+  /**
+   * The declaration violates a rule for the OpenAPI document itself, and no
+   * narrower axis names the violation.
+   *
+   * The request stays ordinary and the case asks where implementations part
+   * while reading the invalid declaration. Distinct from `declarationFlag`,
+   * whose declarations are valid inputs to request deserialization even when
+   * their combinations leave behavior open.
+   *
+   * A document rule broken by two declarations rather than by one rides the
+   * axis that names the collision, `competingParameter`, `competingPath` or
+   * `duplicateName`, because what a case varies is what a coverage map has to
+   * show. This axis is for a single declaration the version forbids.
+   *
+   * Which stage settles it is the stage that reads the forbidden field, so
+   * cases on this axis do not share one, and `probedStage` decides it there.
+   */
+  | "documentRule"
   | "duplicateName"
   | "emptyAfterParse"
   | "emptyContainer"

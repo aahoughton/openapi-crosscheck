@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "openapi-core"
   },
-  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
+  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -5702,6 +5702,44 @@
             "cookie": {}
           }
         }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-required-false-oas30",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "OpenAPIValidationError: {'name': 'p', 'in': 'path', 'required': False, 'style': 'simple', 'explode': False, 'schema': {'type': 'string'}} is not valid under any of the given schemas\n\nFailed validating 'oneOf' in schema['properties']['paths']['patternProperties']['^\\\\/']['patternProperties']['^(get|put|post|delete|options|head|patch|trace)$']['properties']['parameters']['items']:\n    {'oneOf': [{'$ref': '#/definitions/Parameter'},\n               {'$ref': '#/definitions/Reference'}]}\n\nOn instance['paths']['/t/{p}']['get']['parameters'][0]:\n    {'name': 'p',\n     'in': 'path',\n     'required': False,\n     'style': 'simple',\n     'explode': False,\n     'schema': {'type': 'string'}}"
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-required-false-oas31",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "OpenAPIValidationError: True was expected\n\nFailed validating 'const' in schema['properties']['paths']['patternProperties']['^/']['else']['properties']['get']['properties']['parameters']['items']['else']['dependentSchemas']['schema']['allOf'][1]['then']['properties']['required']:\n    {'const': True}\n\nOn instance['paths']['/t/{p}']['get']['parameters'][0]['required']:\n    False"
       }
     },
     {

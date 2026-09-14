@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "gem \"openapi_first\""
   },
-  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
+  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -3575,6 +3575,62 @@
     },
     {
       "caseId": "path-simple-scalar-explode-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-required-false-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
+      "caseId": "path-simple-scalar-required-false-oas31",
       "result": {
         "library": "openapi_first",
         "libraryVersion": "3.4.3",

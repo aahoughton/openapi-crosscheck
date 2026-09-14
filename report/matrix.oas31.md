@@ -2109,6 +2109,35 @@ Open question: A percent-encoded comma sits where the delimiter would be. Is thi
 
 Varies: the encoding of the delimiter. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
+#### `path-simple-scalar-required-false-oas31`
+
+path, simple, scalar, declared required: false.
+
+Declares a path parameter with required: false, which the specification forbids. The segment arrives either way, so what can move is refusal of the document.
+
+Request: `GET /t/blue`
+
+Open question: The required field of a path parameter MUST be true, and this document writes false. The rule constrains the document author and does not say what a validator does with a document breaking it: refusing the document, reading the field as written, and repairing it to true are each defensible. A matched template always carries a segment, so an optional path parameter has no absent request to observe and the readings part at the document boundary.
+
+The text leaving it open: [parameter-required](https://spec.openapis.org/oas/v3.1.1.html#parameter-required)
+
+> Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (libraryInitUnsupported) | - |
+| `express-openapi-validator` | raised, no verdict | - |
+| `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
+| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `@oaverify/core` | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
+| `openapi-backend` | accepted | `{"p":"blue"}` (parsed before validation) |
+| `openapi-core` | not asked (libraryInitUnsupported) | - |
+| `openapi-request-validator` | accepted | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
+| `openapi_first` | accepted | `{"p":"blue"}` (parsed before validation) |
+
+Varies: the declaration writes required: false on a path parameter. Holds constant: identifier is the declared one; wire shape matches the declared style; value well-formed for its type.
+
 ### Query parameters
 
 #### `query-content-and-schema-declared-oas31`

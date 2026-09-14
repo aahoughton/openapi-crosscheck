@@ -85,7 +85,7 @@ shows whether the type was checked at all.
 | `integer` | 8 | `path-matrix-scalar-wrong-type-oas31`, `path-simple-scalar-wrong-type-oas31`, `query-form-object-wrong-type-oas31`, `query-form-scalar-integer-fractional-oas31` |
 | `null` | 3 | `query-form-scalar-nullable-literal-oas31` |
 | `number` | 0 |  |
-| `string` | 81 | `query-form-object-wrong-type-oas31`, `query-form-scalar-nullable-literal-oas31` |
+| `string` | 82 | `query-form-object-wrong-type-oas31`, `query-form-scalar-nullable-literal-oas31` |
 
 A wrong-typed value against `string` cannot be constructed here. Every value on
 the wire is text, so there is nothing to send that a string schema must refuse,
@@ -205,7 +205,7 @@ resting on it, and can see which cited sections carry only one.
 | parameter-explode | `query-deep-object-no-explode-oas31`, `query-form-array-canonical-explode-oas31`, `query-form-array-canonical-no-explode-oas31`, `query-form-array-unset-style-oas31`, `query-form-object-canonical-explode-oas31`, `query-form-object-canonical-no-explode-oas31`, `query-form-object-missing-name-oas31` |
 | parameter-locations | `header-simple-array-case-variant-oas31` |
 | parameter-name | `header-reserved-name-accept-present-wrong-type-oas31`, `header-reserved-name-accept-required-absent-oas31`, `path-matrix-array-empty-after-parse-oas31`, `path-matrix-competing-parameters-oas31`, `path-matrix-scalar-foreign-name-oas31`, `query-form-scalar-missing-name-oas31` |
-| parameter-required | `header-reserved-name-accept-required-absent-oas31`, `path-label-array-foreign-shape-oas31`, `path-matrix-array-empty-after-parse-oas31`, `path-matrix-array-foreign-shape-oas31`, `path-matrix-competing-parameters-oas31`, `path-matrix-scalar-foreign-name-oas31`, `path-routing-concrete-before-templated-oas31`, `query-form-object-missing-name-oas31`, `query-form-scalar-missing-name-oas31`, `query-form-scalar-optional-absent-oas31`, `query-form-scalar-optional-default-absent-oas31` |
+| parameter-required | `header-reserved-name-accept-required-absent-oas31`, `path-label-array-foreign-shape-oas31`, `path-matrix-array-empty-after-parse-oas31`, `path-matrix-array-foreign-shape-oas31`, `path-matrix-competing-parameters-oas31`, `path-matrix-scalar-foreign-name-oas31`, `path-routing-concrete-before-templated-oas31`, `path-simple-scalar-required-false-oas31`, `query-form-object-missing-name-oas31`, `query-form-scalar-missing-name-oas31`, `query-form-scalar-optional-absent-oas31`, `query-form-scalar-optional-default-absent-oas31` |
 | parameter-schema | `path-matrix-scalar-wrong-type-oas31`, `path-simple-scalar-wrong-type-oas31` |
 | parameter-style | `header-simple-array-canonical-oas31`, `header-simple-array-case-variant-oas31`, `header-simple-array-explicit-style-oas31`, `header-simple-array-explode-oas31`, `header-simple-object-canonical-oas31`, `header-simple-object-explode-oas31`, `header-simple-scalar-canonical-oas31`, `header-simple-scalar-explode-oas31`, `path-label-array-canonical-oas31`, `path-label-array-explode-oas31`, `path-label-array-foreign-shape-oas31`, `path-label-object-canonical-oas31`, `path-label-object-explode-oas31`, `path-label-scalar-canonical-oas31`, `path-label-scalar-explode-oas31`, `path-matrix-array-canonical-oas31`, `path-matrix-array-empty-after-parse-oas31`, `path-matrix-array-foreign-shape-oas31`, `path-matrix-array-no-explode-oas31`, `path-matrix-competing-parameters-oas31`, `path-matrix-object-canonical-oas31`, `path-matrix-object-explode-oas31`, `path-matrix-scalar-canonical-oas31`, `path-matrix-scalar-explode-oas31`, `path-matrix-scalar-foreign-name-oas31`, `path-matrix-scalar-wrong-type-oas31`, `path-simple-array-canonical-oas31`, `path-simple-array-explode-oas31`, `path-simple-object-canonical-oas31`, `path-simple-object-explode-oas31`, `path-simple-scalar-canonical-oas31`, `path-simple-scalar-explode-oas31`, `path-simple-scalar-unset-style-oas31`, `query-deep-object-canonical-oas31`, `query-form-array-canonical-explode-oas31`, `query-form-array-canonical-no-explode-oas31`, `query-form-array-unset-style-oas31`, `query-form-boolean-wrong-type-oas31`, `query-form-object-canonical-explode-oas31`, `query-form-object-canonical-no-explode-oas31`, `query-form-object-missing-name-oas31`, `query-form-object-wrong-type-oas31`, `query-form-scalar-allow-reserved-declared-oas31`, `query-form-scalar-encoded-plus-oas31`, `query-form-scalar-missing-name-oas31`, `query-form-scalar-nullable-empty-oas31`, `query-form-scalar-nullable-literal-oas31`, `query-form-scalar-optional-absent-oas31`, `query-form-scalar-optional-default-absent-oas31`, `query-form-scalar-pattern-mismatch-oas31`, `query-form-scalar-unset-style-oas31`, `query-pipe-delimited-array-canonical-oas31`, `query-pipe-delimited-object-canonical-oas31`, `query-space-delimited-array-canonical-oas31`, `query-space-delimited-object-canonical-oas31` |
 | path-templating | `path-matrix-competing-parameters-oas31` |
@@ -235,7 +235,7 @@ see Figures from elsewhere, below.
 | cookie | no | 1 of 2 | 2 |
 | header | yes | 6 of 8 | 8 |
 | header | no | 0 of 3 | 3 |
-| path | yes | 29 of 29 | 29 |
+| path | yes | 30 of 30 | 30 |
 | path | no | 0 of 1 | 1 |
 | query | yes | 26 of 26 | 26 |
 | query | no | 0 of 11 | 11 |
@@ -275,6 +275,7 @@ cannot show.
 | competingPath | 3 |
 | constraintViolation | 1 |
 | declarationFlag | 4 |
+| documentRule | 1 |
 | duplicateName | 2 |
 | emptyAfterParse | 1 |
 | emptyContainer | 2 |
@@ -304,7 +305,7 @@ would be filled by a canonical case, and canonical probes style.
 | splitting | 1 | 5 |
 | styleDeserialization | 45 | 18 |
 | contentDeserialization | 4 | 0 |
-| schemaValidation | 12 | 2 |
+| schemaValidation | 12 | 3 |
 
 `valueExposure` is a pipeline stage and has no row here, which is deliberate and
 is a correction. It had one, reading `0` and `0`, and that read as a gap someone
@@ -382,7 +383,7 @@ rows are that surface, unfilled.
 | propertyNames | 0 |
 | required | 1 |
 | then | 0 |
-| type | 90 |
+| type | 91 |
 | uniqueItems | 0 |
 | unevaluatedItems | 0 |
 | unevaluatedProperties | 0 |

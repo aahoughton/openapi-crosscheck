@@ -328,6 +328,81 @@ describe("a reserved declaration is decided at the validation boundary", () => {
   });
 });
 
+describe("a document-rule violation is decided where the forbidden field is read", () => {
+  const ids = [
+    "path-simple-scalar-required-false-oas30",
+    "path-simple-scalar-required-false-oas31",
+  ];
+
+  it("carries every single-declaration violation on the one axis", () => {
+    // The axis is what a coverage map counts, so a version forbidding a
+    // declaration and a case writing it have to meet on one row. A violation
+    // made by two declarations rather than by one rides the axis naming the
+    // collision, and those are listed here so a new case cannot join them by
+    // default.
+    const collisions = ["competingParameter", "competingPath", "duplicateName"];
+    const offAxis = cases
+      .filter((testCase) => testCase.breaksDocumentRule !== undefined)
+      .filter((testCase) => !collisions.includes(testCase.dimensions.probeAxis))
+      .filter((testCase) => testCase.dimensions.probeAxis !== "documentRule")
+      .map((testCase) => `${testCase.id} (${testCase.dimensions.probeAxis})`);
+    expect(offAxis).toEqual([]);
+  });
+
+  it("sends a forbidden querystring field to the reading that settles it", () => {
+    // `style` and `schema` are fields `in: "querystring"` may not carry, and
+    // they are the serialization's own. A library owning only validation never
+    // reads either, so routing these to the schema would ask it a question its
+    // published surface cannot answer and publish the non-answer as a cell.
+    const routed = cases
+      .filter((testCase) => testCase.dimensions.location === "querystring")
+      .filter((testCase) => testCase.dimensions.probeAxis === "documentRule")
+      .map((testCase) => ({ id: testCase.id, stage: probedStage(testCase.dimensions) }));
+    expect(routed).toEqual([
+      { id: "querystring-content-with-style-oas32", stage: "contentDeserialization" },
+      { id: "querystring-declared-with-schema-oas32", stage: "contentDeserialization" },
+    ]);
+  });
+
+  it("routes an invalid declaration outside querystring to schema validation", () => {
+    const routed = cases
+      .filter((testCase) => ids.includes(testCase.id))
+      .map((testCase) => ({
+        id: testCase.id,
+        axis: testCase.dimensions.probeAxis,
+        stage: probedStage(testCase.dimensions),
+      }));
+    expect(routed).toEqual([
+      {
+        id: "path-simple-scalar-required-false-oas30",
+        axis: "documentRule",
+        stage: "schemaValidation",
+      },
+      {
+        id: "path-simple-scalar-required-false-oas31",
+        axis: "documentRule",
+        stage: "schemaValidation",
+      },
+    ]);
+  });
+
+  it("keeps them askable of a library that owns only validation", () => {
+    const schemaOnly = owning({
+      routing: false,
+      splitting: { cookie: false, header: false, path: false, query: false },
+      styleDeserialization: false,
+      contentDeserialization: false,
+    });
+    const selected = cases.filter((testCase) => ids.includes(testCase.id));
+    expect(selected).toHaveLength(ids.length);
+    for (const testCase of selected) {
+      expect(canBeAsked(schemaOnly, testCase.dimensions, testCase.request.target, "raw")).toBe(
+        true,
+      );
+    }
+  });
+});
+
 describe("the rule applied to the whole corpus", () => {
   it("never sends a content parameter through style deserialization", () => {
     const misrouted = cases
