@@ -47,9 +47,9 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 11 |
-| pass (verdict only) | 42 |
+| pass (verdict only) | 43 |
 | FAIL (verdict) | 6 |
-| every conformance case | 59 |
+| every conformance case | 60 |
 
 #### Cases it did not pass
 
@@ -101,6 +101,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | not exposed by this library |
+| [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | not exposed by this library |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | accepted | not exposed by this library |
 
 ## OpenAPI 3.1
@@ -117,9 +118,9 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 11 |
-| pass (verdict only) | 42 |
+| pass (verdict only) | 43 |
 | FAIL (verdict) | 6 |
-| every conformance case | 59 |
+| every conformance case | 60 |
 
 #### Cases it did not pass
 
@@ -171,6 +172,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | not exposed by this library |
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | accepted | not exposed by this library |
 | [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | rejected | not exposed by this library |
+| [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | accepted | not exposed by this library |
 | [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | accepted | not exposed by this library |
 
 ## OpenAPI 3.2
@@ -187,9 +189,9 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 2 |
-| pass (verdict only) | 10 |
+| pass (verdict only) | 12 |
 | FAIL (verdict) | 2 |
-| every conformance case | 14 |
+| every conformance case | 16 |
 
 #### Cases it did not pass
 

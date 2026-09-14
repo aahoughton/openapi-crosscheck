@@ -13788,6 +13788,285 @@
       ]
     },
     {
+      "id": "query-form-scalar-encoded-plus-oas30",
+      "title": "query, form, scalar, the value carries a percent-encoded plus",
+      "inShort": "Sends p=a%2Bb. Both decoders Appendix E names agree here, so the plus is data and the answer is settled.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "decoding-uris-and-form-urlencoded-strings",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings",
+          "quoted": "The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "decoding-uris-and-form-urlencoded-strings",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings",
+          "quoted": "Similarly, all form-urlencoded decoding algorithms simply add +-for-space handling to the percent-decoding algorithm, and will work regardless of the encoding specification used. However, care must be taken to use form-urlencoded decoding if + represents a space, and to use regular percent-decoding if + represents itself as a literal value."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": "a+b"
+      },
+      "rationale": "Appendix E leaves an unencoded + open by naming two decoders, and this case is where the two agree: form-urlencoded decoding adds +-for-space handling to percent-decoding and converts an unencoded + only, so %2B is a literal + under both. The value reaching the schema is a+b whichever decoder read it. This is the control for its unencoded twin, and the two together separate a library that percent-decodes from one that converts every plus it sees.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=a%2Bb",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "form",
+        "explode": true,
+        "declaredStyle": "unset",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "encodingVariant"
+      },
+      "varies": [
+        "the wire carries a percent-encoded plus, which no other case sends"
+      ],
+      "holdsConstant": [
+        "the identifier is the declared one",
+        "the style is the defaulted one",
+        "the value is well-formed for the declared type"
+      ]
+    },
+    {
+      "id": "query-form-scalar-encoded-plus-oas31",
+      "title": "query, form, scalar, the value carries a percent-encoded plus",
+      "inShort": "Sends p=a%2Bb. Both decoders Appendix E names agree here, so the plus is data and the answer is settled.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "decoding-uris-and-form-urlencoded-strings",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings",
+          "quoted": "The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "decoding-uris-and-form-urlencoded-strings",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings",
+          "quoted": "Similarly, all form-urlencoded decoding algorithms simply add +-for-space handling to the percent-decoding algorithm, and will work regardless of the encoding specification used. However, care must be taken to use form-urlencoded decoding if + represents a space, and to use regular percent-decoding if + represents itself as a literal value."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": "a+b"
+      },
+      "rationale": "Appendix E leaves an unencoded + open by naming two decoders, and this case is where the two agree: form-urlencoded decoding adds +-for-space handling to percent-decoding and converts an unencoded + only, so %2B is a literal + under both. The value reaching the schema is a+b whichever decoder read it. This is the control for its unencoded twin, and the two together separate a library that percent-decodes from one that converts every plus it sees.",
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=a%2Bb",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "form",
+        "explode": true,
+        "declaredStyle": "unset",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "encodingVariant"
+      },
+      "varies": [
+        "the wire carries a percent-encoded plus, which no other case sends"
+      ],
+      "holdsConstant": [
+        "the identifier is the declared one",
+        "the style is the defaulted one",
+        "the value is well-formed for the declared type"
+      ]
+    },
+    {
+      "id": "query-form-scalar-encoded-plus-oas32",
+      "title": "query, form, scalar, the value carries a percent-encoded plus",
+      "inShort": "Sends p=a%2Bb, where WHATWG decoding yields a literal plus. The control that keeps the unencoded case from passing for the wrong reason.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "url-percent-encoding",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding",
+          "quoted": "Content in the application/x-www-form-urlencoded format, including query strings produced by Parameter Objects with in: \"query\", MUST also successfully parse and percent-decode using [WHATWG-URL] rules, including treating non-percent-encoded + as an escaped space character."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": "a+b"
+      },
+      "rationale": "WHATWG form-urlencoded decoding converts an unencoded + to a space and percent-decodes %2B to a literal +, so the value reaching the schema is a+b. This is the other side of the unencoded twin and the reason both are here: a library that turns every plus into a space answers that one correctly and this one wrong, and either case alone would not show it. This one asks nothing 3.0 and 3.1 do not also settle, which is why they carry a twin of it too.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=a%2Bb",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "form",
+        "explode": true,
+        "declaredStyle": "unset",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "encodingVariant"
+      },
+      "varies": [
+        "the wire carries a percent-encoded plus, which no other case sends"
+      ],
+      "holdsConstant": [
+        "the identifier is the declared one",
+        "the style is the defaulted one",
+        "the value is well-formed for the declared type"
+      ]
+    },
+    {
       "id": "query-form-scalar-integer-fractional-oas30",
       "title": "query, form, integer scalar, a number with a fraction",
       "inShort": "Sends p=1.5 where the schema says integer. Whether the implementation-defined conversion may truncate before the mathematical integer test is left open.",
@@ -15261,6 +15540,239 @@
       "holdsConstant": [
         "style and explode are stated",
         "no foreign parameter present"
+      ]
+    },
+    {
+      "id": "query-form-scalar-unencoded-plus-oas30",
+      "title": "query, form, scalar, the value carries an unencoded plus",
+      "inShort": "Sends p=a+b. Whether that plus is a space or a plus depends on which decoder reads it, and this version names both without choosing.",
+      "tier": "divergence",
+      "oasVersion": "3.0",
+      "question": "The wire carries an unencoded + in a query parameter value. Appendix E says a form-urlencoded decoder reads it as a space and a percent-decoder reads it as itself, and that care must be taken to use the right one. It does not say which one a form-style parameter value gets. The style table defers to RFC6570 expansion, which has no +-for-space convention, so nothing upstream settles it either. Both a and b joined by a space and the literal three characters are readings of what this version wrote. 3.2 settles this and its twin there is attributable.",
+      "basis": {
+        "oasVersion": "3.0",
+        "anchor": "decoding-uris-and-form-urlencoded-strings",
+        "url": "https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings",
+        "quoted": "Similarly, all form-urlencoded decoding algorithms simply add +-for-space handling to the percent-decoding algorithm, and will work regardless of the encoding specification used. However, care must be taken to use form-urlencoded decoding if + represents a space, and to use regular percent-decoding if + represents itself as a literal value."
+      },
+      "answeredInValues": true,
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=a+b",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "form",
+        "explode": true,
+        "declaredStyle": "unset",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "encodingVariant"
+      },
+      "varies": [
+        "the wire spells a space with a plus rather than a percent-encoded triple"
+      ],
+      "holdsConstant": [
+        "the identifier is the declared one",
+        "the style is the defaulted one",
+        "the value is well-formed for the declared type"
+      ]
+    },
+    {
+      "id": "query-form-scalar-unencoded-plus-oas31",
+      "title": "query, form, scalar, the value carries an unencoded plus",
+      "inShort": "Sends p=a+b. Whether that plus is a space or a plus depends on which decoder reads it, and this version names both without choosing.",
+      "tier": "divergence",
+      "oasVersion": "3.1",
+      "question": "The wire carries an unencoded + in a query parameter value. Appendix E says a form-urlencoded decoder reads it as a space and a percent-decoder reads it as itself, and that care must be taken to use the right one. It does not say which one a form-style parameter value gets. The style table defers to RFC6570 expansion, which has no +-for-space convention, so nothing upstream settles it either. Both a and b joined by a space and the literal three characters are readings of what this version wrote. 3.2 settles this and its twin there is attributable.",
+      "basis": {
+        "oasVersion": "3.1",
+        "anchor": "decoding-uris-and-form-urlencoded-strings",
+        "url": "https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings",
+        "quoted": "Similarly, all form-urlencoded decoding algorithms simply add +-for-space handling to the percent-decoding algorithm, and will work regardless of the encoding specification used. However, care must be taken to use form-urlencoded decoding if + represents a space, and to use regular percent-decoding if + represents itself as a literal value."
+      },
+      "answeredInValues": true,
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=a+b",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "form",
+        "explode": true,
+        "declaredStyle": "unset",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "encodingVariant"
+      },
+      "varies": [
+        "the wire spells a space with a plus rather than a percent-encoded triple"
+      ],
+      "holdsConstant": [
+        "the identifier is the declared one",
+        "the style is the defaulted one",
+        "the value is well-formed for the declared type"
+      ]
+    },
+    {
+      "id": "query-form-scalar-unencoded-plus-oas32",
+      "title": "query, form, scalar, the value carries an unencoded plus",
+      "inShort": "Sends p=a+b. 3.2 makes WHATWG form-urlencoded decoding a MUST for query strings, which reads the plus as a space.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\" (for compatibility reasons; note that style: \"cookie\" SHOULD be used with in: \"cookie\"; see Appendix D for details)."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "url-percent-encoding",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding",
+          "quoted": "Content in the application/x-www-form-urlencoded format, including query strings produced by Parameter Objects with in: \"query\", MUST also successfully parse and percent-decode using [WHATWG-URL] rules, including treating non-percent-encoded + as an escaped space character."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": "a b"
+      },
+      "rationale": "A query string produced by an in: query parameter MUST parse and percent-decode under WHATWG rules, and the same sentence says those rules treat a non-percent-encoded + as an escaped space. So the value reaching the schema is a, a space, b. Its 3.0 and 3.1 twins send the same request and are divergence: those versions name both decoders in Appendix E and pick neither, and this sentence is what 3.2 added.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=a+b",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "form",
+        "explode": true,
+        "declaredStyle": "unset",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "encodingVariant"
+      },
+      "varies": [
+        "the wire spells a space with a plus rather than a percent-encoded triple"
+      ],
+      "holdsConstant": [
+        "the identifier is the declared one",
+        "the style is the defaulted one",
+        "the value is well-formed for the declared type"
       ]
     },
     {

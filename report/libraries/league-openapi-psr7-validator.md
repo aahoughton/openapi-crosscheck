@@ -47,10 +47,10 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 14 |
-| pass (verdict only) | 22 |
+| pass (verdict only) | 23 |
 | FAIL (verdict) | 22 |
 | raised instead of answering | 1 |
-| every conformance case | 59 |
+| every conformance case | 60 |
 
 #### Cases it did not pass
 
@@ -118,6 +118,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | not exposed by this library |
+| [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | not exposed by this library |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | rejected | not exposed by this library |
 
 ## OpenAPI 3.1
@@ -134,10 +135,10 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 12 |
-| pass (verdict only) | 22 |
+| pass (verdict only) | 23 |
 | FAIL (verdict) | 22 |
 | raised instead of answering | 3 |
-| every conformance case | 59 |
+| every conformance case | 60 |
 
 #### Cases it did not pass
 
@@ -205,6 +206,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | not exposed by this library |
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | accepted | not exposed by this library |
 | [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | rejected | not exposed by this library |
+| [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | accepted | not exposed by this library |
 | [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | rejected | not exposed by this library |
 
 ## OpenAPI 3.2
@@ -220,8 +222,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| not asked | 14 |
-| every conformance case | 14 |
+| not asked | 16 |
+| every conformance case | 16 |
 
 #### Cases it was not asked
 
@@ -238,6 +240,8 @@ caller, so an answer would describe the harness rather than the library.
 - [`path-simple-scalar-allow-reserved-declared-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-declared-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-canonical-oas32`](../matrix.oas32.md#query-deep-object-canonical-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-no-explode-oas32`](../matrix.oas32.md#query-deep-object-no-explode-oas32) (oasVersionNotDeclared)
+- [`query-form-scalar-encoded-plus-oas32`](../matrix.oas32.md#query-form-scalar-encoded-plus-oas32) (oasVersionNotDeclared)
+- [`query-form-scalar-unencoded-plus-oas32`](../matrix.oas32.md#query-form-scalar-unencoded-plus-oas32) (oasVersionNotDeclared)
 - [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (oasVersionNotDeclared)
 - [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (oasVersionNotDeclared)
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)

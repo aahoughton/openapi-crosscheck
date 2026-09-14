@@ -89,6 +89,21 @@ export const PARAMETER_ALLOW_RESERVED = cite(
     "values that automatically percent-encode.",
 );
 
+/**
+ * The 3.2 rule that settles an unencoded `+` in a query string.
+ *
+ * New text in 3.2.0. Earlier versions leave the choice of decoder to Appendix E
+ * guidance; this makes WHATWG form-urlencoded decoding a MUST for query strings
+ * a `query` parameter produced, and names the `+` case in the same sentence.
+ */
+export const URL_PERCENT_ENCODING = cite(
+  "url-percent-encoding",
+  "Content in the application/x-www-form-urlencoded format, including query strings " +
+    'produced by Parameter Objects with in: "query", MUST also successfully parse and ' +
+    "percent-decode using [WHATWG-URL] rules, including treating non-percent-encoded + as " +
+    "an escaped space character.",
+);
+
 export const SCHEMA_OBJECT = cite(
   "schema-object",
   "The Schema Object allows the definition of input and output data types. These types " +

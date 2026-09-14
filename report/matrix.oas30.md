@@ -148,6 +148,7 @@ rules the expected verdict rests on, and the argument for it.
 | [`query-form-object-missing-name-oas30`](#query-form-object-missing-name-oas30) | rejected | pass | pass | pass | FAIL (verdict) | pass | pass | pass | pass | pass | pass |
 | [`query-form-object-wrong-type-oas30`](#query-form-object-wrong-type-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a | pass |
 | [`query-form-scalar-allow-reserved-declared-oas30`](#query-form-scalar-allow-reserved-declared-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
+| [`query-form-scalar-encoded-plus-oas30`](#query-form-scalar-encoded-plus-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | FAIL (value) | n/a | pass |
 | [`query-form-scalar-missing-name-oas30`](#query-form-scalar-missing-name-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-nullable-empty-oas30`](#query-form-scalar-nullable-empty-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | pass | pass | pass | pass | pass | FAIL (verdict) | n/a | pass |
 | [`query-form-scalar-nullable-literal-oas30`](#query-form-scalar-nullable-literal-oas30) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
@@ -1430,6 +1431,36 @@ allowReserved is declared, so the reserved set passes through unencoded, and the
 
 Varies: allowReserved is declared, which the corpus otherwise leaves unset. Holds constant: the identifier is the declared one; the style is the defaulted one.
 
+##### `query-form-scalar-encoded-plus-oas30`
+
+query, form, scalar, the value carries a percent-encoded plus. Expected: **accepted**.
+
+Sends p=a%2Bb. Both decoders Appendix E names agree here, so the plus is data and the answer is settled.
+
+Request: `GET /t?p=a%2Bb`
+
+Every rule the expected verdict rests on, OpenAPI 3.0:
+
+[parameter-style](https://spec.openapis.org/oas/v3.0.4.html#parameter-style)
+
+> Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for "query" - "form"; for "path" - "simple"; for "header" - "simple"; for "cookie" - "form".
+
+[decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings)
+
+> The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly.
+
+[decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings)
+
+> Similarly, all form-urlencoded decoding algorithms simply add +-for-space handling to the percent-decoding algorithm, and will work regardless of the encoding specification used. However, care must be taken to use form-urlencoded decoding if + represents a space, and to use regular percent-decoding if + represents itself as a literal value.
+
+[schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
+
+Appendix E leaves an unencoded + open by naming two decoders, and this case is where the two agree: form-urlencoded decoding adds +-for-space handling to percent-decoding and converts an unencoded + only, so %2B is a literal + under both. The value reaching the schema is a+b whichever decoder read it. This is the control for its unencoded twin, and the two together separate a library that percent-decodes from one that converts every plus it sees.
+
+Varies: the wire carries a percent-encoded plus, which no other case sends. Holds constant: the identifier is the declared one; the style is the defaulted one; the value is well-formed for the declared type.
+
 ##### `query-form-scalar-missing-name-oas30`
 
 query, form, scalar, the declared name absent. Expected: **rejected**.
@@ -2449,6 +2480,37 @@ The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapi
 | `openapi_first` | rejected | `{}` (parsed before validation) |
 
 Varies: the schema admits null and the wire carries null's own serialization. Holds constant: the style is the defaulted one; one parameter declared.
+
+#### `query-form-scalar-unencoded-plus-oas30`
+
+query, form, scalar, the value carries an unencoded plus.
+
+Sends p=a+b. Whether that plus is a space or a plus depends on which decoder reads it, and this version names both without choosing.
+
+Request: `GET /t?p=a+b`
+
+Open question: The wire carries an unencoded + in a query parameter value. Appendix E says a form-urlencoded decoder reads it as a space and a percent-decoder reads it as itself, and that care must be taken to use the right one. It does not say which one a form-style parameter value gets. The style table defers to RFC6570 expansion, which has no +-for-space convention, so nothing upstream settles it either. Both a and b joined by a space and the literal three characters are readings of what this version wrote. 3.2 settles this and its twin there is attributable.
+
+**Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
+
+The text leaving it open: [decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings)
+
+> Similarly, all form-urlencoded decoding algorithms simply add +-for-space handling to the percent-decoding algorithm, and will work regardless of the encoding specification used. However, care must be taken to use form-urlencoded decoding if + represents a space, and to use regular percent-decoding if + represents itself as a literal value.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `express-openapi-validator` | rejected | `{"p":"a b"}` (parsed before validation) |
+| `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `@oaverify/core` | accepted | `{"p":"a b"}` (validated only, so an absent name failed its schema) |
+| `openapi-backend` | accepted | `{"p":"a b"}` (parsed before validation) |
+| `openapi-core` | accepted | `{"p":"a+b"}` (validated only, so an absent name failed its schema) |
+| `openapi-request-validator` | not asked (stageNotOwned) | - |
+| `openapi_first` | accepted | `{"p":"a b"}` (parsed before validation) |
+
+Varies: the wire spells a space with a plus rather than a percent-encoded triple. Holds constant: the identifier is the declared one; the style is the defaulted one; the value is well-formed for the declared type.
 
 #### `query-space-delimited-array-explode-oas30`
 

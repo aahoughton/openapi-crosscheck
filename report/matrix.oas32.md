@@ -109,6 +109,8 @@ rules the expected verdict rests on, and the argument for it.
 | [`path-simple-scalar-allow-reserved-declared-oas32`](#path-simple-scalar-allow-reserved-declared-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | pass | n/a | n/a |
 | [`query-deep-object-canonical-oas32`](#query-deep-object-canonical-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | FAIL (verdict) | n/a | n/a |
 | [`query-deep-object-no-explode-oas32`](#query-deep-object-no-explode-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | FAIL (verdict) | n/a | n/a |
+| [`query-form-scalar-encoded-plus-oas32`](#query-form-scalar-encoded-plus-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | FAIL (value) | n/a | n/a |
+| [`query-form-scalar-unencoded-plus-oas32`](#query-form-scalar-unencoded-plus-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | FAIL (value) | n/a | n/a |
 | [`querystring-absent-no-question-mark-oas32`](#querystring-absent-no-question-mark-oas32) | accepted | n/a | n/a | n/a | pass | n/a | n/a | n/a | n/a | n/a | n/a |
 | [`querystring-empty-after-question-mark-oas32`](#querystring-empty-after-question-mark-oas32) | accepted | n/a | n/a | n/a | pass | n/a | n/a | n/a | RAISED | n/a | n/a |
 | [`querystring-form-urlencoded-object-canonical-oas32`](#querystring-form-urlencoded-object-canonical-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | n/a | n/a | RAISED | n/a | n/a |
@@ -474,6 +476,58 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 explode has no effect when the style is deepObject, and the table gives one row for the style rather than one per explode value. So the declaration describes the same serialization as its exploded twin, and the request carries it.
 
 Varies: explode, into a pairing earlier versions call undefined and this one defines. Holds constant: identifier is the declared one; wire shape as for the exploded twin.
+
+##### `query-form-scalar-encoded-plus-oas32`
+
+query, form, scalar, the value carries a percent-encoded plus. Expected: **accepted**.
+
+Sends p=a%2Bb, where WHATWG decoding yields a literal plus. The control that keeps the unencoded case from passing for the wrong reason.
+
+Request: `GET /t?p=a%2Bb`
+
+Every rule the expected verdict rests on, OpenAPI 3.2:
+
+[parameter-style](https://spec.openapis.org/oas/v3.2.0.html#parameter-style)
+
+> Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for "query" - "form"; for "path" - "simple"; for "header" - "simple"; for "cookie" - "form" (for compatibility reasons; note that style: "cookie" SHOULD be used with in: "cookie"; see Appendix D for details).
+
+[url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
+
+> Content in the application/x-www-form-urlencoded format, including query strings produced by Parameter Objects with in: "query", MUST also successfully parse and percent-decode using [WHATWG-URL] rules, including treating non-percent-encoded + as an escaped space character.
+
+[schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+WHATWG form-urlencoded decoding converts an unencoded + to a space and percent-decodes %2B to a literal +, so the value reaching the schema is a+b. This is the other side of the unencoded twin and the reason both are here: a library that turns every plus into a space answers that one correctly and this one wrong, and either case alone would not show it. This one asks nothing 3.0 and 3.1 do not also settle, which is why they carry a twin of it too.
+
+Varies: the wire carries a percent-encoded plus, which no other case sends. Holds constant: the identifier is the declared one; the style is the defaulted one; the value is well-formed for the declared type.
+
+##### `query-form-scalar-unencoded-plus-oas32`
+
+query, form, scalar, the value carries an unencoded plus. Expected: **accepted**.
+
+Sends p=a+b. 3.2 makes WHATWG form-urlencoded decoding a MUST for query strings, which reads the plus as a space.
+
+Request: `GET /t?p=a+b`
+
+Every rule the expected verdict rests on, OpenAPI 3.2:
+
+[parameter-style](https://spec.openapis.org/oas/v3.2.0.html#parameter-style)
+
+> Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for "query" - "form"; for "path" - "simple"; for "header" - "simple"; for "cookie" - "form" (for compatibility reasons; note that style: "cookie" SHOULD be used with in: "cookie"; see Appendix D for details).
+
+[url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
+
+> Content in the application/x-www-form-urlencoded format, including query strings produced by Parameter Objects with in: "query", MUST also successfully parse and percent-decode using [WHATWG-URL] rules, including treating non-percent-encoded + as an escaped space character.
+
+[schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+A query string produced by an in: query parameter MUST parse and percent-decode under WHATWG rules, and the same sentence says those rules treat a non-percent-encoded + as an escaped space. So the value reaching the schema is a, a space, b. Its 3.0 and 3.1 twins send the same request and are divergence: those versions name both decoders in Appendix E and pick neither, and this sentence is what 3.2 added.
+
+Varies: the wire spells a space with a plus rather than a percent-encoded triple. Holds constant: the identifier is the declared one; the style is the defaulted one; the value is well-formed for the declared type.
 
 #### Querystring parameters
 

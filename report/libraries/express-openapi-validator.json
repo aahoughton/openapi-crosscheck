@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:e8a4bb7ed1d2d3485d420e9a1d07caf88f393373d45bf4fe063f39ee18bcb0c7",
+  "corpusDigest": "sha256:25e09b26e16eb0a2bbdfbbe7676ba083a1da93ccbb2165fb57edc149d59294b4",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -7700,6 +7700,104 @@
       }
     },
     {
+      "caseId": "query-form-scalar-encoded-plus-oas30",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "handedToHandler",
+          "value": {
+            "p": "a+b"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 200,
+          "body": {
+            "params": {},
+            "query": {
+              "p": "a+b"
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-encoded-plus-oas31",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "handedToHandler",
+          "value": {
+            "p": "a+b"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 200,
+          "body": {
+            "params": {},
+            "query": {
+              "p": "a+b"
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-encoded-plus-oas32",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
       "caseId": "query-form-scalar-integer-fractional-oas30",
       "result": {
         "library": "express-openapi-validator",
@@ -8477,6 +8575,118 @@
             }
           }
         }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unencoded-plus-oas30",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "a b"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 400,
+          "body": {
+            "message": "Parameter 'p' must be url encoded. Its value may not contain reserved characters.",
+            "errors": [
+              {
+                "path": "/query/p",
+                "message": "Parameter 'p' must be url encoded. Its value may not contain reserved characters."
+              }
+            ],
+            "params": {},
+            "query": {
+              "p": "a b"
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unencoded-plus-oas31",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "a b"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 400,
+          "body": {
+            "message": "Parameter 'p' must be url encoded. Its value may not contain reserved characters.",
+            "errors": [
+              {
+                "path": "/query/p",
+                "message": "Parameter 'p' must be url encoded. Its value may not contain reserved characters."
+              }
+            ],
+            "params": {},
+            "query": {
+              "p": "a b"
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-unencoded-plus-oas32",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
       }
     },
     {

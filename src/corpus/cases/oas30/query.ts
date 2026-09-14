@@ -1527,4 +1527,84 @@ export const queryCases30: readonly Case[] = [
     varies: [],
     holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
   },
+  {
+    id: "query-form-scalar-unencoded-plus-oas30",
+    title: "query, form, scalar, the value carries an unencoded plus",
+    inShort:
+      "Sends p=a+b. Whether that plus is a space or a plus depends on which decoder reads " +
+      "it, and this version names both without choosing.",
+    tier: "divergence",
+    oasVersion: "3.0",
+    question:
+      "The wire carries an unencoded + in a query parameter value. Appendix E says a " +
+      "form-urlencoded decoder reads it as a space and a percent-decoder reads it as " +
+      "itself, and that care must be taken to use the right one. It does not say which " +
+      "one a form-style parameter value gets. The style table defers to RFC6570 " +
+      "expansion, which has no +-for-space convention, so nothing upstream settles it " +
+      "either. Both a and b joined by a space and the literal three characters are " +
+      "readings of what this version wrote. 3.2 settles this and its twin there is " +
+      "attributable.",
+    basis: cite.PLUS_DECODING_AMBIGUOUS,
+    answeredInValues: true,
+    document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
+    request: request("/t?p=a+b"),
+    dimensions: {
+      declaration: "schema",
+      location: "query",
+      style: "form",
+      explode: true,
+      declaredStyle: "unset",
+      declaredExplode: "unset",
+      schema: "scalar",
+      probeAxis: "encodingVariant",
+    },
+    varies: ["the wire spells a space with a plus rather than a percent-encoded triple"],
+    holdsConstant: [
+      "the identifier is the declared one",
+      "the style is the defaulted one",
+      "the value is well-formed for the declared type",
+    ],
+  },
+  {
+    id: "query-form-scalar-encoded-plus-oas30",
+    title: "query, form, scalar, the value carries a percent-encoded plus",
+    inShort:
+      "Sends p=a%2Bb. Both decoders Appendix E names agree here, so the plus is data and " +
+      "the answer is settled.",
+    tier: "conformance",
+    oasVersion: "3.0",
+    citations: [
+      cite.PARAMETER_STYLE,
+      cite.URI_PERCENT_DECODING,
+      cite.PLUS_DECODING_AMBIGUOUS,
+      cite.SCHEMA_OBJECT,
+    ],
+    expected: "accepted",
+    expectedValues: { p: "a+b" },
+    rationale:
+      "Appendix E leaves an unencoded + open by naming two decoders, and this case is " +
+      "where the two agree: form-urlencoded decoding adds +-for-space handling to " +
+      "percent-decoding and converts an unencoded + only, so %2B is a literal + under " +
+      "both. The value reaching the schema is a+b whichever decoder read it. This is the " +
+      "control for its unencoded twin, and the two together separate a library that " +
+      "percent-decodes from one that converts every plus it sees.",
+    document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
+    request: request("/t?p=a%2Bb"),
+    dimensions: {
+      declaration: "schema",
+      location: "query",
+      style: "form",
+      explode: true,
+      declaredStyle: "unset",
+      declaredExplode: "unset",
+      schema: "scalar",
+      probeAxis: "encodingVariant",
+    },
+    varies: ["the wire carries a percent-encoded plus, which no other case sends"],
+    holdsConstant: [
+      "the identifier is the declared one",
+      "the style is the defaulted one",
+      "the value is well-formed for the declared type",
+    ],
+  },
 ];

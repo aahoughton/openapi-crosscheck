@@ -46,8 +46,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 59 |
-| every conformance case | 59 |
+| pass | 60 |
+| every conformance case | 60 |
 
 ### Divergence
 
@@ -81,6 +81,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | `{"p":100}` |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | accepted | `{"p":""}` |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | `{}` |
+| [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | `{"p":"a b"}` |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | accepted | `{"p":["blue","black"]}` |
 
 ## OpenAPI 3.1
@@ -96,8 +97,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 59 |
-| every conformance case | 59 |
+| pass | 60 |
+| every conformance case | 60 |
 
 ### Divergence
 
@@ -131,6 +132,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | `{"p":100}` |
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | accepted | `{"p":""}` |
 | [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | rejected | `{}` |
+| [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | accepted | `{"p":"a b"}` |
 | [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | accepted | `{"p":["blue","black"]}` |
 
 ## OpenAPI 3.2
@@ -146,9 +148,9 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 9 |
+| pass | 11 |
 | not asked | 5 |
-| every conformance case | 14 |
+| every conformance case | 16 |
 
 #### Cases it was not asked
 

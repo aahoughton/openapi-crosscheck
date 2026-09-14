@@ -221,12 +221,14 @@ Rules those verdicts rest on:
 
 **Style and explode.** Apply each parameter's `style` and `explode` yourself. It validates the structured value you hand it and performs no deserialization of its own.
 
-98 conformance cases probe it: `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `header-simple-array-canonical-oas30`, and 90 more in the matrix files.
+102 conformance cases probe it: `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `header-simple-array-canonical-oas30`, and 94 more in the matrix files.
 
 Rules those verdicts rest on:
 
 - [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
 - [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion)
+- [decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings)
+- [decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings)
 - [fixed-fields-for-use-with-schema](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-schema)
 - [parameter-allow-reserved](https://spec.openapis.org/oas/v3.0.4.html#parameter-allow-reserved)
 - [parameter-allow-reserved](https://spec.openapis.org/oas/v3.1.1.html#parameter-allow-reserved)
@@ -251,8 +253,9 @@ Rules those verdicts rest on:
 - [style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.2.0.html#style-examples)
 - [style-values](https://spec.openapis.org/oas/v3.2.0.html#style-values)
+- [url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
 
-36 divergence cases also probe it: `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-array-explode-oas30`, `cookie-form-array-explode-oas31`, `cookie-form-array-explode-oas32`, `cookie-form-object-canonical-oas30`, `cookie-form-object-canonical-oas31`, `cookie-form-scalar-canonical-oas30`, and 28 more in the matrix files. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+38 divergence cases also probe it: `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-array-explode-oas30`, `cookie-form-array-explode-oas31`, `cookie-form-array-explode-oas32`, `cookie-form-object-canonical-oas30`, `cookie-form-object-canonical-oas31`, `cookie-form-scalar-canonical-oas30`, and 30 more in the matrix files. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 

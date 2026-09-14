@@ -47,8 +47,8 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 7 |
-| not asked | 52 |
-| every conformance case | 59 |
+| not asked | 53 |
+| every conformance case | 60 |
 
 #### Cases it was not asked
 
@@ -101,6 +101,7 @@ caller, so an answer would describe the harness rather than the library.
 - [`query-form-object-canonical-no-explode-oas30`](../matrix.oas30.md#query-form-object-canonical-no-explode-oas30) (stageNotOwned)
 - [`query-form-object-wrong-type-oas30`](../matrix.oas30.md#query-form-object-wrong-type-oas30) (stageNotOwned)
 - [`query-form-scalar-allow-reserved-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-declared-oas30) (stageNotOwned)
+- [`query-form-scalar-encoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-encoded-plus-oas30) (stageNotOwned)
 - [`query-form-scalar-nullable-empty-oas30`](../matrix.oas30.md#query-form-scalar-nullable-empty-oas30) (stageNotOwned)
 - [`query-form-scalar-unset-style-oas30`](../matrix.oas30.md#query-form-scalar-unset-style-oas30) (stageNotOwned)
 - [`query-pipe-delimited-array-canonical-oas30`](../matrix.oas30.md#query-pipe-delimited-array-canonical-oas30) (stageNotOwned)
@@ -140,6 +141,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | not exposed by this library |
+| [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | not asked (stageNotOwned) | - |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | not asked (stageNotOwned) | - |
 
 ## OpenAPI 3.1
@@ -156,8 +158,8 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 7 |
-| not asked | 52 |
-| every conformance case | 59 |
+| not asked | 53 |
+| every conformance case | 60 |
 
 #### Cases it was not asked
 
@@ -210,6 +212,7 @@ caller, so an answer would describe the harness rather than the library.
 - [`query-form-object-canonical-no-explode-oas31`](../matrix.oas31.md#query-form-object-canonical-no-explode-oas31) (stageNotOwned)
 - [`query-form-object-wrong-type-oas31`](../matrix.oas31.md#query-form-object-wrong-type-oas31) (stageNotOwned)
 - [`query-form-scalar-allow-reserved-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-declared-oas31) (stageNotOwned)
+- [`query-form-scalar-encoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-encoded-plus-oas31) (stageNotOwned)
 - [`query-form-scalar-nullable-empty-oas31`](../matrix.oas31.md#query-form-scalar-nullable-empty-oas31) (stageNotOwned)
 - [`query-form-scalar-unset-style-oas31`](../matrix.oas31.md#query-form-scalar-unset-style-oas31) (stageNotOwned)
 - [`query-pipe-delimited-array-canonical-oas31`](../matrix.oas31.md#query-pipe-delimited-array-canonical-oas31) (stageNotOwned)
@@ -249,6 +252,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | rejected | not exposed by this library |
+| [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | not asked (stageNotOwned) | - |
 | [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | not asked (stageNotOwned) | - |
 
 ## OpenAPI 3.2
@@ -264,8 +268,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| not asked | 14 |
-| every conformance case | 14 |
+| not asked | 16 |
+| every conformance case | 16 |
 
 #### Cases it was not asked
 
@@ -282,6 +286,8 @@ caller, so an answer would describe the harness rather than the library.
 - [`path-simple-scalar-allow-reserved-declared-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-declared-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-canonical-oas32`](../matrix.oas32.md#query-deep-object-canonical-oas32) (oasVersionNotDeclared)
 - [`query-deep-object-no-explode-oas32`](../matrix.oas32.md#query-deep-object-no-explode-oas32) (oasVersionNotDeclared)
+- [`query-form-scalar-encoded-plus-oas32`](../matrix.oas32.md#query-form-scalar-encoded-plus-oas32) (oasVersionNotDeclared)
+- [`query-form-scalar-unencoded-plus-oas32`](../matrix.oas32.md#query-form-scalar-unencoded-plus-oas32) (oasVersionNotDeclared)
 - [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (oasVersionNotDeclared)
 - [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (oasVersionNotDeclared)
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)

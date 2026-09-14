@@ -223,6 +223,22 @@ export const URI_PERCENT_DECODING = cite(
 );
 
 /**
+ * Appendix E declining to settle what an unencoded `+` means in a query string.
+ *
+ * It names both readings, says a decoder must pick the right one, and gives no
+ * rule for telling a `form`-style parameter value which one applies. The style
+ * table defers to RFC6570 expansion, which has no `+`-for-space convention at
+ * all, so nothing upstream settles it either.
+ */
+export const PLUS_DECODING_AMBIGUOUS = cite(
+  "decoding-uris-and-form-urlencoded-strings",
+  "Similarly, all form-urlencoded decoding algorithms simply add +-for-space handling to " +
+    "the percent-decoding algorithm, and will work regardless of the encoding specification " +
+    "used. However, care must be taken to use form-urlencoded decoding if + represents a " +
+    "space, and to use regular percent-decoding if + represents itself as a literal value.",
+);
+
+/**
  * The specification declining to settle `form` in a cookie, in its own words.
  *
  * The style table is written in query syntax, and Appendix D is where the

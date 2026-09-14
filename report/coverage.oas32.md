@@ -4,7 +4,7 @@ Enumerated from the specification, not from the corpus. A corpus-derived map
 would be complete by construction and would say nothing. Every empty cell
 below is a case nobody has written yet.
 
-Defined combinations: 48. Covered: 10. Empty: 38.
+Defined combinations: 48. Covered: 11. Empty: 37.
 
 Combinations the specification marks undefined are excluded from the surface
 and probed as divergence cases instead.
@@ -65,7 +65,7 @@ case ids carrying `nullable`.
 | query | form | false | scalar |  |
 | query | form | true | array |  |
 | query | form | true | object |  |
-| query | form | true | scalar |  |
+| query | form | true | scalar | yes |
 | query | pipeDelimited | false | array |  |
 | query | pipeDelimited | false | object |  |
 | query | spaceDelimited | false | array |  |
@@ -92,7 +92,7 @@ shows whether the type was checked at all.
 | `integer` | 1 | `querystring-form-urlencoded-object-wrong-type-oas32` |
 | `null` | 0 |  |
 | `number` | 0 |  |
-| `string` | 21 | `querystring-form-urlencoded-object-wrong-type-oas32` |
+| `string` | 23 | `querystring-form-urlencoded-object-wrong-type-oas32` |
 
 A wrong-typed value against `string` cannot be constructed here. Every value on
 the wire is text, so there is nothing to send that a string schema must refuse,
@@ -219,11 +219,12 @@ resting on it, and can see which cited sections carry only one.
 | parameter-explode | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `query-deep-object-no-explode-oas32` |
 | parameter-locations | `querystring-absent-no-question-mark-oas32`, `querystring-empty-after-question-mark-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-form-urlencoded-object-wrong-type-oas32` |
 | parameter-required | `querystring-absent-no-question-mark-oas32`, `querystring-empty-after-question-mark-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-form-urlencoded-object-wrong-type-oas32` |
-| parameter-style | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32` |
+| parameter-style | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32`, `query-form-scalar-encoded-plus-oas32`, `query-form-scalar-unencoded-plus-oas32` |
 | percent-encoding-and-cookies | `cookie-form-array-explode-oas32` |
-| schema-object | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-form-urlencoded-object-wrong-type-oas32` |
+| schema-object | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32`, `query-form-scalar-encoded-plus-oas32`, `query-form-scalar-unencoded-plus-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-form-urlencoded-object-wrong-type-oas32` |
 | style-examples | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32` |
 | style-values | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32` |
+| url-percent-encoding | `query-form-scalar-encoded-plus-oas32`, `query-form-scalar-unencoded-plus-oas32` |
 
 Cases resting on no cited section, because the specification is silent: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`, `querystring-json-object-canonical-oas32`.
 
@@ -248,7 +249,7 @@ see Figures from elsewhere, below.
 | path | yes | 0 of 0 | 0 |
 | path | no | 0 of 2 | 2 |
 | query | yes | 2 of 2 | 2 |
-| query | no | 0 of 0 | 0 |
+| query | no | 0 of 2 | 2 |
 
 ## Figures from elsewhere
 
@@ -287,7 +288,7 @@ cannot show.
 | duplicateName | 1 |
 | emptyAfterParse | 0 |
 | emptyContainer | 1 |
-| encodingVariant | 2 |
+| encodingVariant | 4 |
 | foreignName | 0 |
 | foreignWireShape | 1 |
 | missingName | 0 |
@@ -310,7 +311,7 @@ would be filled by a canonical case, and canonical probes style.
 | --- | --- | --- |
 | routing | 0 | 0 |
 | splitting | 0 | 0 |
-| styleDeserialization | 10 | 2 |
+| styleDeserialization | 12 | 2 |
 | contentDeserialization | 2 | 5 |
 | schemaValidation | 2 | 0 |
 
@@ -362,6 +363,3 @@ existed.
   Every version reserves each of these and says a parameter so named SHALL be
   ignored.
   No reserved-name case appears in this version.
-- Wire encoding of a space: no case sends a literal `+`. The encoding axis
-  varies toward percent-encoding and never toward the other spelling, so
-  whether a library reads `+` as a space is unasked.

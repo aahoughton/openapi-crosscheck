@@ -36,7 +36,8 @@ does with the `openapi` field.
 
 3.2.0 is asked only what 3.2.0 changed: the `cookie` style, the `deepObject`
 explode pairing it defines where earlier versions call it undefined,
-`allowReserved` in a location no earlier version applies it to, and
+`allowReserved` in a location no earlier version applies it to, WHATWG
+form-urlencoded decoding that reads an unencoded `+` as a space, and
 `in: "querystring"`, the fifth parameter location, whose value is the entire
 query string. Most of
 [report/coverage.oas32.md](report/coverage.oas32.md) is therefore empty, and

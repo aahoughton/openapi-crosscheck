@@ -48,8 +48,8 @@ the page with the numbers.
 | --- | --- |
 | pass | 39 |
 | FAIL (verdict) | 18 |
-| FAIL (value) | 2 |
-| every conformance case | 59 |
+| FAIL (value) | 3 |
+| every conformance case | 60 |
 
 #### Cases it did not pass
 
@@ -72,6 +72,7 @@ the page with the numbers.
 | [`query-content-json-object-canonical-oas30`](../matrix.oas30.md#query-content-json-object-canonical-oas30) | accepted | rejected | `{}` |
 | [`query-deep-object-canonical-oas30`](../matrix.oas30.md#query-deep-object-canonical-oas30) | accepted | rejected | `{}` |
 | [`query-form-object-canonical-explode-oas30`](../matrix.oas30.md#query-form-object-canonical-explode-oas30) | accepted | rejected | `{}` |
+| [`query-form-scalar-encoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-encoded-plus-oas30) | accepted | accepted | `{"p":"a%2Bb"}` |
 | [`query-form-scalar-nullable-empty-oas30`](../matrix.oas30.md#query-form-scalar-nullable-empty-oas30) | accepted | rejected | `{}` |
 | [`query-pipe-delimited-array-canonical-oas30`](../matrix.oas30.md#query-pipe-delimited-array-canonical-oas30) | accepted | accepted | `{"p":["blue%7Cblack"]}` |
 | [`query-pipe-delimited-object-canonical-oas30`](../matrix.oas30.md#query-pipe-delimited-object-canonical-oas30) | accepted | accepted | `{"p":{}}` |
@@ -115,6 +116,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | `{"p":100}` |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | not asked (cannotRepresentCase) | - |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | `{}` |
+| [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | `{"p":"a+b"}` |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | rejected | `{}` |
 
 ## OpenAPI 3.1
@@ -132,9 +134,9 @@ the page with the numbers.
 | --- | --- |
 | pass | 38 |
 | FAIL (verdict) | 17 |
-| FAIL (value) | 2 |
+| FAIL (value) | 3 |
 | raised instead of answering | 2 |
-| every conformance case | 59 |
+| every conformance case | 60 |
 
 #### Cases it did not pass
 
@@ -157,6 +159,7 @@ the page with the numbers.
 | [`query-content-json-object-canonical-oas31`](../matrix.oas31.md#query-content-json-object-canonical-oas31) | accepted | rejected | `{}` |
 | [`query-deep-object-canonical-oas31`](../matrix.oas31.md#query-deep-object-canonical-oas31) | accepted | rejected | `{}` |
 | [`query-form-object-canonical-explode-oas31`](../matrix.oas31.md#query-form-object-canonical-explode-oas31) | accepted | rejected | `{}` |
+| [`query-form-scalar-encoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-encoded-plus-oas31) | accepted | accepted | `{"p":"a%2Bb"}` |
 | [`query-pipe-delimited-array-canonical-oas31`](../matrix.oas31.md#query-pipe-delimited-array-canonical-oas31) | accepted | accepted | `{"p":["blue%7Cblack"]}` |
 | [`query-pipe-delimited-object-canonical-oas31`](../matrix.oas31.md#query-pipe-delimited-object-canonical-oas31) | accepted | accepted | `{"p":{}}` |
 
@@ -199,6 +202,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | `{"p":100}` |
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | not asked (cannotRepresentCase) | - |
 | [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | raised, no verdict | - |
+| [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | accepted | `{"p":"a+b"}` |
 | [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | rejected | `{}` |
 
 ## OpenAPI 3.2
@@ -216,9 +220,10 @@ the page with the numbers.
 | --- | --- |
 | pass | 4 |
 | FAIL (verdict) | 6 |
+| FAIL (value) | 2 |
 | raised instead of answering | 3 |
 | not asked | 1 |
-| every conformance case | 14 |
+| every conformance case | 16 |
 
 #### Cases it did not pass
 
@@ -230,6 +235,8 @@ the page with the numbers.
 | [`cookie-cookie-object-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-no-explode-oas32) | accepted | rejected | `{}` |
 | [`query-deep-object-canonical-oas32`](../matrix.oas32.md#query-deep-object-canonical-oas32) | accepted | rejected | `{}` |
 | [`query-deep-object-no-explode-oas32`](../matrix.oas32.md#query-deep-object-no-explode-oas32) | accepted | rejected | `{}` |
+| [`query-form-scalar-encoded-plus-oas32`](../matrix.oas32.md#query-form-scalar-encoded-plus-oas32) | accepted | accepted | `{"p":"a%2Bb"}` |
+| [`query-form-scalar-unencoded-plus-oas32`](../matrix.oas32.md#query-form-scalar-unencoded-plus-oas32) | accepted | accepted | `{"p":"a+b"}` |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
