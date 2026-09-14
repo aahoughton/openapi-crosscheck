@@ -855,13 +855,25 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("");
   lines.push("| probed stage | conformance | divergence |");
   lines.push("| --- | --- | --- |");
+  const unprobedStages: PipelineStage[] = [];
   for (const stage of PIPELINE_STAGES) {
     if (stage === "valueExposure") continue;
     const probing = cases.filter((testCase) => probesStage(testCase, stage, null));
     const settled = probing.filter((testCase) => testCase.tier === "conformance").length;
+    if (probing.length === 0) unprobedStages.push(stage);
     lines.push(`| ${stage} | ${String(settled)} | ${String(probing.length - settled)} |`);
   }
   lines.push("");
+  if (unprobedStages.length > 0) {
+    // Derived from the table rather than written per version, so the sentence
+    // appears exactly when a zero row does and says the same thing about each.
+    const named = unprobedStages.map((s) => `\`${s}\``).join(" or ");
+    const which = unprobedStages.length === 1 ? "that stage" : "those stages";
+    lines.push(`No case in this version probes ${named}. Nothing measured under this`);
+    lines.push(`version says how a library performs ${which}. The zero exposes a gap in this`);
+    lines.push("version's corpus.");
+    lines.push("");
+  }
   lines.push("`valueExposure` is a pipeline stage and has no row here, which is deliberate and");
   lines.push("is a correction. It had one, reading `0` and `0`, and that read as a gap someone");
   lines.push("could fill by writing cases. No case can fill it. A case probes a stage by");

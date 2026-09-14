@@ -316,6 +316,10 @@ would be filled by a canonical case, and canonical probes style.
 | contentDeserialization | 2 | 5 |
 | schemaValidation | 2 | 0 |
 
+No case in this version probes `routing` or `splitting`. Nothing measured under this
+version says how a library performs those stages. The zero exposes a gap in this
+version's corpus.
+
 `valueExposure` is a pipeline stage and has no row here, which is deliberate and
 is a correction. It had one, reading `0` and `0`, and that read as a gap someone
 could fill by writing cases. No case can fill it. A case probes a stage by
