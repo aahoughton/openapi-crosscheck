@@ -363,8 +363,13 @@ export function probedStage(dimensions: Dimensions): PipelineStage {
   if (location === "querystring") return deserialization;
 
   // A flag that changes how a value is read is a question about the reading,
-  // even when the flag is spelled elsewhere in the declaration.
-  if (probeAxis === "declarationFlag") return deserialization;
+  // even when the flag is spelled elsewhere in the declaration. An encoding
+  // variant is also a question about that reading: splitting recovers the raw
+  // value and deliberately leaves percent triples and `+` unchanged for the
+  // parameter's deserializer to interpret.
+  if (probeAxis === "declarationFlag" || probeAxis === "encodingVariant") {
+    return deserialization;
+  }
 
   // Elsewhere the name and the value are recovered before style is applied, so
   // anything varying the identifier is a question about that recovery.
@@ -372,7 +377,6 @@ export function probedStage(dimensions: Dimensions): PipelineStage {
     probeAxis === "caseVariant" ||
     probeAxis === "competingParameter" ||
     probeAxis === "duplicateName" ||
-    probeAxis === "encodingVariant" ||
     probeAxis === "foreignName"
   ) {
     return "splitting";

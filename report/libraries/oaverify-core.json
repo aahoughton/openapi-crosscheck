@@ -1642,10 +1642,44 @@
         "library": "@oaverify/core",
         "libraryVersion": "7.2.2",
         "configurationId": "request-return-values",
-        "preparse": null,
-        "outcome": "unsupported",
-        "reason": "stageNotOwned",
-        "detail": "this case probes splitting for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": [
+              [
+                "p",
+                "blue%20black"
+              ]
+            ]
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "blue%20black"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {
+              "p": "blue%20black"
+            }
+          }
+        }
       }
     },
     {

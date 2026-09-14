@@ -110,7 +110,7 @@ nothing is attributed to it.
 | [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | accepted | `{"p":{"R":100,"G":200}}` |
 | [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | `{"p":""}` |
 | [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | accepted | `{"p":"a%2Fb"}` |
-| [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | not asked (stageNotOwned) | - |
+| [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | accepted | `{"p":"a/b:c"}` |
 | [`query-form-scalar-integer-fractional-oas30`](../matrix.oas30.md#query-form-scalar-integer-fractional-oas30) | rejected | `{}` |
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | `{"p":100}` |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | not asked (cannotRepresentCase) | - |
@@ -194,7 +194,7 @@ nothing is attributed to it.
 | [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | accepted | `{"p":{"R":100,"G":200}}` |
 | [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | `{"p":""}` |
 | [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | accepted | `{"p":"a%2Fb"}` |
-| [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | not asked (stageNotOwned) | - |
+| [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | accepted | `{"p":"a/b:c"}` |
 | [`query-form-scalar-integer-fractional-oas31`](../matrix.oas31.md#query-form-scalar-integer-fractional-oas31) | rejected | `{}` |
 | [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | `{"p":100}` |
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | not asked (cannotRepresentCase) | - |
@@ -214,10 +214,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 3 |
+| pass | 4 |
 | FAIL (verdict) | 6 |
 | raised instead of answering | 3 |
-| not asked | 2 |
+| not asked | 1 |
 | every conformance case | 14 |
 
 #### Cases it did not pass
@@ -243,7 +243,6 @@ and what counts as a fix.
 Not a gap in the measurement. Each is a stage this library leaves to its
 caller, so an answer would describe the harness rather than the library.
 
-- [`cookie-cookie-scalar-percent-triple-oas32`](../matrix.oas32.md#cookie-cookie-scalar-percent-triple-oas32) (stageNotOwned)
 - [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (cannotRepresentCase)
 
 ### Divergence

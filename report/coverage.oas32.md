@@ -309,8 +309,8 @@ would be filled by a canonical case, and canonical probes style.
 | probed stage | conformance | divergence |
 | --- | --- | --- |
 | routing | 0 | 0 |
-| splitting | 1 | 0 |
-| styleDeserialization | 9 | 2 |
+| splitting | 0 | 0 |
+| styleDeserialization | 10 | 2 |
 | contentDeserialization | 2 | 5 |
 | schemaValidation | 2 | 0 |
 

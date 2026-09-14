@@ -75,7 +75,7 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:bbe20a52ccc987b7fd5fbbc8d66023f63b9a5bf48ff42291fc94a2c5ca1afb67` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:6cea1f2d352cdfff41cbb21ff136d68776e752807853a7caa5f8110b3d9b8752` |
 | `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:c14045e1d9235a7c910bea7448ddebfcb788fe80b5b525a62a954dad65ca37af` |
 | `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:b7a537d731b30251fca1d4e608b04da1784725e50ff03a30efa87a8eccc209ce` |
 | `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:b049d27f5c5485def62a8d75571022e47a0ddb7a7a604e05bc29c951187d857d` |
@@ -2321,14 +2321,14 @@ The text leaving it open: [parameter-allow-reserved](https://spec.openapis.org/o
 
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | not asked (stageNotOwned) | - |
+| `com.atlassian.oai:openapi-request-validator-core` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `express-openapi-validator` | rejected | `{"p":"a/b:c"}` (parsed before validation) |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `@oaverify/core` | accepted | `{"p":"a/b:c"}` (validated only, so an absent name failed its schema) |
 | `openapi-backend` | accepted | `{"p":"a/b:c"}` (parsed before validation) |
-| `openapi-core` | not asked (stageNotOwned) | - |
+| `openapi-core` | accepted | `{"p":"a/b:c"}` (validated only, so an absent name failed its schema) |
 | `openapi-request-validator` | not asked (stageNotOwned) | - |
 | `openapi_first` | accepted | `{"p":"a/b:c"}` (parsed before validation) |
 

@@ -164,6 +164,27 @@ describe("a style that carries the name is not askable without the style stage",
   });
 });
 
+describe("an encoding variant is read after the raw value is split", () => {
+  const encoded: Dimensions = {
+    ...styleDimensions,
+    probeAxis: "encodingVariant",
+  };
+
+  it("is askable when the harness supplies a raw query pair", () => {
+    expect(probedStage(encoded)).toBe("styleDeserialization");
+    expect(
+      canBeAsked(
+        owning({ splitting: { cookie: true, header: true, path: true, query: false } }),
+        encoded,
+      ),
+    ).toBe(true);
+  });
+
+  it("still requires the parameter's deserializer", () => {
+    expect(canBeAsked(owning({ styleDeserialization: false }), encoded)).toBe(false);
+  });
+});
+
 describe("the rule applied to the whole corpus", () => {
   it("never sends a content parameter through style deserialization", () => {
     const misrouted = cases

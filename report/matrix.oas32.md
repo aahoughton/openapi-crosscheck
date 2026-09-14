@@ -75,7 +75,7 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:bbe20a52ccc987b7fd5fbbc8d66023f63b9a5bf48ff42291fc94a2c5ca1afb67` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:6cea1f2d352cdfff41cbb21ff136d68776e752807853a7caa5f8110b3d9b8752` |
 | `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:c14045e1d9235a7c910bea7448ddebfcb788fe80b5b525a62a954dad65ca37af` |
 | `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:b7a537d731b30251fca1d4e608b04da1784725e50ff03a30efa87a8eccc209ce` |
 | `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:b049d27f5c5485def62a8d75571022e47a0ddb7a7a604e05bc29c951187d857d` |
@@ -105,7 +105,7 @@ rules the expected verdict rests on, and the argument for it.
 | [`cookie-cookie-object-no-explode-oas32`](#cookie-cookie-object-no-explode-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | FAIL (verdict) | n/a | n/a |
 | [`cookie-cookie-scalar-canonical-oas32`](#cookie-cookie-scalar-canonical-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | pass | n/a | n/a |
 | [`cookie-cookie-scalar-no-explode-oas32`](#cookie-cookie-scalar-no-explode-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | pass | n/a | n/a |
-| [`cookie-cookie-scalar-percent-triple-oas32`](#cookie-cookie-scalar-percent-triple-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | n/a | n/a | n/a | n/a | n/a |
+| [`cookie-cookie-scalar-percent-triple-oas32`](#cookie-cookie-scalar-percent-triple-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | pass | n/a | n/a |
 | [`path-simple-scalar-allow-reserved-declared-oas32`](#path-simple-scalar-allow-reserved-declared-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | pass | n/a | n/a |
 | [`query-deep-object-canonical-oas32`](#query-deep-object-canonical-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | FAIL (verdict) | n/a | n/a |
 | [`query-deep-object-no-explode-oas32`](#query-deep-object-no-explode-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | FAIL (verdict) | n/a | n/a |

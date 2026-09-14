@@ -9,7 +9,7 @@ Source, as its container states it: https://bitbucket.org/atlassian/swagger-requ
 
 Built from: `adapters/com-atlassian-oai-openapi-request-validator-core/`
 
-Image: `sha256:bbe20a52ccc987b7fd5fbbc8d66023f63b9a5bf48ff42291fc94a2c5ca1afb67`
+Image: `sha256:6cea1f2d352cdfff41cbb21ff136d68776e752807853a7caa5f8110b3d9b8752`
 
 Configuration `inline-spec-simple-request`: OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Duplicate raw names are grouped into the list shape the builder accepts. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Cookies reach the library as the `Cookie` header, which the builder does take: it has no cookie API, and the library reads cookie parameters out of that header itself, so the split is the library's and is declared as such. Refusing these cases for want of a cookie API, which this container did until the builder's surface was checked against what the library reads, published ten questions as unanswerable that the library answers.
 
@@ -118,7 +118,7 @@ nothing is attributed to it.
 | [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | rejected | not exposed by this library |
 | [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | accepted | not exposed by this library |
-| [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | not asked (stageNotOwned) | - |
+| [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-integer-fractional-oas30`](../matrix.oas30.md#query-form-scalar-integer-fractional-oas30) | rejected | not exposed by this library |
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | not asked (cannotRepresentCase) | - |
@@ -222,7 +222,7 @@ nothing is attributed to it.
 | [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | rejected | not exposed by this library |
 | [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | rejected | not exposed by this library |
 | [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | accepted | not exposed by this library |
-| [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | not asked (stageNotOwned) | - |
+| [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | accepted | not exposed by this library |
 | [`query-form-scalar-integer-fractional-oas31`](../matrix.oas31.md#query-form-scalar-integer-fractional-oas31) | rejected | not exposed by this library |
 | [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | not exposed by this library |
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | not asked (cannotRepresentCase) | - |

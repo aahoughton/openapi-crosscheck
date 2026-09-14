@@ -1437,10 +1437,45 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": null,
-        "outcome": "unsupported",
-        "reason": "stageNotOwned",
-        "detail": "this case probes splitting for a cookie parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [],
+            "cookies": [
+              [
+                "p",
+                "blue%20black"
+              ]
+            ]
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "blue%20black"
+          },
+          "nativeTypes": {
+            "p": "str"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {
+              "p": "blue%20black"
+            }
+          }
+        }
       }
     },
     {
@@ -7744,10 +7779,45 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": null,
-        "outcome": "unsupported",
-        "reason": "stageNotOwned",
-        "detail": "this case probes splitting for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                "a/b:c"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "a/b:c"
+          },
+          "nativeTypes": {
+            "p": "str"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [],
+          "parameters": {
+            "path": {},
+            "query": {
+              "p": "a/b:c"
+            },
+            "header": {},
+            "cookie": {}
+          }
+        }
       }
     },
     {
@@ -7756,10 +7826,45 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": null,
-        "outcome": "unsupported",
-        "reason": "stageNotOwned",
-        "detail": "this case probes splitting for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                "a/b:c"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": "a/b:c"
+          },
+          "nativeTypes": {
+            "p": "str"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [],
+          "parameters": {
+            "path": {},
+            "query": {
+              "p": "a/b:c"
+            },
+            "header": {},
+            "cookie": {}
+          }
+        }
       }
     },
     {

@@ -146,8 +146,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 8 |
-| not asked | 6 |
+| pass | 9 |
+| not asked | 5 |
 | every conformance case | 14 |
 
 #### Cases it was not asked
@@ -156,7 +156,6 @@ Not a gap in the measurement. Each is a stage this library leaves to its
 caller, so an answer would describe the harness rather than the library.
 
 - [`cookie-cookie-array-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-canonical-explode-oas32) (cannotRepresentCase)
-- [`cookie-cookie-scalar-percent-triple-oas32`](../matrix.oas32.md#cookie-cookie-scalar-percent-triple-oas32) (stageNotOwned)
 - [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (libraryInitUnsupported)
 - [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (libraryInitUnsupported)
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (libraryInitUnsupported)
