@@ -548,22 +548,6 @@ function unprobedReservedHeaderNames(cases: readonly Case[]): readonly string[] 
   return RESERVED_HEADER_NAMES.filter((name) => !declared.has(name.toLowerCase()));
 }
 
-/**
- * Whether any case puts a literal `+` on the wire.
- *
- * The corpus varies encoding only toward percent-encoding, so `+` is the side
- * of that axis nothing reaches. 3.2 settles it (form-urlencoded content, query
- * strings included, MUST parse under WHATWG rules, which read an unencoded `+`
- * as a space); 3.0 and 3.1 leave it to Appendix E guidance.
- */
-function sendsUnencodedPlus(cases: readonly Case[]): boolean {
-  return cases.some(
-    (testCase) =>
-      testCase.request.target.includes("+") ||
-      testCase.request.headers.some(([, value]) => value.includes("+")),
-  );
-}
-
 function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   // The surface table enumerates style serialization, so only cases declared
   // with `schema` belong in it. A `content` parameter has no style to place.
@@ -919,11 +903,6 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
           .join(", ")}; the names above remain unasked.`,
       );
     }
-  }
-  if (!sendsUnencodedPlus(cases)) {
-    lines.push("- Wire encoding of a space: no case sends a literal `+`. The encoding axis");
-    lines.push("  varies toward percent-encoding and never toward the other spelling, so");
-    lines.push("  whether a library reads `+` as a space is unasked.");
   }
   lines.push("");
   return lines.join("\n");
