@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:25e09b26e16eb0a2bbdfbbe7676ba083a1da93ccbb2165fb57edc149d59294b4",
+  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1287,6 +1287,122 @@
         "raw": {
           "errors": [],
           "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-present-wrong-type-oas30",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [
+            {
+              "message": "Header parameter 'Accept' is not a valid integer",
+              "reason": "The header parameter 'Accept' is defined as being an integer, however the value 'text/html' is not a valid integer",
+              "validationSubType": "header",
+              "validationType": "parameter"
+            }
+          ],
+          "valid": false
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-present-wrong-type-oas31",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [
+            {
+              "message": "Header parameter 'Accept' is not a valid integer",
+              "reason": "The header parameter 'Accept' is defined as being an integer, however the value 'text/html' is not a valid integer",
+              "validationSubType": "header",
+              "validationType": "parameter"
+            }
+          ],
+          "valid": false
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-required-absent-oas30",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [
+            {
+              "message": "Header parameter 'Accept' is missing",
+              "reason": "The header parameter 'Accept' is defined as being required, however it's missing from the requests",
+              "validationSubType": "header",
+              "validationType": "parameter"
+            }
+          ],
+          "valid": false
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-required-absent-oas31",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [
+            {
+              "message": "Header parameter 'Accept' is missing",
+              "reason": "The header parameter 'Accept' is defined as being required, however it's missing from the requests",
+              "validationSubType": "header",
+              "validationType": "parameter"
+            }
+          ],
+          "valid": false
         }
       }
     },

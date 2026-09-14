@@ -47,8 +47,23 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 7 |
+| FAIL (verdict) | 2 |
 | not asked | 53 |
-| every conformance case | 60 |
+| every conformance case | 62 |
+
+#### Cases it did not pass
+
+| case | expected | it answered | values |
+| --- | --- | --- | --- |
+| [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | not exposed by this library |
+| [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | not exposed by this library |
+
+Each case id links to the case in full, with the rule the expected verdict
+rests on quoted beside it. Each row traces to the stored raw output in
+`libraries/openapi-request-validator.json` by case id. An inaccurate
+row can come from the adapter, the case, or the corpus tier, and
+the harness repository's `docs/adding-an-adapter.md` says how to identify it
+and what counts as a fix.
 
 #### Cases it was not asked
 
@@ -158,8 +173,23 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 7 |
+| FAIL (verdict) | 2 |
 | not asked | 53 |
-| every conformance case | 60 |
+| every conformance case | 62 |
+
+#### Cases it did not pass
+
+| case | expected | it answered | values |
+| --- | --- | --- | --- |
+| [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | not exposed by this library |
+| [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | not exposed by this library |
+
+Each case id links to the case in full, with the rule the expected verdict
+rests on quoted beside it. Each row traces to the stored raw output in
+`libraries/openapi-request-validator.json` by case id. An inaccurate
+row can come from the adapter, the case, or the corpus tier, and
+the harness repository's `docs/adding-an-adapter.md` says how to identify it
+and what counts as a fix.
 
 #### Cases it was not asked
 

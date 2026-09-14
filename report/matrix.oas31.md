@@ -100,6 +100,8 @@ rules the expected verdict rests on, and the argument for it.
 | case | expected | `com.atlassian.oai:openapi-request-validator-core` | `express-openapi-validator` | `github.com/getkin/kin-openapi` | `github.com/pb33f/libopenapi-validator` | `league/openapi-psr7-validator` | `@oaverify/core` | `openapi-backend` | `openapi-core` | `openapi-request-validator` | `openapi_first` |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | [`header-content-json-object-canonical-oas31`](#header-content-json-object-canonical-oas31) | accepted | n/a | FAIL (verdict) | pass (verdict only) | pass (verdict only) | RAISED | pass | FAIL (verdict) | pass | n/a | pass |
+| [`header-reserved-name-accept-present-wrong-type-oas31`](#header-reserved-name-accept-present-wrong-type-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass |
+| [`header-reserved-name-accept-required-absent-oas31`](#header-reserved-name-accept-required-absent-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass |
 | [`header-simple-array-canonical-oas31`](#header-simple-array-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`header-simple-array-case-variant-oas31`](#header-simple-array-case-variant-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | n/a | FAIL (verdict) | n/a | pass |
 | [`header-simple-array-explicit-style-oas31`](#header-simple-array-explicit-style-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
@@ -210,6 +212,52 @@ Every rule the expected verdict rests on, OpenAPI 3.1:
 The parameter declares one representation, application/json, and the header carries a well-formed JSON object matching the schema. No style applies, because the parameter declares content rather than schema, and the specification gives those as the two ways serialization is specified.
 
 Varies: the parameter is declared with content rather than schema. Holds constant: one media type is declared; the value is a well-formed representation of it.
+
+##### `header-reserved-name-accept-present-wrong-type-oas31`
+
+header, a parameter named Accept, present and violating its schema. Expected: **accepted**.
+
+Declares Accept with an integer schema and sends a real Accept header. Ignoring the declaration means never holding the header against it.
+
+Request: `GET /t`
+
+Header: `Accept: text/html`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[parameter-name](https://spec.openapis.org/oas/v3.1.1.html#parameter-name)
+
+> If in is "header" and the name field is "Accept", "Content-Type" or "Authorization", the parameter definition SHALL be ignored.
+
+[schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+The request carries the Accept header a client would send, and the declaration says that header is an integer. Ignoring the declaration means the schema never applies and the request stands. This is the twin of the required-and-absent case and each covers the other's blind spot: a library that never checks required would accept that one without ignoring anything, and a library that never validates header schemas would accept this one the same way. Answering both correctly while rejecting neither is what ignoring the declaration looks like.
+
+Varies: the declared identifier is one the specification reserves. Holds constant: the style is declared; one parameter declared.
+
+##### `header-reserved-name-accept-required-absent-oas31`
+
+header, a parameter named Accept, required and absent. Expected: **accepted**.
+
+Declares Accept as a required header parameter and sends no Accept header. The declaration is one the specification says to ignore, so the missing value is not missing.
+
+Request: `GET /t`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[parameter-name](https://spec.openapis.org/oas/v3.1.1.html#parameter-name)
+
+> If in is "header" and the name field is "Accept", "Content-Type" or "Authorization", the parameter definition SHALL be ignored.
+
+[parameter-required](https://spec.openapis.org/oas/v3.1.1.html#parameter-required)
+
+> Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
+
+A header parameter named Accept SHALL be ignored, and a declaration that is ignored cannot require anything. So the absent header is not an absent required parameter and the request stands. A library honouring the declaration rejects, which is the only other answer available and is attributable.
+
+Varies: the declared identifier is one the specification reserves. Holds constant: the style is declared; one parameter declared.
 
 ##### `header-simple-array-canonical-oas31`
 

@@ -48,13 +48,15 @@ the page with the numbers.
 | --- | --- |
 | pass | 11 |
 | pass (verdict only) | 43 |
-| FAIL (verdict) | 6 |
-| every conformance case | 60 |
+| FAIL (verdict) | 8 |
+| every conformance case | 62 |
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
+| [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | not exposed by this library |
+| [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | not exposed by this library |
 | [`path-label-array-foreign-shape-oas30`](../matrix.oas30.md#path-label-array-foreign-shape-oas30) | rejected | accepted | not exposed by this library |
 | [`path-matrix-array-empty-after-parse-oas30`](../matrix.oas30.md#path-matrix-array-empty-after-parse-oas30) | rejected | accepted | not exposed by this library |
 | [`path-matrix-array-foreign-shape-oas30`](../matrix.oas30.md#path-matrix-array-foreign-shape-oas30) | rejected | accepted | not exposed by this library |
@@ -119,13 +121,15 @@ the page with the numbers.
 | --- | --- |
 | pass | 11 |
 | pass (verdict only) | 43 |
-| FAIL (verdict) | 6 |
-| every conformance case | 60 |
+| FAIL (verdict) | 8 |
+| every conformance case | 62 |
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
+| [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | not exposed by this library |
+| [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | not exposed by this library |
 | [`path-label-array-foreign-shape-oas31`](../matrix.oas31.md#path-label-array-foreign-shape-oas31) | rejected | accepted | not exposed by this library |
 | [`path-matrix-array-empty-after-parse-oas31`](../matrix.oas31.md#path-matrix-array-empty-after-parse-oas31) | rejected | accepted | not exposed by this library |
 | [`path-matrix-array-foreign-shape-oas31`](../matrix.oas31.md#path-matrix-array-foreign-shape-oas31) | rejected | accepted | not exposed by this library |

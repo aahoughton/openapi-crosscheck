@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:25e09b26e16eb0a2bbdfbbe7676ba083a1da93ccbb2165fb57edc149d59294b4",
+  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1855,6 +1855,196 @@
             "headers": {
               "host": "harness.invalid",
               "p": "{\"R\":\"100\",\"G\":\"200\"}",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-present-wrong-type-oas30",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "Accept": "text/html"
+          },
+          "nativeTypes": {
+            "Accept": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 400,
+          "body": {
+            "message": "request/headers/accept must be integer",
+            "errors": [
+              {
+                "path": "/headers/accept",
+                "message": "must be integer",
+                "errorCode": "type.openapi.validation"
+              }
+            ],
+            "params": {},
+            "query": {},
+            "headers": {
+              "host": "harness.invalid",
+              "accept": "text/html",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-present-wrong-type-oas31",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "Accept": "text/html"
+          },
+          "nativeTypes": {
+            "Accept": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 400,
+          "body": {
+            "message": "request/headers/accept must be integer",
+            "errors": [
+              {
+                "path": "/headers/accept",
+                "message": "must be integer",
+                "errorCode": "type.openapi.validation"
+              }
+            ],
+            "params": {},
+            "query": {},
+            "headers": {
+              "host": "harness.invalid",
+              "accept": "text/html",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-required-absent-oas30",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 400,
+          "body": {
+            "message": "request/headers must have required property 'accept'",
+            "errors": [
+              {
+                "path": "/headers/accept",
+                "message": "must have required property 'accept'",
+                "errorCode": "required.openapi.validation"
+              }
+            ],
+            "params": {},
+            "query": {},
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-required-absent-oas31",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 400,
+          "body": {
+            "message": "request/headers must have required property 'accept'",
+            "errors": [
+              {
+                "path": "/headers/accept",
+                "message": "must have required property 'accept'",
+                "errorCode": "required.openapi.validation"
+              }
+            ],
+            "params": {},
+            "query": {},
+            "headers": {
+              "host": "harness.invalid",
               "connection": "close"
             }
           }

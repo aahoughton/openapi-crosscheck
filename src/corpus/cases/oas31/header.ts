@@ -1,6 +1,6 @@
 import type { Case } from "../../../types/case";
 import * as cite from "../../citations/oas31";
-import { STRING, STRING_ARRAY, STRING_OBJECT, document, request } from "./build";
+import { INTEGER, STRING, STRING_ARRAY, STRING_OBJECT, document, request } from "./build";
 
 /**
  * Header parameters.
@@ -386,5 +386,77 @@ export const headerCases: readonly Case[] = [
     },
     varies: [],
     holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
+  },
+  {
+    id: "header-reserved-name-accept-required-absent-oas31",
+    title: "header, a parameter named Accept, required and absent",
+    inShort:
+      "Declares Accept as a required header parameter and sends no Accept header. The " +
+      "declaration is one the specification says to ignore, so the missing value is not " +
+      "missing.",
+    tier: "conformance",
+    oasVersion: "3.1",
+    citations: [cite.PARAMETER_NAME_RESERVED_HEADERS, cite.PARAMETER_REQUIRED],
+    expected: "accepted",
+    expectedValues: null,
+    rationale:
+      "A header parameter named Accept SHALL be ignored, and a declaration that is ignored " +
+      "cannot require anything. So the absent header is not an absent required parameter " +
+      "and the request stands. A library honouring the declaration rejects, which is the " +
+      "only other answer available and is attributable.",
+    document: document(
+      [{ name: "Accept", in: "header", required: true, style: "simple", schema: STRING }],
+      "/t",
+    ),
+    request: request("/t"),
+    dimensions: {
+      declaration: "schema",
+      location: "header",
+      style: "simple",
+      explode: false,
+      declaredStyle: "simple",
+      declaredExplode: "unset",
+      schema: "scalar",
+      probeAxis: "reservedName",
+    },
+    varies: ["the declared identifier is one the specification reserves"],
+    holdsConstant: ["the style is declared", "one parameter declared"],
+  },
+  {
+    id: "header-reserved-name-accept-present-wrong-type-oas31",
+    title: "header, a parameter named Accept, present and violating its schema",
+    inShort:
+      "Declares Accept with an integer schema and sends a real Accept header. Ignoring the " +
+      "declaration means never holding the header against it.",
+    tier: "conformance",
+    oasVersion: "3.1",
+    citations: [cite.PARAMETER_NAME_RESERVED_HEADERS, cite.SCHEMA_OBJECT],
+    expected: "accepted",
+    expectedValues: null,
+    rationale:
+      "The request carries the Accept header a client would send, and the declaration says " +
+      "that header is an integer. Ignoring the declaration means the schema never applies " +
+      "and the request stands. This is the twin of the required-and-absent case and each " +
+      "covers the other's blind spot: a library that never checks required would accept " +
+      "that one without ignoring anything, and a library that never validates header " +
+      "schemas would accept this one the same way. Answering both correctly while " +
+      "rejecting neither is what ignoring the declaration looks like.",
+    document: document(
+      [{ name: "Accept", in: "header", required: true, style: "simple", schema: INTEGER }],
+      "/t",
+    ),
+    request: request("/t", [["Accept", "text/html"]]),
+    dimensions: {
+      declaration: "schema",
+      location: "header",
+      style: "simple",
+      explode: false,
+      declaredStyle: "simple",
+      declaredExplode: "unset",
+      schema: "scalar",
+      probeAxis: "reservedName",
+    },
+    varies: ["the declared identifier is one the specification reserves"],
+    holdsConstant: ["the style is declared", "one parameter declared"],
   },
 ];

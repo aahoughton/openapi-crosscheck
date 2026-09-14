@@ -2017,6 +2017,338 @@
       ]
     },
     {
+      "id": "header-reserved-name-accept-present-wrong-type-oas30",
+      "title": "header, a parameter named Accept, present and violating its schema",
+      "inShort": "Declares Accept with an integer schema and sends a real Accept header. Ignoring the declaration means never holding the header against it.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-name",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-name",
+          "quoted": "If in is \"header\" and the name field is \"Accept\", \"Content-Type\" or \"Authorization\", the parameter definition SHALL be ignored."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": null,
+      "rationale": "The request carries the Accept header a client would send, and the declaration says that header is an integer. Ignoring the declaration means the schema never applies and the request stands. This is the twin of the required-and-absent case and each covers the other's blind spot: a library that never checks required would accept that one without ignoring anything, and a library that never validates header schemas would accept this one the same way. Answering both correctly while rejecting neither is what ignoring the declaration looks like.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "Accept",
+                  "in": "header",
+                  "required": true,
+                  "style": "simple",
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ],
+          [
+            "Accept",
+            "text/html"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "header",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "reservedName"
+      },
+      "varies": [
+        "the declared identifier is one the specification reserves"
+      ],
+      "holdsConstant": [
+        "the style is declared",
+        "one parameter declared"
+      ]
+    },
+    {
+      "id": "header-reserved-name-accept-present-wrong-type-oas31",
+      "title": "header, a parameter named Accept, present and violating its schema",
+      "inShort": "Declares Accept with an integer schema and sends a real Accept header. Ignoring the declaration means never holding the header against it.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-name",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-name",
+          "quoted": "If in is \"header\" and the name field is \"Accept\", \"Content-Type\" or \"Authorization\", the parameter definition SHALL be ignored."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": null,
+      "rationale": "The request carries the Accept header a client would send, and the declaration says that header is an integer. Ignoring the declaration means the schema never applies and the request stands. This is the twin of the required-and-absent case and each covers the other's blind spot: a library that never checks required would accept that one without ignoring anything, and a library that never validates header schemas would accept this one the same way. Answering both correctly while rejecting neither is what ignoring the declaration looks like.",
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "Accept",
+                  "in": "header",
+                  "required": true,
+                  "style": "simple",
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ],
+          [
+            "Accept",
+            "text/html"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "header",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "reservedName"
+      },
+      "varies": [
+        "the declared identifier is one the specification reserves"
+      ],
+      "holdsConstant": [
+        "the style is declared",
+        "one parameter declared"
+      ]
+    },
+    {
+      "id": "header-reserved-name-accept-required-absent-oas30",
+      "title": "header, a parameter named Accept, required and absent",
+      "inShort": "Declares Accept as a required header parameter and sends no Accept header. The declaration is one the specification says to ignore, so the missing value is not missing.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-name",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-name",
+          "quoted": "If in is \"header\" and the name field is \"Accept\", \"Content-Type\" or \"Authorization\", the parameter definition SHALL be ignored."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": null,
+      "rationale": "A header parameter named Accept SHALL be ignored, and a declaration that is ignored cannot require anything. So the absent header is not an absent required parameter and the request stands. A library honouring the declaration rejects, which is the only other answer available and is attributable.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "Accept",
+                  "in": "header",
+                  "required": true,
+                  "style": "simple",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "header",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "reservedName"
+      },
+      "varies": [
+        "the declared identifier is one the specification reserves"
+      ],
+      "holdsConstant": [
+        "the style is declared",
+        "one parameter declared"
+      ]
+    },
+    {
+      "id": "header-reserved-name-accept-required-absent-oas31",
+      "title": "header, a parameter named Accept, required and absent",
+      "inShort": "Declares Accept as a required header parameter and sends no Accept header. The declaration is one the specification says to ignore, so the missing value is not missing.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-name",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-name",
+          "quoted": "If in is \"header\" and the name field is \"Accept\", \"Content-Type\" or \"Authorization\", the parameter definition SHALL be ignored."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": null,
+      "rationale": "A header parameter named Accept SHALL be ignored, and a declaration that is ignored cannot require anything. So the absent header is not an absent required parameter and the request stands. A library honouring the declaration rejects, which is the only other answer available and is attributable.",
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "Accept",
+                  "in": "header",
+                  "required": true,
+                  "style": "simple",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "header",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": "unset",
+        "schema": "scalar",
+        "probeAxis": "reservedName"
+      },
+      "varies": [
+        "the declared identifier is one the specification reserves"
+      ],
+      "holdsConstant": [
+        "the style is declared",
+        "one parameter declared"
+      ]
+    },
+    {
       "id": "header-simple-array-canonical-oas30",
       "title": "header, simple, array, canonical",
       "inShort": "Sends p: blue,black with nothing declared about its format, so the header default (one comma-separated value) has to be applied.",

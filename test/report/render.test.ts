@@ -140,6 +140,14 @@ describe("the coverage table and the coverage numbers are one claim", () => {
 describe("reserved header names are published one by one", () => {
   const artifacts = renderMarkdown(run.cases, run.measurements);
 
+  it("keeps the two reserved names beside the 3.1 Accept cases", () => {
+    const page = artifacts["coverage.oas31.md"] ?? "";
+    expect(page).toContain(
+      "Header parameter names held constant: `Authorization`, `Content-Type`.",
+    );
+    expect(page).toContain("This version exercises `Accept`; the names above remain unasked.");
+  });
+
   it("publishes all three names where the 3.2 tranche asks none", () => {
     const page = artifacts["coverage.oas32.md"] ?? "";
     expect(page).toContain(

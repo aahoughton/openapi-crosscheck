@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "*"
   },
-  "corpusDigest": "sha256:25e09b26e16eb0a2bbdfbbe7676ba083a1da93ccbb2165fb57edc149d59294b4",
+  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1325,6 +1325,114 @@
           "type": "TypeError",
           "message": "League\\OpenAPIValidation\\Schema\\SchemaValidator::validate(): Argument #2 ($schema) must be of type cebe\\openapi\\spec\\Schema, null given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/HeadersValidator.php on line 44",
           "previous": null
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-present-wrong-type-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"text/html\" for header \"Accept\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'integer', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-present-wrong-type-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Value \"text/html\" for header \"Accept\" is invalid for Request [get /t]",
+            "previous": {
+              "type": "League\\OpenAPIValidation\\Schema\\Exception\\TypeMismatch",
+              "message": "Value expected to be 'integer', but 'string' given.",
+              "previous": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-required-absent-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Missing required header \"Accept\" for Request [get /t]",
+            "previous": null
+          }
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-required-absent-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "error": {
+            "type": "League\\OpenAPIValidation\\PSR7\\Exception\\Validation\\InvalidHeaders",
+            "message": "Missing required header \"Accept\" for Request [get /t]",
+            "previous": null
+          }
         }
       }
     },

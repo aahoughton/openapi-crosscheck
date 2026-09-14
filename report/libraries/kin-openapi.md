@@ -48,13 +48,15 @@ the page with the numbers.
 | --- | --- |
 | pass | 17 |
 | pass (verdict only) | 40 |
-| FAIL (verdict) | 3 |
-| every conformance case | 60 |
+| FAIL (verdict) | 5 |
+| every conformance case | 62 |
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
+| [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | not exposed by this library |
+| [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | not exposed by this library |
 | [`path-content-json-object-canonical-oas30`](../matrix.oas30.md#path-content-json-object-canonical-oas30) | accepted | rejected | not exposed by this library |
 | [`query-pipe-delimited-object-canonical-oas30`](../matrix.oas30.md#query-pipe-delimited-object-canonical-oas30) | accepted | rejected | not exposed by this library |
 | [`query-space-delimited-object-canonical-oas30`](../matrix.oas30.md#query-space-delimited-object-canonical-oas30) | accepted | rejected | not exposed by this library |
@@ -116,13 +118,15 @@ the page with the numbers.
 | --- | --- |
 | pass | 17 |
 | pass (verdict only) | 40 |
-| FAIL (verdict) | 3 |
-| every conformance case | 60 |
+| FAIL (verdict) | 5 |
+| every conformance case | 62 |
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
+| [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | not exposed by this library |
+| [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | not exposed by this library |
 | [`path-content-json-object-canonical-oas31`](../matrix.oas31.md#path-content-json-object-canonical-oas31) | accepted | rejected | not exposed by this library |
 | [`query-pipe-delimited-object-canonical-oas31`](../matrix.oas31.md#query-pipe-delimited-object-canonical-oas31) | accepted | rejected | not exposed by this library |
 | [`query-space-delimited-object-canonical-oas31`](../matrix.oas31.md#query-space-delimited-object-canonical-oas31) | accepted | rejected | not exposed by this library |

@@ -32,6 +32,19 @@ export const PARAMETER_NAME = cite(
   "REQUIRED. The name of the parameter. Parameter names are case sensitive.",
 );
 
+/**
+ * The three header names a parameter declaration may not claim.
+ *
+ * Identical text in 3.0, 3.1 and 3.2. `SHALL be ignored` is a rule about the
+ * declaration rather than about the request, so what it settles is that a
+ * document declaring one of these names behaves as though it had not.
+ */
+export const PARAMETER_NAME_RESERVED_HEADERS = cite(
+  "parameter-name",
+  'If in is "header" and the name field is "Accept", "Content-Type" or "Authorization", ' +
+    "the parameter definition SHALL be ignored.",
+);
+
 /** The rule that makes the wire form a consequence of the declaration. */
 export const PARAMETER_STYLE = cite(
   "parameter-style",

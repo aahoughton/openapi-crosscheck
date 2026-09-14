@@ -47,17 +47,19 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 29 |
-| FAIL (verdict) | 25 |
+| FAIL (verdict) | 27 |
 | FAIL (value) | 4 |
 | raised instead of answering | 1 |
 | not asked | 1 |
-| every conformance case | 60 |
+| every conformance case | 62 |
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
 | [`header-content-json-object-canonical-oas30`](../matrix.oas30.md#header-content-json-object-canonical-oas30) | accepted | rejected | `{"p":"{\"R\":\"100\",\"G\":\"200\"}"}` |
+| [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | `{"Accept":"text/html"}` |
+| [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | `{}` |
 | [`header-simple-array-canonical-oas30`](../matrix.oas30.md#header-simple-array-canonical-oas30) | accepted | rejected | `{"p":"blue,black"}` |
 | [`header-simple-array-explicit-style-oas30`](../matrix.oas30.md#header-simple-array-explicit-style-oas30) | accepted | rejected | `{"p":"blue,black"}` |
 | [`header-simple-array-explode-oas30`](../matrix.oas30.md#header-simple-array-explode-oas30) | accepted | rejected | `{"p":"blue,black"}` |
@@ -150,17 +152,19 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 27 |
-| FAIL (verdict) | 25 |
+| FAIL (verdict) | 27 |
 | FAIL (value) | 4 |
 | raised instead of answering | 3 |
 | not asked | 1 |
-| every conformance case | 60 |
+| every conformance case | 62 |
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
 | [`header-content-json-object-canonical-oas31`](../matrix.oas31.md#header-content-json-object-canonical-oas31) | accepted | rejected | `{"p":"{\"R\":\"100\",\"G\":\"200\"}"}` |
+| [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | `{"Accept":"text/html"}` |
+| [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | `{}` |
 | [`header-simple-array-canonical-oas31`](../matrix.oas31.md#header-simple-array-canonical-oas31) | accepted | rejected | `{"p":"blue,black"}` |
 | [`header-simple-array-explicit-style-oas31`](../matrix.oas31.md#header-simple-array-explicit-style-oas31) | accepted | rejected | `{"p":"blue,black"}` |
 | [`header-simple-array-explode-oas31`](../matrix.oas31.md#header-simple-array-explode-oas31) | accepted | rejected | `{"p":"blue,black"}` |

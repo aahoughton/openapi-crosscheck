@@ -74,6 +74,7 @@ export const PROBE_AXES: readonly ProbeAxis[] = [
   "missingName",
   "nameWithoutValue",
   "optionalAbsent",
+  "reservedName",
   "wrongTypeValue",
 ];
 

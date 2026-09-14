@@ -294,6 +294,7 @@ cannot show.
 | missingName | 0 |
 | nameWithoutValue | 0 |
 | optionalAbsent | 1 |
+| reservedName | 0 |
 | wrongTypeValue | 1 |
 
 ## Cases by the stage they probe

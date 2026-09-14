@@ -47,7 +47,22 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 60 |
-| every conformance case | 60 |
+| FAIL (verdict) | 2 |
+| every conformance case | 62 |
+
+#### Cases it did not pass
+
+| case | expected | it answered | values |
+| --- | --- | --- | --- |
+| [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | `{}` |
+| [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | `{}` |
+
+Each case id links to the case in full, with the rule the expected verdict
+rests on quoted beside it. Each row traces to the stored raw output in
+`libraries/oaverify-core.json` by case id. An inaccurate
+row can come from the adapter, the case, or the corpus tier, and
+the harness repository's `docs/adding-an-adapter.md` says how to identify it
+and what counts as a fix.
 
 ### Divergence
 
@@ -98,7 +113,22 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 60 |
-| every conformance case | 60 |
+| FAIL (verdict) | 2 |
+| every conformance case | 62 |
+
+#### Cases it did not pass
+
+| case | expected | it answered | values |
+| --- | --- | --- | --- |
+| [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | `{}` |
+| [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | `{}` |
+
+Each case id links to the case in full, with the rule the expected verdict
+rests on quoted beside it. Each row traces to the stored raw output in
+`libraries/oaverify-core.json` by case id. An inaccurate
+row can come from the adapter, the case, or the corpus tier, and
+the harness repository's `docs/adding-an-adapter.md` says how to identify it
+and what counts as a fix.
 
 ### Divergence
 

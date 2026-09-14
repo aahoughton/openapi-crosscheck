@@ -48,14 +48,16 @@ the page with the numbers.
 | --- | --- |
 | pass | 14 |
 | pass (verdict only) | 23 |
-| FAIL (verdict) | 22 |
+| FAIL (verdict) | 24 |
 | raised instead of answering | 1 |
-| every conformance case | 60 |
+| every conformance case | 62 |
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
+| [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | not exposed by this library |
+| [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-canonical-oas30`](../matrix.oas30.md#header-simple-array-canonical-oas30) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-case-variant-oas30`](../matrix.oas30.md#header-simple-array-case-variant-oas30) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-explicit-style-oas30`](../matrix.oas30.md#header-simple-array-explicit-style-oas30) | accepted | rejected | not exposed by this library |
@@ -136,14 +138,16 @@ the page with the numbers.
 | --- | --- |
 | pass | 12 |
 | pass (verdict only) | 23 |
-| FAIL (verdict) | 22 |
+| FAIL (verdict) | 24 |
 | raised instead of answering | 3 |
-| every conformance case | 60 |
+| every conformance case | 62 |
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
+| [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | not exposed by this library |
+| [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-canonical-oas31`](../matrix.oas31.md#header-simple-array-canonical-oas31) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-case-variant-oas31`](../matrix.oas31.md#header-simple-array-case-variant-oas31) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-explicit-style-oas31`](../matrix.oas31.md#header-simple-array-explicit-style-oas31) | accepted | rejected | not exposed by this library |

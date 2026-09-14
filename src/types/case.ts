@@ -78,6 +78,18 @@ export type ProbeAxis =
    * required, a constant nothing published.
    */
   | "optionalAbsent"
+  /**
+   * The declared name is one the specification reserves, so the declaration
+   * carrying it is to be ignored.
+   *
+   * Distinct from `foreignName`, where the wire carries a name the document did
+   * not declare. Here the document is what varies, and the rule is about the
+   * declaration rather than the request: a library reading it correctly behaves
+   * as though the parameter were not there. Until this axis existed every
+   * declared name in the corpus was one a document may freely claim, a constant
+   * no wire-shaped axis could reach.
+   */
+  | "reservedName"
   | "wrongTypeValue";
 
 /** Coordinates of a case in the coverage map. */

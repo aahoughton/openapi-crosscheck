@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:25e09b26e16eb0a2bbdfbbe7676ba083a1da93ccbb2165fb57edc149d59294b4",
+  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -2192,6 +2192,218 @@
                 "type": "object"
               },
               "message": "must be object"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-present-wrong-type-oas30",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid",
+              "accept": "text/html"
+            }
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "Accept": "text/html"
+          },
+          "nativeTypes": {
+            "Accept": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "coerced": {
+            "method": "GET",
+            "path": "/t",
+            "query": "",
+            "headers": {
+              "host": "harness.invalid",
+              "accept": "text/html"
+            }
+          },
+          "errors": [
+            {
+              "instancePath": "/header/accept",
+              "schemaPath": "#/properties/header/properties/accept/type",
+              "keyword": "type",
+              "params": {
+                "type": "integer"
+              },
+              "message": "must be integer"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-present-wrong-type-oas31",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid",
+              "accept": "text/html"
+            }
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "Accept": "text/html"
+          },
+          "nativeTypes": {
+            "Accept": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "coerced": {
+            "method": "GET",
+            "path": "/t",
+            "query": "",
+            "headers": {
+              "host": "harness.invalid",
+              "accept": "text/html"
+            }
+          },
+          "errors": [
+            {
+              "instancePath": "/header/accept",
+              "schemaPath": "#/properties/header/properties/accept/type",
+              "keyword": "type",
+              "params": {
+                "type": "integer"
+              },
+              "message": "must be integer"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-required-absent-oas30",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "coerced": {
+            "method": "GET",
+            "path": "/t",
+            "query": "",
+            "headers": {
+              "host": "harness.invalid"
+            }
+          },
+          "errors": [
+            {
+              "instancePath": "/header",
+              "schemaPath": "#/properties/header/required",
+              "keyword": "required",
+              "params": {
+                "missingProperty": "accept"
+              },
+              "message": "must have required property 'accept'"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-required-absent-oas31",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "coerced": {
+            "method": "GET",
+            "path": "/t",
+            "query": "",
+            "headers": {
+              "host": "harness.invalid"
+            }
+          },
+          "errors": [
+            {
+              "instancePath": "/header",
+              "schemaPath": "#/properties/header/required",
+              "keyword": "required",
+              "params": {
+                "missingProperty": "accept"
+              },
+              "message": "must have required property 'accept'"
             }
           ]
         }

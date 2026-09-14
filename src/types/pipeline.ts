@@ -323,8 +323,10 @@ export function probedStage(dimensions: Dimensions): PipelineStage {
   const deserialization = deserializationStage(dimensions.declaration);
 
   // Absence and wrong-typedness are settled after any deserialization, by the
-  // required check and the schema. Both are answerable by a library that was
-  // handed an already-split request, so both stay askable of one.
+  // required check and the schema. A reserved declaration is settled at the
+  // same boundary: a library handed the declaration and an already-split
+  // request can decide whether the required and schema checks apply without
+  // deserializing a value. All three stay askable of a schema-only library.
   //
   // Wrong-typedness is a value that deserialized cleanly and is well-formed for
   // some other type. A value the declared serialization cannot read at all does
@@ -332,6 +334,7 @@ export function probedStage(dimensions: Dimensions): PipelineStage {
   if (
     probeAxis === "missingName" ||
     probeAxis === "optionalAbsent" ||
+    probeAxis === "reservedName" ||
     probeAxis === "wrongTypeValue"
   ) {
     return "schemaValidation";

@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "LATEST"
   },
-  "corpusDigest": "sha256:25e09b26e16eb0a2bbdfbbe7676ba083a1da93ccbb2165fb57edc149d59294b4",
+  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1388,6 +1388,142 @@
         "outcome": "unsupported",
         "reason": "stageNotOwned",
         "detail": "this case probes contentDeserialization for a header parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-present-wrong-type-oas30",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.schema.type",
+              "level": "ERROR",
+              "message": "string found, integer expected"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-present-wrong-type-oas31",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.schema.type",
+              "level": "ERROR",
+              "message": "string found, integer expected"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-required-absent-oas30",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.header.missing",
+              "level": "ERROR",
+              "message": "Header parameter 'Accept' is required on path '/t' but not found in request."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "header-reserved-name-accept-required-absent-oas31",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.header.missing",
+              "level": "ERROR",
+              "message": "Header parameter 'Accept' is required on path '/t' but not found in request."
+            }
+          ]
+        }
       }
     },
     {

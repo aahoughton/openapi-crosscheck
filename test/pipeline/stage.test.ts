@@ -185,6 +185,31 @@ describe("an encoding variant is read after the raw value is split", () => {
   });
 });
 
+describe("a reserved declaration is decided at the validation boundary", () => {
+  const reserved: Dimensions = {
+    ...styleDimensions,
+    location: "header",
+    probeAxis: "reservedName",
+  };
+
+  it("is askable after the harness supplies a split header", () => {
+    expect(probedStage(reserved)).toBe("schemaValidation");
+    expect(
+      canBeAsked(
+        owning({
+          splitting: { cookie: true, header: false, path: true, query: true },
+          styleDeserialization: false,
+        }),
+        reserved,
+      ),
+    ).toBe(true);
+  });
+
+  it("still requires the library to own validation", () => {
+    expect(canBeAsked(owning({ schemaValidation: false }), reserved)).toBe(false);
+  });
+});
+
 describe("the rule applied to the whole corpus", () => {
   it("never sends a content parameter through style deserialization", () => {
     const misrouted = cases
