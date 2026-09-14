@@ -68,6 +68,21 @@ export const SCHEMA_OBJECT = cite(
 );
 
 /**
+ * The sentence that imports JSON Schema's constraint semantics into 3.0.
+ *
+ * The list this sentence opens names `pattern` among the keywords taken
+ * directly, so a pattern the value does not match rejects with the JSON
+ * Schema meaning rather than one 3.0 defines itself. Quoted with the
+ * `pattern` entry, the keyword a case here writes.
+ */
+export const SCHEMA_KEYWORDS_FROM_JSON_SCHEMA = cite(
+  "json-schema-keywords",
+  "The following keywords are taken directly from the JSON Schema definition and " +
+    "follow the same specifications: ... pattern (This string SHOULD be a valid regular " +
+    "expression, according to the Ecma-262 Edition 5.1 regular expression dialect)",
+);
+
+/**
  * 3.0's way of admitting null: a modifier on a single-string `type`, inert
  * without one, and overridable by every other constraint in the schema.
  */

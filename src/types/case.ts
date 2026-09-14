@@ -41,6 +41,17 @@ export type ProbeAxis =
    */
   | "competingPath"
   /**
+   * The schema writes a constraint keyword and the value violates it.
+   *
+   * Distinct from `wrongTypeValue`, where the value is well-formed for a
+   * different type and the open edge is the conversion. Here the value
+   * deserializes cleanly and is the declared type, so nothing upstream of the
+   * schema can move the verdict: only a library that applies the constraint
+   * vocabulary rejects. The axis makes that vocabulary visible in the
+   * coverage maps.
+   */
+  | "constraintViolation"
+  /**
    * The case varies a parameter-level flag in the declaration, such as
    * `allowReserved`, `allowEmptyValue`, or an `explode` that turns the declared
    * combination into one the specification leaves undefined.

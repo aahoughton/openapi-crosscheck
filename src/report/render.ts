@@ -27,6 +27,7 @@ import {
   LOCATIONS,
   PROBE_AXES,
   cellKey,
+  constraintKeywords,
   contentCellKey,
   definedSurface,
 } from "../surface/surface";
@@ -463,6 +464,15 @@ function list(items: readonly string[]): string {
  * up here without anyone remembering to edit prose.
  */
 function schemaKeywordsUsed(cases: readonly Case[]): readonly string[] {
+  const found = new Set<string>();
+  for (const testCase of cases) {
+    for (const keyword of schemaKeywordsOf(testCase)) found.add(keyword);
+  }
+  return [...found].sort();
+}
+
+/** The schema keywords one case's document writes, by the same walk. */
+function schemaKeywordsOf(testCase: Case): ReadonlySet<string> {
   const schemaValues = new Set([
     "additionalItems",
     "additionalProperties",
@@ -514,19 +524,17 @@ function schemaKeywordsUsed(cases: readonly Case[]): readonly string[] {
       }
     }
   };
-  for (const testCase of cases) {
-    for (const pathItem of Object.values(testCase.document.paths)) {
-      for (const operation of [pathItem.get, pathItem.post]) {
-        for (const parameter of operation?.parameters ?? []) {
-          if (parameter.schema !== undefined) walk(parameter.schema);
-          for (const mediaType of Object.values(parameter.content ?? {})) {
-            if (mediaType.schema !== undefined) walk(mediaType.schema);
-          }
+  for (const pathItem of Object.values(testCase.document.paths)) {
+    for (const operation of [pathItem.get, pathItem.post]) {
+      for (const parameter of operation?.parameters ?? []) {
+        if (parameter.schema !== undefined) walk(parameter.schema);
+        for (const mediaType of Object.values(parameter.content ?? {})) {
+          if (mediaType.schema !== undefined) walk(mediaType.schema);
         }
       }
     }
   }
-  return [...found].sort();
+  return found;
 }
 
 /**
@@ -887,6 +895,44 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("library exposed and from what vantage. That is where its coverage lives.");
   lines.push("");
 
+  lines.push("## Schema constraint keywords");
+  lines.push("");
+  lines.push("Which constraint keywords of this version's schema dialect some case writes");
+  lines.push("against a parameter. Counted by the same walk as the vocabulary bullet below:");
+  lines.push("a keyword counts when it appears in a schema position, and an object under");
+  lines.push("`enum`, `const` or `default` is an instance whose property names are data.");
+  lines.push("");
+  lines.push("The rows are the dialect's, and the dialects are different sets. 3.0's Schema");
+  lines.push("Object is an extended subset of JSON Schema Draft Wright-00: its section on");
+  lines.push("JSON Schema keywords lists what it takes and adjusts, additional JSON Schema");
+  lines.push("keywords are strictly unsupported, and `nullable` is its own assertion, so the");
+  lines.push("3.0 table has a `nullable` row and no `const` row. 3.1 and 3.2 Schema Objects");
+  lines.push("are supersets of JSON Schema Draft 2020-12, so their rows are 2020-12's");
+  lines.push("assertion and applicator vocabulary, `const` included and `nullable` not:");
+  lines.push("2020-12 reads an unknown keyword as an annotation. Where the dialects share a");
+  lines.push("spelling they can still differ in meaning: `exclusiveMinimum` and");
+  lines.push("`exclusiveMaximum` are booleans modifying `minimum` and `maximum` in 3.0 and");
+  lines.push("standalone numbers in 2020-12, so a row shared by name is a different");
+  lines.push("question per version. Annotations (`title`, `description`, `format`,");
+  lines.push("`default` and their siblings) have rows in neither dialect: they change no");
+  lines.push("verdict, the same reason the stage table has no `valueExposure` row.");
+  lines.push("");
+  lines.push("A zero row is a case nobody has written.");
+  lines.push("[bowtie](https://github.com/bowtie-json-schema/bowtie) measures standalone");
+  lines.push("JSON Schema implementations against the official suites; a case here answers");
+  lines.push("the integration question, whether each exact OpenAPI library, version and");
+  lines.push("configuration applies the keyword after parameter deserialization. The zero");
+  lines.push("rows are that surface, unfilled.");
+  lines.push("");
+  lines.push("| keyword | cases |");
+  lines.push("| --- | --- |");
+  const keywordsPerCase = cases.map((testCase) => schemaKeywordsOf(testCase));
+  for (const keyword of constraintKeywords(version)) {
+    const count = keywordsPerCase.filter((written) => written.has(keyword)).length;
+    lines.push(`| ${keyword} | ${String(count)} |`);
+  }
+  lines.push("");
+
   lines.push("## Held constant across every case");
   lines.push("");
   lines.push("A constant is a blind spot, so the deliberate ones are published here rather");
@@ -911,16 +957,9 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("  real specification surface and none of them is measured here.");
   const keywords = schemaKeywordsUsed(cases);
   lines.push(`- Schema vocabulary: ${keywords.map((word) => `\`${word}\``).join(", ")}.`);
-  lines.push("  Nothing else appears, so no case turns on `pattern`, `enum`, `const`, a");
-  lines.push("  length or numeric bound, `uniqueItems`, `additionalProperties` or a");
-  lines.push("  composition keyword. [bowtie](https://github.com/bowtie-json-schema/bowtie)");
-  lines.push("  measures standalone JSON Schema implementations against the official suites.");
-  lines.push("  Cases here would answer the integration question: whether each exact OpenAPI");
-  lines.push("  library, version and configuration applies a keyword after parameter");
-  lines.push("  deserialization. That surface is unfilled. The OpenAPI-specific dialect");
-  lines.push("  boundary is unfilled too: 3.0's list of strictly unsupported keywords, and");
-  lines.push("  `exclusiveMinimum` written as a boolean in 3.0 against a number in 3.1 and");
-  lines.push("  3.2.");
+  lines.push("  Everything a schema position writes, keyword by keyword. Which of the");
+  lines.push("  dialect's constraint keywords these do and do not reach is the table under");
+  lines.push("  Schema constraint keywords above.");
   const unprobedReserved = unprobedReservedHeaderNames(cases);
   if (unprobedReserved.length > 0) {
     lines.push(

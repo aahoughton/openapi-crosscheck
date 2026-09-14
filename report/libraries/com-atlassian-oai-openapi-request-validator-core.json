@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "LATEST"
   },
-  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
+  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -6192,6 +6192,84 @@
         "raw": {
           "hasErrors": false,
           "messages": []
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas30",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                "abc"
+              ]
+            ]
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.schema.pattern",
+              "level": "ERROR",
+              "message": "does not match the regex pattern ^[0-9]+$"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas31",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                "abc"
+              ]
+            ]
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.schema.pattern",
+              "level": "ERROR",
+              "message": "does not match the regex pattern ^[0-9]+$"
+            }
+          ]
         }
       }
     },

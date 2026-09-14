@@ -283,6 +283,25 @@ describe("a wire that query decoding converts needs a compatible pair input", ()
   });
 });
 
+describe("a constraint violation is decided at the validation boundary", () => {
+  const constrained: Dimensions = {
+    ...styleDimensions,
+    probeAxis: "constraintViolation",
+  };
+
+  it("probes the schema and stays askable of a schema-only library", () => {
+    // The value deserialized cleanly and is the declared type, so for a scalar
+    // the raw text the harness supplies is the value the schema sees, the same
+    // ground the wrong-typed scalar stands on.
+    expect(probedStage(constrained)).toBe("schemaValidation");
+    expect(canBeAsked(owning({ styleDeserialization: false }), constrained, PLAIN)).toBe(true);
+  });
+
+  it("still requires the library to own validation", () => {
+    expect(canBeAsked(owning({ schemaValidation: false }), constrained, PLAIN)).toBe(false);
+  });
+});
+
 describe("a reserved declaration is decided at the validation boundary", () => {
   const reserved: Dimensions = {
     ...styleDimensions,

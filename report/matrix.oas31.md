@@ -156,6 +156,7 @@ rules the expected verdict rests on, and the argument for it.
 | [`query-form-scalar-nullable-literal-oas31`](#query-form-scalar-nullable-literal-oas31) | accepted | pass | pass | pass | pass | RAISED | pass | RAISED | RAISED | pass | pass |
 | [`query-form-scalar-optional-absent-oas31`](#query-form-scalar-optional-absent-oas31) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-optional-default-absent-oas31`](#query-form-scalar-optional-default-absent-oas31) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| [`query-form-scalar-pattern-mismatch-oas31`](#query-form-scalar-pattern-mismatch-oas31) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-unset-style-oas31`](#query-form-scalar-unset-style-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`query-pipe-delimited-array-canonical-oas31`](#query-pipe-delimited-array-canonical-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
 | [`query-pipe-delimited-object-canonical-oas31`](#query-pipe-delimited-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | n/a | n/a | pass |
@@ -1640,6 +1641,28 @@ Every rule the expected verdict rests on, OpenAPI 3.1:
 The same absent optional parameter, with a default in its schema. Acceptance is settled by required being false. The value channel is where this case lives: in 3.1 the Schema Object is a superset of JSON Schema 2020-12, where default is an annotation, and annotations do not modify the instance, so a validator that injects blue supplies a value the specification does not ask for. Libraries differ, the values answer, and none are expected.
 
 Varies: the schema carries a default the specification calls an annotation. Holds constant: style and explode are stated; no foreign parameter present.
+
+##### `query-form-scalar-pattern-mismatch-oas31`
+
+query, form, string scalar, a value the declared pattern refuses. Expected: **rejected**.
+
+Sends p=abc against pattern ^[0-9]+$. The value is a clean string of the declared type, so only a library that applies constraint keywords rejects.
+
+Request: `GET /t?p=abc`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[parameter-style](https://spec.openapis.org/oas/v3.1.1.html#parameter-style)
+
+> Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for "query" - "form"; for "path" - "simple"; for "header" - "simple"; for "cookie" - "form".
+
+[schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+The word abc deserializes cleanly and is a string, exactly what the schema's type says, so neither the conversion Appendix B leaves open nor any style question can reach the verdict. What decides it is pattern, which this version's Schema Object carries as a superset of JSON Schema Draft 2020-12: a string the regular expression does not match fails validation. ^[0-9]+$ matches digits only, so the value fails and a library that applies the constraint vocabulary rejects. A library that reads type and stops accepts, and that acceptance is attributable.
+
+Varies: the schema writes a constraint keyword, which no other case declares. Holds constant: identifier is the declared one; wire shape matches the declared style; the value is well-formed for the declared type.
 
 ##### `query-form-scalar-unset-style-oas31`
 

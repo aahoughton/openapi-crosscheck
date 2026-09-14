@@ -1346,6 +1346,56 @@ export const queryCases: readonly Case[] = [
     holdsConstant: ["style and explode are stated", "no foreign parameter present"],
   },
   {
+    id: "query-form-scalar-pattern-mismatch-oas31",
+    title: "query, form, string scalar, a value the declared pattern refuses",
+    inShort:
+      "Sends p=abc against pattern ^[0-9]+$. The value is a clean string of the declared " +
+      "type, so only a library that applies constraint keywords rejects.",
+    tier: "conformance",
+    oasVersion: "3.1",
+    citations: [cite.PARAMETER_STYLE, cite.SCHEMA_OBJECT],
+    expected: "rejected",
+    expectedValues: null,
+    rationale:
+      "The word abc deserializes cleanly and is a string, exactly what the schema's type " +
+      "says, so neither the conversion Appendix B leaves open nor any style question can " +
+      "reach the verdict. What decides it is pattern, which this version's Schema Object " +
+      "carries as a superset of JSON Schema Draft 2020-12: a string the regular " +
+      "expression does not match fails validation. ^[0-9]+$ matches digits only, so the " +
+      "value fails and a library that applies the constraint vocabulary rejects. A " +
+      "library that reads type and stops accepts, and that acceptance is attributable.",
+    document: document(
+      [
+        {
+          name: "p",
+          in: "query",
+          required: true,
+          style: "form",
+          explode: false,
+          schema: { type: "string", pattern: "^[0-9]+$" },
+        },
+      ],
+      "/t",
+    ),
+    request: request("/t?p=abc"),
+    dimensions: {
+      declaration: "schema",
+      location: "query",
+      style: "form",
+      explode: false,
+      declaredStyle: "form",
+      declaredExplode: false,
+      schema: "scalar",
+      probeAxis: "constraintViolation",
+    },
+    varies: ["the schema writes a constraint keyword, which no other case declares"],
+    holdsConstant: [
+      "identifier is the declared one",
+      "wire shape matches the declared style",
+      "the value is well-formed for the declared type",
+    ],
+  },
+  {
     id: "query-form-scalar-unencoded-plus-oas31",
     title: "query, form, scalar, the value carries an unencoded plus",
     inShort:

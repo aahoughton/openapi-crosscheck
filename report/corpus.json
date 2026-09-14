@@ -15875,6 +15875,180 @@
       ]
     },
     {
+      "id": "query-form-scalar-pattern-mismatch-oas30",
+      "title": "query, form, string scalar, a value the declared pattern refuses",
+      "inShort": "Sends p=abc against pattern ^[0-9]+$. The value is a clean string of the declared type, so only a library that applies constraint keywords rejects.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "json-schema-keywords",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#json-schema-keywords",
+          "quoted": "The following keywords are taken directly from the JSON Schema definition and follow the same specifications: ... pattern (This string SHOULD be a valid regular expression, according to the Ecma-262 Edition 5.1 regular expression dialect)"
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "The word abc deserializes cleanly and is a string, exactly what the schema's type says, so neither the conversion Appendix B leaves open nor any style question can reach the verdict. What decides it is pattern, which 3.0 takes directly from the JSON Schema definition with the same specification: a string the regular expression does not match fails validation. ^[0-9]+$ matches digits only, so the value fails and a library that applies the constraint vocabulary rejects. A library that reads type and stops accepts, and that acceptance is attributable.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "style": "form",
+                  "explode": false,
+                  "schema": {
+                    "type": "string",
+                    "pattern": "^[0-9]+$"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=abc",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "form",
+        "explode": false,
+        "declaredStyle": "form",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "constraintViolation"
+      },
+      "varies": [
+        "the schema writes a constraint keyword, which no other case declares"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style",
+        "the value is well-formed for the declared type"
+      ]
+    },
+    {
+      "id": "query-form-scalar-pattern-mismatch-oas31",
+      "title": "query, form, string scalar, a value the declared pattern refuses",
+      "inShort": "Sends p=abc against pattern ^[0-9]+$. The value is a clean string of the declared type, so only a library that applies constraint keywords rejects.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "The word abc deserializes cleanly and is a string, exactly what the schema's type says, so neither the conversion Appendix B leaves open nor any style question can reach the verdict. What decides it is pattern, which this version's Schema Object carries as a superset of JSON Schema Draft 2020-12: a string the regular expression does not match fails validation. ^[0-9]+$ matches digits only, so the value fails and a library that applies the constraint vocabulary rejects. A library that reads type and stops accepts, and that acceptance is attributable.",
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "style": "form",
+                  "explode": false,
+                  "schema": {
+                    "type": "string",
+                    "pattern": "^[0-9]+$"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=abc",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "query",
+        "style": "form",
+        "explode": false,
+        "declaredStyle": "form",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "constraintViolation"
+      },
+      "varies": [
+        "the schema writes a constraint keyword, which no other case declares"
+      ],
+      "holdsConstant": [
+        "identifier is the declared one",
+        "wire shape matches the declared style",
+        "the value is well-formed for the declared type"
+      ]
+    },
+    {
       "id": "query-form-scalar-unencoded-plus-oas30",
       "title": "query, form, scalar, the value carries an unencoded plus",
       "inShort": "Sends p=a+b. Whether that plus is a space or a plus depends on which decoder reads it, and this version names both without choosing.",

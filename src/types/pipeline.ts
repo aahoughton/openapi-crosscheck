@@ -405,12 +405,15 @@ export function probedStage(dimensions: Dimensions): PipelineStage {
   // required check and the schema. A reserved declaration is settled at the
   // same boundary: a library handed the declaration and an already-split
   // request can decide whether the required and schema checks apply without
-  // deserializing a value. All three stay askable of a schema-only library.
+  // deserializing a value. A constraint violation is a value that deserialized
+  // cleanly and is the declared type, so the only stage left to reject it is
+  // the schema. All four stay askable of a schema-only library.
   //
   // Wrong-typedness is a value that deserialized cleanly and is well-formed for
   // some other type. A value the declared serialization cannot read at all does
   // not reach the schema, and carries `foreignWireShape` instead.
   if (
+    probeAxis === "constraintViolation" ||
     probeAxis === "missingName" ||
     probeAxis === "optionalAbsent" ||
     probeAxis === "reservedName" ||

@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
+  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -4933,6 +4933,58 @@
         },
         "raw": {
           "error": null,
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.149.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: string doesn't match the regular expression \"^[0-9]+$\"\nSchema:\n  {\n    \"pattern\": \"^[0-9]+$\",\n    \"type\": \"string\"\n  }\n\nValue:\n  \"abc\"\n",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.149.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: validation failed due to: at '': 'abc' does not match pattern '^[0-9]+$'\nSchema:\n  null\n\nValue:\n  null\n",
+            "type": "*openapi3filter.RequestError"
+          },
           "pathParams": {},
           "stage": "validation"
         }

@@ -46,10 +46,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 47 |
+| pass | 48 |
 | FAIL (verdict) | 8 |
 | FAIL (value) | 7 |
-| every conformance case | 62 |
+| every conformance case | 63 |
 
 #### Cases it did not pass
 
@@ -126,10 +126,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 47 |
+| pass | 48 |
 | FAIL (verdict) | 8 |
 | FAIL (value) | 7 |
-| every conformance case | 62 |
+| every conformance case | 63 |
 
 #### Cases it did not pass
 

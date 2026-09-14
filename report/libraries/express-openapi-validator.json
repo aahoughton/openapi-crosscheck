@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
+  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -8759,6 +8759,108 @@
             "params": {},
             "query": {
               "p": "blue"
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas30",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "abc"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 400,
+          "body": {
+            "message": "request/query/p must match pattern \"^[0-9]+$\"",
+            "errors": [
+              {
+                "path": "/query/p",
+                "message": "must match pattern \"^[0-9]+$\"",
+                "errorCode": "pattern.openapi.validation"
+              }
+            ],
+            "params": {},
+            "query": {
+              "p": "abc"
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas31",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "abc"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 400,
+          "body": {
+            "message": "request/query/p must match pattern \"^[0-9]+$\"",
+            "errors": [
+              {
+                "path": "/query/p",
+                "message": "must match pattern \"^[0-9]+$\"",
+                "errorCode": "pattern.openapi.validation"
+              }
+            ],
+            "params": {},
+            "query": {
+              "p": "abc"
             },
             "headers": {
               "host": "harness.invalid",

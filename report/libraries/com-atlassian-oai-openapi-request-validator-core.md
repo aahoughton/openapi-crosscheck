@@ -46,11 +46,11 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 10 |
+| pass | 11 |
 | pass (verdict only) | 29 |
 | FAIL (verdict) | 19 |
 | not asked | 4 |
-| every conformance case | 62 |
+| every conformance case | 63 |
 
 #### Cases it did not pass
 
@@ -141,11 +141,11 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 13 |
+| pass | 14 |
 | pass (verdict only) | 14 |
 | FAIL (verdict) | 31 |
 | not asked | 4 |
-| every conformance case | 62 |
+| every conformance case | 63 |
 
 #### Cases it did not pass
 

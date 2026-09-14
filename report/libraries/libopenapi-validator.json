@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
+  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -4852,6 +4852,64 @@
         "raw": {
           "errors": [],
           "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas30",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [
+            {
+              "message": "Query parameter 'p' failed to validate",
+              "reason": "The query parameter 'p' is defined as an string, however it failed to pass a schema validation",
+              "validationSubType": "query",
+              "validationType": "parameter"
+            }
+          ],
+          "valid": false
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas31",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [
+            {
+              "message": "Query parameter 'p' failed to validate",
+              "reason": "The query parameter 'p' is defined as an string, however it failed to pass a schema validation",
+              "validationSubType": "query",
+              "validationType": "parameter"
+            }
+          ],
+          "valid": false
         }
       }
     },

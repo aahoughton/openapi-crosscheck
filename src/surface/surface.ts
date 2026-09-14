@@ -71,6 +71,7 @@ const PROBE_AXIS_LISTED = {
   caseVariant: true,
   competingParameter: true,
   competingPath: true,
+  constraintViolation: true,
   declarationFlag: true,
   duplicateName: true,
   emptyAfterParse: true,
@@ -86,6 +87,102 @@ const PROBE_AXIS_LISTED = {
 } satisfies Readonly<Record<ProbeAxis, true>>;
 
 export const PROBE_AXES: readonly ProbeAxis[] = Object.keys(PROBE_AXIS_LISTED) as ProbeAxis[];
+
+/**
+ * The constraint keywords each version's schema dialect defines, as coverage
+ * surface: rows a case can fill by writing the keyword against a parameter and
+ * probing whether it is applied.
+ *
+ * Assertions and applicators only. Annotations (`title`, `description`,
+ * `format`, `default`, `example` and their siblings) change no verdict, so a
+ * row for one would advertise work that cannot move the coverage, the same
+ * reason the stage table carries no `valueExposure` row.
+ *
+ * Two lists rather than one, because the dialects are different sets. 3.0's
+ * Schema Object is "an extended subset of the JSON Schema Specification Draft
+ * Wright-00": the keywords its section 4.7.24.1 takes directly from JSON
+ * Schema, the ones it adjusts, and `nullable`, its own fixed field, which
+ * admits a value the bare type refuses and so asserts. The same section says
+ * "Additional keywords defined by the JSON Schema specification that are not
+ * mentioned here are strictly unsupported", so `const` and the 2020-12
+ * applicators are not rows a 3.0 case can fill: a 3.0 document writing one is
+ * a document-validity question, not an empty constraint cell.
+ *
+ * 3.1 and 3.2 Schema Objects are supersets of JSON Schema Draft 2020-12, so
+ * their rows are 2020-12's assertion and applicator keywords. `nullable` is
+ * not among them: 2020-12 reads an unknown keyword as an annotation, which is
+ * itself a probeable fact but a different row than a constraint.
+ */
+const OAS30_CONSTRAINT_KEYWORDS: readonly string[] = [
+  "additionalProperties",
+  "allOf",
+  "anyOf",
+  "enum",
+  "exclusiveMaximum",
+  "exclusiveMinimum",
+  "items",
+  "maxItems",
+  "maxLength",
+  "maxProperties",
+  "maximum",
+  "minItems",
+  "minLength",
+  "minProperties",
+  "minimum",
+  "multipleOf",
+  "not",
+  "nullable",
+  "oneOf",
+  "pattern",
+  "properties",
+  "required",
+  "type",
+  "uniqueItems",
+];
+
+const DRAFT_2020_12_CONSTRAINT_KEYWORDS: readonly string[] = [
+  "additionalProperties",
+  "allOf",
+  "anyOf",
+  "const",
+  "contains",
+  "dependentRequired",
+  "dependentSchemas",
+  "else",
+  "enum",
+  "exclusiveMaximum",
+  "exclusiveMinimum",
+  "if",
+  "items",
+  "maxContains",
+  "maxItems",
+  "maxLength",
+  "maxProperties",
+  "maximum",
+  "minContains",
+  "minItems",
+  "minLength",
+  "minProperties",
+  "minimum",
+  "multipleOf",
+  "not",
+  "oneOf",
+  "pattern",
+  "patternProperties",
+  "prefixItems",
+  "properties",
+  "propertyNames",
+  "required",
+  "then",
+  "type",
+  "uniqueItems",
+  "unevaluatedItems",
+  "unevaluatedProperties",
+];
+
+export function constraintKeywords(version: OasVersion): readonly string[] {
+  return version === "3.0" ? OAS30_CONSTRAINT_KEYWORDS : DRAFT_2020_12_CONSTRAINT_KEYWORDS;
+}
 
 /**
  * Which locations each style is legal in, per each version's Style Values

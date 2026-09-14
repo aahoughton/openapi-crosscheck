@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
+  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
   "capabilities": {
     "stages": {
       "routing": false,
@@ -3757,6 +3757,96 @@
         },
         "raw": {
           "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas30",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [
+              [
+                "p",
+                "abc"
+              ]
+            ],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "pattern.openapi.requestValidation",
+              "message": "must match pattern \"^[0-9]+$\"",
+              "location": "query"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas31",
+      "result": {
+        "library": "openapi-request-validator",
+        "libraryVersion": "12.1.3",
+        "configurationId": "parameters-only",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "path parameters; raw query pairs; header names folded and duplicates collected; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "params": {},
+            "query": [
+              [
+                "p",
+                "abc"
+              ]
+            ],
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the params, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "status": 400,
+          "errors": [
+            {
+              "path": "p",
+              "errorCode": "pattern.openapi.requestValidation",
+              "message": "must match pattern \"^[0-9]+$\"",
+              "location": "query"
+            }
+          ]
         }
       }
     },

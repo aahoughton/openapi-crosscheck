@@ -157,6 +157,46 @@ describe("reserved header names are published one by one", () => {
   });
 });
 
+describe("the constraint keyword map is per dialect", () => {
+  const artifacts = renderMarkdown(run.cases, run.measurements);
+
+  it("gives 3.0 a nullable row and no const row", () => {
+    // The 3.0 Schema Object is an extended subset whose unlisted keywords are
+    // strictly unsupported, so a `const` row would be a cell nobody can fill.
+    // A list shared across dialects would publish exactly that unfillable cell.
+    const page = artifacts["coverage.oas30.md"] ?? "";
+    expect(page).toContain("| nullable | 3 |");
+    expect(page).not.toContain("| const |");
+  });
+
+  it("gives 3.1 a const row and no nullable row", () => {
+    const page = artifacts["coverage.oas31.md"] ?? "";
+    expect(page).toContain("| const | 0 |");
+    expect(page).not.toContain("| nullable |");
+  });
+
+  it("counts the case that writes a constraint keyword", () => {
+    // The row the pattern-mismatch cases fill, pinned so the map cannot go
+    // back to publishing rows nothing can reach without a test noticing.
+    for (const version of ["oas30", "oas31"] as const) {
+      const page = artifacts[`coverage.${version}.md`] ?? "";
+      expect({ version, row: page.includes("| pattern | 1 |") }).toEqual({
+        version,
+        row: true,
+      });
+    }
+  });
+
+  it("publishes the 3.2 map with every row visible and unfilled", () => {
+    // The 3.2 tranche asks what 3.2 changed and writes no constraint keyword,
+    // so its map is the gap doctrine applied: the rows are published and the
+    // zeros are the finding.
+    const page = artifacts["coverage.oas32.md"] ?? "";
+    expect(page).toContain("| const | 0 |");
+    expect(page).toContain("| pattern | 0 |");
+  });
+});
+
 describe("schema vocabulary visits schemas rather than instance data", () => {
   it("keeps object-valued annotations and schema-map names out of the keyword list", () => {
     const source = cases.find(

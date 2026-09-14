@@ -284,6 +284,7 @@ cannot show.
 | caseVariant | 0 |
 | competingParameter | 1 |
 | competingPath | 0 |
+| constraintViolation | 0 |
 | declarationFlag | 4 |
 | duplicateName | 1 |
 | emptyAfterParse | 0 |
@@ -332,6 +333,75 @@ Exposure is asked of every case that carries expected values, as the second half
 of that case, and it is reported per library in `capabilities.md` under what each
 library exposed and from what vantage. That is where its coverage lives.
 
+## Schema constraint keywords
+
+Which constraint keywords of this version's schema dialect some case writes
+against a parameter. Counted by the same walk as the vocabulary bullet below:
+a keyword counts when it appears in a schema position, and an object under
+`enum`, `const` or `default` is an instance whose property names are data.
+
+The rows are the dialect's, and the dialects are different sets. 3.0's Schema
+Object is an extended subset of JSON Schema Draft Wright-00: its section on
+JSON Schema keywords lists what it takes and adjusts, additional JSON Schema
+keywords are strictly unsupported, and `nullable` is its own assertion, so the
+3.0 table has a `nullable` row and no `const` row. 3.1 and 3.2 Schema Objects
+are supersets of JSON Schema Draft 2020-12, so their rows are 2020-12's
+assertion and applicator vocabulary, `const` included and `nullable` not:
+2020-12 reads an unknown keyword as an annotation. Where the dialects share a
+spelling they can still differ in meaning: `exclusiveMinimum` and
+`exclusiveMaximum` are booleans modifying `minimum` and `maximum` in 3.0 and
+standalone numbers in 2020-12, so a row shared by name is a different
+question per version. Annotations (`title`, `description`, `format`,
+`default` and their siblings) have rows in neither dialect: they change no
+verdict, the same reason the stage table has no `valueExposure` row.
+
+A zero row is a case nobody has written.
+[bowtie](https://github.com/bowtie-json-schema/bowtie) measures standalone
+JSON Schema implementations against the official suites; a case here answers
+the integration question, whether each exact OpenAPI library, version and
+configuration applies the keyword after parameter deserialization. The zero
+rows are that surface, unfilled.
+
+| keyword | cases |
+| --- | --- |
+| additionalProperties | 0 |
+| allOf | 0 |
+| anyOf | 0 |
+| const | 0 |
+| contains | 0 |
+| dependentRequired | 0 |
+| dependentSchemas | 0 |
+| else | 0 |
+| enum | 0 |
+| exclusiveMaximum | 0 |
+| exclusiveMinimum | 0 |
+| if | 0 |
+| items | 3 |
+| maxContains | 0 |
+| maxItems | 0 |
+| maxLength | 0 |
+| maxProperties | 0 |
+| maximum | 0 |
+| minContains | 0 |
+| minItems | 0 |
+| minLength | 0 |
+| minProperties | 0 |
+| minimum | 0 |
+| multipleOf | 0 |
+| not | 0 |
+| oneOf | 0 |
+| pattern | 0 |
+| patternProperties | 0 |
+| prefixItems | 0 |
+| properties | 13 |
+| propertyNames | 0 |
+| required | 3 |
+| then | 0 |
+| type | 23 |
+| uniqueItems | 0 |
+| unevaluatedItems | 0 |
+| unevaluatedProperties | 0 |
+
 ## Held constant across every case
 
 A constant is a blind spot, so the deliberate ones are published here rather
@@ -354,16 +424,9 @@ existed.
   resolution, reference resolution and the path-item override rules are
   real specification surface and none of them is measured here.
 - Schema vocabulary: `items`, `properties`, `required`, `type`.
-  Nothing else appears, so no case turns on `pattern`, `enum`, `const`, a
-  length or numeric bound, `uniqueItems`, `additionalProperties` or a
-  composition keyword. [bowtie](https://github.com/bowtie-json-schema/bowtie)
-  measures standalone JSON Schema implementations against the official suites.
-  Cases here would answer the integration question: whether each exact OpenAPI
-  library, version and configuration applies a keyword after parameter
-  deserialization. That surface is unfilled. The OpenAPI-specific dialect
-  boundary is unfilled too: 3.0's list of strictly unsupported keywords, and
-  `exclusiveMinimum` written as a boolean in 3.0 against a number in 3.1 and
-  3.2.
+  Everything a schema position writes, keyword by keyword. Which of the
+  dialect's constraint keywords these do and do not reach is the table under
+  Schema constraint keywords above.
 - Header parameter names held constant: `Accept`, `Authorization`, `Content-Type`.
   This version reserves each of these ([parameter-name](https://spec.openapis.org/oas/v3.2.0.html#parameter-name)):
 

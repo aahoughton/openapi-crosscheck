@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
+  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -9328,6 +9328,108 @@
         },
         "raw": {
           "valid": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas30",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.2.2",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "errors": [
+            {
+              "code": "pattern",
+              "path": [
+                "query",
+                "p"
+              ],
+              "message": "must match pattern ^[0-9]+$",
+              "params": {
+                "pattern": "^[0-9]+$",
+                "actual": "abc"
+              },
+              "children": []
+            }
+          ],
+          "truncated": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas31",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.2.2",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "errors": [
+            {
+              "code": "pattern",
+              "path": [
+                "query",
+                "p"
+              ],
+              "message": "must match pattern ^[0-9]+$",
+              "params": {
+                "pattern": "^[0-9]+$",
+                "actual": "abc"
+              },
+              "children": []
+            }
+          ],
+          "truncated": true,
           "value": {
             "path": {},
             "query": {},

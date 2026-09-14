@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:40ed06705901d8e36b94336482fbbd380c6fa09d2f70e712919834d25d86bf5a",
+  "corpusDigest": "sha256:6fe7ee4a28ce00e8b4b0bd77d31a960ab0c9b485dd31139793edc704082a42c5",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -9689,6 +9689,118 @@
             "params": {}
           },
           "errors": null
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas30",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "abc"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array<string>"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "coerced": {
+            "method": "GET",
+            "path": "/t",
+            "query": "p=abc",
+            "headers": {
+              "host": "harness.invalid"
+            }
+          },
+          "errors": [
+            {
+              "instancePath": "/query/p",
+              "schemaPath": "#/properties/query/properties/p/type",
+              "keyword": "type",
+              "params": {
+                "type": "string"
+              },
+              "message": "must be string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-pattern-mismatch-oas31",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": [
+              "abc"
+            ]
+          },
+          "nativeTypes": {
+            "p": "Array<string>"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "coerced": {
+            "method": "GET",
+            "path": "/t",
+            "query": "p=abc",
+            "headers": {
+              "host": "harness.invalid"
+            }
+          },
+          "errors": [
+            {
+              "instancePath": "/query/p",
+              "schemaPath": "#/properties/query/properties/p/type",
+              "keyword": "type",
+              "params": {
+                "type": "string"
+              },
+              "message": "must be string"
+            }
+          ]
         }
       }
     },

@@ -85,7 +85,7 @@ shows whether the type was checked at all.
 | `integer` | 8 | `path-matrix-scalar-wrong-type-oas30`, `path-simple-scalar-wrong-type-oas30`, `query-form-object-wrong-type-oas30`, `query-form-scalar-integer-fractional-oas30` |
 | `null` | 0 |  |
 | `number` | 0 |  |
-| `string` | 80 | `query-form-object-wrong-type-oas30`, `query-form-scalar-nullable-literal-oas30` |
+| `string` | 81 | `query-form-object-wrong-type-oas30`, `query-form-scalar-nullable-literal-oas30` |
 
 A wrong-typed value against `string` cannot be constructed here. Every value on
 the wire is text, so there is nothing to send that a string schema must refuse,
@@ -198,7 +198,7 @@ resting on it, and can see which cited sections carry only one.
 | appendix-d-serializing-headers-and-cookies | `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-object-canonical-oas30`, `cookie-form-scalar-canonical-oas30`, `cookie-form-scalar-explode-oas30` |
 | decoding-uris-and-form-urlencoded-strings | `path-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas30`, `query-content-json-object-malformed-oas30`, `query-form-scalar-encoded-plus-oas30`, `query-form-scalar-encoded-plus-oas30`, `query-form-scalar-unencoded-plus-oas30` |
 | fixed-fields-for-use-with-content | `header-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas30`, `query-content-json-object-malformed-oas30` |
-| json-schema-keywords | `query-form-scalar-optional-default-absent-oas30` |
+| json-schema-keywords | `query-form-scalar-optional-default-absent-oas30`, `query-form-scalar-pattern-mismatch-oas30` |
 | media-type-object | `header-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas30`, `query-content-json-object-malformed-oas30` |
 | parameter-allow-empty-value | `query-form-scalar-allow-empty-value-declared-oas30` |
 | parameter-allow-reserved | `query-form-scalar-allow-reserved-declared-oas30`, `query-form-scalar-allow-reserved-percent-triple-oas30`, `query-form-scalar-allow-reserved-unset-oas30` |
@@ -208,12 +208,12 @@ resting on it, and can see which cited sections carry only one.
 | parameter-name | `header-reserved-name-accept-present-wrong-type-oas30`, `header-reserved-name-accept-required-absent-oas30`, `path-matrix-array-empty-after-parse-oas30`, `path-matrix-competing-parameters-oas30`, `path-matrix-scalar-foreign-name-oas30`, `query-form-scalar-missing-name-oas30` |
 | parameter-required | `header-reserved-name-accept-required-absent-oas30`, `path-label-array-foreign-shape-oas30`, `path-matrix-array-empty-after-parse-oas30`, `path-matrix-array-foreign-shape-oas30`, `path-matrix-competing-parameters-oas30`, `path-matrix-scalar-foreign-name-oas30`, `path-routing-concrete-before-templated-oas30`, `query-form-object-missing-name-oas30`, `query-form-scalar-missing-name-oas30`, `query-form-scalar-optional-absent-oas30`, `query-form-scalar-optional-default-absent-oas30` |
 | parameter-schema | `path-matrix-scalar-wrong-type-oas30`, `path-simple-scalar-wrong-type-oas30` |
-| parameter-style | `header-simple-array-canonical-oas30`, `header-simple-array-case-variant-oas30`, `header-simple-array-explicit-style-oas30`, `header-simple-array-explode-oas30`, `header-simple-object-canonical-oas30`, `header-simple-object-explode-oas30`, `header-simple-scalar-canonical-oas30`, `header-simple-scalar-explode-oas30`, `path-label-array-canonical-oas30`, `path-label-array-explode-oas30`, `path-label-array-foreign-shape-oas30`, `path-label-object-canonical-oas30`, `path-label-object-explode-oas30`, `path-label-scalar-canonical-oas30`, `path-label-scalar-explode-oas30`, `path-matrix-array-canonical-oas30`, `path-matrix-array-empty-after-parse-oas30`, `path-matrix-array-foreign-shape-oas30`, `path-matrix-array-no-explode-oas30`, `path-matrix-competing-parameters-oas30`, `path-matrix-object-canonical-oas30`, `path-matrix-object-explode-oas30`, `path-matrix-scalar-canonical-oas30`, `path-matrix-scalar-explode-oas30`, `path-matrix-scalar-foreign-name-oas30`, `path-matrix-scalar-wrong-type-oas30`, `path-simple-array-canonical-oas30`, `path-simple-array-explode-oas30`, `path-simple-object-canonical-oas30`, `path-simple-object-explode-oas30`, `path-simple-scalar-canonical-oas30`, `path-simple-scalar-explode-oas30`, `path-simple-scalar-unset-style-oas30`, `query-deep-object-canonical-oas30`, `query-form-array-canonical-explode-oas30`, `query-form-array-canonical-no-explode-oas30`, `query-form-array-unset-style-oas30`, `query-form-boolean-wrong-type-oas30`, `query-form-object-canonical-explode-oas30`, `query-form-object-canonical-no-explode-oas30`, `query-form-object-missing-name-oas30`, `query-form-object-wrong-type-oas30`, `query-form-scalar-allow-reserved-declared-oas30`, `query-form-scalar-encoded-plus-oas30`, `query-form-scalar-missing-name-oas30`, `query-form-scalar-nullable-empty-oas30`, `query-form-scalar-nullable-literal-oas30`, `query-form-scalar-optional-absent-oas30`, `query-form-scalar-optional-default-absent-oas30`, `query-form-scalar-unset-style-oas30`, `query-pipe-delimited-array-canonical-oas30`, `query-pipe-delimited-object-canonical-oas30`, `query-space-delimited-array-canonical-oas30`, `query-space-delimited-object-canonical-oas30` |
+| parameter-style | `header-simple-array-canonical-oas30`, `header-simple-array-case-variant-oas30`, `header-simple-array-explicit-style-oas30`, `header-simple-array-explode-oas30`, `header-simple-object-canonical-oas30`, `header-simple-object-explode-oas30`, `header-simple-scalar-canonical-oas30`, `header-simple-scalar-explode-oas30`, `path-label-array-canonical-oas30`, `path-label-array-explode-oas30`, `path-label-array-foreign-shape-oas30`, `path-label-object-canonical-oas30`, `path-label-object-explode-oas30`, `path-label-scalar-canonical-oas30`, `path-label-scalar-explode-oas30`, `path-matrix-array-canonical-oas30`, `path-matrix-array-empty-after-parse-oas30`, `path-matrix-array-foreign-shape-oas30`, `path-matrix-array-no-explode-oas30`, `path-matrix-competing-parameters-oas30`, `path-matrix-object-canonical-oas30`, `path-matrix-object-explode-oas30`, `path-matrix-scalar-canonical-oas30`, `path-matrix-scalar-explode-oas30`, `path-matrix-scalar-foreign-name-oas30`, `path-matrix-scalar-wrong-type-oas30`, `path-simple-array-canonical-oas30`, `path-simple-array-explode-oas30`, `path-simple-object-canonical-oas30`, `path-simple-object-explode-oas30`, `path-simple-scalar-canonical-oas30`, `path-simple-scalar-explode-oas30`, `path-simple-scalar-unset-style-oas30`, `query-deep-object-canonical-oas30`, `query-form-array-canonical-explode-oas30`, `query-form-array-canonical-no-explode-oas30`, `query-form-array-unset-style-oas30`, `query-form-boolean-wrong-type-oas30`, `query-form-object-canonical-explode-oas30`, `query-form-object-canonical-no-explode-oas30`, `query-form-object-missing-name-oas30`, `query-form-object-wrong-type-oas30`, `query-form-scalar-allow-reserved-declared-oas30`, `query-form-scalar-encoded-plus-oas30`, `query-form-scalar-missing-name-oas30`, `query-form-scalar-nullable-empty-oas30`, `query-form-scalar-nullable-literal-oas30`, `query-form-scalar-optional-absent-oas30`, `query-form-scalar-optional-default-absent-oas30`, `query-form-scalar-pattern-mismatch-oas30`, `query-form-scalar-unset-style-oas30`, `query-pipe-delimited-array-canonical-oas30`, `query-pipe-delimited-object-canonical-oas30`, `query-space-delimited-array-canonical-oas30`, `query-space-delimited-object-canonical-oas30` |
 | path-templating | `path-matrix-competing-parameters-oas30` |
 | path-templating-matching | `path-routing-concrete-before-templated-oas30`, `path-routing-identical-templates-oas30` |
 | paths-path | `path-routing-ambiguous-templates-oas30`, `path-routing-concrete-before-templated-oas30` |
 | schema-nullable | `query-form-scalar-nullable-empty-oas30`, `query-form-scalar-nullable-literal-oas30` |
-| schema-object | `header-content-json-object-canonical-oas30`, `header-reserved-name-accept-present-wrong-type-oas30`, `path-content-json-object-canonical-oas30`, `path-matrix-scalar-wrong-type-oas30`, `path-simple-scalar-wrong-type-oas30`, `query-content-json-object-canonical-oas30`, `query-content-json-object-malformed-oas30`, `query-form-boolean-wrong-type-oas30`, `query-form-object-wrong-type-oas30`, `query-form-scalar-allow-reserved-declared-oas30`, `query-form-scalar-encoded-plus-oas30` |
+| schema-object | `header-content-json-object-canonical-oas30`, `header-reserved-name-accept-present-wrong-type-oas30`, `path-content-json-object-canonical-oas30`, `path-matrix-scalar-wrong-type-oas30`, `path-simple-scalar-wrong-type-oas30`, `query-content-json-object-canonical-oas30`, `query-content-json-object-malformed-oas30`, `query-form-boolean-wrong-type-oas30`, `query-form-object-wrong-type-oas30`, `query-form-scalar-allow-reserved-declared-oas30`, `query-form-scalar-encoded-plus-oas30`, `query-form-scalar-pattern-mismatch-oas30` |
 | style-examples | `cookie-form-array-explode-oas30`, `cookie-form-object-explode-oas30`, `header-simple-array-canonical-oas30`, `header-simple-array-case-variant-oas30`, `header-simple-array-explicit-style-oas30`, `header-simple-array-explode-oas30`, `header-simple-object-canonical-oas30`, `header-simple-object-explode-oas30`, `header-simple-scalar-canonical-oas30`, `header-simple-scalar-explode-oas30`, `path-label-array-canonical-oas30`, `path-label-array-explode-oas30`, `path-label-array-foreign-shape-oas30`, `path-label-object-canonical-oas30`, `path-label-object-explode-oas30`, `path-label-scalar-canonical-oas30`, `path-label-scalar-explode-oas30`, `path-matrix-array-canonical-oas30`, `path-matrix-array-empty-after-parse-oas30`, `path-matrix-array-foreign-shape-oas30`, `path-matrix-array-no-explode-oas30`, `path-matrix-competing-parameters-oas30`, `path-matrix-object-canonical-oas30`, `path-matrix-object-explode-oas30`, `path-matrix-scalar-canonical-oas30`, `path-matrix-scalar-explode-oas30`, `path-matrix-scalar-foreign-name-oas30`, `path-matrix-scalar-wrong-type-oas30`, `path-simple-array-canonical-oas30`, `path-simple-array-explode-oas30`, `path-simple-object-canonical-oas30`, `path-simple-object-explode-oas30`, `path-simple-scalar-canonical-oas30`, `path-simple-scalar-explode-oas30`, `path-simple-scalar-unset-style-oas30`, `query-deep-object-canonical-oas30`, `query-form-array-canonical-explode-oas30`, `query-form-array-canonical-no-explode-oas30`, `query-form-array-empty-value-oas30`, `query-form-array-unset-style-oas30`, `query-form-object-canonical-explode-oas30`, `query-form-object-canonical-no-explode-oas30`, `query-form-scalar-name-without-value-oas30`, `query-form-scalar-nullable-empty-oas30`, `query-form-scalar-nullable-empty-oas30`, `query-form-scalar-nullable-literal-oas30`, `query-form-scalar-unset-style-oas30`, `query-pipe-delimited-array-canonical-oas30`, `query-pipe-delimited-object-canonical-oas30`, `query-space-delimited-array-canonical-oas30`, `query-space-delimited-array-explode-oas30`, `query-space-delimited-object-canonical-oas30` |
 | x4-7-12-2-fixed-fields | `header-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas30`, `query-content-and-schema-declared-oas30`, `query-content-json-object-canonical-oas30`, `query-content-json-object-malformed-oas30` |
 
@@ -239,7 +239,7 @@ see Figures from elsewhere, below.
 | header | no | 0 of 3 | 3 |
 | path | yes | 29 of 29 | 29 |
 | path | no | 0 of 1 | 1 |
-| query | yes | 25 of 25 | 25 |
+| query | yes | 26 of 26 | 26 |
 | query | no | 0 of 11 | 11 |
 
 ## Figures from elsewhere
@@ -275,6 +275,7 @@ cannot show.
 | caseVariant | 1 |
 | competingParameter | 4 |
 | competingPath | 3 |
+| constraintViolation | 1 |
 | declarationFlag | 4 |
 | duplicateName | 2 |
 | emptyAfterParse | 1 |
@@ -305,7 +306,7 @@ would be filled by a canonical case, and canonical probes style.
 | splitting | 1 | 5 |
 | styleDeserialization | 45 | 18 |
 | contentDeserialization | 4 | 0 |
-| schemaValidation | 11 | 2 |
+| schemaValidation | 12 | 2 |
 
 `valueExposure` is a pipeline stage and has no row here, which is deliberate and
 is a correction. It had one, reading `0` and `0`, and that read as a gap someone
@@ -318,6 +319,62 @@ not change the coverage.
 Exposure is asked of every case that carries expected values, as the second half
 of that case, and it is reported per library in `capabilities.md` under what each
 library exposed and from what vantage. That is where its coverage lives.
+
+## Schema constraint keywords
+
+Which constraint keywords of this version's schema dialect some case writes
+against a parameter. Counted by the same walk as the vocabulary bullet below:
+a keyword counts when it appears in a schema position, and an object under
+`enum`, `const` or `default` is an instance whose property names are data.
+
+The rows are the dialect's, and the dialects are different sets. 3.0's Schema
+Object is an extended subset of JSON Schema Draft Wright-00: its section on
+JSON Schema keywords lists what it takes and adjusts, additional JSON Schema
+keywords are strictly unsupported, and `nullable` is its own assertion, so the
+3.0 table has a `nullable` row and no `const` row. 3.1 and 3.2 Schema Objects
+are supersets of JSON Schema Draft 2020-12, so their rows are 2020-12's
+assertion and applicator vocabulary, `const` included and `nullable` not:
+2020-12 reads an unknown keyword as an annotation. Where the dialects share a
+spelling they can still differ in meaning: `exclusiveMinimum` and
+`exclusiveMaximum` are booleans modifying `minimum` and `maximum` in 3.0 and
+standalone numbers in 2020-12, so a row shared by name is a different
+question per version. Annotations (`title`, `description`, `format`,
+`default` and their siblings) have rows in neither dialect: they change no
+verdict, the same reason the stage table has no `valueExposure` row.
+
+A zero row is a case nobody has written.
+[bowtie](https://github.com/bowtie-json-schema/bowtie) measures standalone
+JSON Schema implementations against the official suites; a case here answers
+the integration question, whether each exact OpenAPI library, version and
+configuration applies the keyword after parameter deserialization. The zero
+rows are that surface, unfilled.
+
+| keyword | cases |
+| --- | --- |
+| additionalProperties | 0 |
+| allOf | 0 |
+| anyOf | 0 |
+| enum | 0 |
+| exclusiveMaximum | 0 |
+| exclusiveMinimum | 0 |
+| items | 26 |
+| maxItems | 0 |
+| maxLength | 0 |
+| maxProperties | 0 |
+| maximum | 0 |
+| minItems | 0 |
+| minLength | 0 |
+| minProperties | 0 |
+| minimum | 0 |
+| multipleOf | 0 |
+| not | 0 |
+| nullable | 3 |
+| oneOf | 0 |
+| pattern | 1 |
+| properties | 25 |
+| required | 1 |
+| type | 90 |
+| uniqueItems | 0 |
 
 ## Held constant across every case
 
@@ -340,17 +397,10 @@ existed.
   so a case reaching for any of it does not typecheck. Server URL
   resolution, reference resolution and the path-item override rules are
   real specification surface and none of them is measured here.
-- Schema vocabulary: `default`, `items`, `nullable`, `properties`, `required`, `type`.
-  Nothing else appears, so no case turns on `pattern`, `enum`, `const`, a
-  length or numeric bound, `uniqueItems`, `additionalProperties` or a
-  composition keyword. [bowtie](https://github.com/bowtie-json-schema/bowtie)
-  measures standalone JSON Schema implementations against the official suites.
-  Cases here would answer the integration question: whether each exact OpenAPI
-  library, version and configuration applies a keyword after parameter
-  deserialization. That surface is unfilled. The OpenAPI-specific dialect
-  boundary is unfilled too: 3.0's list of strictly unsupported keywords, and
-  `exclusiveMinimum` written as a boolean in 3.0 against a number in 3.1 and
-  3.2.
+- Schema vocabulary: `default`, `items`, `nullable`, `pattern`, `properties`, `required`, `type`.
+  Everything a schema position writes, keyword by keyword. Which of the
+  dialect's constraint keywords these do and do not reach is the table under
+  Schema constraint keywords above.
 - Header parameter names held constant: `Authorization`, `Content-Type`.
   This version reserves each of these ([parameter-name](https://spec.openapis.org/oas/v3.0.4.html#parameter-name)):
 
