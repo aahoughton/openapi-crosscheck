@@ -361,6 +361,8 @@ existed.
   `exclusiveMinimum` written as a boolean in 3.0 against a number in 3.1 and
   3.2.
 - Header parameter names held constant: `Accept`, `Authorization`, `Content-Type`.
-  Every version reserves each of these and says a parameter so named SHALL be
-  ignored.
+  This version reserves each of these ([parameter-name](https://spec.openapis.org/oas/v3.2.0.html#parameter-name)):
+
+  > If in is "header" and the name field is "Accept", "Content-Type" or "Authorization", the parameter definition SHALL be ignored.
+
   No reserved-name case appears in this version.

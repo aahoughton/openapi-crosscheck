@@ -8,6 +8,9 @@ import type { AdapterResult, ValueVantage } from "../types/result";
 import type { LibraryMeasurement } from "../types/measurement";
 import { MEASUREMENT_SCHEMA_VERSION } from "../types/measurement";
 import { renderLibrary } from "./display";
+import { PARAMETER_NAME_RESERVED_HEADERS as RESERVED_HEADERS_OAS30 } from "../corpus/citations/oas30";
+import { PARAMETER_NAME_RESERVED_HEADERS as RESERVED_HEADERS_OAS31 } from "../corpus/citations/oas31";
+import { PARAMETER_NAME_RESERVED_HEADERS as RESERVED_HEADERS_OAS32 } from "../corpus/citations/oas32";
 import type { CoverageView } from "./view";
 import {
   coverage,
@@ -527,11 +530,35 @@ function schemaKeywordsUsed(cases: readonly Case[]): readonly string[] {
 }
 
 /**
+ * Each version's statement of the rule, quoted beside the held-constant
+ * bullet so the claim the coverage map makes for a version carries that
+ * version's text.
+ */
+const RESERVED_HEADERS_RULE: Readonly<Record<OasVersion, Citation>> = {
+  "3.0": RESERVED_HEADERS_OAS30,
+  "3.1": RESERVED_HEADERS_OAS31,
+  "3.2": RESERVED_HEADERS_OAS32,
+};
+
+/**
  * The three header names a parameter declaration may not claim, in the casing
- * the specification writes them. All three versions carry the same sentence:
- * a header parameter so named SHALL be ignored.
+ * the specification writes them.
+ *
+ * Stated here and checked against the citations below, because the renderer
+ * quotes the rule beside this list: a list that drifted from the quoted text
+ * would publish two different claims about one rule, so drift refuses to
+ * render instead.
  */
 const RESERVED_HEADER_NAMES = ["Accept", "Authorization", "Content-Type"];
+for (const citation of Object.values(RESERVED_HEADERS_RULE)) {
+  for (const name of RESERVED_HEADER_NAMES) {
+    if (!citation.quoted.includes(`"${name}"`)) {
+      throw new Error(
+        `reserved header name ${name} does not appear in the ${citation.oasVersion} citation`,
+      );
+    }
+  }
+}
 
 /** The reserved names no case in this version declares. */
 function unprobedReservedHeaderNames(cases: readonly Case[]): readonly string[] {
@@ -889,8 +916,11 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
         .map((name) => `\`${name}\``)
         .join(", ")}.`,
     );
-    lines.push("  Every version reserves each of these and says a parameter so named SHALL be");
-    lines.push("  ignored.");
+    const rule = RESERVED_HEADERS_RULE[version];
+    lines.push(`  This version reserves each of these ([${rule.anchor}](${rule.url})):`);
+    lines.push("");
+    lines.push(`  > ${rule.quoted}`);
+    lines.push("");
     const probedReserved = RESERVED_HEADER_NAMES.filter(
       (name) => !unprobedReserved.includes(name),
     );

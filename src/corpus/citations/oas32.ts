@@ -11,9 +11,9 @@ import type { Citation } from "../../types/case";
  *
  * Fewer constants than 3.0 or 3.1 carry, because the 3.2 tranche asks what 3.2
  * changed rather than the whole surface again. Everything quoted here is text
- * 3.2.0 states differently from 3.1.1, or text a case about such a change rests
- * on. The shared surface is unasked under 3.2 and shows as empty cells in
- * `coverage.oas32.md`.
+ * 3.2.0 states differently from 3.1.1, text a case about such a change rests
+ * on, or text a rendered claim about 3.2 rests on. The shared surface is
+ * unasked under 3.2 and shows as empty cells in `coverage.oas32.md`.
  */
 
 const SPEC = "https://spec.openapis.org/oas/v3.2.0.html";
@@ -26,6 +26,18 @@ const SPEC = "https://spec.openapis.org/oas/v3.2.0.html";
 function cite(anchor: string, quoted: string): Citation {
   return { oasVersion: "3.2", anchor, url: `${SPEC}#${anchor}`, quoted };
 }
+
+/**
+ * The three header names a parameter declaration may not claim.
+ *
+ * The specification text is identical in 3.0, 3.1 and 3.2. This constant
+ * backs the coverage map's 3.2 reservation claim with 3.2's own text.
+ */
+export const PARAMETER_NAME_RESERVED_HEADERS = cite(
+  "parameter-name",
+  'If in is "header" and the name field is "Accept", "Content-Type" or "Authorization", ' +
+    "the parameter definition SHALL be ignored.",
+);
 
 /**
  * The default table, which now names two styles for cookies and says which of
