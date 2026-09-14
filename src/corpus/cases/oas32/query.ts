@@ -117,43 +117,6 @@ export const queryCases32: readonly Case[] = [
     holdsConstant: ["identifier is the declared one", "wire shape as for the exploded twin"],
   },
   {
-    id: "query-form-scalar-unencoded-plus-oas32",
-    title: "query, form, scalar, the value carries an unencoded plus",
-    inShort:
-      "Sends p=a+b. 3.2 makes WHATWG form-urlencoded decoding a MUST for query strings, " +
-      "which reads the plus as a space.",
-    tier: "conformance",
-    oasVersion: "3.2",
-    citations: [cite.PARAMETER_STYLE, cite.URL_PERCENT_ENCODING, cite.SCHEMA_OBJECT],
-    expected: "accepted",
-    expectedValues: { p: "a b" },
-    rationale:
-      "A query string produced by an in: query parameter MUST parse and percent-decode " +
-      "under WHATWG rules, and the same sentence says those rules treat a " +
-      "non-percent-encoded + as an escaped space. So the value reaching the schema is a, " +
-      "a space, b. Its 3.0 and 3.1 twins send the same request and are divergence: those " +
-      "versions name both decoders in Appendix E and pick neither, and this sentence is " +
-      "what 3.2 added.",
-    document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
-    request: request("/t?p=a+b"),
-    dimensions: {
-      declaration: "schema",
-      location: "query",
-      style: "form",
-      explode: true,
-      declaredStyle: "unset",
-      declaredExplode: "unset",
-      schema: "scalar",
-      probeAxis: "encodingVariant",
-    },
-    varies: ["the wire spells a space with a plus rather than a percent-encoded triple"],
-    holdsConstant: [
-      "the identifier is the declared one",
-      "the style is the defaulted one",
-      "the value is well-formed for the declared type",
-    ],
-  },
-  {
     id: "query-form-scalar-encoded-plus-oas32",
     title: "query, form, scalar, the value carries a percent-encoded plus",
     inShort:
@@ -184,6 +147,43 @@ export const queryCases32: readonly Case[] = [
       probeAxis: "encodingVariant",
     },
     varies: ["the wire carries a percent-encoded plus, which no other case sends"],
+    holdsConstant: [
+      "the identifier is the declared one",
+      "the style is the defaulted one",
+      "the value is well-formed for the declared type",
+    ],
+  },
+  {
+    id: "query-form-scalar-unencoded-plus-oas32",
+    title: "query, form, scalar, the value carries an unencoded plus",
+    inShort:
+      "Sends p=a+b. 3.2 makes WHATWG form-urlencoded decoding a MUST for query strings, " +
+      "which reads the plus as a space.",
+    tier: "conformance",
+    oasVersion: "3.2",
+    citations: [cite.PARAMETER_STYLE, cite.URL_PERCENT_ENCODING, cite.SCHEMA_OBJECT],
+    expected: "accepted",
+    expectedValues: { p: "a b" },
+    rationale:
+      "A query string produced by an in: query parameter MUST parse and percent-decode " +
+      "under WHATWG rules, and the same sentence says those rules treat a " +
+      "non-percent-encoded + as an escaped space. So the value reaching the schema is a, " +
+      "a space, b. Its 3.0 and 3.1 twins send the same request and are divergence: those " +
+      "versions name both decoders in Appendix E and pick neither, and this sentence is " +
+      "what 3.2 added.",
+    document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
+    request: request("/t?p=a+b"),
+    dimensions: {
+      declaration: "schema",
+      location: "query",
+      style: "form",
+      explode: true,
+      declaredStyle: "unset",
+      declaredExplode: "unset",
+      schema: "scalar",
+      probeAxis: "encodingVariant",
+    },
+    varies: ["the wire spells a space with a plus rather than a percent-encoded triple"],
     holdsConstant: [
       "the identifier is the declared one",
       "the style is the defaulted one",

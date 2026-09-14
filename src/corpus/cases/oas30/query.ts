@@ -949,6 +949,48 @@ export const queryCases30: readonly Case[] = [
     holdsConstant: ["the identifier is the declared one", "allowReserved is left unset"],
   },
   {
+    id: "query-form-scalar-encoded-plus-oas30",
+    title: "query, form, scalar, the value carries a percent-encoded plus",
+    inShort:
+      "Sends p=a%2Bb. Both decoders Appendix E names agree here, so the plus is data and " +
+      "the answer is settled.",
+    tier: "conformance",
+    oasVersion: "3.0",
+    citations: [
+      cite.PARAMETER_STYLE,
+      cite.URI_PERCENT_DECODING,
+      cite.PLUS_DECODING_AMBIGUOUS,
+      cite.SCHEMA_OBJECT,
+    ],
+    expected: "accepted",
+    expectedValues: { p: "a+b" },
+    rationale:
+      "Appendix E leaves an unencoded + open by naming two decoders, and this case is " +
+      "where the two agree: form-urlencoded decoding adds +-for-space handling to " +
+      "percent-decoding and converts an unencoded + only, so %2B is a literal + under " +
+      "both. The value reaching the schema is a+b whichever decoder read it. This is the " +
+      "control for its unencoded twin, and the two together separate a library that " +
+      "percent-decodes from one that converts every plus it sees.",
+    document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
+    request: request("/t?p=a%2Bb"),
+    dimensions: {
+      declaration: "schema",
+      location: "query",
+      style: "form",
+      explode: true,
+      declaredStyle: "unset",
+      declaredExplode: "unset",
+      schema: "scalar",
+      probeAxis: "encodingVariant",
+    },
+    varies: ["the wire carries a percent-encoded plus, which no other case sends"],
+    holdsConstant: [
+      "the identifier is the declared one",
+      "the style is the defaulted one",
+      "the value is well-formed for the declared type",
+    ],
+  },
+  {
     id: "query-form-scalar-integer-fractional-oas30",
     title: "query, form, integer scalar, a number with a fraction",
     inShort:
@@ -1077,37 +1119,6 @@ export const queryCases30: readonly Case[] = [
     holdsConstant: ["wire shape matches the declared style", "value well-formed"],
   },
   {
-    id: "query-form-scalar-nullable-absent-oas30",
-    title: "query, form, nullable scalar, required and nothing sent",
-    inShort:
-      "A required parameter whose type allows null is left out entirely. Absent and null " +
-      "look the same on the wire and different to a schema.",
-    tier: "divergence",
-    oasVersion: "3.0",
-    question:
-      "This is null's own serialization. OpenAPI defers to RFC 6570 for which values count " +
-      "as undefined, that list includes null, and an undefined variable is ignored by the " +
-      "expansion process, so a client sending null sends nothing. The parameter is required " +
-      "and admits null, so the wire form that means null is the same wire form that means " +
-      "absent, and a library cannot tell the two apart from the request alone. The schema " +
-      "admits null through 3.0's nullable keyword; 3.0 has no type arrays.",
-    basis: cite.RFC6570_UNDEFINED_INCLUDES_NULL,
-    document: document([{ name: "p", in: "query", required: true, schema: NULLABLE_STRING }], "/t"),
-    request: request("/t"),
-    dimensions: {
-      declaration: "schema",
-      location: "query",
-      style: "form",
-      explode: true,
-      declaredStyle: "unset",
-      declaredExplode: "unset",
-      schema: "nullableScalar",
-      probeAxis: "missingName",
-    },
-    varies: ["the schema admits null and the wire carries null's own serialization"],
-    holdsConstant: ["the style is the defaulted one", "one parameter declared"],
-  },
-  {
     id: "query-form-scalar-name-without-value-oas30",
     title: "query, form, scalar, the name present with no delimiter after it",
     inShort:
@@ -1142,6 +1153,37 @@ export const queryCases30: readonly Case[] = [
       "one parameter declared",
       "the declaration is required",
     ],
+  },
+  {
+    id: "query-form-scalar-nullable-absent-oas30",
+    title: "query, form, nullable scalar, required and nothing sent",
+    inShort:
+      "A required parameter whose type allows null is left out entirely. Absent and null " +
+      "look the same on the wire and different to a schema.",
+    tier: "divergence",
+    oasVersion: "3.0",
+    question:
+      "This is null's own serialization. OpenAPI defers to RFC 6570 for which values count " +
+      "as undefined, that list includes null, and an undefined variable is ignored by the " +
+      "expansion process, so a client sending null sends nothing. The parameter is required " +
+      "and admits null, so the wire form that means null is the same wire form that means " +
+      "absent, and a library cannot tell the two apart from the request alone. The schema " +
+      "admits null through 3.0's nullable keyword; 3.0 has no type arrays.",
+    basis: cite.RFC6570_UNDEFINED_INCLUDES_NULL,
+    document: document([{ name: "p", in: "query", required: true, schema: NULLABLE_STRING }], "/t"),
+    request: request("/t"),
+    dimensions: {
+      declaration: "schema",
+      location: "query",
+      style: "form",
+      explode: true,
+      declaredStyle: "unset",
+      declaredExplode: "unset",
+      schema: "nullableScalar",
+      probeAxis: "missingName",
+    },
+    varies: ["the schema admits null and the wire carries null's own serialization"],
+    holdsConstant: ["the style is the defaulted one", "one parameter declared"],
   },
   {
     id: "query-form-scalar-nullable-empty-oas30",
@@ -1302,6 +1344,44 @@ export const queryCases30: readonly Case[] = [
     },
     varies: ["the schema carries a default the specification says a consumer would assume"],
     holdsConstant: ["style and explode are stated", "no foreign parameter present"],
+  },
+  {
+    id: "query-form-scalar-unencoded-plus-oas30",
+    title: "query, form, scalar, the value carries an unencoded plus",
+    inShort:
+      "Sends p=a+b. Whether that plus is a space or a plus depends on which decoder reads " +
+      "it, and this version names both without choosing.",
+    tier: "divergence",
+    oasVersion: "3.0",
+    question:
+      "The wire carries an unencoded + in a query parameter value. Appendix E says a " +
+      "form-urlencoded decoder reads it as a space and a percent-decoder reads it as " +
+      "itself, and that care must be taken to use the right one. It does not say which " +
+      "one a form-style parameter value gets. The style table defers to RFC6570 " +
+      "expansion, which has no +-for-space convention, so nothing upstream settles it " +
+      "either. Both a and b joined by a space and the literal three characters are " +
+      "readings of what this version wrote. 3.2 settles this and its twin there is " +
+      "attributable.",
+    basis: cite.PLUS_DECODING_AMBIGUOUS,
+    answeredInValues: true,
+    document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
+    request: request("/t?p=a+b"),
+    dimensions: {
+      declaration: "schema",
+      location: "query",
+      style: "form",
+      explode: true,
+      declaredStyle: "unset",
+      declaredExplode: "unset",
+      schema: "scalar",
+      probeAxis: "encodingVariant",
+    },
+    varies: ["the wire spells a space with a plus rather than a percent-encoded triple"],
+    holdsConstant: [
+      "the identifier is the declared one",
+      "the style is the defaulted one",
+      "the value is well-formed for the declared type",
+    ],
   },
   {
     id: "query-form-scalar-unset-style-oas30",
@@ -1526,85 +1606,5 @@ export const queryCases30: readonly Case[] = [
     },
     varies: [],
     holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
-  },
-  {
-    id: "query-form-scalar-unencoded-plus-oas30",
-    title: "query, form, scalar, the value carries an unencoded plus",
-    inShort:
-      "Sends p=a+b. Whether that plus is a space or a plus depends on which decoder reads " +
-      "it, and this version names both without choosing.",
-    tier: "divergence",
-    oasVersion: "3.0",
-    question:
-      "The wire carries an unencoded + in a query parameter value. Appendix E says a " +
-      "form-urlencoded decoder reads it as a space and a percent-decoder reads it as " +
-      "itself, and that care must be taken to use the right one. It does not say which " +
-      "one a form-style parameter value gets. The style table defers to RFC6570 " +
-      "expansion, which has no +-for-space convention, so nothing upstream settles it " +
-      "either. Both a and b joined by a space and the literal three characters are " +
-      "readings of what this version wrote. 3.2 settles this and its twin there is " +
-      "attributable.",
-    basis: cite.PLUS_DECODING_AMBIGUOUS,
-    answeredInValues: true,
-    document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
-    request: request("/t?p=a+b"),
-    dimensions: {
-      declaration: "schema",
-      location: "query",
-      style: "form",
-      explode: true,
-      declaredStyle: "unset",
-      declaredExplode: "unset",
-      schema: "scalar",
-      probeAxis: "encodingVariant",
-    },
-    varies: ["the wire spells a space with a plus rather than a percent-encoded triple"],
-    holdsConstant: [
-      "the identifier is the declared one",
-      "the style is the defaulted one",
-      "the value is well-formed for the declared type",
-    ],
-  },
-  {
-    id: "query-form-scalar-encoded-plus-oas30",
-    title: "query, form, scalar, the value carries a percent-encoded plus",
-    inShort:
-      "Sends p=a%2Bb. Both decoders Appendix E names agree here, so the plus is data and " +
-      "the answer is settled.",
-    tier: "conformance",
-    oasVersion: "3.0",
-    citations: [
-      cite.PARAMETER_STYLE,
-      cite.URI_PERCENT_DECODING,
-      cite.PLUS_DECODING_AMBIGUOUS,
-      cite.SCHEMA_OBJECT,
-    ],
-    expected: "accepted",
-    expectedValues: { p: "a+b" },
-    rationale:
-      "Appendix E leaves an unencoded + open by naming two decoders, and this case is " +
-      "where the two agree: form-urlencoded decoding adds +-for-space handling to " +
-      "percent-decoding and converts an unencoded + only, so %2B is a literal + under " +
-      "both. The value reaching the schema is a+b whichever decoder read it. This is the " +
-      "control for its unencoded twin, and the two together separate a library that " +
-      "percent-decodes from one that converts every plus it sees.",
-    document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
-    request: request("/t?p=a%2Bb"),
-    dimensions: {
-      declaration: "schema",
-      location: "query",
-      style: "form",
-      explode: true,
-      declaredStyle: "unset",
-      declaredExplode: "unset",
-      schema: "scalar",
-      probeAxis: "encodingVariant",
-    },
-    varies: ["the wire carries a percent-encoded plus, which no other case sends"],
-    holdsConstant: [
-      "the identifier is the declared one",
-      "the style is the defaulted one",
-      "the value is well-formed for the declared type",
-    ],
   },
 ];
