@@ -74,6 +74,25 @@ question the corpus already asks at four locations, asked at a fifth, and
 nothing measures it anywhere. If the corpus ever grows past parameters, that
 surface has the strongest claim.
 
+### Schema constraint keywords are an unfilled surface
+
+Every case document writes `type` and the keywords that name a value's shape,
+and no case writes `pattern`, `enum`, `const`, a length or numeric bound,
+`uniqueItems`, `additionalProperties` or a composition keyword.
+
+[bowtie](https://github.com/bowtie-json-schema/bowtie) measures standalone JSON
+Schema implementations directly against the official suites. This corpus asks
+an integration question beside that work: whether each exact OpenAPI library,
+version and configuration applies those keywords to a parameter after it
+deserializes the wire value. Cases here would answer that public-API behavior
+at less dialect depth than bowtie.
+
+OpenAPI also draws version-specific boundaries around the dialect. 3.0 declares
+a list of JSON Schema keywords as strictly unsupported, and
+`exclusiveMinimum` is a boolean in 3.0 and a number in 3.1 and 3.2. The corpus
+carries no case for either boundary. The per-version coverage maps publish both
+kinds of gap under held constants.
+
 ## Libraries measured
 
 | ecosystem                 | libraries measured                                                                            | start here                                                                               |

@@ -330,3 +330,28 @@ existed.
   the first's.
 - One operation per path and one declared parameter, except where a case
   names the competition it stages.
+- Document structure: every case document is `openapi`, `info` and `paths`,
+  with one operation carrying a `parameters` list. No `servers`, no
+  `components`, no `$ref`, and no path-item-level `parameters`. This one is
+  held by the object model in `src/types/openapi.ts` rather than by habit,
+  so a case reaching for any of it does not typecheck. Server URL
+  resolution, reference resolution and the path-item override rules are
+  real specification surface and none of them is measured here.
+- Schema vocabulary: `default`, `items`, `properties`, `required`, `type`.
+  Nothing else appears, so no case turns on `pattern`, `enum`, `const`, a
+  length or numeric bound, `uniqueItems`, `additionalProperties` or a
+  composition keyword. [bowtie](https://github.com/bowtie-json-schema/bowtie)
+  measures standalone JSON Schema implementations against the official suites.
+  Cases here would answer the integration question: whether each exact OpenAPI
+  library, version and configuration applies a keyword after parameter
+  deserialization. That surface is unfilled. The OpenAPI-specific dialect
+  boundary is unfilled too: 3.0's list of strictly unsupported keywords, and
+  `exclusiveMinimum` written as a boolean in 3.0 against a number in 3.1 and
+  3.2.
+- Header parameter names held constant: `Accept`, `Authorization`, `Content-Type`.
+  Every version reserves each of these and says a parameter so named SHALL be
+  ignored.
+  No reserved-name case appears in this version.
+- Wire encoding of a space: no case sends a literal `+`. The encoding axis
+  varies toward percent-encoding and never toward the other spelling, so
+  whether a library reads `+` as a space is unasked.

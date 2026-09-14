@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { cases } from "../../src/corpus/index";
+import type { Case } from "../../src/types/case";
 import { readRun } from "../../src/report/read";
 import { renderCorpus, renderMarkdown } from "../../src/report/render";
 import { coverage, presentVersions, versionSlug } from "../../src/report/view";
@@ -134,6 +135,65 @@ describe("the coverage table and the coverage numbers are one claim", () => {
       expect(drawn).toBe(view.contentDefined);
     });
   }
+});
+
+describe("reserved header names are published one by one", () => {
+  const artifacts = renderMarkdown(run.cases, run.measurements);
+
+  it("publishes all three names where the 3.2 tranche asks none", () => {
+    const page = artifacts["coverage.oas32.md"] ?? "";
+    expect(page).toContain(
+      "Header parameter names held constant: `Accept`, `Authorization`, `Content-Type`.",
+    );
+    expect(page).toContain("No reserved-name case appears in this version.");
+  });
+});
+
+describe("schema vocabulary visits schemas rather than instance data", () => {
+  it("keeps object-valued annotations and schema-map names out of the keyword list", () => {
+    const source = cases.find(
+      (testCase) => testCase.id === "query-form-object-canonical-explode-oas31",
+    );
+    if (source === undefined) throw new Error("schema vocabulary fixture case is missing");
+    const operation = source.document.paths["/t"]?.get;
+    const parameter = operation?.parameters?.[0];
+    if (operation === undefined || parameter === undefined) {
+      throw new Error("schema vocabulary fixture parameter is missing");
+    }
+    const testCase: Case = {
+      ...source,
+      id: "schema-vocabulary-fixture-oas31",
+      document: {
+        ...source.document,
+        paths: {
+          "/t": {
+            get: {
+              ...operation,
+              parameters: [
+                {
+                  ...parameter,
+                  schema: {
+                    type: "object",
+                    const: { instanceName: "blue" },
+                    default: { anotherInstanceName: "black" },
+                    patternProperties: { "^namedSchema$": { minLength: 1 } },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    };
+
+    const page = renderMarkdown([testCase], [])["coverage.oas31.md"] ?? "";
+    expect(page).toContain(
+      "Schema vocabulary: `const`, `default`, `minLength`, `patternProperties`, `type`.",
+    );
+    for (const instanceKey of ["instanceName", "anotherInstanceName", "^namedSchema$"]) {
+      expect(page).not.toContain(`\`${instanceKey}\``);
+    }
+  });
 });
 
 describe("the order libraries are handed in does not reach the markdown", () => {

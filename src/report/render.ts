@@ -1,4 +1,5 @@
 import type { Case, Citation, ConformanceCase } from "../types/case";
+import type { JsonValue } from "../types/json";
 import type { OasVersion, ParameterLocation } from "../types/openapi";
 import type { PipelineStage } from "../types/pipeline";
 import type { SplittableLocation } from "../types/pipeline";
@@ -450,6 +451,119 @@ function list(items: readonly string[]): string {
   return items.length === 0 ? "nothing" : items.join("; ");
 }
 
+/**
+ * Every schema keyword the corpus writes, anywhere in a case document.
+ *
+ * Derived rather than listed, so the held-constant bullet drawn from it stops
+ * claiming a constant the moment a case overturns it. `schema` is `JsonValue`,
+ * so a case constraining a value with `pattern` is expressible and would show
+ * up here without anyone remembering to edit prose.
+ */
+function schemaKeywordsUsed(cases: readonly Case[]): readonly string[] {
+  const schemaValues = new Set([
+    "additionalItems",
+    "additionalProperties",
+    "contains",
+    "contentSchema",
+    "else",
+    "if",
+    "items",
+    "not",
+    "propertyNames",
+    "then",
+    "unevaluatedItems",
+    "unevaluatedProperties",
+  ]);
+  const schemaArrays = new Set(["allOf", "anyOf", "oneOf", "prefixItems"]);
+  const schemaMaps = new Set([
+    "$defs",
+    "definitions",
+    "dependencies",
+    "dependentSchemas",
+    "patternProperties",
+    "properties",
+  ]);
+  const found = new Set<string>();
+  const walk = (node: JsonValue): void => {
+    if (node === null || typeof node !== "object") return;
+    if (Array.isArray(node)) {
+      for (const item of node) walk(item);
+      return;
+    }
+    for (const [keyword, value] of Object.entries(node)) {
+      found.add(keyword);
+      // Only these positions contain schemas. An object under `default`,
+      // `const`, `enum` or `examples` is an instance, and its property names
+      // are data rather than vocabulary. Map keys under `properties`, `$defs`
+      // and their siblings are names or patterns, while the map values are the
+      // schemas to visit.
+      if (schemaValues.has(keyword)) {
+        walk(value);
+      } else if (schemaArrays.has(keyword) && Array.isArray(value)) {
+        for (const schema of value) walk(schema);
+      } else if (
+        schemaMaps.has(keyword) &&
+        value !== null &&
+        typeof value === "object" &&
+        !Array.isArray(value)
+      ) {
+        for (const schema of Object.values(value)) walk(schema);
+      }
+    }
+  };
+  for (const testCase of cases) {
+    for (const pathItem of Object.values(testCase.document.paths)) {
+      for (const operation of [pathItem.get, pathItem.post]) {
+        for (const parameter of operation?.parameters ?? []) {
+          if (parameter.schema !== undefined) walk(parameter.schema);
+          for (const mediaType of Object.values(parameter.content ?? {})) {
+            if (mediaType.schema !== undefined) walk(mediaType.schema);
+          }
+        }
+      }
+    }
+  }
+  return [...found].sort();
+}
+
+/**
+ * The three header names a parameter declaration may not claim, in the casing
+ * the specification writes them. All three versions carry the same sentence:
+ * a header parameter so named SHALL be ignored.
+ */
+const RESERVED_HEADER_NAMES = ["Accept", "Authorization", "Content-Type"];
+
+/** The reserved names no case in this version declares. */
+function unprobedReservedHeaderNames(cases: readonly Case[]): readonly string[] {
+  const declared = new Set<string>();
+  for (const testCase of cases) {
+    for (const pathItem of Object.values(testCase.document.paths)) {
+      for (const operation of [pathItem.get, pathItem.post]) {
+        for (const parameter of operation?.parameters ?? []) {
+          if (parameter.in === "header") declared.add(parameter.name.toLowerCase());
+        }
+      }
+    }
+  }
+  return RESERVED_HEADER_NAMES.filter((name) => !declared.has(name.toLowerCase()));
+}
+
+/**
+ * Whether any case puts a literal `+` on the wire.
+ *
+ * The corpus varies encoding only toward percent-encoding, so `+` is the side
+ * of that axis nothing reaches. 3.2 settles it (form-urlencoded content, query
+ * strings included, MUST parse under WHATWG rules, which read an unencoded `+`
+ * as a space); 3.0 and 3.1 leave it to Appendix E guidance.
+ */
+function sendsUnencodedPlus(cases: readonly Case[]): boolean {
+  return cases.some(
+    (testCase) =>
+      testCase.request.target.includes("+") ||
+      testCase.request.headers.some(([, value]) => value.includes("+")),
+  );
+}
+
 function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   // The surface table enumerates style serialization, so only cases declared
   // with `schema` belong in it. A `content` parameter has no style to place.
@@ -765,6 +879,52 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("  the first's.");
   lines.push("- One operation per path and one declared parameter, except where a case");
   lines.push("  names the competition it stages.");
+  lines.push("- Document structure: every case document is `openapi`, `info` and `paths`,");
+  lines.push("  with one operation carrying a `parameters` list. No `servers`, no");
+  lines.push("  `components`, no `$ref`, and no path-item-level `parameters`. This one is");
+  lines.push("  held by the object model in `src/types/openapi.ts` rather than by habit,");
+  lines.push("  so a case reaching for any of it does not typecheck. Server URL");
+  lines.push("  resolution, reference resolution and the path-item override rules are");
+  lines.push("  real specification surface and none of them is measured here.");
+  const keywords = schemaKeywordsUsed(cases);
+  lines.push(`- Schema vocabulary: ${keywords.map((word) => `\`${word}\``).join(", ")}.`);
+  lines.push("  Nothing else appears, so no case turns on `pattern`, `enum`, `const`, a");
+  lines.push("  length or numeric bound, `uniqueItems`, `additionalProperties` or a");
+  lines.push("  composition keyword. [bowtie](https://github.com/bowtie-json-schema/bowtie)");
+  lines.push("  measures standalone JSON Schema implementations against the official suites.");
+  lines.push("  Cases here would answer the integration question: whether each exact OpenAPI");
+  lines.push("  library, version and configuration applies a keyword after parameter");
+  lines.push("  deserialization. That surface is unfilled. The OpenAPI-specific dialect");
+  lines.push("  boundary is unfilled too: 3.0's list of strictly unsupported keywords, and");
+  lines.push("  `exclusiveMinimum` written as a boolean in 3.0 against a number in 3.1 and");
+  lines.push("  3.2.");
+  const unprobedReserved = unprobedReservedHeaderNames(cases);
+  if (unprobedReserved.length > 0) {
+    lines.push(
+      `- Header parameter names held constant: ${unprobedReserved
+        .map((name) => `\`${name}\``)
+        .join(", ")}.`,
+    );
+    lines.push("  Every version reserves each of these and says a parameter so named SHALL be");
+    lines.push("  ignored.");
+    const probedReserved = RESERVED_HEADER_NAMES.filter(
+      (name) => !unprobedReserved.includes(name),
+    );
+    if (probedReserved.length === 0) {
+      lines.push("  No reserved-name case appears in this version.");
+    } else {
+      lines.push(
+        `  This version exercises ${probedReserved
+          .map((name) => `\`${name}\``)
+          .join(", ")}; the names above remain unasked.`,
+      );
+    }
+  }
+  if (!sendsUnencodedPlus(cases)) {
+    lines.push("- Wire encoding of a space: no case sends a literal `+`. The encoding axis");
+    lines.push("  varies toward percent-encoding and never toward the other spelling, so");
+    lines.push("  whether a library reads `+` as a space is unasked.");
+  }
   lines.push("");
   return lines.join("\n");
 }
