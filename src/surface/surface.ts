@@ -59,24 +59,33 @@ export const STYLES: readonly Style[] = [
  */
 export const SCHEMA_SHAPES: readonly SchemaShape[] = ["array", "object", "scalar"];
 
-export const PROBE_AXES: readonly ProbeAxis[] = [
-  "canonical",
-  "caseVariant",
-  "competingParameter",
-  "competingPath",
-  "declarationFlag",
-  "duplicateName",
-  "emptyAfterParse",
-  "emptyContainer",
-  "encodingVariant",
-  "foreignName",
-  "foreignWireShape",
-  "missingName",
-  "nameWithoutValue",
-  "optionalAbsent",
-  "reservedName",
-  "wrongTypeValue",
-];
+/**
+ * Spelled as a record so that the compiler holds it complete: an axis added to
+ * `ProbeAxis` and forgotten here is a type error on this object, rather than a
+ * set of cases silently absent from the by-axis view and the axis coverage
+ * table, both of which iterate this list. `SCHEMA_SHAPES` above carries no
+ * such check because its omissions are the judgement its comment states.
+ */
+const PROBE_AXIS_LISTED = {
+  canonical: true,
+  caseVariant: true,
+  competingParameter: true,
+  competingPath: true,
+  declarationFlag: true,
+  duplicateName: true,
+  emptyAfterParse: true,
+  emptyContainer: true,
+  encodingVariant: true,
+  foreignName: true,
+  foreignWireShape: true,
+  missingName: true,
+  nameWithoutValue: true,
+  optionalAbsent: true,
+  reservedName: true,
+  wrongTypeValue: true,
+} satisfies Readonly<Record<ProbeAxis, true>>;
+
+export const PROBE_AXES: readonly ProbeAxis[] = Object.keys(PROBE_AXIS_LISTED) as ProbeAxis[];
 
 /**
  * Which locations each style is legal in, per each version's Style Values
