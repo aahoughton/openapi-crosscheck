@@ -111,6 +111,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | `{"p":100}` |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | rejected | `{"p":null}` |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | `{}` |
+| [`query-form-scalar-type-array-oas30`](../matrix.oas30.md#query-form-scalar-type-array-oas30) | accepted | `{"p":"blue"}` |
 | [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | `{"p":"a b"}` |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | accepted | `{"p":["blue","black"]}` |
 
@@ -127,10 +128,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 48 |
+| pass | 49 |
 | FAIL (verdict) | 8 |
 | FAIL (value) | 7 |
-| every conformance case | 63 |
+| every conformance case | 64 |
 
 #### Cases it did not pass
 

@@ -140,6 +140,7 @@ rules the expected verdict rests on, and the argument for it.
 | [`path-simple-scalar-wrong-type-oas31`](#path-simple-scalar-wrong-type-oas31) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-content-json-object-canonical-oas31`](#query-content-json-object-canonical-oas31) | accepted | n/a | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
 | [`query-content-json-object-malformed-oas31`](#query-content-json-object-malformed-oas31) | rejected | n/a | pass | pass | pass | pass | pass | RAISED | n/a | n/a | pass |
+| [`query-content-json-scalar-nullable-literal-oas31`](#query-content-json-scalar-nullable-literal-oas31) | rejected | n/a | FAIL (verdict) | pass | pass | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`query-deep-object-canonical-oas31`](#query-deep-object-canonical-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
 | [`query-form-array-canonical-explode-oas31`](#query-form-array-canonical-explode-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | pass | pass | n/a | pass |
 | [`query-form-array-canonical-no-explode-oas31`](#query-form-array-canonical-no-explode-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
@@ -1223,6 +1224,32 @@ Every rule the expected verdict rests on, OpenAPI 3.1:
 The declared representation is application/json and the value is not JSON, so there is nothing for the schema to be evaluated against. Distinct from a value that parses and then fails its schema.
 
 Varies: the value is not a representation of the declared media type. Holds constant: one media type is declared; the identifier is the declared one.
+
+##### `query-content-json-scalar-nullable-literal-oas31`
+
+query, content application/json, nullable keyword, a literal null. Expected: **rejected**.
+
+Declares {type: string, nullable: true}, the 3.0 spelling, and sends a JSON null. This version's dialect has no nullable keyword, so the schema admits strings only and the null is to be rejected.
+
+Request: `GET /t?p=null`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[parameter-content](https://spec.openapis.org/oas/v3.1.1.html#parameter-content)
+
+> A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry.
+
+[media-type-object](https://spec.openapis.org/oas/v3.1.1.html#media-type-object)
+
+> Each Media Type Object provides schema and examples for the media type identified by its key.
+
+[schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+The Schema Object here is a superset of JSON Schema Draft 2020-12, and 2020-12 defines no nullable keyword: an unrecognized keyword collects as an annotation and asserts nothing. So this schema constrains exactly as {type: string} does, and the JSON null the wire carries is not a string. A validator reading the dialect rejects; one carrying 3.0's nullable semantics into a 3.1 document accepts, and that acceptance is attributable. The declaration is legal, which separates this from the invalid-document cases: 2020-12 admits unknown keywords, so the document breaks no rule and the verdict is settled.
+
+Varies: the schema writes 3.0's nullable keyword, which this version's dialect ignores. Holds constant: the identifier is the declared one; the value is a well-formed representation of the declared media type.
 
 ##### `query-deep-object-canonical-oas31`
 

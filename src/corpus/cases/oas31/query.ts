@@ -169,6 +169,54 @@ export const queryCases: readonly Case[] = [
     holdsConstant: ["one media type is declared", "the identifier is the declared one"],
   },
   {
+    id: "query-content-json-scalar-nullable-literal-oas31",
+    title: "query, content application/json, nullable keyword, a literal null",
+    inShort:
+      "Declares {type: string, nullable: true}, the 3.0 spelling, and sends a JSON " +
+      "null. This version's dialect has no nullable keyword, so the schema admits " +
+      "strings only and the null is to be rejected.",
+    tier: "conformance",
+    oasVersion: "3.1",
+    citations: [cite.PARAMETER_CONTENT, cite.MEDIA_TYPE_OBJECT, cite.SCHEMA_OBJECT],
+    expected: "rejected",
+    expectedValues: null,
+    rationale:
+      "The Schema Object here is a superset of JSON Schema Draft 2020-12, and 2020-12 " +
+      "defines no nullable keyword: an unrecognized keyword collects as an annotation " +
+      "and asserts nothing. So this schema constrains exactly as {type: string} does, " +
+      "and the JSON null the wire carries is not a string. A validator reading the " +
+      "dialect rejects; one carrying 3.0's nullable semantics into a 3.1 document " +
+      "accepts, and that acceptance is attributable. The declaration is legal, which " +
+      "separates this from the invalid-document cases: 2020-12 admits unknown keywords, " +
+      "so the document breaks no rule and the verdict is settled.",
+    document: document(
+      [
+        {
+          name: "p",
+          in: "query",
+          required: true,
+          content: {
+            "application/json": { schema: { type: "string", nullable: true } },
+          },
+        },
+      ],
+      "/t",
+    ),
+    request: request("/t?p=null"),
+    dimensions: {
+      declaration: "content",
+      location: "query",
+      mediaType: "application/json",
+      schema: "scalar",
+      probeAxis: "wrongTypeValue",
+    },
+    varies: ["the schema writes 3.0's nullable keyword, which this version's dialect ignores"],
+    holdsConstant: [
+      "the identifier is the declared one",
+      "the value is a well-formed representation of the declared media type",
+    ],
+  },
+  {
     id: "query-content-two-media-types-oas31",
     title: "query, content declaring two media types",
     inShort:

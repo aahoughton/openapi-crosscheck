@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
+  "corpusDigest": "sha256:8587274ce07efa72812fd13f98e68c912ccdaabefcd43c7bf4d0806071631285",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -3515,6 +3515,32 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.149.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: empty value is not allowed",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "github.com/getkin/kin-openapi",
@@ -5012,6 +5038,18 @@
           "pathParams": {},
           "stage": "validation"
         }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-type-array-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.149.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "document rejected: invalid paths: invalid path /t: invalid operation GET: parameter \"p\" schema is invalid: unsupported 'type' value \"null\""
       }
     },
     {

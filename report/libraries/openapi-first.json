@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "gem \"openapi_first\""
   },
-  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
+  "corpusDigest": "sha256:8587274ce07efa72812fd13f98e68c912ccdaabefcd43c7bf4d0806071631285",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -3962,6 +3962,37 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "NilClass"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "error": {
+            "type": "invalid_query",
+            "message": "Query parameter is invalid: value at `/p` is not a string"
+          }
+        }
+      }
+    },
+    {
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "openapi_first",
@@ -5796,6 +5827,34 @@
             "type": "invalid_query",
             "message": "Query parameter is invalid: string at `/p` does not match pattern: ^[0-9]+$"
           }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-type-array-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "3.4.3",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "String"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
         }
       }
     },

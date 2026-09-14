@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "*"
   },
-  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
+  "corpusDigest": "sha256:8587274ce07efa72812fd13f98e68c912ccdaabefcd43c7bf4d0806071631285",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -3862,6 +3862,30 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "league/openapi-psr7-validator",
@@ -5552,6 +5576,22 @@
               }
             }
           }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-type-array-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "libraryError",
+        "detail": "TypeError: League\\OpenAPIValidation\\PSR7\\Validators\\SerializedParameter::castToSchemaType(): Argument #2 ($type) must be of type ?string, array given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/SerializedParameter.php on line 120",
+        "raw": {
+          "type": "TypeError",
+          "message": "League\\OpenAPIValidation\\PSR7\\Validators\\SerializedParameter::castToSchemaType(): Argument #2 ($type) must be of type ?string, array given, called in /app/vendor/league/openapi-psr7-validator/src/PSR7/Validators/SerializedParameter.php on line 120",
+          "previous": null
         }
       }
     },

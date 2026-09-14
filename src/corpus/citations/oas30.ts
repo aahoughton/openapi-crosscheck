@@ -83,6 +83,15 @@ export const SCHEMA_KEYWORDS_FROM_JSON_SCHEMA = cite(
 );
 
 /**
+ * 3.0's adjusted `type`: one string, never an array. The spelling 3.1 uses to
+ * admit null is a document error here, and this sentence is what makes it one.
+ */
+export const TYPE_SINGLE_STRING = cite(
+  "json-schema-keywords",
+  "type - Value MUST be a string. Multiple types via an array are not supported.",
+);
+
+/**
  * 3.0's way of admitting null: a modifier on a single-string `type`, inert
  * without one, and overridable by every other constraint in the schema.
  */

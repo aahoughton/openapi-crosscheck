@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
+  "corpusDigest": "sha256:8587274ce07efa72812fd13f98e68c912ccdaabefcd43c7bf4d0806071631285",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -3444,6 +3444,35 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [
+            {
+              "message": "Query parameter 'p' failed schema compilation",
+              "reason": "The query parameter 'p' schema compilation failed: JSON schema compile failed: OpenAPI keyword 'nullable': The `nullable` keyword is not supported in OpenAPI 3.1+. Use `type: ['string', 'null']` instead",
+              "validationSubType": "query",
+              "validationType": "parameter"
+            }
+          ],
+          "valid": false
+        }
+      }
+    },
+    {
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "github.com/pb33f/libopenapi-validator",
@@ -4954,6 +4983,28 @@
             }
           ],
           "valid": false
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-type-array-oas30",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
         }
       }
     },

@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
+  "corpusDigest": "sha256:8587274ce07efa72812fd13f98e68c912ccdaabefcd43c7bf4d0806071631285",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -6777,6 +6777,53 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "null"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "coerced": {
+            "method": "GET",
+            "path": "/t",
+            "query": {
+              "p": null
+            },
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "params": {}
+          },
+          "errors": null
+        }
+      }
+    },
+    {
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "openapi-backend",
@@ -9895,6 +9942,30 @@
               "message": "must be string"
             }
           ]
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-type-array-oas30",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.20.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "Unknown operation",
+        "raw": {
+          "name": "Error",
+          "message": "Unknown operation",
+          "stackOmitted": true
         }
       }
     },

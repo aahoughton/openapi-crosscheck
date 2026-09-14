@@ -157,6 +157,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | not exposed by this library |
+| [`query-form-scalar-type-array-oas30`](../matrix.oas30.md#query-form-scalar-type-array-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | not asked (stageNotOwned) | - |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | not asked (stageNotOwned) | - |
 
@@ -175,8 +176,8 @@ the page with the numbers.
 | --- | --- |
 | pass | 8 |
 | FAIL (verdict) | 2 |
-| not asked | 53 |
-| every conformance case | 63 |
+| not asked | 54 |
+| every conformance case | 64 |
 
 #### Cases it did not pass
 
@@ -235,6 +236,7 @@ at or downstream of the stage this case probes.
 - [`path-simple-scalar-unset-style-oas31`](../matrix.oas31.md#path-simple-scalar-unset-style-oas31) (stageNotOwned)
 - [`query-content-json-object-canonical-oas31`](../matrix.oas31.md#query-content-json-object-canonical-oas31) (stageNotOwned)
 - [`query-content-json-object-malformed-oas31`](../matrix.oas31.md#query-content-json-object-malformed-oas31) (stageNotOwned)
+- [`query-content-json-scalar-nullable-literal-oas31`](../matrix.oas31.md#query-content-json-scalar-nullable-literal-oas31) (stageNotOwned)
 - [`query-deep-object-canonical-oas31`](../matrix.oas31.md#query-deep-object-canonical-oas31) (stageNotOwned)
 - [`query-form-array-canonical-explode-oas31`](../matrix.oas31.md#query-form-array-canonical-explode-oas31) (stageNotOwned)
 - [`query-form-array-canonical-no-explode-oas31`](../matrix.oas31.md#query-form-array-canonical-no-explode-oas31) (stageNotOwned)

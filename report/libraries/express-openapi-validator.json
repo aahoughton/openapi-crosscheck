@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
+  "corpusDigest": "sha256:8587274ce07efa72812fd13f98e68c912ccdaabefcd43c7bf4d0806071631285",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -6033,6 +6033,49 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "handedToHandler",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "null"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 200,
+          "body": {
+            "params": {},
+            "query": {
+              "p": null
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "express-openapi-validator",
@@ -8921,6 +8964,38 @@
             "params": {},
             "query": {
               "p": "abc"
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            }
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-type-array-oas30",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "the middleware raised; the app answered 500",
+        "raw": {
+          "status": 500,
+          "body": {
+            "message": "openapi.validator: args.apiDoc was invalid.  See the output.",
+            "errors": null,
+            "params": {},
+            "query": {
+              "p": "blue"
             },
             "headers": {
               "host": "harness.invalid",

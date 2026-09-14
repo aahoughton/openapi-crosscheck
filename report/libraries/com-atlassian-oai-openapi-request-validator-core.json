@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "LATEST"
   },
-  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
+  "corpusDigest": "sha256:8587274ce07efa72812fd13f98e68c912ccdaabefcd43c7bf4d0806071631285",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -4096,6 +4096,18 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes schemaValidation for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "com.atlassian.oai:openapi-request-validator-core",
@@ -6307,6 +6319,29 @@
             }
           ]
         }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-type-array-oas30",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                "blue"
+              ]
+            ]
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "com.atlassian.oai.validator.OpenApiInteractionValidator$ApiLoadException: Unable to load API spec from provided URL or payload:\n\t- attribute paths.'/t'(get).parameters.[p].schemas.type is not of type `string`"
       }
     },
     {

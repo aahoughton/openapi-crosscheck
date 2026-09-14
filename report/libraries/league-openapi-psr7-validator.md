@@ -121,6 +121,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | not exposed by this library |
+| [`query-form-scalar-type-array-oas30`](../matrix.oas30.md#query-form-scalar-type-array-oas30) | raised, no verdict | - |
 | [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | not exposed by this library |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | rejected | not exposed by this library |
 
@@ -139,9 +140,9 @@ the page with the numbers.
 | --- | --- |
 | pass | 13 |
 | pass (verdict only) | 23 |
-| FAIL (verdict) | 24 |
+| FAIL (verdict) | 25 |
 | raised instead of answering | 3 |
-| every conformance case | 63 |
+| every conformance case | 64 |
 
 #### Cases it did not pass
 
@@ -165,6 +166,7 @@ the page with the numbers.
 | [`path-matrix-scalar-foreign-name-oas31`](../matrix.oas31.md#path-matrix-scalar-foreign-name-oas31) | rejected | accepted | not exposed by this library |
 | [`path-simple-object-canonical-oas31`](../matrix.oas31.md#path-simple-object-canonical-oas31) | accepted | rejected | not exposed by this library |
 | [`path-simple-object-explode-oas31`](../matrix.oas31.md#path-simple-object-explode-oas31) | accepted | rejected | not exposed by this library |
+| [`query-content-json-scalar-nullable-literal-oas31`](../matrix.oas31.md#query-content-json-scalar-nullable-literal-oas31) | rejected | accepted | not exposed by this library |
 | [`query-form-array-canonical-explode-oas31`](../matrix.oas31.md#query-form-array-canonical-explode-oas31) | accepted | rejected | not exposed by this library |
 | [`query-form-array-unset-style-oas31`](../matrix.oas31.md#query-form-array-unset-style-oas31) | accepted | rejected | not exposed by this library |
 | [`query-form-object-canonical-explode-oas31`](../matrix.oas31.md#query-form-object-canonical-explode-oas31) | accepted | rejected | not exposed by this library |

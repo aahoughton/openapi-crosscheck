@@ -1396,6 +1396,60 @@ export const queryCases30: readonly Case[] = [
     ],
   },
   {
+    id: "query-form-scalar-type-array-oas30",
+    title: "query, form, scalar, type written as an array",
+    inShort:
+      "Declares type: [string, null], the 3.1 spelling, in a 3.0 document where type " +
+      "MUST be one string. The value is an ordinary string, so what can move is how a " +
+      "validator treats the unsupported spelling.",
+    tier: "divergence",
+    oasVersion: "3.0",
+    question:
+      "3.0 takes type from JSON Schema with an adjustment: the value MUST be a string, " +
+      "and multiple types via an array are not supported. This document writes the array " +
+      "spelling 3.1 admits. The rule constrains the document author and does not say " +
+      "what a validator does with a document breaking it: refusing the document, " +
+      "ignoring the unsupported keyword form, and reading it with 3.1 semantics are " +
+      "each defensible, and the wire value blue is a string under every one of those " +
+      "readings, so the readings part at the document boundary.",
+    basis: cite.TYPE_SINGLE_STRING,
+    document: document(
+      [
+        {
+          name: "p",
+          in: "query",
+          required: true,
+          style: "form",
+          explode: false,
+          schema: { type: ["string", "null"] },
+        },
+      ],
+      "/t",
+    ),
+    request: request("/t?p=blue"),
+    dimensions: {
+      declaration: "schema",
+      location: "query",
+      style: "form",
+      explode: false,
+      declaredStyle: "form",
+      declaredExplode: false,
+      schema: "nullableScalar",
+      probeAxis: "documentRule",
+    },
+    breaksDocumentRule: {
+      citation: cite.TYPE_SINGLE_STRING,
+      detail: "type is written as an array where 3.0 takes one string",
+      detectedByMetaSchema: true,
+    },
+    varies: ["the schema writes type as an array, which this version does not support"],
+    holdsConstant: [
+      "identifier is the declared one",
+      "wire shape matches the declared style",
+      "the value is a string under every reading of the declaration",
+    ],
+  },
+  {
     id: "query-form-scalar-unencoded-plus-oas30",
     title: "query, form, scalar, the value carries an unencoded plus",
     inShort:

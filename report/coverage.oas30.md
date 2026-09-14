@@ -83,9 +83,9 @@ shows whether the type was checked at all.
 | --- | --- | --- |
 | `boolean` | 2 | `query-form-boolean-wrong-type-oas30` |
 | `integer` | 8 | `path-matrix-scalar-wrong-type-oas30`, `path-simple-scalar-wrong-type-oas30`, `query-form-object-wrong-type-oas30`, `query-form-scalar-integer-fractional-oas30` |
-| `null` | 0 |  |
+| `null` | 1 |  |
 | `number` | 0 |  |
-| `string` | 82 | `query-form-object-wrong-type-oas30`, `query-form-scalar-nullable-literal-oas30` |
+| `string` | 83 | `query-form-object-wrong-type-oas30`, `query-form-scalar-nullable-literal-oas30` |
 
 A wrong-typed value against `string` cannot be constructed here. Every value on
 the wire is text, so there is nothing to send that a string schema must refuse,
@@ -198,7 +198,7 @@ resting on it, and can see which cited sections carry only one.
 | appendix-d-serializing-headers-and-cookies | `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-object-canonical-oas30`, `cookie-form-scalar-canonical-oas30`, `cookie-form-scalar-explode-oas30` |
 | decoding-uris-and-form-urlencoded-strings | `path-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas30`, `query-content-json-object-malformed-oas30`, `query-form-scalar-encoded-plus-oas30`, `query-form-scalar-encoded-plus-oas30`, `query-form-scalar-unencoded-plus-oas30` |
 | fixed-fields-for-use-with-content | `header-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas30`, `query-content-json-object-malformed-oas30` |
-| json-schema-keywords | `query-form-scalar-optional-default-absent-oas30`, `query-form-scalar-pattern-mismatch-oas30` |
+| json-schema-keywords | `query-form-scalar-optional-default-absent-oas30`, `query-form-scalar-pattern-mismatch-oas30`, `query-form-scalar-type-array-oas30` |
 | media-type-object | `header-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas30`, `query-content-json-object-malformed-oas30` |
 | parameter-allow-empty-value | `query-form-scalar-allow-empty-value-declared-oas30` |
 | parameter-allow-reserved | `query-form-scalar-allow-reserved-declared-oas30`, `query-form-scalar-allow-reserved-percent-triple-oas30`, `query-form-scalar-allow-reserved-unset-oas30` |
@@ -239,7 +239,7 @@ see Figures from elsewhere, below.
 | header | no | 0 of 3 | 3 |
 | path | yes | 30 of 30 | 30 |
 | path | no | 0 of 1 | 1 |
-| query | yes | 26 of 26 | 26 |
+| query | yes | 27 of 27 | 27 |
 | query | no | 0 of 11 | 11 |
 
 ## Figures from elsewhere
@@ -277,7 +277,7 @@ cannot show.
 | competingPath | 3 |
 | constraintViolation | 1 |
 | declarationFlag | 4 |
-| documentRule | 1 |
+| documentRule | 2 |
 | duplicateName | 2 |
 | emptyAfterParse | 1 |
 | emptyContainer | 2 |
@@ -307,7 +307,7 @@ would be filled by a canonical case, and canonical probes style.
 | splitting | 1 | 5 |
 | styleDeserialization | 45 | 18 |
 | contentDeserialization | 4 | 0 |
-| schemaValidation | 12 | 3 |
+| schemaValidation | 12 | 4 |
 
 `valueExposure` is a pipeline stage and has no row here, which is deliberate and
 is a correction. It had one, reading `0` and `0`, and that read as a gap someone
@@ -374,7 +374,7 @@ rows are that surface, unfilled.
 | pattern | 1 |
 | properties | 25 |
 | required | 1 |
-| type | 91 |
+| type | 92 |
 | uniqueItems | 0 |
 
 ## Held constant across every case

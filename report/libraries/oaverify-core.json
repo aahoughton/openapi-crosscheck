@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
+  "corpusDigest": "sha256:8587274ce07efa72812fd13f98e68c912ccdaabefcd43c7bf4d0806071631285",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -6595,6 +6595,59 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.2.2",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, headers and cookies object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": false,
+          "errors": [
+            {
+              "code": "type",
+              "path": [
+                "query",
+                "p"
+              ],
+              "message": "must be string",
+              "params": {
+                "expected": [
+                  "string"
+                ],
+                "actual": "null"
+              },
+              "children": []
+            }
+          ],
+          "truncated": true,
+          "value": {
+            "path": {},
+            "query": {},
+            "headers": {},
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "@oaverify/core",
@@ -9518,6 +9571,28 @@
             "headers": {},
             "cookies": {}
           }
+        }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-type-array-oas30",
+      "result": {
+        "library": "@oaverify/core",
+        "libraryVersion": "7.2.2",
+        "configurationId": "request-return-values",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "GET /t query parameter \"p\": keyword \"type\" must be a single string in OpenAPI 3.0; got [\"string\",\"null\"]. For nullability, add 'nullable: true' instead of 'type: [\"X\",\"null\"]'.",
+        "raw": {
+          "name": "Error",
+          "message": "GET /t query parameter \"p\": keyword \"type\" must be a single string in OpenAPI 3.0; got [\"string\",\"null\"]. For nullability, add 'nullable: true' instead of 'type: [\"X\",\"null\"]'.",
+          "stackOmitted": true
         }
       }
     },

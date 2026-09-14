@@ -136,6 +136,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | rejected | `{"p":["100"]}` |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | accepted | `{"p":""}` |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | `{}` |
+| [`query-form-scalar-type-array-oas30`](../matrix.oas30.md#query-form-scalar-type-array-oas30) | raised, no verdict | - |
 | [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | `{"p":"a b"}` |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | accepted | `{"p":["blue","black"]}` |
 
@@ -153,11 +154,11 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 28 |
-| FAIL (verdict) | 27 |
+| FAIL (verdict) | 28 |
 | FAIL (value) | 4 |
 | raised instead of answering | 3 |
 | not asked | 1 |
-| every conformance case | 63 |
+| every conformance case | 64 |
 
 #### Cases it did not pass
 
@@ -190,6 +191,7 @@ the page with the numbers.
 | [`path-simple-array-explode-oas31`](../matrix.oas31.md#path-simple-array-explode-oas31) | accepted | rejected | `{"p":"blue,black"}` |
 | [`path-simple-object-canonical-oas31`](../matrix.oas31.md#path-simple-object-canonical-oas31) | accepted | rejected | `{"p":"R,100,G,200"}` |
 | [`path-simple-object-explode-oas31`](../matrix.oas31.md#path-simple-object-explode-oas31) | accepted | rejected | `{"p":"R=100,G=200"}` |
+| [`query-content-json-scalar-nullable-literal-oas31`](../matrix.oas31.md#query-content-json-scalar-nullable-literal-oas31) | rejected | accepted | `{"p":null}` |
 | [`query-form-object-canonical-explode-oas31`](../matrix.oas31.md#query-form-object-canonical-explode-oas31) | accepted | rejected | `{}` |
 | [`query-form-object-canonical-no-explode-oas31`](../matrix.oas31.md#query-form-object-canonical-no-explode-oas31) | accepted | rejected | `{"p":["R","100","G","200"]}` |
 | [`query-pipe-delimited-object-canonical-oas31`](../matrix.oas31.md#query-pipe-delimited-object-canonical-oas31) | accepted | rejected | `{"p":["R","100","G","200"]}` |

@@ -101,6 +101,7 @@ nothing is attributed to it.
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | not exposed by this library |
+| [`query-form-scalar-type-array-oas30`](../matrix.oas30.md#query-form-scalar-type-array-oas30) | not asked (libraryInitUnsupported) | - |
 | [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | not exposed by this library |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | accepted | not exposed by this library |
 
@@ -117,10 +118,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 18 |
+| pass | 19 |
 | pass (verdict only) | 40 |
 | FAIL (verdict) | 5 |
-| every conformance case | 63 |
+| every conformance case | 64 |
 
 #### Cases it did not pass
 

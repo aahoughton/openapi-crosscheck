@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "openapi-core"
   },
-  "corpusDigest": "sha256:fa0b6a5844852c499b465806b2585eb64c741127c94b5f486004e5e33d43cdd7",
+  "corpusDigest": "sha256:8587274ce07efa72812fd13f98e68c912ccdaabefcd43c7bf4d0806071631285",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -5981,6 +5981,52 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                "null"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {},
+          "nativeTypes": {}
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [
+            {
+              "type": "InvalidParameter",
+              "message": "Invalid query parameter: p"
+            }
+          ],
+          "parameters": {
+            "path": {},
+            "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "openapi-core",
@@ -8454,6 +8500,30 @@
             "cookie": {}
           }
         }
+      }
+    },
+    {
+      "caseId": "query-form-scalar-type-array-oas30",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                "blue"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "OpenAPIValidationError: {'name': 'p', 'in': 'query', 'required': True, 'style': 'form', 'explode': False, 'schema': {'type': ['string', 'null']}} is not valid under any of the given schemas\n\nFailed validating 'oneOf' in schema['properties']['paths']['patternProperties']['^\\\\/']['patternProperties']['^(get|put|post|delete|options|head|patch|trace)$']['properties']['parameters']['items']:\n    {'oneOf': [{'$ref': '#/definitions/Parameter'},\n               {'$ref': '#/definitions/Reference'}]}\n\nOn instance['paths']['/t']['get']['parameters'][0]:\n    {'name': 'p',\n     'in': 'query',\n     'required': True,\n     'style': 'form',\n     'explode': False,\n     'schema': {'type': ['string', 'null']}}"
       }
     },
     {

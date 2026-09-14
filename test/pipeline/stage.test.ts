@@ -332,6 +332,7 @@ describe("a document-rule violation is decided where the forbidden field is read
   const ids = [
     "path-simple-scalar-required-false-oas30",
     "path-simple-scalar-required-false-oas31",
+    "query-form-scalar-type-array-oas30",
   ];
 
   it("carries every single-declaration violation on the one axis", () => {
@@ -364,7 +365,7 @@ describe("a document-rule violation is decided where the forbidden field is read
     ]);
   });
 
-  it("routes an invalid declaration outside querystring to schema validation", () => {
+  it("routes the three invalid declarations to schema validation", () => {
     const routed = cases
       .filter((testCase) => ids.includes(testCase.id))
       .map((testCase) => ({
@@ -380,6 +381,11 @@ describe("a document-rule violation is decided where the forbidden field is read
       },
       {
         id: "path-simple-scalar-required-false-oas31",
+        axis: "documentRule",
+        stage: "schemaValidation",
+      },
+      {
+        id: "query-form-scalar-type-array-oas30",
         axis: "documentRule",
         stage: "schemaValidation",
       },

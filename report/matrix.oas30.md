@@ -2585,6 +2585,35 @@ The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapi
 
 Varies: the schema admits null and the wire carries null's own serialization. Holds constant: the style is the defaulted one; one parameter declared.
 
+#### `query-form-scalar-type-array-oas30`
+
+query, form, scalar, type written as an array.
+
+Declares type: [string, null], the 3.1 spelling, in a 3.0 document where type MUST be one string. The value is an ordinary string, so what can move is how a validator treats the unsupported spelling.
+
+Request: `GET /t?p=blue`
+
+Open question: 3.0 takes type from JSON Schema with an adjustment: the value MUST be a string, and multiple types via an array are not supported. This document writes the array spelling 3.1 admits. The rule constrains the document author and does not say what a validator does with a document breaking it: refusing the document, ignoring the unsupported keyword form, and reading it with 3.1 semantics are each defensible, and the wire value blue is a string under every one of those readings, so the readings part at the document boundary.
+
+The text leaving it open: [json-schema-keywords](https://spec.openapis.org/oas/v3.0.4.html#json-schema-keywords)
+
+> type - Value MUST be a string. Multiple types via an array are not supported.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (libraryInitUnsupported) | - |
+| `express-openapi-validator` | raised, no verdict | - |
+| `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
+| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | raised, no verdict | - |
+| `@oaverify/core` | raised, no verdict | - |
+| `openapi-backend` | raised, no verdict | - |
+| `openapi-core` | not asked (libraryInitUnsupported) | - |
+| `openapi-request-validator` | accepted | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
+| `openapi_first` | accepted | `{"p":"blue"}` (parsed before validation) |
+
+Varies: the schema writes type as an array, which this version does not support. Holds constant: identifier is the declared one; wire shape matches the declared style; the value is a string under every reading of the declaration.
+
 #### `query-form-scalar-unencoded-plus-oas30`
 
 query, form, scalar, the value carries an unencoded plus.
