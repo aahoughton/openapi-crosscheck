@@ -73,6 +73,8 @@ export type UnsupportedReason =
    * caller, so its answer would describe the harness rather than the library.
    */
   | "stageNotOwned"
+  | "harnessInputUnavailable"
+  | "oasVersionNotDeclared"
   /**
    * The library's published API has no way to express what the case declares
    * or sends, so no call could carry it.

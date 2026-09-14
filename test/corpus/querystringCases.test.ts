@@ -184,7 +184,10 @@ describe("the querystring cases", () => {
       splitting: { cookie: false, header: false, path: false, query: false },
     };
     for (const testCase of querystringCases32) {
-      expect({ id: testCase.id, asked: canBeAsked(ownsNoSplit, testCase.dimensions) }).toEqual({
+      expect({
+        id: testCase.id,
+        asked: canBeAsked(ownsNoSplit, testCase.dimensions, testCase.request.target, "raw"),
+      }).toEqual({
         id: testCase.id,
         asked: true,
       });

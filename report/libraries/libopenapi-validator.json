@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "library": "github.com/pb33f/libopenapi-validator",
   "libraryVersion": "0.14.0",
   "librarySource": "https://github.com/pb33f/libopenapi-validator",
@@ -22,6 +22,7 @@
       "schemaValidation": true,
       "valueExposure": false
     },
+    "queryPairInput": "notUsed",
     "oasVersions": {
       "3.0": true,
       "3.1": true,
@@ -781,7 +782,7 @@
   "provenance": {
     "kind": "container",
     "slug": "libopenapi-validator",
-    "imageId": "sha256:b049d27f5c5485def62a8d75571022e47a0ddb7a7a604e05bc29c951187d857d",
+    "imageId": "sha256:bcf5927a0aafcd10aa9a4d91a802aa765fbac6ca96da780e93a56b1bdeffb05a",
     "ecosystem": "go"
   },
   "answers": [

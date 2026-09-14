@@ -23,7 +23,7 @@ import java.util.TreeSet;
 
 public final class Server {
 
-  private static final int PROTOCOL_VERSION = 4;
+  private static final int PROTOCOL_VERSION = 5;
   // The Maven coordinate rather than the bare artifact name, because the bare
   // name collides with an unrelated npm package already in this roster. Two
   // different libraries sharing a name across ecosystems is exactly what a
@@ -66,6 +66,7 @@ public final class Server {
 
     ObjectNode capabilities = JSON.createObjectNode();
     capabilities.set("stages", stages);
+    capabilities.put("queryPairInput", "raw");
     capabilities.set("oasVersions", oasVersions);
 
     ObjectNode configuration = JSON.createObjectNode();

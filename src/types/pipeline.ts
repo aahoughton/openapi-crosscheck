@@ -1,6 +1,7 @@
 import type { ParameterLocation } from "./openapi";
 import type { Dimensions, SchemaShape } from "./case";
 import type { Style } from "./openapi";
+import type { QueryPairInput } from "./adapter";
 
 /**
  * The shapes whose value is assembled rather than read. A scalar's value is the
@@ -220,8 +221,25 @@ export function ownsStage(
  * content, and a `content` case the other way round. Taking the dimensions
  * rather than a bare stage is what lets that be read off the case instead of
  * guessed.
+ *
+ * `target` is the case's wire target, read by the one guard that depends on
+ * what the wire carries rather than on what the declaration says:
+ * `withheldOverQueryDecoding` below.
  */
-export function canBeAsked(ownership: StageOwnership, dimensions: Dimensions): boolean {
+export function canBeAsked(
+  ownership: StageOwnership,
+  dimensions: Dimensions,
+  target: string,
+  queryPairInput: QueryPairInput,
+): boolean {
+  return (
+    ownsCaseChain(ownership, dimensions) &&
+    !withheldOverQueryDecoding(ownership, dimensions, target, queryPairInput)
+  );
+}
+
+/** Owns the probed stage and every stage between it and the verdict. */
+function ownsCaseChain(ownership: StageOwnership, dimensions: Dimensions): boolean {
   const probed = probedStage(dimensions);
   const { location } = dimensions;
   // The chain a querystring parameter travels has no splitting step in it. Its
@@ -290,6 +308,67 @@ export function canBeAsked(ownership: StageOwnership, dimensions: Dimensions): b
       ? [deserialization, ...required]
       : required;
   return stages.every((stage) => ownsStage(ownership, stage, location));
+}
+
+/**
+ * The fourth way the text preparse hands over is not the text the case's
+ * question is about, and the only one read off the wire rather than the
+ * declaration: a query value carrying a percent triple or a `+`.
+ *
+ * This guard states a harness limitation. Preparse hands query pairs through
+ * raw, and it cannot do otherwise: whether `+` means a space, and whether a
+ * percent triple comes off before or after a delimiter is read, are questions
+ * cases in this corpus exist to ask, so a preparse that decoded would answer
+ * them on every library's behalf. The raw hand-off is the most the harness can
+ * supply without grading its own work.
+ *
+ * The adapter declares the public query-pair contract separately from query
+ * splitting. `notUsed` means the library reads the target and performs its own
+ * split. `raw` means the public input accepts the pairs preparse produces.
+ * `decoded` means percent triples have already been resolved before the
+ * library sees them. Raw text is outside that third contract, so grading the
+ * library on it measures the hand-off: a deserializer echoing `a%2Bb` where
+ * its caller supplies `a+b` is the cell this guard exists to withhold.
+ *
+ * So a query case whose wire text query decoding would convert is not asked
+ * of a library whose public input expects decoded pairs. One rule, with a stated cost:
+ * a verdict such a library reaches without the decoded value, such as
+ * accepting a scalar that is a string in either encoding state, is withheld
+ * along with the rest. Whether a particular verdict depended on the decoding
+ * is a judgement per cell, and per-cell judgements drift; the withheld cells
+ * say the harness could not supply the input, which is the true statement
+ * this repository can make for all of them.
+ *
+ * Query only. The 3.2 cookie rule makes cookie decoding the identity, so a
+ * raw cookie pair is exactly what a caller would hand over and the one cookie
+ * case carrying a percent triple stays a real measurement. No corpus case
+ * carries converted encoding in a header, and path segments reach a
+ * disclaiming library only through guards above this one. A case that changes
+ * either of those is the moment to widen this, and widening it means citing
+ * what that location's decoding converts, rather than assuming.
+ */
+export function withheldOverQueryDecoding(
+  ownership: StageOwnership,
+  dimensions: Dimensions,
+  target: string,
+  queryPairInput: QueryPairInput,
+): boolean {
+  return (
+    dimensions.location === "query" &&
+    queryPairInput === "decoded" &&
+    ownsCaseChain(ownership, dimensions) &&
+    queryCarriesConvertedEncoding(target)
+  );
+}
+
+/**
+ * Whether the query portion of a wire target carries text query decoding
+ * converts: a percent triple, or the `+` whose reading is itself contested.
+ */
+function queryCarriesConvertedEncoding(target: string): boolean {
+  const question = target.indexOf("?");
+  if (question === -1) return false;
+  return /%[0-9A-Fa-f]{2}|\+/.test(target.slice(question + 1));
 }
 
 /**

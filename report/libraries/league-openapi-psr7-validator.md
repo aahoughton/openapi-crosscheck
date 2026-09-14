@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/thephpleague/openapi-psr7
 
 Built from: `adapters/league-openapi-psr7-validator/`
 
-Image: `sha256:9a6b54a4d308227fab4fe624958d8b174511eba72f57fd2635c77108b41dc554`
+Image: `sha256:b9e32e6ee2319c3d99a6d0e43135dcbfe796bd7183409a1078a388264c974924`
 
 Configuration `request-validator-psr7`: ValidatorBuilder::fromJson(document) driven through getRequestValidator()->validate(), with a PSR-7 RequestInterface built from the raw target. The plain request validator is used rather than the server request one, because the plain one reads the Cookie header itself where the server one takes a cookie array from its caller, so every location stays the library's. Known limitation: the PSR-7 URI type parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. Existing percent-encoded sequences reach the validator unchanged. Values are unexposed: validate() answers with an OperationAddress or raises, and the deserializer that converts a styled parameter is not reachable from the published validation call.
 
@@ -231,8 +231,8 @@ the page with the numbers.
 
 #### Cases it was not asked
 
-Not a gap in the measurement. Each is a stage this library leaves to its
-caller, so an answer would describe the harness rather than the library.
+Another unsupported boundary. The stored reason beside each case identifies
+whether the document version, library input shape, or adapter stopped it.
 
 - [`cookie-cookie-array-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-canonical-explode-oas32) (oasVersionNotDeclared)
 - [`cookie-cookie-array-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-no-explode-oas32) (oasVersionNotDeclared)

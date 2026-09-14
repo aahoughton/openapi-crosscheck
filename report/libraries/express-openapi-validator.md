@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/cdimascio/express-openapi
 
 Built from: `adapters/express-openapi-validator/`
 
-Image: `sha256:c14045e1d9235a7c910bea7448ddebfcb788fe80b5b525a62a954dad65ca37af`
+Image: `sha256:f9ec45fefa3ae8a9d2e91e433360cd0dedb6bb65985d4ae2bdb22d3c6904e86c`
 
 Configuration `middleware-validate-requests`: OpenApiValidator.middleware({ apiSpec, validateRequests: true }) mounted on an express app, exactly as the published usage shows, with a handler that echoes the request it received and an error handler that reports the thrown status alongside the same request fields. Reading its values: on an accepted request they are what the handler was handed. On a rejected one they are what the middleware had coerced onto the request before it stopped, so they are partial and stop at the first failure.
 
@@ -243,8 +243,8 @@ the page with the numbers.
 
 #### Cases it was not asked
 
-Not a gap in the measurement. Each is a stage this library leaves to its
-caller, so an answer would describe the harness rather than the library.
+Another unsupported boundary. The stored reason beside each case identifies
+whether the document version, library input shape, or adapter stopped it.
 
 - [`cookie-cookie-array-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-canonical-explode-oas32) (oasVersionNotDeclared)
 - [`cookie-cookie-array-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-no-explode-oas32) (oasVersionNotDeclared)

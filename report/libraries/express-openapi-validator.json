@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "library": "express-openapi-validator",
   "libraryVersion": "5.6.2",
   "librarySource": "https://github.com/cdimascio/express-openapi-validator",
@@ -22,6 +22,7 @@
       "schemaValidation": true,
       "valueExposure": true
     },
+    "queryPairInput": "notUsed",
     "oasVersions": {
       "3.0": true,
       "3.1": true,
@@ -1219,7 +1220,7 @@
   "provenance": {
     "kind": "container",
     "slug": "express-openapi-validator",
-    "imageId": "sha256:c14045e1d9235a7c910bea7448ddebfcb788fe80b5b525a62a954dad65ca37af",
+    "imageId": "sha256:f9ec45fefa3ae8a9d2e91e433360cd0dedb6bb65985d4ae2bdb22d3c6904e86c",
     "ecosystem": "npm"
   },
   "answers": [

@@ -142,5 +142,37 @@ async function describe(transport: Transport, slug: string): Promise<DescribeRes
       `${slug}: speaks protocol ${String(described.protocol)}, harness speaks ${String(PROTOCOL_VERSION)}`,
     );
   }
+  refuseUndeclaredQueryPairInput(described, slug);
   return described;
+}
+
+/**
+ * The one declaration the runner reads to decide whether a case is askable at
+ * all, checked here rather than trusted.
+ *
+ * The protocol suite holds the containers in this repository to it, and a
+ * container measured from outside never meets that suite. An absent field
+ * arrives as `undefined`, which compares equal to no member of the set: the
+ * withholding guard would ask every case and the fitness table would publish
+ * the word `undefined` as a fact about the library. A contradiction is refused
+ * for the same reason, because the two fields answer one question between them
+ * and a container that answers it twice has not said which answer to believe.
+ */
+function refuseUndeclaredQueryPairInput(described: DescribeResponse, slug: string): void {
+  const declared: unknown = described.capabilities.queryPairInput;
+  if (declared !== "raw" && declared !== "decoded" && declared !== "notUsed") {
+    throw new Error(
+      `${slug}: /describe answered capabilities.queryPairInput ${JSON.stringify(declared)}, ` +
+        `and the protocol allows "raw", "decoded" or "notUsed"`,
+    );
+  }
+  const ownsSplit = described.capabilities.stages.splitting.query;
+  if ((declared === "notUsed") !== ownsSplit) {
+    throw new Error(
+      `${slug}: /describe answered capabilities.queryPairInput "${declared}" beside ` +
+        `stages.splitting.query ${String(ownsSplit)}. A library owning the query split ` +
+        `receives the target rather than pairs, so "notUsed" is the declaration exactly ` +
+        `when it owns the split.`,
+    );
+  }
 }

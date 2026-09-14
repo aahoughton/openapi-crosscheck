@@ -31,6 +31,7 @@ const OWNING_NOTHING: AdapterCapabilities["stages"]["splitting"] = {
 function capabilities(splitting: AdapterCapabilities["stages"]["splitting"]): AdapterCapabilities {
   return {
     oasVersions: { "3.0": true, "3.1": true, "3.2": true },
+    queryPairInput: splitting.query ? "notUsed" : "raw",
     stages: {
       routing: true,
       splitting,

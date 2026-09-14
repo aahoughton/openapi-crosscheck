@@ -8,7 +8,7 @@ require "webrick"
 
 require "openapi_first"
 
-PROTOCOL_VERSION = 4
+PROTOCOL_VERSION = 5
 LIBRARY = "openapi_first"
 # Where this library's source lives. Stated by this container.
 LIBRARY_SOURCE = "https://github.com/ahx/openapi_first"
@@ -23,6 +23,7 @@ CAPABILITIES = {
     "schemaValidation" => true,
     "valueExposure" => true
   },
+  "queryPairInput" => "notUsed",
   "oasVersions" => { "3.0" => true, "3.1" => true, "3.2" => false }
 }.freeze
 

@@ -9,9 +9,9 @@ Source, as its container states it: https://github.com/python-openapi/openapi-co
 
 Built from: `adapters/openapi-core/`
 
-Image: `sha256:c84ba8498de3146ef936ff7112b3047d88c3a058d35ac338e2226a7d166fcb3f`
+Image: `sha256:393f13eb696d549f21eda47fd4328c5354ab5198a910df8a0ddd6882a312d851`
 
-Configuration `unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. Raw query name/value pairs come from the harness preparse with no percent decoding: this library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into pairs is the caller's and is recorded on every cell. Style and explode are still applied by the library to those pairs. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
+Configuration `unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. This library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into decoded pairs is the caller's. The harness supplies raw pairs only where their encoding state is equivalent and withholds cases whose query decoding would change them. Style and explode are still applied by the library to those pairs. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
 
 ## What it does for itself
 
@@ -46,9 +46,9 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 39 |
-| FAIL (verdict) | 20 |
-| FAIL (value) | 3 |
+| pass | 36 |
+| FAIL (verdict) | 18 |
+| not asked | 8 |
 | every conformance case | 62 |
 
 #### Cases it did not pass
@@ -71,13 +71,8 @@ the page with the numbers.
 | [`path-matrix-object-explode-oas30`](../matrix.oas30.md#path-matrix-object-explode-oas30) | accepted | rejected | `{}` |
 | [`path-matrix-scalar-canonical-oas30`](../matrix.oas30.md#path-matrix-scalar-canonical-oas30) | accepted | rejected | `{}` |
 | [`path-matrix-scalar-explode-oas30`](../matrix.oas30.md#path-matrix-scalar-explode-oas30) | accepted | rejected | `{}` |
-| [`query-content-json-object-canonical-oas30`](../matrix.oas30.md#query-content-json-object-canonical-oas30) | accepted | rejected | `{}` |
-| [`query-deep-object-canonical-oas30`](../matrix.oas30.md#query-deep-object-canonical-oas30) | accepted | rejected | `{}` |
 | [`query-form-object-canonical-explode-oas30`](../matrix.oas30.md#query-form-object-canonical-explode-oas30) | accepted | rejected | `{}` |
-| [`query-form-scalar-encoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-encoded-plus-oas30) | accepted | accepted | `{"p":"a%2Bb"}` |
 | [`query-form-scalar-nullable-empty-oas30`](../matrix.oas30.md#query-form-scalar-nullable-empty-oas30) | accepted | rejected | `{}` |
-| [`query-pipe-delimited-array-canonical-oas30`](../matrix.oas30.md#query-pipe-delimited-array-canonical-oas30) | accepted | accepted | `{"p":["blue%7Cblack"]}` |
-| [`query-pipe-delimited-object-canonical-oas30`](../matrix.oas30.md#query-pipe-delimited-object-canonical-oas30) | accepted | accepted | `{"p":{}}` |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
@@ -85,6 +80,20 @@ rests on quoted beside it. Each row traces to the stored raw output in
 row can come from the adapter, the case, or the corpus tier, and
 the harness repository's `docs/adding-an-adapter.md` says how to identify it
 and what counts as a fix.
+
+#### Cases it was not asked
+
+Harness input unavailable. This library expects decoded query pairs, and
+constructing them would choose the decoding the corpus exists to measure.
+
+- [`query-content-json-object-canonical-oas30`](../matrix.oas30.md#query-content-json-object-canonical-oas30) (harnessInputUnavailable)
+- [`query-content-json-object-malformed-oas30`](../matrix.oas30.md#query-content-json-object-malformed-oas30) (harnessInputUnavailable)
+- [`query-deep-object-canonical-oas30`](../matrix.oas30.md#query-deep-object-canonical-oas30) (harnessInputUnavailable)
+- [`query-form-scalar-encoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-encoded-plus-oas30) (harnessInputUnavailable)
+- [`query-pipe-delimited-array-canonical-oas30`](../matrix.oas30.md#query-pipe-delimited-array-canonical-oas30) (harnessInputUnavailable)
+- [`query-pipe-delimited-object-canonical-oas30`](../matrix.oas30.md#query-pipe-delimited-object-canonical-oas30) (harnessInputUnavailable)
+- [`query-space-delimited-array-canonical-oas30`](../matrix.oas30.md#query-space-delimited-array-canonical-oas30) (harnessInputUnavailable)
+- [`query-space-delimited-object-canonical-oas30`](../matrix.oas30.md#query-space-delimited-object-canonical-oas30) (harnessInputUnavailable)
 
 ### Divergence
 
@@ -105,20 +114,20 @@ nothing is attributed to it.
 | [`path-simple-array-encoded-delimiter-oas30`](../matrix.oas30.md#path-simple-array-encoded-delimiter-oas30) | accepted | `{"p":["blue%2Cblack"]}` |
 | [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | not asked (stageNotOwned) | - |
 | [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | not asked (stageNotOwned) | - |
-| [`query-deep-object-no-explode-oas30`](../matrix.oas30.md#query-deep-object-no-explode-oas30) | rejected | `{}` |
+| [`query-deep-object-no-explode-oas30`](../matrix.oas30.md#query-deep-object-no-explode-oas30) | not asked (harnessInputUnavailable) | - |
 | [`query-form-array-duplicate-name-oas30`](../matrix.oas30.md#query-form-array-duplicate-name-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-array-empty-value-oas30`](../matrix.oas30.md#query-form-array-empty-value-oas30) | accepted | `{"p":[""]}` |
 | [`query-form-array-integer-items-oas30`](../matrix.oas30.md#query-form-array-integer-items-oas30) | accepted | `{"p":[1,2]}` |
 | [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | accepted | `{"p":true}` |
 | [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | accepted | `{"p":{"R":100,"G":200}}` |
 | [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | `{"p":""}` |
-| [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | accepted | `{"p":"a%2Fb"}` |
+| [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | not asked (harnessInputUnavailable) | - |
 | [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | accepted | `{"p":"a/b:c"}` |
 | [`query-form-scalar-integer-fractional-oas30`](../matrix.oas30.md#query-form-scalar-integer-fractional-oas30) | rejected | `{}` |
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | `{"p":100}` |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | not asked (cannotRepresentCase) | - |
 | [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | `{}` |
-| [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | `{"p":"a+b"}` |
+| [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | not asked (harnessInputUnavailable) | - |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | rejected | `{}` |
 
 ## OpenAPI 3.1
@@ -134,10 +143,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 38 |
-| FAIL (verdict) | 19 |
-| FAIL (value) | 3 |
+| pass | 35 |
+| FAIL (verdict) | 17 |
 | raised instead of answering | 2 |
+| not asked | 8 |
 | every conformance case | 62 |
 
 #### Cases it did not pass
@@ -160,12 +169,7 @@ the page with the numbers.
 | [`path-matrix-object-explode-oas31`](../matrix.oas31.md#path-matrix-object-explode-oas31) | accepted | rejected | `{}` |
 | [`path-matrix-scalar-canonical-oas31`](../matrix.oas31.md#path-matrix-scalar-canonical-oas31) | accepted | rejected | `{}` |
 | [`path-matrix-scalar-explode-oas31`](../matrix.oas31.md#path-matrix-scalar-explode-oas31) | accepted | rejected | `{}` |
-| [`query-content-json-object-canonical-oas31`](../matrix.oas31.md#query-content-json-object-canonical-oas31) | accepted | rejected | `{}` |
-| [`query-deep-object-canonical-oas31`](../matrix.oas31.md#query-deep-object-canonical-oas31) | accepted | rejected | `{}` |
 | [`query-form-object-canonical-explode-oas31`](../matrix.oas31.md#query-form-object-canonical-explode-oas31) | accepted | rejected | `{}` |
-| [`query-form-scalar-encoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-encoded-plus-oas31) | accepted | accepted | `{"p":"a%2Bb"}` |
-| [`query-pipe-delimited-array-canonical-oas31`](../matrix.oas31.md#query-pipe-delimited-array-canonical-oas31) | accepted | accepted | `{"p":["blue%7Cblack"]}` |
-| [`query-pipe-delimited-object-canonical-oas31`](../matrix.oas31.md#query-pipe-delimited-object-canonical-oas31) | accepted | accepted | `{"p":{}}` |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
@@ -173,6 +177,20 @@ rests on quoted beside it. Each row traces to the stored raw output in
 row can come from the adapter, the case, or the corpus tier, and
 the harness repository's `docs/adding-an-adapter.md` says how to identify it
 and what counts as a fix.
+
+#### Cases it was not asked
+
+Harness input unavailable. This library expects decoded query pairs, and
+constructing them would choose the decoding the corpus exists to measure.
+
+- [`query-content-json-object-canonical-oas31`](../matrix.oas31.md#query-content-json-object-canonical-oas31) (harnessInputUnavailable)
+- [`query-content-json-object-malformed-oas31`](../matrix.oas31.md#query-content-json-object-malformed-oas31) (harnessInputUnavailable)
+- [`query-deep-object-canonical-oas31`](../matrix.oas31.md#query-deep-object-canonical-oas31) (harnessInputUnavailable)
+- [`query-form-scalar-encoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-encoded-plus-oas31) (harnessInputUnavailable)
+- [`query-pipe-delimited-array-canonical-oas31`](../matrix.oas31.md#query-pipe-delimited-array-canonical-oas31) (harnessInputUnavailable)
+- [`query-pipe-delimited-object-canonical-oas31`](../matrix.oas31.md#query-pipe-delimited-object-canonical-oas31) (harnessInputUnavailable)
+- [`query-space-delimited-array-canonical-oas31`](../matrix.oas31.md#query-space-delimited-array-canonical-oas31) (harnessInputUnavailable)
+- [`query-space-delimited-object-canonical-oas31`](../matrix.oas31.md#query-space-delimited-object-canonical-oas31) (harnessInputUnavailable)
 
 ### Divergence
 
@@ -193,20 +211,20 @@ nothing is attributed to it.
 | [`path-simple-array-encoded-delimiter-oas31`](../matrix.oas31.md#path-simple-array-encoded-delimiter-oas31) | accepted | `{"p":["blue%2Cblack"]}` |
 | [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | not asked (stageNotOwned) | - |
 | [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | not asked (stageNotOwned) | - |
-| [`query-deep-object-no-explode-oas31`](../matrix.oas31.md#query-deep-object-no-explode-oas31) | rejected | `{}` |
+| [`query-deep-object-no-explode-oas31`](../matrix.oas31.md#query-deep-object-no-explode-oas31) | not asked (harnessInputUnavailable) | - |
 | [`query-form-array-duplicate-name-oas31`](../matrix.oas31.md#query-form-array-duplicate-name-oas31) | not asked (stageNotOwned) | - |
 | [`query-form-array-empty-value-oas31`](../matrix.oas31.md#query-form-array-empty-value-oas31) | accepted | `{"p":[""]}` |
 | [`query-form-array-integer-items-oas31`](../matrix.oas31.md#query-form-array-integer-items-oas31) | accepted | `{"p":[1,2]}` |
 | [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | accepted | `{"p":true}` |
 | [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | accepted | `{"p":{"R":100,"G":200}}` |
 | [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | `{"p":""}` |
-| [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | accepted | `{"p":"a%2Fb"}` |
+| [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | not asked (harnessInputUnavailable) | - |
 | [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | accepted | `{"p":"a/b:c"}` |
 | [`query-form-scalar-integer-fractional-oas31`](../matrix.oas31.md#query-form-scalar-integer-fractional-oas31) | rejected | `{}` |
 | [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | `{"p":100}` |
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | not asked (cannotRepresentCase) | - |
 | [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | raised, no verdict | - |
-| [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | accepted | `{"p":"a+b"}` |
+| [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | not asked (harnessInputUnavailable) | - |
 | [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | rejected | `{}` |
 
 ## OpenAPI 3.2
@@ -223,10 +241,9 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 4 |
-| FAIL (verdict) | 6 |
-| FAIL (value) | 2 |
+| FAIL (verdict) | 4 |
 | raised instead of answering | 3 |
-| not asked | 1 |
+| not asked | 5 |
 | every conformance case | 16 |
 
 #### Cases it did not pass
@@ -237,10 +254,6 @@ the page with the numbers.
 | [`cookie-cookie-array-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-no-explode-oas32) | accepted | rejected | `{}` |
 | [`cookie-cookie-object-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-canonical-explode-oas32) | accepted | rejected | `{}` |
 | [`cookie-cookie-object-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-no-explode-oas32) | accepted | rejected | `{}` |
-| [`query-deep-object-canonical-oas32`](../matrix.oas32.md#query-deep-object-canonical-oas32) | accepted | rejected | `{}` |
-| [`query-deep-object-no-explode-oas32`](../matrix.oas32.md#query-deep-object-no-explode-oas32) | accepted | rejected | `{}` |
-| [`query-form-scalar-encoded-plus-oas32`](../matrix.oas32.md#query-form-scalar-encoded-plus-oas32) | accepted | accepted | `{"p":"a%2Bb"}` |
-| [`query-form-scalar-unencoded-plus-oas32`](../matrix.oas32.md#query-form-scalar-unencoded-plus-oas32) | accepted | accepted | `{"p":"a+b"}` |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
@@ -251,8 +264,16 @@ and what counts as a fix.
 
 #### Cases it was not asked
 
-Not a gap in the measurement. Each is a stage this library leaves to its
-caller, so an answer would describe the harness rather than the library.
+Harness input unavailable. This library expects decoded query pairs, and
+constructing them would choose the decoding the corpus exists to measure.
+
+- [`query-deep-object-canonical-oas32`](../matrix.oas32.md#query-deep-object-canonical-oas32) (harnessInputUnavailable)
+- [`query-deep-object-no-explode-oas32`](../matrix.oas32.md#query-deep-object-no-explode-oas32) (harnessInputUnavailable)
+- [`query-form-scalar-encoded-plus-oas32`](../matrix.oas32.md#query-form-scalar-encoded-plus-oas32) (harnessInputUnavailable)
+- [`query-form-scalar-unencoded-plus-oas32`](../matrix.oas32.md#query-form-scalar-unencoded-plus-oas32) (harnessInputUnavailable)
+
+Another unsupported boundary. The stored reason beside each case identifies
+whether the document version, library input shape, or adapter stopped it.
 
 - [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (cannotRepresentCase)
 

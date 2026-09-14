@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/openapistack/openapi-back
 
 Built from: `adapters/openapi-backend/`
 
-Image: `sha256:4bc3374d4e1ea6456b84a0f4a8be515708543f50b6780bdaeb6413380841e44f`
+Image: `sha256:0f8dea7f4caaf35369d0f9486b31f2436c7bf68bd39abbe80846f83f61aca175`
 
 Configuration `coerce-types-on`: new OpenAPIBackend({ definition, quick: false, coerceTypes: true }) then init(), driven through validateRequest with the raw path and raw query string. coerceTypes is enabled because leaving it off rejects every typed parameter; both settings were measured and the results were identical for path parameters.
 
@@ -98,8 +98,8 @@ and what counts as a fix.
 
 #### Cases it was not asked
 
-Not a gap in the measurement. Each is a stage this library leaves to its
-caller, so an answer would describe the harness rather than the library.
+Stage owned by the caller. An answer would describe the harness's work
+at or downstream of the stage this case probes.
 
 - [`header-simple-array-case-variant-oas30`](../matrix.oas30.md#header-simple-array-case-variant-oas30) (stageNotOwned)
 
@@ -203,8 +203,8 @@ and what counts as a fix.
 
 #### Cases it was not asked
 
-Not a gap in the measurement. Each is a stage this library leaves to its
-caller, so an answer would describe the harness rather than the library.
+Stage owned by the caller. An answer would describe the harness's work
+at or downstream of the stage this case probes.
 
 - [`header-simple-array-case-variant-oas31`](../matrix.oas31.md#header-simple-array-case-variant-oas31) (stageNotOwned)
 
@@ -261,8 +261,8 @@ the page with the numbers.
 
 #### Cases it was not asked
 
-Not a gap in the measurement. Each is a stage this library leaves to its
-caller, so an answer would describe the harness rather than the library.
+Another unsupported boundary. The stored reason beside each case identifies
+whether the document version, library input shape, or adapter stopped it.
 
 - [`cookie-cookie-array-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-canonical-explode-oas32) (oasVersionNotDeclared)
 - [`cookie-cookie-array-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-no-explode-oas32) (oasVersionNotDeclared)

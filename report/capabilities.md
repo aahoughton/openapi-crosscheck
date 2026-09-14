@@ -70,7 +70,7 @@ it.
 | `league/openapi-psr7-validator` | 170 | 0 | 0 | 170 | 0 | 23 | 8 |
 | `@oaverify/core` | 184 | 184 | 0 | 0 | 0 | 17 | 0 |
 | `openapi-backend` | 169 | 169 | 0 | 0 | 0 | 27 | 5 |
-| `openapi-core` | 179 | 179 | 0 | 0 | 0 | 16 | 6 |
+| `openapi-core` | 153 | 153 | 0 | 0 | 0 | 42 | 6 |
 | `openapi-request-validator` | 22 | 2 | 0 | 20 | 0 | 179 | 0 |
 | `openapi_first` | 178 | 178 | 0 | 0 | 0 | 23 | 0 |
 
@@ -95,8 +95,8 @@ a failure.
 | `@oaverify/core` | rejected | 34 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
 | `openapi-backend` | accepted | 80 | 0 | 0 | 0 | parsed before validation |
 | `openapi-backend` | rejected | 89 | 0 | 0 | 0 | parsed before validation |
-| `openapi-core` | accepted | 101 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
-| `openapi-core` | rejected | 78 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-core` | accepted | 85 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-core` | rejected | 68 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
 | `openapi-request-validator` | accepted | 2 | 0 | 4 | 0 | parsed before validation |
 | `openapi-request-validator` | rejected | 0 | 0 | 16 | 0 | none |
 | `openapi_first` | accepted | 148 | 0 | 0 | 0 | parsed before validation |
@@ -129,7 +129,7 @@ failure.
 | `league/openapi-psr7-validator` | no | 0 | 170 | 0 |
 | `@oaverify/core` | yes | 0 | 184 | 0 |
 | `openapi-backend` | yes | 0 | 169 | 0 |
-| `openapi-core` | yes | 62 | 117 | 0 |
+| `openapi-core` | yes | 62 | 91 | 0 |
 | `openapi-request-validator` | yes | 2 | 20 | 0 |
 | `openapi_first` | yes | 0 | 178 | 0 |
 
@@ -181,6 +181,17 @@ the library's behalf to build the counterfactual, which it must never do.
 
 A stage a library disclaims that a probe exercised anyway is printed for a
 reader to judge rather than treated as a correction.
+
+One declaration is outside all of this and is published as what it is. The
+`query pair input` column in `fitness.md` states the encoding state a library's
+public pre-split query input accepts, and no probe reaches it: it is a fact
+about the adapter's hand-off rather than about the library's processing, and
+both answers are consistent with everything a container does on the wire. It
+carries a cost, because declaring `decoded` moves the query cases carrying
+encoding this harness cannot resolve into `not asked
+(harnessInputUnavailable)`. So read that column as the adapter author's
+statement of the contract they wrote against, and `adapters/<slug>/` for the
+call they made. Every other declaration on this page was probed.
 
 ### What stands behind each declared stage
 
@@ -586,7 +597,7 @@ an unbacked claim rather than treated as false.
 
 ### `openapi-core`
 
-`unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. Raw query name/value pairs come from the harness preparse with no percent decoding: this library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into pairs is the caller's and is recorded on every cell. Style and explode are still applied by the library to those pairs. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
+`unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. This library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into decoded pairs is the caller's. The harness supplies raw pairs only where their encoding state is equivalent and withholds cases whose query decoding would change them. Style and explode are still applied by the library to those pairs. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
 
 ### `openapi-request-validator`
 

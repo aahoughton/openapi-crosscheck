@@ -1,4 +1,4 @@
-# Container protocol, version 4
+# Container protocol, version 5
 
 Every library under test runs in its own container and answers this protocol.
 The harness speaks only this protocol, so adding a library in any language means
@@ -48,7 +48,7 @@ Called once, before any case. Answers what the library can be asked.
 
 ```json
 {
-  "protocol": 4,
+  "protocol": 5,
   "library": "@oaverify/core",
   "libraryVersion": "7.0.0",
   "librarySource": "https://github.com/oaverify/oaverify",
@@ -62,6 +62,7 @@ Called once, before any case. Answers what the library can be asked.
       "schemaValidation": true,
       "valueExposure": true
     },
+    "queryPairInput": "notUsed",
     "oasVersions": { "3.0": true, "3.1": true, "3.2": false }
   },
   "configuration": {
@@ -83,6 +84,14 @@ serialization is specified and requires each parameter to use one. A parameter
 declaring `content` has no `style` and no `explode`; a parameter declaring
 `schema` has no media type. A library owning one has said nothing about the
 other, and a case travels through whichever its own declaration names.
+
+`queryPairInput` names the encoding state accepted by the library's public
+pre-split query input. It is `notUsed` when `splitting.query` is true, because
+the library reads the request target instead of pairs. A library that leaves
+query splitting to its caller declares `raw` when its input accepts query names
+and values exactly as the harness preparse supplies them, or `decoded` when its
+caller must resolve query percent-encoding first. The field and the splitting
+claim must agree: `notUsed` is valid exactly when `splitting.query` is true.
 
 `oasVersions` declares which OpenAPI versions the library accepts documents of.
 Every version the protocol knows must be answered explicitly, the same rule as
@@ -164,7 +173,7 @@ Called once per case.
 
 ```json
 {
-  "protocol": 4,
+  "protocol": 5,
   "caseId": "path-matrix-scalar-canonical-oas31",
   "document": { "openapi": "3.1.1", "...": "the case's document, verbatim" },
   "request": {
@@ -231,6 +240,16 @@ style, and does not collapse duplicate names. A pair that carried no `=` has a
 decides for itself whether its library's input shape can tell them apart. This keeps percent encoding and duplicate-name handling attributable to
 the library or to the adapter boundary that its public API requires.
 
+The raw hand-off is also a stated harness limitation, and it bounds what a
+library declaring `queryPairInput: decoded` can be asked. The harness cannot
+decode without deciding questions the corpus asks, such as whether `+` means a
+space. A query case whose wire text query decoding would convert (a percent
+triple or a `+`) is therefore withheld from that library, published as
+`harnessInputUnavailable` with a detail saying the harness could not supply the
+decoded input its contract names. A library declaring `queryPairInput: raw` remains
+askable because the preparse output is its public input. Nothing in a withheld
+cell says how the library answers behind a caller that decodes.
+
 Cookie preparse is raw and ordered for the same reasons. The harness splits
 each `Cookie` header on `;`, drops the optional space that follows the
 semicolon, and splits each crumb at its first `=`. Nothing else is trimmed, so
@@ -263,7 +282,7 @@ with any other container's.
 
 ```json
 {
-  "protocol": 4,
+  "protocol": 5,
   "outcome": "accepted",
   "deserialized": {
     "kind": "observed",
@@ -295,9 +314,10 @@ seen an exception rather than a refusal. Folding it into `rejected` would credit
 a library for a verdict it never gave, and folding it into `adapterError` would
 attribute the library's exception to the adapter.
 
-`unsupported` carries a `reason` from a closed set: `cannotRepresentCase`,
-`libraryInitUnsupported`, or `adapterLimitation`. The fourth member,
-`stageNotOwned`, is issued by the harness and never by a container.
+`unsupported` carries a `reason` from a closed set. A container can issue
+`cannotRepresentCase`, `libraryInitUnsupported`, or `adapterLimitation`. The
+harness alone issues `stageNotOwned`, `harnessInputUnavailable`, and
+`oasVersionNotDeclared` before a request reaches the container.
 
 The line between the first and the last is who could fix it. A published input
 type that holds one string per cookie name cannot carry a repeated name, and no
@@ -429,7 +449,7 @@ are both describing themselves accurately. They are displayed, never compared.
 
 ## Protocol version
 
-`protocol` is `4` on every message in both directions. The harness refuses a
+`protocol` is `5` on every message in both directions. The harness refuses a
 container answering a different number rather than guessing at compatibility. A
 change that would alter what a cell means is a version bump.
 

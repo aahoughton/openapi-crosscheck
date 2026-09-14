@@ -12,7 +12,7 @@ import type { OpenApiDocument } from "./openapi";
  * rows that mean the same thing as any other container's, whatever language it
  * is written in.
  */
-export const PROTOCOL_VERSION = 4;
+export const PROTOCOL_VERSION = 5;
 
 /**
  * A request as it crosses the boundary.
@@ -143,7 +143,10 @@ export type RunResponse =
       readonly protocol: number;
       readonly outcome: "unsupported";
       /** The runner-issued reasons never come from a container. */
-      readonly reason: Exclude<UnsupportedReason, "stageNotOwned" | "oasVersionNotDeclared">;
+      readonly reason: Exclude<
+        UnsupportedReason,
+        "stageNotOwned" | "harnessInputUnavailable" | "oasVersionNotDeclared"
+      >;
       readonly detail: string;
     }
   | {

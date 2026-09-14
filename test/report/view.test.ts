@@ -203,6 +203,7 @@ function measurement(
         schemaValidation: true,
         valueExposure: true,
       },
+      queryPairInput: "notUsed",
       oasVersions: { "3.0": false, "3.1": true, "3.2": false },
     },
     capabilityEvidence: [],

@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/kogosoftwarellc/open-api/
 
 Built from: `adapters/openapi-request-validator/`
 
-Image: `sha256:403dd46f734140330ef681a3996672a9e296276f339f6d67721936f92d3143de`
+Image: `sha256:e501f2f247f1d0c339cbe01c88f9df9ee1269b8e8e2bb5099702a6c62cb41d93`
 
 Configuration `parameters-only`: new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. That shape holds a string per name, so a query pair that arrived with no `=` is answered as a case this shape cannot represent, rather than as an empty value. It is told which operation applies, because it has no routing of its own. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 
@@ -67,8 +67,8 @@ and what counts as a fix.
 
 #### Cases it was not asked
 
-Not a gap in the measurement. Each is a stage this library leaves to its
-caller, so an answer would describe the harness rather than the library.
+Stage owned by the caller. An answer would describe the harness's work
+at or downstream of the stage this case probes.
 
 - [`header-content-json-object-canonical-oas30`](../matrix.oas30.md#header-content-json-object-canonical-oas30) (stageNotOwned)
 - [`header-simple-array-canonical-oas30`](../matrix.oas30.md#header-simple-array-canonical-oas30) (stageNotOwned)
@@ -193,8 +193,8 @@ and what counts as a fix.
 
 #### Cases it was not asked
 
-Not a gap in the measurement. Each is a stage this library leaves to its
-caller, so an answer would describe the harness rather than the library.
+Stage owned by the caller. An answer would describe the harness's work
+at or downstream of the stage this case probes.
 
 - [`header-content-json-object-canonical-oas31`](../matrix.oas31.md#header-content-json-object-canonical-oas31) (stageNotOwned)
 - [`header-simple-array-canonical-oas31`](../matrix.oas31.md#header-simple-array-canonical-oas31) (stageNotOwned)
@@ -303,8 +303,8 @@ the page with the numbers.
 
 #### Cases it was not asked
 
-Not a gap in the measurement. Each is a stage this library leaves to its
-caller, so an answer would describe the harness rather than the library.
+Another unsupported boundary. The stored reason beside each case identifies
+whether the document version, library input shape, or adapter stopped it.
 
 - [`cookie-cookie-array-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-canonical-explode-oas32) (oasVersionNotDeclared)
 - [`cookie-cookie-array-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-no-explode-oas32) (oasVersionNotDeclared)

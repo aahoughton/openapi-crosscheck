@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/ahx/openapi_first
 
 Built from: `adapters/openapi-first/`
 
-Image: `sha256:b35f72f2df1b6fb37efbf7592272dc87822522a591b53419858ff20f5af2e1cd`
+Image: `sha256:e5b110f8813008d243b59a5a430012f6142066159e0fe15167a560120e8cdab2`
 
 Configuration `validate-request-rack`: OpenapiFirst.parse(document) driven through validate_request with a Rack::Request built from the raw target. The path is handed over as PATH_INFO with no decoding of its own, and the query string as QUERY_STRING, so the library splits and deserializes both. Header names are put into the Rack environment under its own convention, which upcases them and joins duplicates with a comma, because that environment is the only request shape this library's public call accepts. Reading its values: parsed parameters are reported whether or not the request was then rejected, so a value cell on a rejected row shows what the library had parsed at the point it refused rather than what it accepted.
 
@@ -211,8 +211,8 @@ the page with the numbers.
 
 #### Cases it was not asked
 
-Not a gap in the measurement. Each is a stage this library leaves to its
-caller, so an answer would describe the harness rather than the library.
+Another unsupported boundary. The stored reason beside each case identifies
+whether the document version, library input shape, or adapter stopped it.
 
 - [`cookie-cookie-array-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-canonical-explode-oas32) (oasVersionNotDeclared)
 - [`cookie-cookie-array-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-no-explode-oas32) (oasVersionNotDeclared)

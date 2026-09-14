@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	protocolVersion = 4
+	protocolVersion = 5
 	library         = "github.com/pb33f/libopenapi-validator"
 	modulePath      = "github.com/pb33f/libopenapi-validator"
 	// Where this library's source lives. Stated by this container.
@@ -39,7 +39,8 @@ type stages struct {
 }
 
 type capabilities struct {
-	Stages stages `json:"stages"`
+	Stages         stages `json:"stages"`
+	QueryPairInput string `json:"queryPairInput"`
 	// A map rather than a struct: the JSON keys are "3.0", "3.1" and "3.2",
 	// which no Go field name can produce.
 	OasVersions map[string]bool `json:"oasVersions"`
@@ -60,6 +61,7 @@ var declaredCapabilities = capabilities{
 		SchemaValidation:       true,
 		ValueExposure:          false,
 	},
+	QueryPairInput: "notUsed",
 	OasVersions: map[string]bool{"3.0": true, "3.1": true, "3.2": true},
 }
 

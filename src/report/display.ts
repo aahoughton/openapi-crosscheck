@@ -155,17 +155,47 @@ export function renderLibrary(cases: readonly Case[], measurement: LibraryMeasur
     if (notAsked.length > 0) {
       lines.push("#### Cases it was not asked");
       lines.push("");
-      lines.push("Not a gap in the measurement. Each is a stage this library leaves to its");
-      lines.push("caller, so an answer would describe the harness rather than the library.");
-      lines.push("");
-      for (const entry of notAsked) {
-        const reason =
-          entry.result !== undefined && entry.result.outcome === "unsupported"
-            ? entry.result.reason
-            : "not answered";
-        lines.push(`- ${caseLink(entry.testCase.id)} (${reason})`);
+      const reasonOf = (entry: (typeof notAsked)[number]): string =>
+        entry.result !== undefined && entry.result.outcome === "unsupported"
+          ? entry.result.reason
+          : "not answered";
+      const stageNotOwned = notAsked.filter((entry) => reasonOf(entry) === "stageNotOwned");
+      const inputUnavailable = notAsked.filter(
+        (entry) => reasonOf(entry) === "harnessInputUnavailable",
+      );
+      const other = notAsked.filter(
+        (entry) =>
+          reasonOf(entry) !== "stageNotOwned" &&
+          reasonOf(entry) !== "harnessInputUnavailable",
+      );
+
+      if (stageNotOwned.length > 0) {
+        lines.push("Stage owned by the caller. An answer would describe the harness's work");
+        lines.push("at or downstream of the stage this case probes.");
+        lines.push("");
+        for (const entry of stageNotOwned) {
+          lines.push(`- ${caseLink(entry.testCase.id)} (stageNotOwned)`);
+        }
+        lines.push("");
       }
-      lines.push("");
+      if (inputUnavailable.length > 0) {
+        lines.push("Harness input unavailable. This library expects decoded query pairs, and");
+        lines.push("constructing them would choose the decoding the corpus exists to measure.");
+        lines.push("");
+        for (const entry of inputUnavailable) {
+          lines.push(`- ${caseLink(entry.testCase.id)} (harnessInputUnavailable)`);
+        }
+        lines.push("");
+      }
+      if (other.length > 0) {
+        lines.push("Another unsupported boundary. The stored reason beside each case identifies");
+        lines.push("whether the document version, library input shape, or adapter stopped it.");
+        lines.push("");
+        for (const entry of other) {
+          lines.push(`- ${caseLink(entry.testCase.id)} (${reasonOf(entry)})`);
+        }
+        lines.push("");
+      }
     }
 
     lines.push("### Divergence");

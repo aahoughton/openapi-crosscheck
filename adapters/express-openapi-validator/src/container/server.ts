@@ -92,11 +92,15 @@ async function run(adapter: LibraryAdapter, message: RunRequest): Promise<RunRes
  */
 function toRunResponse(result: AdapterResult): RunResponse {
   if (result.outcome === "unsupported") {
-    if (result.reason === "stageNotOwned") {
+    if (
+      result.reason === "stageNotOwned" ||
+      result.reason === "harnessInputUnavailable" ||
+      result.reason === "oasVersionNotDeclared"
+    ) {
       return {
         protocol: PROTOCOL_VERSION,
         outcome: "adapterError",
-        detail: "a container issued stageNotOwned, which only the harness may issue",
+        detail: `a container issued ${result.reason}, which only the harness may issue`,
         raw: null,
       };
     }

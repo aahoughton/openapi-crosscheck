@@ -55,6 +55,15 @@ export interface AdapterCapabilities {
    */
   readonly stages: StageOwnership;
   /**
+   * The encoding state the library's public pre-split query input accepts.
+   *
+   * `notUsed` means the library owns query splitting and receives the target
+   * instead of query pairs. `raw` means the caller supplies pairs exactly as
+   * they appear on the wire. `decoded` means the caller resolves query
+   * percent-encoding before the library receives the pairs.
+   */
+  readonly queryPairInput: QueryPairInput;
+  /**
    * Which OpenAPI versions the library is claimed to accept documents of.
    *
    * Explicit per version the protocol knows, for the same reason splitting is
@@ -66,6 +75,8 @@ export interface AdapterCapabilities {
    */
   readonly oasVersions: Readonly<Record<OasVersion, boolean>>;
 }
+
+export type QueryPairInput = "raw" | "decoded" | "notUsed";
 
 /**
  * The setup that produced a result. Configuration is a confound: a library

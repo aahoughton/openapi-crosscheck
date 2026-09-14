@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "library": "openapi-request-validator",
   "libraryVersion": "12.1.3",
   "librarySource": "https://github.com/kogosoftwarellc/open-api/tree/master/packages/openapi-request-validator",
@@ -22,6 +22,7 @@
       "schemaValidation": true,
       "valueExposure": true
     },
+    "queryPairInput": "raw",
     "oasVersions": {
       "3.0": true,
       "3.1": true,
@@ -1005,7 +1006,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-request-validator",
-    "imageId": "sha256:403dd46f734140330ef681a3996672a9e296276f339f6d67721936f92d3143de",
+    "imageId": "sha256:e501f2f247f1d0c339cbe01c88f9df9ee1269b8e8e2bb5099702a6c62cb41d93",
     "ecosystem": "npm"
   },
   "answers": [

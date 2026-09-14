@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "library": "@oaverify/core",
   "libraryVersion": "7.2.2",
   "librarySource": "https://github.com/oaverify/oaverify",
@@ -22,6 +22,7 @@
       "schemaValidation": true,
       "valueExposure": true
     },
+    "queryPairInput": "notUsed",
     "oasVersions": {
       "3.0": true,
       "3.1": true,
@@ -1347,7 +1348,7 @@
   "provenance": {
     "kind": "container",
     "slug": "oaverify-core",
-    "imageId": "sha256:46326ac7b2c5adec8d051f872d031f4c3d92bb1b41b38c71a2c39c1459bcb884",
+    "imageId": "sha256:cc81c49c8bd04fe6ac958529036cc2f5e5bdcc901d41cd5efae1fe214db4425a",
     "ecosystem": "npm"
   },
   "answers": [

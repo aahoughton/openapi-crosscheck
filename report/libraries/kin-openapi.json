@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "library": "github.com/getkin/kin-openapi",
   "libraryVersion": "0.149.0",
   "librarySource": "https://github.com/getkin/kin-openapi",
@@ -22,6 +22,7 @@
       "schemaValidation": true,
       "valueExposure": true
     },
+    "queryPairInput": "notUsed",
     "oasVersions": {
       "3.0": true,
       "3.1": true,
@@ -775,7 +776,7 @@
   "provenance": {
     "kind": "container",
     "slug": "kin-openapi",
-    "imageId": "sha256:b7a537d731b30251fca1d4e608b04da1784725e50ff03a30efa87a8eccc209ce",
+    "imageId": "sha256:aa8fdcd4def2d1c37c1419468521f202dc758c1691b80ea1eb443eab936343ed",
     "ecosystem": "go"
   },
   "answers": [

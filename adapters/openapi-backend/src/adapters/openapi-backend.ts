@@ -29,6 +29,7 @@ const capabilities: AdapterCapabilities = {
     schemaValidation: true,
     valueExposure: true,
   },
+  queryPairInput: "notUsed",
   oasVersions: { "3.0": true, "3.1": true, "3.2": false },
 };
 

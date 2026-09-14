@@ -75,16 +75,16 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:6cea1f2d352cdfff41cbb21ff136d68776e752807853a7caa5f8110b3d9b8752` |
-| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:c14045e1d9235a7c910bea7448ddebfcb788fe80b5b525a62a954dad65ca37af` |
-| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:b7a537d731b30251fca1d4e608b04da1784725e50ff03a30efa87a8eccc209ce` |
-| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:b049d27f5c5485def62a8d75571022e47a0ddb7a7a604e05bc29c951187d857d` |
-| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:9a6b54a4d308227fab4fe624958d8b174511eba72f57fd2635c77108b41dc554` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:46326ac7b2c5adec8d051f872d031f4c3d92bb1b41b38c71a2c39c1459bcb884` |
-| `openapi-backend` | `adapters/openapi-backend/` | `sha256:4bc3374d4e1ea6456b84a0f4a8be515708543f50b6780bdaeb6413380841e44f` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:c84ba8498de3146ef936ff7112b3047d88c3a058d35ac338e2226a7d166fcb3f` |
-| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:403dd46f734140330ef681a3996672a9e296276f339f6d67721936f92d3143de` |
-| `openapi_first` | `adapters/openapi-first/` | `sha256:b35f72f2df1b6fb37efbf7592272dc87822522a591b53419858ff20f5af2e1cd` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:ed827b5519bce6b00069353aedb8ca51579bb4a1235ac7897f6a7e909f6bf34d` |
+| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:f9ec45fefa3ae8a9d2e91e433360cd0dedb6bb65985d4ae2bdb22d3c6904e86c` |
+| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:aa8fdcd4def2d1c37c1419468521f202dc758c1691b80ea1eb443eab936343ed` |
+| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:bcf5927a0aafcd10aa9a4d91a802aa765fbac6ca96da780e93a56b1bdeffb05a` |
+| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:b9e32e6ee2319c3d99a6d0e43135dcbfe796bd7183409a1078a388264c974924` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:cc81c49c8bd04fe6ac958529036cc2f5e5bdcc901d41cd5efae1fe214db4425a` |
+| `openapi-backend` | `adapters/openapi-backend/` | `sha256:0f8dea7f4caaf35369d0f9486b31f2436c7bf68bd39abbe80846f83f61aca175` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:393f13eb696d549f21eda47fd4328c5354ab5198a910df8a0ddd6882a312d851` |
+| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:e501f2f247f1d0c339cbe01c88f9df9ee1269b8e8e2bb5099702a6c62cb41d93` |
+| `openapi_first` | `adapters/openapi-first/` | `sha256:e5b110f8813008d243b59a5a430012f6142066159e0fe15167a560120e8cdab2` |
 
 ## Conformance
 
@@ -138,9 +138,9 @@ rules the expected verdict rests on, and the argument for it.
 | [`path-simple-scalar-explode-oas30`](#path-simple-scalar-explode-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`path-simple-scalar-unset-style-oas30`](#path-simple-scalar-unset-style-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`path-simple-scalar-wrong-type-oas30`](#path-simple-scalar-wrong-type-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| [`query-content-json-object-canonical-oas30`](#query-content-json-object-canonical-oas30) | accepted | n/a | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | FAIL (verdict) | n/a | pass |
-| [`query-content-json-object-malformed-oas30`](#query-content-json-object-malformed-oas30) | rejected | n/a | pass | pass | pass | pass | pass | RAISED | pass | n/a | pass |
-| [`query-deep-object-canonical-oas30`](#query-deep-object-canonical-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | FAIL (verdict) | n/a | pass |
+| [`query-content-json-object-canonical-oas30`](#query-content-json-object-canonical-oas30) | accepted | n/a | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
+| [`query-content-json-object-malformed-oas30`](#query-content-json-object-malformed-oas30) | rejected | n/a | pass | pass | pass | pass | pass | RAISED | n/a | n/a | pass |
+| [`query-deep-object-canonical-oas30`](#query-deep-object-canonical-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
 | [`query-form-array-canonical-explode-oas30`](#query-form-array-canonical-explode-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | pass | pass | n/a | pass |
 | [`query-form-array-canonical-no-explode-oas30`](#query-form-array-canonical-no-explode-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`query-form-array-unset-style-oas30`](#query-form-array-unset-style-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | pass | pass | n/a | pass |
@@ -150,17 +150,17 @@ rules the expected verdict rests on, and the argument for it.
 | [`query-form-object-missing-name-oas30`](#query-form-object-missing-name-oas30) | rejected | pass | pass | pass | FAIL (verdict) | pass | pass | pass | pass | pass | pass |
 | [`query-form-object-wrong-type-oas30`](#query-form-object-wrong-type-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a | pass |
 | [`query-form-scalar-allow-reserved-declared-oas30`](#query-form-scalar-allow-reserved-declared-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
-| [`query-form-scalar-encoded-plus-oas30`](#query-form-scalar-encoded-plus-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | FAIL (value) | n/a | pass |
+| [`query-form-scalar-encoded-plus-oas30`](#query-form-scalar-encoded-plus-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
 | [`query-form-scalar-missing-name-oas30`](#query-form-scalar-missing-name-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-nullable-empty-oas30`](#query-form-scalar-nullable-empty-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | pass | pass | pass | pass | pass | FAIL (verdict) | n/a | pass |
 | [`query-form-scalar-nullable-literal-oas30`](#query-form-scalar-nullable-literal-oas30) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-optional-absent-oas30`](#query-form-scalar-optional-absent-oas30) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-optional-default-absent-oas30`](#query-form-scalar-optional-default-absent-oas30) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-unset-style-oas30`](#query-form-scalar-unset-style-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
-| [`query-pipe-delimited-array-canonical-oas30`](#query-pipe-delimited-array-canonical-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | FAIL (value) | n/a | pass |
-| [`query-pipe-delimited-object-canonical-oas30`](#query-pipe-delimited-object-canonical-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (value) | n/a | pass |
-| [`query-space-delimited-array-canonical-oas30`](#query-space-delimited-array-canonical-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
-| [`query-space-delimited-object-canonical-oas30`](#query-space-delimited-object-canonical-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
+| [`query-pipe-delimited-array-canonical-oas30`](#query-pipe-delimited-array-canonical-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
+| [`query-pipe-delimited-object-canonical-oas30`](#query-pipe-delimited-object-canonical-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | n/a | n/a | pass |
+| [`query-space-delimited-array-canonical-oas30`](#query-space-delimited-array-canonical-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
+| [`query-space-delimited-object-canonical-oas30`](#query-space-delimited-object-canonical-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | n/a | n/a | pass |
 
 Legend: `pass (verdict only)` means the library reached the right verdict and
 exposes no deserialized values, so the value half of the case could not be
@@ -1775,7 +1775,7 @@ Each row holds two separate results, and the key for both is:
 | --- | --- |
 | `accepted`, `rejected` | the verdict the library reached on the request |
 | `raised, no verdict` | it threw instead of answering, which is attributable to it and is not a rejection: an application would have seen an exception |
-| `not asked (<reason>)` | it was never given the case, because it does not perform the stage the case probes; `capabilities.md` has the reason in full |
+| `not asked (<reason>)` | no request verdict was measured; the reason names the version, stage, public input, library input shape, or adapter boundary that stopped it |
 | `harness error` | an error in the adapter or the harness rather than an answer from the library |
 | `` `{"p":"blue"}` `` | the values it handed back, as it returned them, with the vantage they were read from |
 | `not exposed by this library` | it reached a verdict and publishes no call that returns deserialized values, which is a fact about the library rather than about this request |
@@ -2177,7 +2177,7 @@ The text leaving it open: [parameter-explode](https://spec.openapis.org/oas/v3.0
 | `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `@oaverify/core` | accepted | `{"p":{"R":"100","G":"200"}}` (validated only, so an absent name failed its schema) |
 | `openapi-backend` | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
-| `openapi-core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `openapi-core` | not asked (harnessInputUnavailable) | - |
 | `openapi-request-validator` | not asked (stageNotOwned) | - |
 | `openapi_first` | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
 
@@ -2378,7 +2378,7 @@ The text leaving it open: [parameter-allow-reserved](https://spec.openapis.org/o
 | `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `@oaverify/core` | accepted | `{"p":"a/b"}` (validated only, so an absent name failed its schema) |
 | `openapi-backend` | accepted | `{"p":"a/b"}` (parsed before validation) |
-| `openapi-core` | accepted | `{"p":"a%2Fb"}` (validated only, so an absent name failed its schema) |
+| `openapi-core` | not asked (harnessInputUnavailable) | - |
 | `openapi-request-validator` | not asked (stageNotOwned) | - |
 | `openapi_first` | accepted | `{"p":"a/b"}` (parsed before validation) |
 
@@ -2554,7 +2554,7 @@ The text leaving it open: [decoding-uris-and-form-urlencoded-strings](https://sp
 | `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `@oaverify/core` | accepted | `{"p":"a b"}` (validated only, so an absent name failed its schema) |
 | `openapi-backend` | accepted | `{"p":"a b"}` (parsed before validation) |
-| `openapi-core` | accepted | `{"p":"a+b"}` (validated only, so an absent name failed its schema) |
+| `openapi-core` | not asked (harnessInputUnavailable) | - |
 | `openapi-request-validator` | not asked (stageNotOwned) | - |
 | `openapi_first` | accepted | `{"p":"a b"}` (parsed before validation) |
 

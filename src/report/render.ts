@@ -308,8 +308,8 @@ function renderMatrix(
       "and is not a rejection: an application would have seen an exception |",
   );
   lines.push(
-    "| `not asked (<reason>)` | it was never given the case, because it does not perform " +
-      "the stage the case probes; `capabilities.md` has the reason in full |",
+    "| `not asked (<reason>)` | no request verdict was measured; the reason names the " +
+      "version, stage, public input, library input shape, or adapter boundary that stopped it |",
   );
   lines.push(
     "| `harness error` | an error in the adapter or the harness rather than an answer " +
@@ -1119,15 +1119,16 @@ function renderFitness(cases: readonly Case[], measurements: readonly LibraryMea
   lines.push("exact set of rules governing it and nothing else.");
   lines.push("");
   lines.push(
-    "| library | routing | split: path | split: query | split: header | split: cookie | " +
+    "| library | routing | split: path | split: query | query pair input | split: header | split: cookie | " +
       "style and explode | content media type | schema validation | value exposure |",
   );
-  lines.push("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |");
+  lines.push("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |");
   for (const adapter of measurements) {
     const s = adapter.capabilities.stages;
     lines.push(
       `| \`${adapter.library}\` | ${owned(s.routing)} | ${owned(s.splitting.path)} | ` +
-        `${owned(s.splitting.query)} | ${owned(s.splitting.header)} | ${owned(s.splitting.cookie)} | ` +
+        `${owned(s.splitting.query)} | ${adapter.capabilities.queryPairInput} | ` +
+        `${owned(s.splitting.header)} | ${owned(s.splitting.cookie)} | ` +
         `${owned(s.styleDeserialization)} | ${owned(s.contentDeserialization)} | ` +
         `${owned(s.schemaValidation)} | ${owned(s.valueExposure)} |`,
     );
@@ -1137,6 +1138,13 @@ function renderFitness(cases: readonly Case[], measurements: readonly LibraryMea
   lines.push("serialization can be specified, and the specification requires each parameter to");
   lines.push("use one. They are separate columns because a library can do one and not the");
   lines.push("other, and one column covering both cannot say so.");
+  lines.push("");
+  lines.push("`query pair input` states the public input contract when query splitting is");
+  lines.push("the caller's. `raw` accepts the harness preparse directly, `decoded` requires");
+  lines.push("the caller to resolve query encoding first, and `notUsed` means the library");
+  lines.push("reads the request target and splits it itself. Alone among the columns here");
+  lines.push("it is declared and not probed, because it describes the adapter's hand-off");
+  lines.push("rather than the library's processing. `capabilities.md` says what that costs.");
   lines.push("");
   lines.push("A library is asked a case only when it owns the stage that case probes and");
   lines.push("every stage between that one and the verdict. Stages upstream of the probe can");
@@ -1571,6 +1579,17 @@ function renderCapabilities(
   lines.push("");
   lines.push("A stage a library disclaims that a probe exercised anyway is printed for a");
   lines.push("reader to judge rather than treated as a correction.");
+  lines.push("");
+  lines.push("One declaration is outside all of this and is published as what it is. The");
+  lines.push("`query pair input` column in `fitness.md` states the encoding state a library's");
+  lines.push("public pre-split query input accepts, and no probe reaches it: it is a fact");
+  lines.push("about the adapter's hand-off rather than about the library's processing, and");
+  lines.push("both answers are consistent with everything a container does on the wire. It");
+  lines.push("carries a cost, because declaring `decoded` moves the query cases carrying");
+  lines.push("encoding this harness cannot resolve into `not asked");
+  lines.push("(harnessInputUnavailable)`. So read that column as the adapter author's");
+  lines.push("statement of the contract they wrote against, and `adapters/<slug>/` for the");
+  lines.push("call they made. Every other declaration on this page was probed.");
   lines.push("");
   lines.push("### What stands behind each declared stage");
   lines.push("");

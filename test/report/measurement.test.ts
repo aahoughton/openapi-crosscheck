@@ -2,7 +2,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { readRun } from "../../src/report/read";
 import { compareLibraryNames } from "../../src/report/view";
-import { canBeAsked } from "../../src/types/pipeline";
+import { canBeAsked, withheldOverQueryDecoding } from "../../src/types/pipeline";
 import { OAS_VERSIONS } from "../../src/types/openapi";
 
 /**
@@ -48,15 +48,32 @@ describe("the committed measurements", () => {
         const testCase = run.cases.find((c) => c.id === caseId);
         if (testCase === undefined) throw new Error(`no such case: ${caseId}`);
         const versionDeclared = measurement.capabilities.oasVersions[testCase.oasVersion];
-        const owned = canBeAsked(measurement.capabilities.stages, testCase.dimensions);
+        const owned = canBeAsked(
+          measurement.capabilities.stages,
+          testCase.dimensions,
+          testCase.request.target,
+          measurement.capabilities.queryPairInput,
+        );
         const reason = result.outcome === "unsupported" ? result.reason : null;
+        const inputUnavailable = withheldOverQueryDecoding(
+          measurement.capabilities.stages,
+          testCase.dimensions,
+          testCase.request.target,
+          measurement.capabilities.queryPairInput,
+        );
         const expected = !versionDeclared
           ? "oasVersionNotDeclared"
           : !owned
-            ? "stageNotOwned"
+            ? inputUnavailable
+              ? "harnessInputUnavailable"
+              : "stageNotOwned"
             : null;
         const runnerIssued =
-          reason === "oasVersionNotDeclared" || reason === "stageNotOwned" ? reason : null;
+          reason === "oasVersionNotDeclared" ||
+          reason === "stageNotOwned" ||
+          reason === "harnessInputUnavailable"
+            ? reason
+            : null;
         expect({ case: caseId, library: measurement.library, withheld: runnerIssued }).toEqual({
           case: caseId,
           library: measurement.library,

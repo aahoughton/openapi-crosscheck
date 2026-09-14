@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "library": "openapi_first",
   "libraryVersion": "3.4.3",
   "librarySource": "https://github.com/ahx/openapi_first",
@@ -22,6 +22,7 @@
       "schemaValidation": true,
       "valueExposure": true
     },
+    "queryPairInput": "notUsed",
     "oasVersions": {
       "3.0": true,
       "3.1": true,
@@ -710,7 +711,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-first",
-    "imageId": "sha256:b35f72f2df1b6fb37efbf7592272dc87822522a591b53419858ff20f5af2e1cd",
+    "imageId": "sha256:e5b110f8813008d243b59a5a430012f6142066159e0fe15167a560120e8cdab2",
     "ecosystem": "rubygems"
   },
   "answers": [

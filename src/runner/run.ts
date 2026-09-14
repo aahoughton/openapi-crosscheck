@@ -4,7 +4,7 @@ import type { AdapterResult } from "../types/result";
 import type { CaseAnswer, LibraryMeasurement } from "../types/measurement";
 import { MEASUREMENT_SCHEMA_VERSION } from "../types/measurement";
 import { delegatedSplits } from "../types/adapter";
-import { canBeAsked, probedStage } from "../types/pipeline";
+import { canBeAsked, probedStage, withheldOverQueryDecoding } from "../types/pipeline";
 import { describePreparse, preparse, suppliedAnything } from "../wire/preparse";
 import { runCapabilityEvidence, runVersionEvidence } from "../capability/evidence";
 import { corpusDigest } from "../corpus/digest";
@@ -84,20 +84,43 @@ async function runOne(testCase: Case, adapter: Adapter): Promise<AdapterResult> 
         "here says how the library would have answered",
     };
   }
-  if (!canBeAsked(adapter.capabilities.stages, testCase.dimensions)) {
+  if (
+    !canBeAsked(
+      adapter.capabilities.stages,
+      testCase.dimensions,
+      testCase.request.target,
+      adapter.capabilities.queryPairInput,
+    )
+  ) {
+    // Two reasons, split by which guard decided. The second is a harness
+    // limitation rather than a chain-ownership fact, and a reader of the cell
+    // deserves the difference: nothing about the library changed, the harness
+    // cannot construct the input its declared contract names.
+    const overDecoding = withheldOverQueryDecoding(
+      adapter.capabilities.stages,
+      testCase.dimensions,
+      testCase.request.target,
+      adapter.capabilities.queryPairInput,
+    );
     return {
       library: adapter.library,
       libraryVersion: adapter.libraryVersion,
       configurationId: adapter.configuration.id,
       preparse: null,
       outcome: "unsupported",
-      reason: "stageNotOwned",
-      detail:
-        `this case probes ${stage} for a ${location} parameter; reaching a verdict ` +
-        "needs every stage the case travels through from there, and for a content " +
-        "parameter also the media type parsing upstream of it, and this library " +
-        "leaves at least one of those to its caller, so an answer would measure " +
-        "the harness",
+      reason: overDecoding ? "harnessInputUnavailable" : "stageNotOwned",
+      detail: overDecoding
+        ? "this case's query text carries percent-encoding or a plus that query " +
+          "decoding converts, and this library declares a public input of decoded " +
+          "query pairs, so the pairs it expects would have to come from the " +
+          "harness; the harness hands values through raw because choosing a " +
+          "decoding would answer questions the corpus asks, a harness limitation, " +
+          "so nothing here says how the library answers behind a caller that decodes"
+        : `this case probes ${stage} for a ${location} parameter; reaching a verdict ` +
+          "needs every stage the case travels through from there, and for a content " +
+          "parameter also the media type parsing upstream of it, and this library " +
+          "leaves at least one of those to its caller, so an answer would measure " +
+          "the harness",
     };
   }
 

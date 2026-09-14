@@ -30,6 +30,7 @@ export interface AdapterCapabilities {
    * What the library does for itself, stage by stage.
    */
   readonly stages: StageOwnership;
+  readonly queryPairInput: QueryPairInput;
   /**
    * Which OpenAPI versions the library is claimed to accept documents of.
    *
@@ -39,6 +40,8 @@ export interface AdapterCapabilities {
    */
   readonly oasVersions: Readonly<Record<OasVersion, boolean>>;
 }
+
+export type QueryPairInput = "raw" | "decoded" | "notUsed";
 
 /**
  * The setup that produced a result. Configuration is a confound: a library

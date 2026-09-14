@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "library": "openapi-backend",
   "libraryVersion": "5.20.1",
   "librarySource": "https://github.com/openapistack/openapi-backend",
@@ -22,6 +22,7 @@
       "schemaValidation": true,
       "valueExposure": true
     },
+    "queryPairInput": "notUsed",
     "oasVersions": {
       "3.0": true,
       "3.1": true,
@@ -1357,7 +1358,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-backend",
-    "imageId": "sha256:4bc3374d4e1ea6456b84a0f4a8be515708543f50b6780bdaeb6413380841e44f",
+    "imageId": "sha256:0f8dea7f4caaf35369d0f9486b31f2436c7bf68bd39abbe80846f83f61aca175",
     "ecosystem": "npm"
   },
   "answers": [

@@ -4,6 +4,26 @@ What changed between protocol versions, and what a container has to do about
 it. The current shape is in [container-protocol.md](container-protocol.md);
 this file is just the history.
 
+## 5
+
+`GET /describe` now requires `capabilities.queryPairInput`. It states the
+encoding state accepted by a library's public pre-split query input, separately
+from whether the library owns query splitting.
+
+Use `notUsed` when `stages.splitting.query` is true. For a library that receives
+query pairs, use `raw` when the public input accepts the ordered names and values
+exactly as `preparsed.query` supplies them, or `decoded` when the caller must
+resolve query percent-encoding first. The harness refuses to connect to a
+container that omits the field or answers it against its own splitting claim,
+so an omission cannot read as a declaration nobody made.
+
+The harness always supplies raw pairs. A decoded-pair declaration makes cases
+carrying convertible query encoding unaskable because decoding in the harness
+would decide the question for every library. A raw-pair declaration keeps those
+cases askable. A withheld case carries the runner-issued reason
+`harnessInputUnavailable`, which keeps this input limitation separate from
+`stageNotOwned`.
+
 ## 4
 
 The value channel can now answer per parameter. `deserialized.unreadable` is an

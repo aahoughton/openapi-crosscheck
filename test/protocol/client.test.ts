@@ -1,5 +1,6 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { connect } from "../../src/container/client";
+import type { DescribeResponse } from "../../src/types/container";
 import { PROTOCOL_VERSION } from "../../src/types/container";
 import type { AdapterCase } from "../../src/types/adapter";
 import { delegatedSplits } from "../../src/types/adapter";
@@ -146,6 +147,70 @@ describe("a container speaking another protocol version is refused at connect", 
       await expect(connect(mock.transport, inProcessProvenance("pretend"))).rejects.toThrow(
         /protocol/,
       );
+    } finally {
+      await mock.close();
+    }
+  });
+});
+
+describe("the query-pair declaration is refused at connect when it says nothing", () => {
+  const capabilities = (
+    queryPairInput: unknown,
+    query: boolean,
+  ): DescribeResponse["capabilities"] =>
+    ({
+      stages: {
+        routing: true,
+        splitting: { cookie: false, header: false, path: false, query },
+        styleDeserialization: true,
+        contentDeserialization: true,
+        schemaValidation: true,
+        valueExposure: false,
+      },
+      queryPairInput,
+      oasVersions: { "3.0": false, "3.1": true, "3.2": false },
+    }) as DescribeResponse["capabilities"];
+
+  it("refuses an omitted declaration rather than asking every case", async () => {
+    // An absent field arrives as `undefined`, which is no member of the set.
+    // The withholding guard would then ask a decoded-pair library every case
+    // it cannot be handed, and the fitness table would publish the word
+    // `undefined` as a fact about the library.
+    const mock = await startMockContainer({
+      describe: { capabilities: capabilities(undefined, false) },
+    });
+    try {
+      await expect(connect(mock.transport, inProcessProvenance("silent"))).rejects.toThrow(
+        /queryPairInput/,
+      );
+    } finally {
+      await mock.close();
+    }
+  });
+
+  it("refuses a declaration contradicting the splitting claim", async () => {
+    // The two fields answer one question between them: a library owning the
+    // query split receives the target rather than pairs. A container that
+    // answers it twice has not said which answer to believe.
+    const mock = await startMockContainer({
+      describe: { capabilities: capabilities("raw", true) },
+    });
+    try {
+      await expect(connect(mock.transport, inProcessProvenance("contradicting"))).rejects.toThrow(
+        /queryPairInput/,
+      );
+    } finally {
+      await mock.close();
+    }
+  });
+
+  it("connects when the declaration and the splitting claim agree", async () => {
+    const mock = await startMockContainer({
+      describe: { capabilities: capabilities("notUsed", true) },
+    });
+    try {
+      const connected = await connect(mock.transport, inProcessProvenance("agreeing"));
+      expect(connected.capabilities.queryPairInput).toBe("notUsed");
     } finally {
       await mock.close();
     }

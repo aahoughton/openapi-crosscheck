@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "library": "openapi-core",
   "libraryVersion": "0.23.1",
   "librarySource": "https://github.com/python-openapi/openapi-core",
@@ -22,6 +22,7 @@
       "schemaValidation": true,
       "valueExposure": true
     },
+    "queryPairInput": "decoded",
     "oasVersions": {
       "3.0": true,
       "3.1": true,
@@ -1131,13 +1132,13 @@
   ],
   "configuration": {
     "id": "unmarshal-request-protocol",
-    "description": "OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. Raw query name/value pairs come from the harness preparse with no percent decoding: this library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into pairs is the caller's and is recorded on every cell. Style and explode are still applied by the library to those pairs. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.",
+    "description": "OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. This library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into decoded pairs is the caller's. The harness supplies raw pairs only where their encoding state is equivalent and withholds cases whose query decoding would change them. Style and explode are still applied by the library to those pairs. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.",
     "options": {}
   },
   "provenance": {
     "kind": "container",
     "slug": "openapi-core",
-    "imageId": "sha256:c84ba8498de3146ef936ff7112b3047d88c3a058d35ac338e2226a7d166fcb3f",
+    "imageId": "sha256:393f13eb696d549f21eda47fd4328c5354ab5198a910df8a0ddd6882a312d851",
     "ecosystem": "pypi"
   },
   "answers": [
@@ -5899,44 +5900,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "rejected",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [
-            {
-              "type": "ParameterValidationError",
-              "message": "Query parameter error: p"
-            }
-          ],
-          "parameters": {
-            "path": {},
-            "query": {},
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -5945,44 +5912,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "rejected",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [
-            {
-              "type": "ParameterValidationError",
-              "message": "Query parameter error: p"
-            }
-          ],
-          "parameters": {
-            "path": {},
-            "query": {},
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -5991,44 +5924,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "%7Bnot-json"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "rejected",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [
-            {
-              "type": "ParameterValidationError",
-              "message": "Query parameter error: p"
-            }
-          ],
-          "parameters": {
-            "path": {},
-            "query": {},
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -6037,44 +5936,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "%7Bnot-json"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "rejected",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [
-            {
-              "type": "ParameterValidationError",
-              "message": "Query parameter error: p"
-            }
-          ],
-          "parameters": {
-            "path": {},
-            "query": {},
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -6107,48 +5972,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p%5BR%5D",
-                "100"
-              ],
-              [
-                "p%5BG%5D",
-                "200"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "rejected",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [
-            {
-              "type": "MissingRequiredParameter",
-              "message": "Missing required query parameter: p"
-            }
-          ],
-          "parameters": {
-            "path": {},
-            "query": {},
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -6157,48 +5984,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p%5BR%5D",
-                "100"
-              ],
-              [
-                "p%5BG%5D",
-                "200"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "rejected",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [
-            {
-              "type": "MissingRequiredParameter",
-              "message": "Missing required query parameter: p"
-            }
-          ],
-          "parameters": {
-            "path": {},
-            "query": {},
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -6207,48 +5996,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p%5BR%5D",
-                "100"
-              ],
-              [
-                "p%5BG%5D",
-                "200"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "rejected",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [
-            {
-              "type": "MissingRequiredParameter",
-              "message": "Missing required query parameter: p"
-            }
-          ],
-          "parameters": {
-            "path": {},
-            "query": {},
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -6257,48 +6008,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p%5BR%5D",
-                "100"
-              ],
-              [
-                "p%5BG%5D",
-                "200"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "rejected",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [
-            {
-              "type": "ParameterValidationError",
-              "message": "Query parameter error: p"
-            }
-          ],
-          "parameters": {
-            "path": {},
-            "query": {},
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -6307,48 +6020,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p%5BR%5D",
-                "100"
-              ],
-              [
-                "p%5BG%5D",
-                "200"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "rejected",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [
-            {
-              "type": "ParameterValidationError",
-              "message": "Query parameter error: p"
-            }
-          ],
-          "parameters": {
-            "path": {},
-            "query": {},
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -6357,48 +6032,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p%5BR%5D",
-                "100"
-              ],
-              [
-                "p%5BG%5D",
-                "200"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "rejected",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {},
-          "nativeTypes": {}
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [
-            {
-              "type": "ParameterValidationError",
-              "message": "Query parameter error: p"
-            }
-          ],
-          "parameters": {
-            "path": {},
-            "query": {},
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -7849,45 +7486,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "a%2Fb"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": "a%2Fb"
-          },
-          "nativeTypes": {
-            "p": "str"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": "a%2Fb"
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -7896,45 +7498,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "a%2Fb"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": "a%2Fb"
-          },
-          "nativeTypes": {
-            "p": "str"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": "a%2Fb"
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -8037,45 +7604,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "a%2Bb"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": "a%2Bb"
-          },
-          "nativeTypes": {
-            "p": "str"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": "a%2Bb"
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -8084,45 +7616,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "a%2Bb"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": "a%2Bb"
-          },
-          "nativeTypes": {
-            "p": "str"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": "a%2Bb"
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -8131,45 +7628,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "a%2Bb"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": "a%2Bb"
-          },
-          "nativeTypes": {
-            "p": "str"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": "a%2Bb"
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -8870,45 +8332,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "a+b"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": "a+b"
-          },
-          "nativeTypes": {
-            "p": "str"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": "a+b"
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -8917,45 +8344,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "a+b"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": "a+b"
-          },
-          "nativeTypes": {
-            "p": "str"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": "a+b"
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -8964,45 +8356,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "a+b"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": "a+b"
-          },
-          "nativeTypes": {
-            "p": "str"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": "a+b"
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -9105,49 +8462,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "blue%7Cblack"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": [
-              "blue%7Cblack"
-            ]
-          },
-          "nativeTypes": {
-            "p": "list[str]"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": [
-                "blue%7Cblack"
-              ]
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -9156,49 +8474,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "blue%7Cblack"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": [
-              "blue%7Cblack"
-            ]
-          },
-          "nativeTypes": {
-            "p": "list[str]"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": [
-                "blue%7Cblack"
-              ]
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -9207,45 +8486,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "R%7C100%7CG%7C200"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": {}
-          },
-          "nativeTypes": {
-            "p": "dict"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": {}
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -9254,45 +8498,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "R%7C100%7CG%7C200"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": {}
-          },
-          "nativeTypes": {
-            "p": "dict"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": {}
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -9301,51 +8510,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "blue%20black"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": [
-              "blue",
-              "black"
-            ]
-          },
-          "nativeTypes": {
-            "p": "list[str]"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": [
-                "blue",
-                "black"
-              ]
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -9354,51 +8522,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "blue%20black"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": [
-              "blue",
-              "black"
-            ]
-          },
-          "nativeTypes": {
-            "p": "list[str]"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": [
-                "blue",
-                "black"
-              ]
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -9507,51 +8634,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "R%20100%20G%20200"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": {
-              "R": "100",
-              "G": "200"
-            }
-          },
-          "nativeTypes": {
-            "p": "dict[str,str]"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": {
-                "R": "100",
-                "G": "200"
-              }
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {
@@ -9560,51 +8646,10 @@
         "library": "openapi-core",
         "libraryVersion": "0.23.1",
         "configurationId": "unmarshal-request-protocol",
-        "preparse": {
-          "performedBy": "harness",
-          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
-          "result": {
-            "query": [
-              [
-                "p",
-                "R%20100%20G%20200"
-              ]
-            ],
-            "cookies": []
-          }
-        },
-        "outcome": "accepted",
-        "deserialized": {
-          "kind": "observed",
-          "vantage": "validatedOnly",
-          "value": {
-            "p": {
-              "R": "100",
-              "G": "200"
-            }
-          },
-          "nativeTypes": {
-            "p": "dict[str,str]"
-          }
-        },
-        "inputMutation": {
-          "kind": "none",
-          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
-        },
-        "raw": {
-          "errors": [],
-          "parameters": {
-            "path": {},
-            "query": {
-              "p": {
-                "R": "100",
-                "G": "200"
-              }
-            },
-            "header": {},
-            "cookie": {}
-          }
-        }
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "harnessInputUnavailable",
+        "detail": "this case's query text carries percent-encoding or a plus that query decoding converts, and this library declares a public input of decoded query pairs, so the pairs it expects would have to come from the harness; the harness hands values through raw because choosing a decoding would answer questions the corpus asks, a harness limitation, so nothing here says how the library answers behind a caller that decodes"
       }
     },
     {

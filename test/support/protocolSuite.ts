@@ -23,6 +23,7 @@ const UNSUPPORTED_REASONS = [
   "libraryInitUnsupported",
   "adapterLimitation",
   "stageNotOwned",
+  "harnessInputUnavailable",
   "oasVersionNotDeclared",
 ];
 
@@ -120,6 +121,8 @@ export function protocolSuite(what: string, adapters: readonly Adapter[]): void 
         for (const location of ["cookie", "header", "path", "query"] as const) {
           expect(typeof stages.splitting[location]).toBe("boolean");
         }
+        expect(["raw", "decoded", "notUsed"]).toContain(adapter.capabilities.queryPairInput);
+        expect(adapter.capabilities.queryPairInput === "notUsed").toBe(stages.splitting.query);
       });
 
       it(`${adapter.library} answers only within the protocol's closed sets`, async () => {
@@ -144,6 +147,7 @@ export function protocolSuite(what: string, adapters: readonly Adapter[]): void 
           // Issued by the harness alone. A container claiming it would be
           // asserting something about the runner's own stage guard.
           expect(result.reason).not.toBe("stageNotOwned");
+          expect(result.reason).not.toBe("harnessInputUnavailable");
           expect(result.reason).not.toBe("oasVersionNotDeclared");
         }
 

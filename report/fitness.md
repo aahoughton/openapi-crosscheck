@@ -18,23 +18,30 @@ on. A case's verdict can rest on rules governing a neighbouring stage too, so
 read the list as what the corpus knows about that stage rather than as the
 exact set of rules governing it and nothing else.
 
-| library | routing | split: path | split: query | split: header | split: cookie | style and explode | content media type | schema validation | value exposure |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | owned | owned | caller | owned | owned | owned | caller | owned | caller |
-| `express-openapi-validator` | owned | owned | owned | owned | caller | owned | owned | owned | owned |
-| `github.com/getkin/kin-openapi` | owned | owned | owned | owned | owned | owned | owned | owned | owned |
-| `github.com/pb33f/libopenapi-validator` | owned | owned | owned | owned | owned | owned | owned | owned | caller |
-| `league/openapi-psr7-validator` | owned | owned | owned | owned | owned | owned | owned | owned | caller |
-| `@oaverify/core` | owned | owned | owned | owned | caller | owned | owned | owned | owned |
-| `openapi-backend` | owned | owned | owned | caller | owned | owned | owned | owned | owned |
-| `openapi-core` | owned | owned | caller | owned | caller | owned | owned | owned | owned |
-| `openapi-request-validator` | caller | caller | caller | caller | caller | caller | caller | owned | owned |
-| `openapi_first` | owned | owned | owned | owned | owned | owned | owned | owned | owned |
+| library | routing | split: path | split: query | query pair input | split: header | split: cookie | style and explode | content media type | schema validation | value exposure |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | owned | owned | caller | raw | owned | owned | owned | caller | owned | caller |
+| `express-openapi-validator` | owned | owned | owned | notUsed | owned | caller | owned | owned | owned | owned |
+| `github.com/getkin/kin-openapi` | owned | owned | owned | notUsed | owned | owned | owned | owned | owned | owned |
+| `github.com/pb33f/libopenapi-validator` | owned | owned | owned | notUsed | owned | owned | owned | owned | owned | caller |
+| `league/openapi-psr7-validator` | owned | owned | owned | notUsed | owned | owned | owned | owned | owned | caller |
+| `@oaverify/core` | owned | owned | owned | notUsed | owned | caller | owned | owned | owned | owned |
+| `openapi-backend` | owned | owned | owned | notUsed | caller | owned | owned | owned | owned | owned |
+| `openapi-core` | owned | owned | caller | decoded | owned | caller | owned | owned | owned | owned |
+| `openapi-request-validator` | caller | caller | caller | raw | caller | caller | caller | caller | owned | owned |
+| `openapi_first` | owned | owned | owned | notUsed | owned | owned | owned | owned | owned | owned |
 
 `style and explode` and `content media type` are the two ways a parameter's
 serialization can be specified, and the specification requires each parameter to
 use one. They are separate columns because a library can do one and not the
 other, and one column covering both cannot say so.
+
+`query pair input` states the public input contract when query splitting is
+the caller's. `raw` accepts the harness preparse directly, `decoded` requires
+the caller to resolve query encoding first, and `notUsed` means the library
+reads the request target and splits it itself. Alone among the columns here
+it is declared and not probed, because it describes the adapter's hand-off
+rather than the library's processing. `capabilities.md` says what that costs.
 
 A library is asked a case only when it owns the stage that case probes and
 every stage between that one and the verdict. Stages upstream of the probe can

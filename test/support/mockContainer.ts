@@ -45,6 +45,7 @@ const DEFAULT_CAPABILITIES: AdapterCapabilities = {
     schemaValidation: true,
     valueExposure: false,
   },
+  queryPairInput: "raw",
   oasVersions: { "3.0": false, "3.1": true, "3.2": false },
 };
 

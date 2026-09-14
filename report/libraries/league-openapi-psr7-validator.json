@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "library": "league/openapi-psr7-validator",
   "libraryVersion": "0.24",
   "librarySource": "https://github.com/thephpleague/openapi-psr7-validator",
@@ -22,6 +22,7 @@
       "schemaValidation": true,
       "valueExposure": false
     },
+    "queryPairInput": "notUsed",
     "oasVersions": {
       "3.0": true,
       "3.1": true,
@@ -886,7 +887,7 @@
   "provenance": {
     "kind": "container",
     "slug": "league-openapi-psr7-validator",
-    "imageId": "sha256:9a6b54a4d308227fab4fe624958d8b174511eba72f57fd2635c77108b41dc554",
+    "imageId": "sha256:b9e32e6ee2319c3d99a6d0e43135dcbfe796bd7183409a1078a388264c974924",
     "ecosystem": "packagist"
   },
   "answers": [

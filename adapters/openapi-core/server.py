@@ -13,7 +13,7 @@ from openapi_core import OpenAPI
 from openapi_core.datatypes import RequestParameters
 from werkzeug.datastructures import ImmutableMultiDict
 
-PROTOCOL_VERSION = 4
+PROTOCOL_VERSION = 5
 LIBRARY = "openapi-core"
 # Where this library's source lives. Stated by this container, not resolved.
 LIBRARY_SOURCE = "https://github.com/python-openapi/openapi-core"
@@ -51,6 +51,7 @@ CAPABILITIES = {
         "schemaValidation": True,
         "valueExposure": True,
     },
+    "queryPairInput": "decoded",
     "oasVersions": {"3.0": True, "3.1": True, "3.2": True},
 }
 
@@ -61,11 +62,12 @@ CONFIGURATION = {
         "object implementing the library's published Request protocol rather than its "
         "testing helper. The raw path is handed over unparsed, so routing and path "
         "parameter extraction are the library's. "
-        "Raw query name/value pairs come from the harness preparse with no percent "
-        "decoding: this library takes a query mapping and raises PathNotFound if a query "
-        "string is left in the path, so the split into pairs is the caller's and is "
-        "recorded on every cell. Style and explode are still applied by the library to "
-        "those pairs. Cookie pairs go in as the MultiDict this library documents for "
+        "This library takes a query mapping and raises PathNotFound if a query string is "
+        "left in the path, so the split into decoded pairs is the caller's. The harness "
+        "supplies raw pairs only where their encoding state is equivalent and withholds "
+        "cases whose query decoding would change them. Style and explode are still applied "
+        "by the library to those pairs. Cookie pairs go in as the MultiDict this library "
+        "documents for "
         "that field, so a repeated cookie name reaches it rather than being collapsed "
         "on the way in. Every value in both mappings is a string, so a query pair or a "
         "cookie crumb that arrived with no `=` at all is answered as a case this shape "

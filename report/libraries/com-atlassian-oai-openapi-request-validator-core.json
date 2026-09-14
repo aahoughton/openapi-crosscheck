@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "library": "com.atlassian.oai:openapi-request-validator-core",
   "libraryVersion": "3.0.0",
   "librarySource": "https://bitbucket.org/atlassian/swagger-request-validator",
@@ -22,6 +22,7 @@
       "schemaValidation": true,
       "valueExposure": false
     },
+    "queryPairInput": "raw",
     "oasVersions": {
       "3.0": true,
       "3.1": true,
@@ -894,7 +895,7 @@
   "provenance": {
     "kind": "container",
     "slug": "com-atlassian-oai-openapi-request-validator-core",
-    "imageId": "sha256:6cea1f2d352cdfff41cbb21ff136d68776e752807853a7caa5f8110b3d9b8752",
+    "imageId": "sha256:ed827b5519bce6b00069353aedb8ca51579bb4a1235ac7897f6a7e909f6bf34d",
     "ecosystem": "maven"
   },
   "answers": [

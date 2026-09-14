@@ -55,6 +55,25 @@ show is published as an unbacked claim, with the probes that showed nothing
 named beside it. That is a finding about the measurement rather than a failure,
 and it is the row to look at when a probe appears mismatched to the library.
 
+**One declaration is yours alone to get right.** If your library leaves query
+splitting to its caller, `/describe` must also answer
+`capabilities.queryPairInput` with the encoding state its public input accepts:
+`raw` when the ordered names and values in `preparsed.query` are what the call
+you make takes, `decoded` when your caller has to resolve query
+percent-encoding first. Answer `notUsed` when your library owns the query
+split, which is the one case the harness checks, because a library reading the
+request target receives no pairs at all.
+
+No probe can settle this one. Both answers are consistent with everything your
+container does on the wire, so it is published in `fitness.md` as declared
+rather than probed. Declare it accurately in the direction that costs you:
+`decoded` makes every query case whose text carries a percent triple or a `+`
+unaskable, published as `not asked (harnessInputUnavailable)`, because
+resolving that encoding is the question several of those cases exist to ask and
+a harness answering it would answer it for everyone. Declaring `decoded` to
+move cells out of a matrix is the one thing this field makes possible and the
+one thing it is not for.
+
 ## The five steps
 
 1. **Create a directory named for your library.** The slug is your package name
@@ -209,6 +228,8 @@ file parses.
 - `test/container/protocol.test.ts`: the message shapes, the closed sets, and a
   declaration for every stage and every splitting location. An omitted field
   arrives as `undefined` and would read as a disclaim you never made.
+  `queryPairInput` is checked at connect as well, so a container measured from
+  outside this repository is held to it too.
 - `test/adapters/control.test.ts`: both verdicts from trivial inputs, the value
   channel matching what you declared, the preparse record matching what the
   harness actually supplied, no declared stage contradicted by a probe, and no

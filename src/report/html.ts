@@ -71,7 +71,7 @@ const OUTCOME_NOTE: Record<ConformanceOutcome, string> = {
     "It threw instead of answering, which is attributable to it. An application would have seen an exception rather than a refusal.",
   adapterError: "An error in the adapter or the harness rather than an answer from the library.",
   notApplicable:
-    "It was never given the case, because it does not perform the stage the case probes. The reason is in capabilities.md.",
+    "No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.",
 };
 
 const OUTCOME_CLASS: Record<ConformanceOutcome, string> = {
@@ -507,7 +507,7 @@ ${divergence
     <dl class="stages">
       <dt>accepted / rejected</dt><dd>The verdict the library reached on the request.</dd>
       <dt>raised, no verdict</dt><dd>It threw instead of answering, so an application would have seen an exception. Attributable to the library, and a different thing from a rejection.</dd>
-      <dt>not asked</dt><dd>It was never given this case, because it doesn't perform the stage the case probes. The reason is on the cell and in <code>capabilities.md</code>.</dd>
+      <dt>not asked</dt><dd>No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.</dd>
       <dt>harness error</dt><dd>An error in the adapter or the harness rather than an answer from the library.</dd>
       <dt><code>{"p":"blue"}</code></dt><dd>The values the library handed back, as it returned them. The vantage they were read from is recorded with every answer in <code>libraries/&lt;slug&gt;.json</code>, because a value handed to a handler and a value read from a validator are different observations.</dd>
       <dt>not exposed by this library</dt><dd>It reached a verdict, and publishes no call that returns deserialized values. That's a fact about the library rather than about this request.</dd>

@@ -88,6 +88,11 @@ export type UnsupportedReason =
    */
   | "stageNotOwned"
   /**
+   * Runner-issued: the harness cannot construct the library's public input
+   * without performing work whose result the case exists to measure.
+   */
+  | "harnessInputUnavailable"
+  /**
    * Runner-issued: the case's document is of an OpenAPI version this container
    * does not declare its library accepts, so no request was made.
    */

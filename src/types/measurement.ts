@@ -34,7 +34,7 @@ import type { AdapterResult } from "./result";
  * means is a version bump, and reading an older document means reading its
  * fields with their older meaning.
  */
-export const MEASUREMENT_SCHEMA_VERSION = 1;
+export const MEASUREMENT_SCHEMA_VERSION = 2;
 
 /** One library's answers, complete on their own. */
 export interface LibraryMeasurement {

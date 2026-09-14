@@ -12,7 +12,7 @@ use Nyholm\Psr7\Request;
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\RequestInterface;
 
-const PROTOCOL_VERSION = 4;
+const PROTOCOL_VERSION = 5;
 const LIBRARY = 'league/openapi-psr7-validator';
 // Where this library's source lives. Stated by this container.
 const LIBRARY_SOURCE = 'https://github.com/thephpleague/openapi-psr7-validator';
@@ -29,6 +29,7 @@ function capabilities(): array
             'schemaValidation' => true,
             'valueExposure' => false,
         ],
+        'queryPairInput' => 'notUsed',
         'oasVersions' => ['3.0' => true, '3.1' => true, '3.2' => false],
     ];
 }
