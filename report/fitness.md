@@ -64,7 +64,7 @@ expected verdicts rest on.
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 
-10 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas30`, `query-content-json-object-malformed-oas31`, and 2 more in the matrix files.
+14 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas30`, `query-content-json-boolean-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, and 6 more in the matrix files.
 
 Rules those verdicts rest on:
 
@@ -82,10 +82,11 @@ Rules those verdicts rest on:
 - [schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+- [url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
 - [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 - [x4-8-12-2-fixed-fields](https://spec.openapis.org/oas/v3.1.1.html#x4-8-12-2-fixed-fields)
 
-5 divergence cases also probe it: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`, `querystring-json-object-canonical-oas32`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+4 divergence cases also probe it: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
 
 **Value exposure.** It returns a verdict and no values, so a caller needing the deserialized values computes them again from the request.
 
@@ -149,7 +150,7 @@ expected verdicts rest on.
 
 **Header name matching.** Its input is keyed by header name, so fold the casing and collect same-named headers yourself before calling it.
 
-2 conformance cases probe it: `header-simple-array-case-variant-oas30`, `header-simple-array-case-variant-oas31`.
+4 conformance cases probe it: `header-simple-array-case-variant-oas30`, `header-simple-array-case-variant-oas31`, `header-simple-array-duplicate-name-oas30`, `header-simple-array-duplicate-name-oas31`.
 
 Rules those verdicts rest on:
 
@@ -157,10 +158,10 @@ Rules those verdicts rest on:
 - [parameter-locations](https://spec.openapis.org/oas/v3.1.1.html#parameter-locations)
 - [parameter-style](https://spec.openapis.org/oas/v3.0.4.html#parameter-style)
 - [parameter-style](https://spec.openapis.org/oas/v3.1.1.html#parameter-style)
+- [section-3.2.2](https://www.rfc-editor.org/rfc/rfc7230.html#section-3.2.2)
+- [section-3.2.2](https://www.rfc-editor.org/rfc/rfc7230.html#section-3.2.2)
 - [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
-
-2 divergence cases also probe it: `header-simple-array-duplicate-name-oas30`, `header-simple-array-duplicate-name-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
 
 ### `openapi-core`
 
@@ -184,7 +185,7 @@ expected verdicts rest on.
 
 **Routing.** Match the request to an operation and tell it which one applies.
 
-2 conformance cases probe it: `path-routing-concrete-before-templated-oas30`, `path-routing-concrete-before-templated-oas31`.
+8 conformance cases probe it: `path-routing-concrete-before-templated-oas30`, `path-routing-concrete-before-templated-oas31`, `path-routing-concrete-before-templated-template-first-oas30`, `path-routing-concrete-before-templated-template-first-oas31`, `path-routing-concrete-before-templated-template-first-valid-oas30`, `path-routing-concrete-before-templated-template-first-valid-oas31`, `path-routing-concrete-before-templated-valid-oas30`, `path-routing-concrete-before-templated-valid-oas31`.
 
 Rules those verdicts rest on:
 
@@ -205,7 +206,7 @@ simple.
 
 **Header name matching.** Its input is keyed by header name, so fold the casing and collect same-named headers yourself before calling it.
 
-2 conformance cases probe it: `header-simple-array-case-variant-oas30`, `header-simple-array-case-variant-oas31`.
+4 conformance cases probe it: `header-simple-array-case-variant-oas30`, `header-simple-array-case-variant-oas31`, `header-simple-array-duplicate-name-oas30`, `header-simple-array-duplicate-name-oas31`.
 
 Rules those verdicts rest on:
 
@@ -213,10 +214,10 @@ Rules those verdicts rest on:
 - [parameter-locations](https://spec.openapis.org/oas/v3.1.1.html#parameter-locations)
 - [parameter-style](https://spec.openapis.org/oas/v3.0.4.html#parameter-style)
 - [parameter-style](https://spec.openapis.org/oas/v3.1.1.html#parameter-style)
+- [section-3.2.2](https://www.rfc-editor.org/rfc/rfc7230.html#section-3.2.2)
+- [section-3.2.2](https://www.rfc-editor.org/rfc/rfc7230.html#section-3.2.2)
 - [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
-
-2 divergence cases also probe it: `header-simple-array-duplicate-name-oas30`, `header-simple-array-duplicate-name-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
 
 **Query splitting.** Split the query string into name and value pairs.
 
@@ -228,7 +229,7 @@ Rules those verdicts rest on:
 
 **Style and explode.** Apply each parameter's `style` and `explode` yourself. It validates the structured value you hand it and performs no deserialization of its own.
 
-102 conformance cases probe it: `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `header-simple-array-canonical-oas30`, and 94 more in the matrix files.
+104 conformance cases probe it: `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `header-simple-array-canonical-oas30`, and 96 more in the matrix files.
 
 Rules those verdicts rest on:
 
@@ -256,17 +257,25 @@ Rules those verdicts rest on:
 - [schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+- [section-2.4](https://www.rfc-editor.org/rfc/rfc3986.html#section-2.4)
+- [section-2.4](https://www.rfc-editor.org/rfc/rfc3986.html#section-2.4)
+- [section-3.2.1](https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.1)
+- [section-3.2.1](https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.1)
+- [section-3.2.2](https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.2)
+- [section-3.2.2](https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.2)
 - [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.2.0.html#style-examples)
+- [style-values](https://spec.openapis.org/oas/v3.0.4.html#style-values)
+- [style-values](https://spec.openapis.org/oas/v3.1.1.html#style-values)
 - [style-values](https://spec.openapis.org/oas/v3.2.0.html#style-values)
 - [url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
 
-38 divergence cases also probe it: `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-array-explode-oas30`, `cookie-form-array-explode-oas31`, `cookie-form-array-explode-oas32`, `cookie-form-object-canonical-oas30`, `cookie-form-object-canonical-oas31`, `cookie-form-scalar-canonical-oas30`, and 30 more in the matrix files. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+36 divergence cases also probe it: `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-array-explode-oas30`, `cookie-form-array-explode-oas31`, `cookie-form-array-explode-oas32`, `cookie-form-object-canonical-oas30`, `cookie-form-object-canonical-oas31`, `cookie-form-scalar-canonical-oas30`, and 28 more in the matrix files. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 
-10 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas30`, `query-content-json-object-malformed-oas31`, and 2 more in the matrix files.
+14 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas30`, `query-content-json-boolean-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, and 6 more in the matrix files.
 
 Rules those verdicts rest on:
 
@@ -284,10 +293,11 @@ Rules those verdicts rest on:
 - [schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+- [url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
 - [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 - [x4-8-12-2-fixed-fields](https://spec.openapis.org/oas/v3.1.1.html#x4-8-12-2-fixed-fields)
 
-5 divergence cases also probe it: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`, `querystring-json-object-canonical-oas32`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+4 divergence cases also probe it: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
 
 ### `openapi_first`
 

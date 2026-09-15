@@ -61,11 +61,6 @@ export const adjudications: readonly Adjudication[] = [
  *   the raw reserved characters are legal query bytes a receiver decodes
  *   regardless (Appendix E), so the verdict is a settled accept; another
  *   withdrew the same lean after reading the cited basis. Divergence held.
- * - path-simple-array-encoded-delimiter-oas30 / -oas31: one reviewer argues
- *   simple style is RFC 6570 by definition and expansion is injective here, so
- *   decode-then-split is the only faithful reversal and the accept is settled.
- *   Divergence held on the ground that no text obliges a receiver to reverse
- *   RFC 6570.
  * - query-form-scalar-nullable-absent-oas30 / -oas31: prose nit rather than a
  *   tier question. The question states the RFC 6570 reading (null serializes
  *   to nothing) as the only serialization of null, while the Style Examples

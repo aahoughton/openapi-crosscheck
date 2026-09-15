@@ -46,10 +46,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 32 |
-| FAIL (verdict) | 23 |
-| FAIL (value) | 8 |
-| every conformance case | 63 |
+| pass | 36 |
+| FAIL (verdict) | 24 |
+| FAIL (value) | 9 |
+| every conformance case | 69 |
 
 #### Cases it did not pass
 
@@ -60,6 +60,7 @@ the page with the numbers.
 | [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | `{}` |
 | [`header-simple-array-canonical-oas30`](../matrix.oas30.md#header-simple-array-canonical-oas30) | accepted | rejected | `{"p":"blue,black"}` |
 | [`header-simple-array-case-variant-oas30`](../matrix.oas30.md#header-simple-array-case-variant-oas30) | accepted | rejected | `{"p":"blue,black"}` |
+| [`header-simple-array-duplicate-name-oas30`](../matrix.oas30.md#header-simple-array-duplicate-name-oas30) | accepted | rejected | `{"p":"blue, black"}` |
 | [`header-simple-array-explode-oas30`](../matrix.oas30.md#header-simple-array-explode-oas30) | accepted | accepted | `{"p":["blue,black"]}` |
 | [`header-simple-object-canonical-oas30`](../matrix.oas30.md#header-simple-object-canonical-oas30) | accepted | rejected | `{"p":"R,100,G,200"}` |
 | [`header-simple-object-explode-oas30`](../matrix.oas30.md#header-simple-object-explode-oas30) | accepted | rejected | `{"p":"R=100,G=200"}` |
@@ -80,6 +81,7 @@ the page with the numbers.
 | [`path-matrix-scalar-canonical-oas30`](../matrix.oas30.md#path-matrix-scalar-canonical-oas30) | accepted | accepted | `{"p":";p=blue"}` |
 | [`path-matrix-scalar-explode-oas30`](../matrix.oas30.md#path-matrix-scalar-explode-oas30) | accepted | accepted | `{"p":";p=blue"}` |
 | [`path-matrix-scalar-foreign-name-oas30`](../matrix.oas30.md#path-matrix-scalar-foreign-name-oas30) | rejected | accepted | `{"p":";q=blue"}` |
+| [`path-simple-array-encoded-delimiter-oas30`](../matrix.oas30.md#path-simple-array-encoded-delimiter-oas30) | accepted | accepted | `{"p":["blue","black"]}` |
 | [`path-simple-array-explode-oas30`](../matrix.oas30.md#path-simple-array-explode-oas30) | accepted | accepted | `{"p":["blue,black"]}` |
 | [`path-simple-object-canonical-oas30`](../matrix.oas30.md#path-simple-object-canonical-oas30) | accepted | rejected | `{}` |
 | [`path-simple-object-explode-oas30`](../matrix.oas30.md#path-simple-object-explode-oas30) | accepted | rejected | `{}` |
@@ -107,10 +109,8 @@ nothing is attributed to it.
 | [`cookie-form-object-explode-oas30`](../matrix.oas30.md#cookie-form-object-explode-oas30) | not asked (stageNotOwned) | - |
 | [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | accepted | not exposed by this library |
 | [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | accepted | not exposed by this library |
-| [`header-simple-array-duplicate-name-oas30`](../matrix.oas30.md#header-simple-array-duplicate-name-oas30) | rejected | `{"p":"blue, black"}` |
 | [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | `{"entity":"t"}` |
 | [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | accepted | `{"p":"blue"}` |
-| [`path-simple-array-encoded-delimiter-oas30`](../matrix.oas30.md#path-simple-array-encoded-delimiter-oas30) | accepted | `{"p":["blue","black"]}` |
 | [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | raised, no verdict | - |
 | [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | raised, no verdict | - |
 | [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | raised, no verdict | - |
@@ -119,6 +119,7 @@ nothing is attributed to it.
 | [`query-form-array-empty-value-oas30`](../matrix.oas30.md#query-form-array-empty-value-oas30) | rejected | `{"p":""}` |
 | [`query-form-array-integer-items-oas30`](../matrix.oas30.md#query-form-array-integer-items-oas30) | accepted | `{"p":[1,2]}` |
 | [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | accepted | `{"p":true}` |
+| [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | `{"p":"blue"}` |
 | [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | accepted | `{"p":{"R":100,"G":200}}` |
 | [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | `{"p":""}` |
 | [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | accepted | `{"p":"a/b"}` |
@@ -144,10 +145,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 32 |
-| FAIL (verdict) | 24 |
-| FAIL (value) | 8 |
-| every conformance case | 64 |
+| pass | 36 |
+| FAIL (verdict) | 25 |
+| FAIL (value) | 9 |
+| every conformance case | 70 |
 
 #### Cases it did not pass
 
@@ -158,6 +159,7 @@ the page with the numbers.
 | [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | `{}` |
 | [`header-simple-array-canonical-oas31`](../matrix.oas31.md#header-simple-array-canonical-oas31) | accepted | rejected | `{"p":"blue,black"}` |
 | [`header-simple-array-case-variant-oas31`](../matrix.oas31.md#header-simple-array-case-variant-oas31) | accepted | rejected | `{"p":"blue,black"}` |
+| [`header-simple-array-duplicate-name-oas31`](../matrix.oas31.md#header-simple-array-duplicate-name-oas31) | accepted | rejected | `{"p":"blue, black"}` |
 | [`header-simple-array-explode-oas31`](../matrix.oas31.md#header-simple-array-explode-oas31) | accepted | accepted | `{"p":["blue,black"]}` |
 | [`header-simple-object-canonical-oas31`](../matrix.oas31.md#header-simple-object-canonical-oas31) | accepted | rejected | `{"p":"R,100,G,200"}` |
 | [`header-simple-object-explode-oas31`](../matrix.oas31.md#header-simple-object-explode-oas31) | accepted | rejected | `{"p":"R=100,G=200"}` |
@@ -178,6 +180,7 @@ the page with the numbers.
 | [`path-matrix-scalar-canonical-oas31`](../matrix.oas31.md#path-matrix-scalar-canonical-oas31) | accepted | accepted | `{"p":";p=blue"}` |
 | [`path-matrix-scalar-explode-oas31`](../matrix.oas31.md#path-matrix-scalar-explode-oas31) | accepted | accepted | `{"p":";p=blue"}` |
 | [`path-matrix-scalar-foreign-name-oas31`](../matrix.oas31.md#path-matrix-scalar-foreign-name-oas31) | rejected | accepted | `{"p":";q=blue"}` |
+| [`path-simple-array-encoded-delimiter-oas31`](../matrix.oas31.md#path-simple-array-encoded-delimiter-oas31) | accepted | accepted | `{"p":["blue","black"]}` |
 | [`path-simple-array-explode-oas31`](../matrix.oas31.md#path-simple-array-explode-oas31) | accepted | accepted | `{"p":["blue,black"]}` |
 | [`path-simple-object-canonical-oas31`](../matrix.oas31.md#path-simple-object-canonical-oas31) | accepted | rejected | `{}` |
 | [`path-simple-object-explode-oas31`](../matrix.oas31.md#path-simple-object-explode-oas31) | accepted | rejected | `{}` |
@@ -206,10 +209,8 @@ nothing is attributed to it.
 | [`cookie-form-object-explode-oas31`](../matrix.oas31.md#cookie-form-object-explode-oas31) | not asked (stageNotOwned) | - |
 | [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | accepted | not exposed by this library |
 | [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | accepted | not exposed by this library |
-| [`header-simple-array-duplicate-name-oas31`](../matrix.oas31.md#header-simple-array-duplicate-name-oas31) | rejected | `{"p":"blue, black"}` |
 | [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | `{"entity":"t"}` |
 | [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | accepted | `{"p":"blue"}` |
-| [`path-simple-array-encoded-delimiter-oas31`](../matrix.oas31.md#path-simple-array-encoded-delimiter-oas31) | accepted | `{"p":["blue","black"]}` |
 | [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | raised, no verdict | - |
 | [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | raised, no verdict | - |
 | [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | raised, no verdict | - |
@@ -218,6 +219,7 @@ nothing is attributed to it.
 | [`query-form-array-empty-value-oas31`](../matrix.oas31.md#query-form-array-empty-value-oas31) | rejected | `{"p":""}` |
 | [`query-form-array-integer-items-oas31`](../matrix.oas31.md#query-form-array-integer-items-oas31) | accepted | `{"p":[1,2]}` |
 | [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | accepted | `{"p":true}` |
+| [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | `{"p":"blue"}` |
 | [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | accepted | `{"p":{"R":100,"G":200}}` |
 | [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | `{"p":""}` |
 | [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | accepted | `{"p":"a/b"}` |
@@ -242,8 +244,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| not asked | 16 |
-| every conformance case | 16 |
+| not asked | 18 |
+| every conformance case | 18 |
 
 #### Cases it was not asked
 
@@ -266,6 +268,8 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (oasVersionNotDeclared)
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) (oasVersionNotDeclared)
+- [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (oasVersionNotDeclared)
+- [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 
@@ -280,4 +284,3 @@ nothing is attributed to it.
 | [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (oasVersionNotDeclared) | - |
 | [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (oasVersionNotDeclared) | - |
 | [`querystring-declared-with-schema-oas32`](../matrix.oas32.md#querystring-declared-with-schema-oas32) | not asked (oasVersionNotDeclared) | - |
-| [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) | not asked (oasVersionNotDeclared) | - |

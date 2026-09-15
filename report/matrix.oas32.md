@@ -115,6 +115,8 @@ rules the expected verdict rests on, and the argument for it.
 | [`querystring-empty-after-question-mark-oas32`](#querystring-empty-after-question-mark-oas32) | accepted | n/a | n/a | n/a | pass | n/a | n/a | n/a | RAISED | n/a | n/a |
 | [`querystring-form-urlencoded-object-canonical-oas32`](#querystring-form-urlencoded-object-canonical-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | n/a | n/a | RAISED | n/a | n/a |
 | [`querystring-form-urlencoded-object-wrong-type-oas32`](#querystring-form-urlencoded-object-wrong-type-oas32) | rejected | n/a | n/a | n/a | FAIL (verdict) | n/a | n/a | n/a | RAISED | n/a | n/a |
+| [`querystring-json-object-canonical-oas32`](#querystring-json-object-canonical-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | n/a | n/a | n/a | n/a | n/a |
+| [`querystring-json-object-malformed-oas32`](#querystring-json-object-malformed-oas32) | rejected | n/a | n/a | n/a | FAIL (verdict) | n/a | n/a | n/a | n/a | n/a | n/a |
 
 Legend: `pass (verdict only)` means the library reached the right verdict and
 exposes no deserialized values, so the value half of the case could not be
@@ -639,9 +641,69 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-`R=blue&G=200` is a well-formed form-urlencoded value, so nothing about reading it fails and the whole question is the schema: R is declared integer and blue is not an integer under any coercion policy. This is the one querystring case whose expected verdict is reachable only by reading the parameter. Every other one here expects acceptance, and acceptance is what a library that validated correctly and a library that never looked both produce.
+`R=blue&G=200` is a well-formed form-urlencoded value, so nothing about reading it fails and the whole question is the schema: R is declared integer and blue is not an integer under the ordinary numeric conversions. Acceptance shows that this invalid value passed; a rejection alone does not establish which check refused it.
 
 Varies: a property spells one type while being well-formed for another. Holds constant: the query string is well-formed for the declared media type; exactly one parameter is declared; canonical encoding.
+
+##### `querystring-json-object-canonical-oas32`
+
+querystring, application/json, object, percent-encoded. Expected: **accepted**.
+
+The whole query string carries percent-encoded JSON. Decode it before parsing the object.
+
+Request: `GET /t?%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D`
+
+Every rule the expected verdict rests on, OpenAPI 3.2:
+
+[parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
+
+> querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: "query" parameters.
+
+[fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
+
+> For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: "querystring" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type.
+
+[url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
+
+> All API URLs MUST successfully parse and percent-decode using [RFC3986] rules. ... Percent-encoding is performed in several places: ... By the Parameter or Encoding Objects when incorporating a value serialized with a Media Type Object for a media type that does not already incorporate URI percent-encoding
+
+[schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+The location uses content to specify its representation. Section 4.12.4 requires URI percent-decoding and describes percent-encoding when a Parameter Object incorporates a media type that has no URI encoding of its own. JSON therefore receives the decoded query string. The valid representation supplies both required string properties; the malformed representation cannot be read as JSON. Both requests use exactly the same document.
+
+Varies: whether the decoded query string is well-formed JSON. Holds constant: the application/json media type; the schema requires both string properties; URI percent-encoding; exactly one parameter is declared.
+
+##### `querystring-json-object-malformed-oas32`
+
+querystring, application/json, object, malformed. Expected: **rejected**.
+
+The whole query string decodes to malformed JSON. The companion valid request uses the same document.
+
+Request: `GET /t?%7Bnot-json`
+
+Every rule the expected verdict rests on, OpenAPI 3.2:
+
+[parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
+
+> querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: "query" parameters.
+
+[fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
+
+> For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: "querystring" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type.
+
+[url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
+
+> All API URLs MUST successfully parse and percent-decode using [RFC3986] rules. ... Percent-encoding is performed in several places: ... By the Parameter or Encoding Objects when incorporating a value serialized with a Media Type Object for a media type that does not already incorporate URI percent-encoding
+
+[schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+The location uses content to specify its representation. Section 4.12.4 requires URI percent-decoding and describes percent-encoding when a Parameter Object incorporates a media type that has no URI encoding of its own. JSON therefore receives the decoded query string. The valid representation supplies both required string properties; the malformed representation cannot be read as JSON. Both requests use exactly the same document.
+
+Varies: whether the decoded query string is well-formed JSON. Holds constant: the application/json media type; the schema requires both string properties; URI percent-encoding; exactly one parameter is declared.
 
 ## Divergence
 
@@ -844,28 +906,3 @@ Open question: The document is invalid: the value is the whole query string, so 
 | `openapi_first` | not asked (oasVersionNotDeclared) | - |
 
 Varies: the parameter is declared with schema rather than content. Holds constant: the request is the canonical one; exactly one parameter is declared.
-
-#### `querystring-json-object-canonical-oas32`
-
-querystring, application/json, object, percent-encoded.
-
-The same location declared with a media type the specification does not pair with it, asking whether the query string is decoded before it is parsed.
-
-Request: `GET /t?%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D`
-
-Open question: Is the query string percent-decoded before it is read as the parameter's declared media type? The value of a querystring parameter is the query string as it arrived, and a JSON object cannot be written in one without percent-encoding its braces and quotes. A library that decodes first reads a JSON object and accepts; one that hands the raw string to a JSON parser reads `%7B%22R%22` and rejects. Both are defensible readings of a location whose value is defined as the whole query string, and the specification pairs this location with `application/x-www-form-urlencoded` rather than settling what any other media type does here.
-
-| library | verdict | parsed values exposed by the library |
-| --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | not asked (oasVersionNotDeclared) | - |
-| `express-openapi-validator` | not asked (oasVersionNotDeclared) | - |
-| `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
-| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
-| `league/openapi-psr7-validator` | not asked (oasVersionNotDeclared) | - |
-| `@oaverify/core` | not asked (libraryInitUnsupported) | - |
-| `openapi-backend` | not asked (oasVersionNotDeclared) | - |
-| `openapi-core` | not asked (cannotRepresentCase) | - |
-| `openapi-request-validator` | not asked (oasVersionNotDeclared) | - |
-| `openapi_first` | not asked (oasVersionNotDeclared) | - |
-
-Varies: media type, which is the only dimension moved from the positive control. Holds constant: the target carries a percent-encoded JSON object, which is the only way to write one in a query string; the schema and the value it would deserialize to, once decoded; exactly one parameter is declared.

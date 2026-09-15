@@ -46,11 +46,11 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 15 |
-| pass (verdict only) | 23 |
-| FAIL (verdict) | 24 |
+| pass | 18 |
+| pass (verdict only) | 25 |
+| FAIL (verdict) | 25 |
 | raised instead of answering | 1 |
-| every conformance case | 63 |
+| every conformance case | 69 |
 
 #### Cases it did not pass
 
@@ -60,6 +60,7 @@ the page with the numbers.
 | [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-canonical-oas30`](../matrix.oas30.md#header-simple-array-canonical-oas30) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-case-variant-oas30`](../matrix.oas30.md#header-simple-array-case-variant-oas30) | accepted | rejected | not exposed by this library |
+| [`header-simple-array-duplicate-name-oas30`](../matrix.oas30.md#header-simple-array-duplicate-name-oas30) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-explicit-style-oas30`](../matrix.oas30.md#header-simple-array-explicit-style-oas30) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-explode-oas30`](../matrix.oas30.md#header-simple-array-explode-oas30) | accepted | rejected | not exposed by this library |
 | [`header-simple-object-canonical-oas30`](../matrix.oas30.md#header-simple-object-canonical-oas30) | accepted | rejected | not exposed by this library |
@@ -101,10 +102,8 @@ nothing is attributed to it.
 | [`cookie-form-object-explode-oas30`](../matrix.oas30.md#cookie-form-object-explode-oas30) | rejected | not exposed by this library |
 | [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | accepted | not exposed by this library |
 | [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | accepted | not exposed by this library |
-| [`header-simple-array-duplicate-name-oas30`](../matrix.oas30.md#header-simple-array-duplicate-name-oas30) | rejected | not exposed by this library |
 | [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | not exposed by this library |
 | [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | accepted | not exposed by this library |
-| [`path-simple-array-encoded-delimiter-oas30`](../matrix.oas30.md#path-simple-array-encoded-delimiter-oas30) | accepted | not exposed by this library |
 | [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | accepted | not exposed by this library |
 | [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | raised, no verdict | - |
 | [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | raised, no verdict | - |
@@ -113,6 +112,7 @@ nothing is attributed to it.
 | [`query-form-array-empty-value-oas30`](../matrix.oas30.md#query-form-array-empty-value-oas30) | accepted | not exposed by this library |
 | [`query-form-array-integer-items-oas30`](../matrix.oas30.md#query-form-array-integer-items-oas30) | rejected | not exposed by this library |
 | [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | accepted | not exposed by this library |
+| [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | not exposed by this library |
 | [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | rejected | not exposed by this library |
 | [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | not exposed by this library |
 | [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | accepted | not exposed by this library |
@@ -138,11 +138,11 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 13 |
-| pass (verdict only) | 23 |
-| FAIL (verdict) | 25 |
+| pass | 16 |
+| pass (verdict only) | 25 |
+| FAIL (verdict) | 26 |
 | raised instead of answering | 3 |
-| every conformance case | 64 |
+| every conformance case | 70 |
 
 #### Cases it did not pass
 
@@ -152,6 +152,7 @@ the page with the numbers.
 | [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-canonical-oas31`](../matrix.oas31.md#header-simple-array-canonical-oas31) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-case-variant-oas31`](../matrix.oas31.md#header-simple-array-case-variant-oas31) | accepted | rejected | not exposed by this library |
+| [`header-simple-array-duplicate-name-oas31`](../matrix.oas31.md#header-simple-array-duplicate-name-oas31) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-explicit-style-oas31`](../matrix.oas31.md#header-simple-array-explicit-style-oas31) | accepted | rejected | not exposed by this library |
 | [`header-simple-array-explode-oas31`](../matrix.oas31.md#header-simple-array-explode-oas31) | accepted | rejected | not exposed by this library |
 | [`header-simple-object-canonical-oas31`](../matrix.oas31.md#header-simple-object-canonical-oas31) | accepted | rejected | not exposed by this library |
@@ -194,10 +195,8 @@ nothing is attributed to it.
 | [`cookie-form-object-explode-oas31`](../matrix.oas31.md#cookie-form-object-explode-oas31) | rejected | not exposed by this library |
 | [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | accepted | not exposed by this library |
 | [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | accepted | not exposed by this library |
-| [`header-simple-array-duplicate-name-oas31`](../matrix.oas31.md#header-simple-array-duplicate-name-oas31) | rejected | not exposed by this library |
 | [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | not exposed by this library |
 | [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | accepted | not exposed by this library |
-| [`path-simple-array-encoded-delimiter-oas31`](../matrix.oas31.md#path-simple-array-encoded-delimiter-oas31) | accepted | not exposed by this library |
 | [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | accepted | not exposed by this library |
 | [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | raised, no verdict | - |
 | [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | raised, no verdict | - |
@@ -206,6 +205,7 @@ nothing is attributed to it.
 | [`query-form-array-empty-value-oas31`](../matrix.oas31.md#query-form-array-empty-value-oas31) | accepted | not exposed by this library |
 | [`query-form-array-integer-items-oas31`](../matrix.oas31.md#query-form-array-integer-items-oas31) | rejected | not exposed by this library |
 | [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | accepted | not exposed by this library |
+| [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | not exposed by this library |
 | [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | rejected | not exposed by this library |
 | [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | not exposed by this library |
 | [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | accepted | not exposed by this library |
@@ -230,8 +230,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| not asked | 16 |
-| every conformance case | 16 |
+| not asked | 18 |
+| every conformance case | 18 |
 
 #### Cases it was not asked
 
@@ -254,6 +254,8 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (oasVersionNotDeclared)
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) (oasVersionNotDeclared)
+- [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (oasVersionNotDeclared)
+- [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 
@@ -268,4 +270,3 @@ nothing is attributed to it.
 | [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (oasVersionNotDeclared) | - |
 | [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (oasVersionNotDeclared) | - |
 | [`querystring-declared-with-schema-oas32`](../matrix.oas32.md#querystring-declared-with-schema-oas32) | not asked (oasVersionNotDeclared) | - |
-| [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) | not asked (oasVersionNotDeclared) | - |

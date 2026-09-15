@@ -1,5 +1,6 @@
 import type { Case } from "../../../types/case";
 import * as cite from "../../citations/oas30";
+import { rfcCitations } from "../../citations/rfc";
 import {
   INTEGER,
   STRING,
@@ -9,6 +10,8 @@ import {
   documentWithPaths,
   request,
 } from "./build";
+
+const rfc = rfcCitations("3.0");
 
 /**
  * Path parameters, and the routing cases, under 3.0.4.
@@ -22,8 +25,7 @@ export const pathCases30: readonly Case[] = [
     id: "path-content-json-object-canonical-oas30",
     title: "path, content application/json, object, canonical",
     inShort:
-      "Puts percent-encoded JSON in a path segment, declared by media type: the path twin " +
-      "of the query content case.",
+      "Puts percent-encoded JSON in a path segment, declared by media type: the path twin of the query content case.",
     tier: "conformance",
     oasVersion: "3.0",
     citations: [
@@ -37,12 +39,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The value is a percent-encoded JSON object, which is what a path segment can carry " +
-      "of the declared representation. Percent-decoding is ordinary URI processing and " +
-      "applies to a path segment as to any other component, so what reaches the schema is " +
-      "the object. The query twin scores the same way on the same citations; nothing the " +
-      "specification says about templating or content distinguishes the locations here, " +
-      "and the segment matches the template as one segment either way.",
+      "The value is a percent-encoded JSON object, which is what a path segment can carry of the declared representation. Percent-decoding is ordinary URI processing and applies to a path segment as to any other component, so what reaches the schema is the object. The query twin scores the same way on the same citations; nothing the specification says about templating or content distinguishes the locations here, and the segment matches the template as one segment either way.",
     document: document([
       {
         name: "p",
@@ -109,9 +106,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: ["blue", "black"] },
     rationale:
-      "Exploding a label array separates items with dots rather than commas, so the " +
-      "wire form differs from the unexploded case on the same values. The pair " +
-      "isolates whether a library reads explode at all for this style.",
+      "Exploding a label array separates items with dots rather than commas, so the wire form differs from the unexploded case on the same values. The pair isolates whether a library reads explode at all for this style.",
     document: document([
       {
         name: "p",
@@ -140,16 +135,14 @@ export const pathCases30: readonly Case[] = [
     id: "path-label-array-foreign-shape-oas30",
     title: "path, label, array, the wire shape of a different style",
     inShort:
-      "Sends blue,black where a label parameter needs a leading dot, so the segment is not " +
-      "written in the declared style at all.",
+      "Sends blue,black where a label parameter needs a leading dot, so the segment is not written in the declared style at all.",
     tier: "conformance",
     oasVersion: "3.0",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_LABEL_NO_EXPLODE, cite.PARAMETER_REQUIRED],
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "Every label serialization begins with a dot. A value with no dot is the simple " +
-      "style's shape, and is not a label expansion of anything.",
+      "Every label serialization begins with a dot. A value with no dot is the simple style's shape, and is not a label expansion of anything.",
     document: document([
       {
         name: "p",
@@ -184,9 +177,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The Style Examples table gives this exact serialization for an object under " +
-      "this style and explode, so both the verdict and the deserialized value are " +
-      "settled. Object schemas are where the styles differ most from one another.",
+      "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
     document: document([
       {
         name: "p",
@@ -221,9 +212,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "An exploded label object pairs each property to its value with equals and separates the " +
-      "pairs with the dot that also opens the segment, so the first dot and the separating " +
-      "dots are the same character doing two jobs.",
+      "An exploded label object pairs each property to its value with equals and separates the pairs with the dot that also opens the segment, so the first dot and the separating dots are the same character doing two jobs.",
     document: document([
       {
         name: "p",
@@ -258,8 +247,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: "blue" },
     rationale:
-      "A label scalar is a dot followed by the value. The leading dot is part of the " +
-      "serialization rather than part of the value, which is the whole of what this case asks.",
+      "A label scalar is a dot followed by the value. The leading dot is part of the serialization rather than part of the value, which is the whole of what this case asks.",
     document: document([
       { name: "p", in: "path", required: true, style: "label", explode: false, schema: STRING },
     ]),
@@ -287,8 +275,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: "blue" },
     rationale:
-      "Both label rows give a dot and the value for a scalar, so explode is unobservable here " +
-      "and the leading dot is still not part of the value.",
+      "Both label rows give a dot and the value for a scalar, so explode is unobservable here and the leading dot is still not part of the value.",
     document: document([
       { name: "p", in: "path", required: true, style: "label", explode: true, schema: STRING },
     ]),
@@ -316,8 +303,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: ["blue", "black"] },
     rationale:
-      "The textbook RFC6570 expansion of an exploded matrix array: the name repeats once " +
-      "per item. This is the case every other matrix probe varies away from.",
+      "The textbook RFC6570 expansion of an exploded matrix array: the name repeats once per item. This is the case every other matrix probe varies away from.",
     document: document([
       {
         name: "p",
@@ -351,8 +337,7 @@ export const pathCases30: readonly Case[] = [
     id: "path-matrix-array-empty-after-parse-oas30",
     title: "path, matrix, array, matrix syntax naming only foreign parameters",
     inShort:
-      "The segment is matrix syntax carrying q and r, so reading it correctly yields " +
-      "nothing for p. Different from a segment that will not parse at all.",
+      "The segment is matrix syntax carrying q and r, so reading it correctly yields nothing for p. Different from a segment that will not parse at all.",
     tier: "conformance",
     oasVersion: "3.0",
     citations: [
@@ -364,10 +349,7 @@ export const pathCases30: readonly Case[] = [
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "The segment is well-formed matrix syntax, and every name in it is a name other " +
-      "than the declared one. Parameter names are case sensitive and identify the " +
-      "parameter, so no value of p is present, and p is required. Distinct from a " +
-      "segment that never parsed as matrix at all.",
+      "The segment is well-formed matrix syntax, and every name in it is a name other than the declared one. Parameter names are case sensitive and identify the parameter, so no value of p is present, and p is required. Distinct from a segment that never parsed as matrix at all.",
     document: document([
       {
         name: "p",
@@ -396,17 +378,14 @@ export const pathCases30: readonly Case[] = [
     id: "path-matrix-array-foreign-shape-oas30",
     title: "path, matrix, array, no matrix syntax at all",
     inShort:
-      "Sends a bare blue where a matrix parameter needs ;p=, so the segment is not matrix " +
-      "syntax and no value for p can be read out of it.",
+      "Sends a bare blue where a matrix parameter needs ;p=, so the segment is not matrix syntax and no value for p can be read out of it.",
     tier: "conformance",
     oasVersion: "3.0",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_MATRIX_EXPLODE, cite.PARAMETER_REQUIRED],
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "The segment carries no matrix syntax, so it is not an expansion of p, and p is " +
-      "required. Distinct from a segment that parsed as matrix and yielded nothing: this " +
-      "one never parsed.",
+      "The segment carries no matrix syntax, so it is not an expansion of p, and p is required. Distinct from a segment that parsed as matrix and yielded nothing: this one never parsed.",
     document: document([
       {
         name: "p",
@@ -441,8 +420,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: ["blue", "black"] },
     rationale:
-      "Without explode a matrix array names the parameter once and comma joins the items, " +
-      "rather than repeating the name as the exploded row does.",
+      "Without explode a matrix array names the parameter once and comma joins the items, rather than repeating the name as the exploded row does.",
     document: document([
       {
         name: "p",
@@ -485,9 +463,7 @@ export const pathCases30: readonly Case[] = [
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "Two parameters are declared, and each segment carries the other's name. Both names " +
-      "appear in the request, so a check that merely looks for a name somewhere is " +
-      "satisfied, while neither parameter has a value in its own position.",
+      "Two parameters are declared, and each segment carries the other's name. Both names appear in the request, so a check that merely looks for a name somewhere is satisfied, while neither parameter has a value in its own position.",
     document: document(
       [
         { name: "p", in: "path", required: true, style: "matrix", explode: false, schema: STRING },
@@ -519,9 +495,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The Style Examples table gives this exact serialization for an object under " +
-      "this style and explode, so both the verdict and the deserialized value are " +
-      "settled. Object schemas are where the styles differ most from one another.",
+      "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
     document: document([
       {
         name: "p",
@@ -558,9 +532,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "An exploded matrix object drops the parameter name entirely and names the " +
-      "object properties instead, so nothing on the wire carries the declared " +
-      "identifier. A library keying off the parameter name has nothing to find.",
+      "An exploded matrix object drops the parameter name entirely and names the object properties instead, so nothing on the wire carries the declared identifier. A library keying off the parameter name has nothing to find.",
     document: document([
       {
         name: "p",
@@ -622,8 +594,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: "blue" },
     rationale:
-      "Both matrix rows give the same segment for a scalar, so explode is unobservable, and " +
-      "the name inside the segment is still the declared one.",
+      "Both matrix rows give the same segment for a scalar, so explode is unobservable, and the name inside the segment is still the declared one.",
     document: document([
       { name: "p", in: "path", required: true, style: "matrix", explode: true, schema: STRING },
     ]),
@@ -645,8 +616,7 @@ export const pathCases30: readonly Case[] = [
     id: "path-matrix-scalar-foreign-name-oas30",
     title: "path, matrix, scalar, a foreign parameter name",
     inShort:
-      "The segment is matrix syntax carrying q where p was declared. Something is there, " +
-      "and it is not the parameter.",
+      "The segment is matrix syntax carrying q where p was declared. Something is there, and it is not the parameter.",
     tier: "conformance",
     oasVersion: "3.0",
     citations: [
@@ -658,8 +628,7 @@ export const pathCases30: readonly Case[] = [
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "The segment names q. The declared parameter is p and it is required. No " +
-      "serialization of p produces ;q=blue, so p has no value here.",
+      "The segment names q. The declared parameter is p and it is required. No serialization of p produces ;q=blue, so p has no value here.",
     document: document([
       { name: "p", in: "path", required: true, style: "matrix", explode: false, schema: STRING },
     ]),
@@ -681,8 +650,7 @@ export const pathCases30: readonly Case[] = [
     id: "path-matrix-scalar-wrong-type-oas30",
     title: "path, matrix, scalar, a value well-formed for a different type",
     inShort:
-      "The segment says ;p=blue where the schema says integer. The name is inside the " +
-      "segment, so the value has to be read out of it before any type can be judged.",
+      "The segment says ;p=blue where the schema says integer. The name is inside the segment, so the value has to be read out of it before any type can be judged.",
     tier: "conformance",
     oasVersion: "3.0",
     citations: [
@@ -695,13 +663,7 @@ export const pathCases30: readonly Case[] = [
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "The parameter is declared as an integer and the value inside the segment is " +
-      "alphabetic, so no conversion left to implementations makes it one. The wrong-typed " +
-      "sibling in `simple` asks the same question of a segment that is already the value; " +
-      "here the matrix syntax has to come off first, which is why a library that leaves " +
-      "path style to its caller is not asked this at all. Rejecting `;p=blue` for the " +
-      "semicolon would be the right verdict for the wrong reason, and the value channel " +
-      "is where the two come apart.",
+      "The parameter is declared as an integer and the value inside the segment is alphabetic, so no conversion left to implementations makes it one. The wrong-typed sibling in `simple` asks the same question of a segment that is already the value; here the matrix syntax has to come off first, which is why a library that leaves path style to its caller is not asked this at all. Rejecting `;p=blue` for the semicolon would be the right verdict for the wrong reason, and the value channel is where the two come apart.",
     document: document([
       { name: "p", in: "path", required: true, style: "matrix", explode: false, schema: INTEGER },
     ]),
@@ -723,16 +685,11 @@ export const pathCases30: readonly Case[] = [
     id: "path-routing-ambiguous-templates-oas30",
     title: "path, two templates that both match the request",
     inShort:
-      "Two templates both match /t/me, and the specification says out loud that which one " +
-      "wins is up to the tooling.",
+      "Two templates both match /t/me, and the specification says out loud that which one wins is up to the tooling.",
     tier: "divergence",
     oasVersion: "3.0",
     question:
-      "The request matches both declared templates, and the specification says in so many " +
-      "words that it is up to the tooling to decide which one to use. It even gives this " +
-      "shape as its own example of ambiguous resolution. Which parameter comes back names " +
-      "which path was chosen, so the value channel reports the choice that the verdict " +
-      "cannot.",
+      "The request matches both declared templates, and the specification says in so many words that it is up to the tooling to decide which one to use. It even gives this shape as its own example of ambiguous resolution. Which parameter comes back names which path was chosen, so the value channel reports the choice that the verdict cannot.",
     basis: cite.PATHS_CONCRETE_BEFORE_TEMPLATED,
     answeredInValues: true,
     document: documentWithPaths({
@@ -764,69 +721,65 @@ export const pathCases30: readonly Case[] = [
     varies: ["two declared templates match the same request"],
     holdsConstant: ["both parameters are simple scalars", "the value is well-formed for both"],
   },
-  {
-    id: "path-routing-concrete-before-templated-oas30",
-    title: "path, a concrete path competing with a templated one",
-    inShort:
-      "/t/mine matches a literal path and a templated one. The literal wins and requires a " +
-      "query parameter the request omits, so the verdict says which path was taken.",
-    tier: "conformance",
-    oasVersion: "3.0",
-    citations: [
-      cite.PATHS_CONCRETE_BEFORE_TEMPLATED,
-      cite.PATH_TEMPLATING_MATCHING,
-      cite.PARAMETER_REQUIRED,
-    ],
-    expected: "rejected",
-    expectedValues: null,
-    rationale:
-      "Concrete paths are matched before their templated counterparts, and the " +
-      "specification gives exactly this pair as its example. The concrete operation " +
-      "requires a query parameter the request does not carry, so matching it correctly " +
-      "means rejecting. A library that matched the templated path instead would accept, " +
-      "which is why the operations differ in what they require: the verdict alone " +
-      "distinguishes them, without needing the value channel. The matching sentences " +
-      "carry no RFC 2119 keyword; they are read here as defining what a Paths Object " +
-      "means, the way the style tables define serialization without saying MUST.",
-    document: documentWithPaths({
-      "/t/mine": [{ name: "q", in: "query", required: true, schema: STRING }],
-      "/t/{p}": [
-        { name: "p", in: "path", required: true, style: "simple", explode: false, schema: STRING },
+  // Both declaration orders and both requests are measured.
+  ...[false, true].flatMap((templateFirst) => {
+    const concrete = [{ name: "q", in: "query", required: true, schema: STRING }] as const;
+    const templated = [
+      { name: "p", in: "path", required: true, style: "simple", explode: false, schema: STRING },
+    ] as const;
+    return [false, true].map((queryPresent): Case => ({
+      id: `path-routing-concrete-before-templated${templateFirst ? "-template-first" : ""}${queryPresent ? "-valid" : ""}-oas30`,
+      title: `path, concrete precedence, ${templateFirst ? "template" : "concrete"} declared first, query ${queryPresent ? "present" : "absent"}`,
+      inShort: queryPresent
+        ? "The concrete operation requires q and the request supplies it. Both declaration orders must accept."
+        : "The concrete operation requires q and the request omits it. Both declaration orders must reject.",
+      tier: "conformance",
+      oasVersion: "3.0",
+      citations: [
+        cite.PATHS_CONCRETE_BEFORE_TEMPLATED,
+        cite.PATH_TEMPLATING_MATCHING,
+        cite.PARAMETER_REQUIRED,
       ],
-    }),
-    request: request("/t/mine"),
-    dimensions: {
-      declaration: "schema",
-      location: "path",
-      style: "simple",
-      explode: false,
-      declaredStyle: "simple",
-      declaredExplode: false,
-      schema: "scalar",
-      probeAxis: "competingPath",
-    },
-    varies: ["a concrete path competes with a templated one"],
-    holdsConstant: [
-      "the request is well-formed for both",
-      "one operation each",
-      "the path parameter's style is declared",
-    ],
-  },
+      expected: queryPresent ? "accepted" : "rejected",
+      expectedValues: null,
+      rationale:
+        "Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.",
+      document: documentWithPaths(
+        templateFirst
+          ? { "/t/{p}": templated, "/t/mine": concrete }
+          : { "/t/mine": concrete, "/t/{p}": templated },
+      ),
+      request: request(queryPresent ? "/t/mine?q=blue" : "/t/mine"),
+      dimensions: {
+        declaration: "schema",
+        location: "path",
+        style: "simple",
+        explode: false,
+        declaredStyle: "simple",
+        declaredExplode: false,
+        schema: "scalar",
+        probeAxis: "competingPath",
+      },
+      varies: [
+        "path declaration order",
+        "presence of the concrete operation's required query parameter",
+      ],
+      holdsConstant: [
+        "the request path matches both declarations",
+        "one operation per path",
+        "both parameters are strings",
+      ],
+    }));
+  }),
   {
     id: "path-routing-identical-templates-oas30",
     title: "path, two templates identical but for the parameter name",
     inShort:
-      "Two paths differ only in what their template is named, which the specification " +
-      "forbids writing. Whether a validator refuses the document is up to it.",
+      "Two paths differ only in what their template is named, which the specification forbids writing. Whether a validator refuses the document is up to it.",
     tier: "divergence",
     oasVersion: "3.0",
     question:
-      "Two templates differ only in what they call their parameter, which the " +
-      "specification says MUST NOT exist because they are identical, and names as invalid " +
-      "in its own example. That rule is addressed to whoever wrote the document, and " +
-      "nothing says what a validator does when handed one. Refusing the document, taking " +
-      "the first, and taking the last are each consistent with what is written, and which " +
-      "parameter comes back says which was taken.",
+      "Two templates differ only in what they call their parameter, which the specification says MUST NOT exist because they are identical, and names as invalid in its own example. That rule is addressed to whoever wrote the document, and nothing says what a validator does when handed one. Refusing the document, taking the first, and taking the last are each consistent with what is written, and which parameter comes back says which was taken.",
     basis: cite.PATH_TEMPLATING_MATCHING,
     answeredInValues: true,
     document: documentWithPaths({
@@ -896,17 +849,27 @@ export const pathCases30: readonly Case[] = [
   },
   {
     id: "path-simple-array-encoded-delimiter-oas30",
-    title: "path, simple, array, the delimiter arrives percent-encoded",
+    title: "path, simple, array, a percent-encoded comma inside one item",
     inShort:
-      "The comma between two items arrives encoded as %2C, so whether it is a separator or " +
-      "part of one value depends on when decoding happens.",
-    tier: "divergence",
+      "Sends blue%2Cblack as one array item containing a comma. Literal commas separate " +
+      "items; a percent-encoded comma is data.",
+    tier: "conformance",
     oasVersion: "3.0",
-    question:
-      "A percent-encoded comma sits where the delimiter would be. Is this one item " +
-      "containing a comma, or two items? Decoding before splitting and splitting before " +
-      "decoding give different answers, and the specification prescribes no order.",
-    basis: null,
+    citations: [
+      cite.PARAMETER_STYLE,
+      cite.STYLE_SIMPLE_RFC6570,
+      rfc.SIMPLE_EXPANSION,
+      rfc.LIST_EXPANSION,
+      rfc.URI_DECODE_SUBCOMPONENTS,
+    ],
+    expected: "accepted",
+    expectedValues: { p: ["blue,black"] },
+    rationale:
+      "Simple style incorporates RFC 6570 Section 3.2.2. Its list expansion joins " +
+      "encoded member values with literal commas, and a comma inside a member is " +
+      "percent-encoded. RFC 3986 Section 2.4 requires separating subcomponents before " +
+      "decoding their reserved characters. The wire therefore carries one item whose " +
+      "value is blue,black; two items would serialize as blue,black without %2C.",
     document: document([
       {
         name: "p",
@@ -928,25 +891,21 @@ export const pathCases30: readonly Case[] = [
       declaredExplode: false,
       probeAxis: "encodingVariant",
     },
-    varies: ["the encoding of the delimiter"],
+    varies: ["one array item contains a comma encoded as data"],
     holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
   },
   {
     id: "path-simple-array-explode-oas30",
     title: "path, simple, array, explode true",
     inShort:
-      "An exploded simple array, which the table spells the same as the unexploded one: " +
-      "commas either way.",
+      "An exploded simple array, which the table spells the same as the unexploded one: commas either way.",
     tier: "conformance",
     oasVersion: "3.0",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_SIMPLE_EXPLODE],
     expected: "accepted",
     expectedValues: { p: ["blue", "black"] },
     rationale:
-      "Exploding a simple array changes nothing: the table gives the same wire form " +
-      "for both values of explode. So this case and the unexploded one are the same " +
-      "bytes with different declarations, and a library that treats explode as " +
-      "meaningful here will disagree with one that reads the table.",
+      "Exploding a simple array changes nothing: the table gives the same wire form for both values of explode. So this case and the unexploded one are the same bytes with different declarations, and a library that treats explode as meaningful here will disagree with one that reads the table.",
     document: document([
       {
         name: "p",
@@ -981,9 +940,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The Style Examples table gives this exact serialization for an object under " +
-      "this style and explode, so both the verdict and the deserialized value are " +
-      "settled. Object schemas are where the styles differ most from one another.",
+      "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
     document: document([
       {
         name: "p",
@@ -1020,8 +977,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "An exploded simple object joins each property to its value with equals, where the " +
-      "unexploded row lays the same properties out as a flat comma list.",
+      "An exploded simple object joins each property to its value with equals, where the unexploded row lays the same properties out as a flat comma list.",
     document: document([
       {
         name: "p",
@@ -1056,8 +1012,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: "blue" },
     rationale:
-      "A simple scalar is the value itself, so the wire form and the value are the same " +
-      "string. Nothing has to be deserialized for the schema question to be reachable.",
+      "A simple scalar is the value itself, so the wire form and the value are the same string. Nothing has to be deserialized for the schema question to be reachable.",
     document: document([
       { name: "p", in: "path", required: true, style: "simple", explode: false, schema: STRING },
     ]),
@@ -1085,8 +1040,7 @@ export const pathCases30: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: "blue" },
     rationale:
-      "Simple is the defaulted style for a path and a scalar is the bare segment, exploded or " +
-      "not. The declared-explode counterpart of the canonical case.",
+      "Simple is the defaulted style for a path and a scalar is the bare segment, exploded or not. The declared-explode counterpart of the canonical case.",
     document: document([
       { name: "p", in: "path", required: true, style: "simple", explode: true, schema: STRING },
     ]),
@@ -1108,17 +1062,11 @@ export const pathCases30: readonly Case[] = [
     id: "path-simple-scalar-required-false-oas30",
     title: "path, simple, scalar, declared required: false",
     inShort:
-      "Declares a path parameter with required: false, which the specification forbids. " +
-      "The segment arrives either way, so what can move is refusal of the document.",
+      "Declares a path parameter with required: false, which the specification forbids. The segment arrives either way, so what can move is refusal of the document.",
     tier: "divergence",
     oasVersion: "3.0",
     question:
-      "The required field of a path parameter MUST be true, and this document writes " +
-      "false. The rule constrains the document author and does not say what a validator " +
-      "does with a document breaking it: refusing the document, reading the field as " +
-      "written, and repairing it to true are each defensible. A matched template always " +
-      "carries a segment, so an optional path parameter has no absent request to observe " +
-      "and the readings part at the document boundary.",
+      "The required field of a path parameter MUST be true, and this document writes false. The rule constrains the document author and does not say what a validator does with a document breaking it: refusing the document, reading the field as written, and repairing it to true are each defensible. A matched template always carries a segment, so an optional path parameter has no absent request to observe and the readings part at the document boundary.",
     basis: cite.PARAMETER_REQUIRED,
     document: document([
       { name: "p", in: "path", required: false, style: "simple", explode: false, schema: STRING },
@@ -1150,17 +1098,14 @@ export const pathCases30: readonly Case[] = [
     id: "path-simple-scalar-unset-style-oas30",
     title: "path, scalar, style and explode both left to the default",
     inShort:
-      "Sends blue as the path segment with nothing declared about its format, so the path " +
-      "default has to be resolved before reading it.",
+      "Sends blue as the path segment with nothing declared about its format, so the path default has to be resolved before reading it.",
     tier: "conformance",
     oasVersion: "3.0",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_SIMPLE_NO_EXPLODE],
     expected: "accepted",
     expectedValues: { p: "blue" },
     rationale:
-      "A path parameter with no serialization keywords, which the library must resolve " +
-      "to simple before reading the segment. Pairs with the declared-style case on the " +
-      "same wire bytes, so the two differ only in whether the default was resolved.",
+      "A path parameter with no serialization keywords, which the library must resolve to simple before reading the segment. Pairs with the declared-style case on the same wire bytes, so the two differ only in whether the default was resolved.",
     document: document([{ name: "p", in: "path", required: true, schema: STRING }]),
     request: request("/t/blue"),
     dimensions: {
@@ -1180,17 +1125,14 @@ export const pathCases30: readonly Case[] = [
     id: "path-simple-scalar-wrong-type-oas30",
     title: "path, simple, scalar, a value well-formed for a different type",
     inShort:
-      "The segment says blue where the schema says integer. Letters are not a number under " +
-      "any reading, so no leniency about converting text can rescue it.",
+      "The segment says blue where the schema says integer. Letters are not a number under any reading, so no leniency about converting text can rescue it.",
     tier: "conformance",
     oasVersion: "3.0",
     citations: [cite.PARAMETER_SCHEMA, cite.SCHEMA_OBJECT, cite.JSON_SCHEMA_DATA_MODEL],
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "The parameter is declared as an integer and the value is alphabetic. No conversion " +
-      "left to implementations makes this an integer, so the disagreement about coercing " +
-      "numeric strings does not reach this case.",
+      "The parameter is declared as an integer and the value is alphabetic. No conversion left to implementations makes this an integer, so the disagreement about coercing numeric strings does not reach this case.",
     document: document([
       { name: "p", in: "path", required: true, style: "simple", explode: false, schema: INTEGER },
     ]),

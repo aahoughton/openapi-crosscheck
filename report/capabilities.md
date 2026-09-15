@@ -63,16 +63,16 @@ it.
 
 | library | reached a verdict | observed | of those, one withheld | unexposed | not reached | never asked | raised |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | 164 | 0 | 0 | 164 | 0 | 43 | 0 |
-| `express-openapi-validator` | 173 | 163 | 0 | 10 | 0 | 25 | 9 |
-| `github.com/getkin/kin-openapi` | 179 | 2 | 0 | 177 | 0 | 28 | 0 |
-| `github.com/pb33f/libopenapi-validator` | 207 | 0 | 0 | 207 | 0 | 0 | 0 |
-| `league/openapi-psr7-validator` | 175 | 0 | 0 | 175 | 0 | 23 | 9 |
-| `@oaverify/core` | 189 | 189 | 0 | 0 | 0 | 17 | 1 |
-| `openapi-backend` | 174 | 174 | 0 | 0 | 0 | 27 | 6 |
-| `openapi-core` | 156 | 156 | 0 | 0 | 0 | 45 | 6 |
-| `openapi-request-validator` | 27 | 2 | 0 | 25 | 0 | 180 | 0 |
-| `openapi_first` | 184 | 184 | 0 | 0 | 0 | 23 | 0 |
+| `com.atlassian.oai:openapi-request-validator-core` | 170 | 0 | 0 | 170 | 0 | 48 | 0 |
+| `express-openapi-validator` | 183 | 173 | 0 | 10 | 0 | 26 | 9 |
+| `github.com/getkin/kin-openapi` | 189 | 2 | 0 | 187 | 0 | 29 | 0 |
+| `github.com/pb33f/libopenapi-validator` | 218 | 0 | 0 | 218 | 0 | 0 | 0 |
+| `league/openapi-psr7-validator` | 185 | 0 | 0 | 185 | 0 | 24 | 9 |
+| `@oaverify/core` | 199 | 199 | 0 | 0 | 0 | 18 | 1 |
+| `openapi-backend` | 184 | 184 | 0 | 0 | 0 | 28 | 6 |
+| `openapi-core` | 164 | 164 | 0 | 0 | 0 | 48 | 6 |
+| `openapi-request-validator` | 27 | 2 | 0 | 25 | 0 | 191 | 0 |
+| `openapi_first` | 194 | 194 | 0 | 0 | 0 | 24 | 0 |
 
 Split by the verdict the values were reported alongside, because a library that
 exposes what it parsed even for a request it rejected is stating something a
@@ -81,26 +81,26 @@ a failure.
 
 | library | verdict | observed | of those, one withheld | unexposed | not reached | vantages |
 | --- | --- | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | accepted | 0 | 0 | 82 | 0 | none |
-| `com.atlassian.oai:openapi-request-validator-core` | rejected | 0 | 0 | 82 | 0 | none |
-| `express-openapi-validator` | accepted | 93 | 0 | 10 | 0 | handed to the handler |
-| `express-openapi-validator` | rejected | 70 | 0 | 0 | 0 | parsed before validation |
-| `github.com/getkin/kin-openapi` | accepted | 2 | 0 | 127 | 0 | parsed before validation |
-| `github.com/getkin/kin-openapi` | rejected | 0 | 0 | 50 | 0 | none |
-| `github.com/pb33f/libopenapi-validator` | accepted | 0 | 0 | 179 | 0 | none |
-| `github.com/pb33f/libopenapi-validator` | rejected | 0 | 0 | 28 | 0 | none |
-| `league/openapi-psr7-validator` | accepted | 0 | 0 | 93 | 0 | none |
-| `league/openapi-psr7-validator` | rejected | 0 | 0 | 82 | 0 | none |
-| `@oaverify/core` | accepted | 152 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
-| `@oaverify/core` | rejected | 37 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
-| `openapi-backend` | accepted | 83 | 0 | 0 | 0 | parsed before validation |
-| `openapi-backend` | rejected | 91 | 0 | 0 | 0 | parsed before validation |
-| `openapi-core` | accepted | 85 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
-| `openapi-core` | rejected | 71 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `com.atlassian.oai:openapi-request-validator-core` | accepted | 0 | 0 | 86 | 0 | none |
+| `com.atlassian.oai:openapi-request-validator-core` | rejected | 0 | 0 | 84 | 0 | none |
+| `express-openapi-validator` | accepted | 99 | 0 | 10 | 0 | handed to the handler |
+| `express-openapi-validator` | rejected | 74 | 0 | 0 | 0 | parsed before validation |
+| `github.com/getkin/kin-openapi` | accepted | 2 | 0 | 133 | 0 | parsed before validation |
+| `github.com/getkin/kin-openapi` | rejected | 0 | 0 | 54 | 0 | none |
+| `github.com/pb33f/libopenapi-validator` | accepted | 0 | 0 | 186 | 0 | none |
+| `github.com/pb33f/libopenapi-validator` | rejected | 0 | 0 | 32 | 0 | none |
+| `league/openapi-psr7-validator` | accepted | 0 | 0 | 99 | 0 | none |
+| `league/openapi-psr7-validator` | rejected | 0 | 0 | 86 | 0 | none |
+| `@oaverify/core` | accepted | 158 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `@oaverify/core` | rejected | 41 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-backend` | accepted | 89 | 0 | 0 | 0 | parsed before validation |
+| `openapi-backend` | rejected | 95 | 0 | 0 | 0 | parsed before validation |
+| `openapi-core` | accepted | 91 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-core` | rejected | 73 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
 | `openapi-request-validator` | accepted | 2 | 0 | 7 | 0 | parsed before validation |
 | `openapi-request-validator` | rejected | 0 | 0 | 18 | 0 | none |
-| `openapi_first` | accepted | 151 | 0 | 0 | 0 | parsed before validation |
-| `openapi_first` | rejected | 33 | 0 | 0 | 0 | parsed before validation |
+| `openapi_first` | accepted | 157 | 0 | 0 | 0 | parsed before validation |
+| `openapi_first` | rejected | 37 | 0 | 0 | 0 | parsed before validation |
 
 ## Values written back onto the caller's input
 
@@ -122,16 +122,16 @@ failure.
 
 | library | declares exposure | wrote back | unchanged | not compared |
 | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | no | 0 | 164 | 0 |
-| `express-openapi-validator` | yes | 0 | 0 | 173 |
-| `github.com/getkin/kin-openapi` | yes | 2 | 177 | 0 |
-| `github.com/pb33f/libopenapi-validator` | no | 0 | 207 | 0 |
-| `league/openapi-psr7-validator` | no | 0 | 175 | 0 |
-| `@oaverify/core` | yes | 0 | 189 | 0 |
-| `openapi-backend` | yes | 0 | 174 | 0 |
-| `openapi-core` | yes | 62 | 94 | 0 |
+| `com.atlassian.oai:openapi-request-validator-core` | no | 0 | 170 | 0 |
+| `express-openapi-validator` | yes | 0 | 0 | 183 |
+| `github.com/getkin/kin-openapi` | yes | 2 | 187 | 0 |
+| `github.com/pb33f/libopenapi-validator` | no | 0 | 218 | 0 |
+| `league/openapi-psr7-validator` | no | 0 | 185 | 0 |
+| `@oaverify/core` | yes | 0 | 199 | 0 |
+| `openapi-backend` | yes | 0 | 184 | 0 |
+| `openapi-core` | yes | 62 | 102 | 0 |
 | `openapi-request-validator` | yes | 2 | 25 | 0 |
-| `openapi_first` | yes | 0 | 184 | 0 |
+| `openapi_first` | yes | 0 | 194 | 0 |
 
 What was compared, and what changed where something did, is on every answer in
 `libraries/<name>.json` under `inputMutation`. A count here with no scope

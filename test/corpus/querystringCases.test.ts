@@ -202,21 +202,39 @@ describe("the querystring cases", () => {
     }
   });
 
-  it("include one whose expected verdict is reachable only by reading the parameter", () => {
-    // The silence detector, and the reason the set is worth measuring at all. A
-    // library that accepts the document and never looks at the parameter
-    // accepts everything else here and is indistinguishable from one that
-    // validated correctly.
+  it("include negative requests for malformed content and schema validation", () => {
     const rejecting = querystringCases32.filter(
       (c) =>
         c.tier === "conformance" && c.expected === "rejected" && c.breaksDocumentRule === undefined,
     );
-    expect(rejecting.map((c) => c.id)).toEqual([
+    expect(rejecting.map((c) => c.id).sort()).toEqual([
       "querystring-form-urlencoded-object-wrong-type-oas32",
+      "querystring-json-object-malformed-oas32",
     ]);
   });
 
-  it("pair the two media types on one location, so a rejection names its cause", () => {
+  it("pair valid and malformed JSON under exactly the same document", () => {
+    const valid = querystringCases32.find(
+      (entry) => entry.id === "querystring-json-object-canonical-oas32",
+    );
+    const invalid = querystringCases32.find(
+      (entry) => entry.id === "querystring-json-object-malformed-oas32",
+    );
+    if (valid?.tier !== "conformance" || invalid?.tier !== "conformance") {
+      throw new Error("the JSON pair must carry conformance expectations");
+    }
+    expect(valid.document).toEqual(invalid.document);
+    const representation = (target: string) =>
+      decodeURIComponent(target.slice(target.indexOf("?") + 1));
+    expect(() => JSON.parse(valid.request.target.split("?")[1] ?? "")).toThrow();
+    expect({ p: JSON.parse(representation(valid.request.target)) as JsonValue }).toEqual(
+      valid.expectedValues,
+    );
+    expect(() => JSON.parse(representation(invalid.request.target))).toThrow();
+    expect([valid.expected, invalid.expected]).toEqual(["accepted", "rejected"]);
+  });
+
+  it("exercise both media types on the same location", () => {
     const canonical = querystringCases32.flatMap((c) =>
       c.dimensions.declaration === "content" && c.dimensions.probeAxis === "canonical"
         ? [c.dimensions.mediaType]

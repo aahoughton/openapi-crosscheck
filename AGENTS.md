@@ -39,6 +39,14 @@ A conformance case requires a specification citation carrying a section anchor,
 the quoted text, and the OpenAPI version it applies to. No citation, no
 conformance tier. That rule keeps tier placement tied to specification text.
 
+**Read OpenAPI together with its referenced standards.** HTTP defines header
+semantics, RFC 3986 defines URI encoding, and RFC 6570 defines the styles that
+OpenAPI incorporates. Before placing a case in divergence, check the applicable
+HTTP and serialization rules as well as the OpenAPI text. Cite the OpenAPI rule
+that connects the case to the relevant RFC and quote the RFC section that
+settles the behavior. A citation's `oasVersion` records the OpenAPI version to
+which the rule is being applied, including when its URL points to an RFC.
+
 **Coverage is published including the gaps.** Per-case rigour does not prevent
 selection effects: every case can be defensible while the corpus tilts through
 what got covered. Enumerate the specification surface, write cases to fill it,

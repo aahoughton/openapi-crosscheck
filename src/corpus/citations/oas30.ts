@@ -131,6 +131,12 @@ export const PARAMETER_EXPLODE = cite(
     "undefined.",
 );
 
+export const STYLE_SIMPLE_RFC6570 = cite(
+  "style-values",
+  "simple primitive, array, object path, header Simple style parameters defined by " +
+    "[RFC6570] Section 3.2.2.",
+);
+
 export const HEADER_NAMES_CASE_INSENSITIVE = cite(
   "parameter-locations",
   "header - Custom headers that are expected as part of the request. Note that " +

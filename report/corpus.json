@@ -2727,11 +2727,43 @@
     {
       "id": "header-simple-array-duplicate-name-oas30",
       "title": "header, simple, array, the name sent twice",
-      "inShort": "Sends the header twice, once per item, instead of one comma-joined header. Whether those fold into one array is not written down.",
-      "tier": "divergence",
+      "inShort": "Sends p: blue followed by p: black. HTTP combines these list-valued fields in order, yielding the same array as p: blue,black.",
+      "tier": "conformance",
       "oasVersion": "3.0",
-      "question": "Two headers of the declared name arrive. Is that the array, a repeated scalar, or an error? The Style Examples table gives one comma-separated header for an array and says nothing about repetition.",
-      "basis": null,
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-locations",
+          "quoted": "header - Custom headers that are expected as part of the request. Note that [RFC7230] Section 3.2 states header names are case insensitive."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#style-examples",
+          "quoted": "| simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |"
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "section-3.2.2",
+          "url": "https://www.rfc-editor.org/rfc/rfc7230.html#section-3.2.2",
+          "quoted": "A recipient MAY combine multiple header fields with the same field name into one \"field-name: field-value\" pair, without changing the semantics of the message, by appending each subsequent field value to the combined field value in order, separated by a comma."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": [
+          "blue",
+          "black"
+        ]
+      },
+      "rationale": "Simple style defines this header as a comma-separated array. RFC 7230 Section 3.2.2 allows repeated list-valued fields to be combined in received order without changing the message semantics. The two field lines therefore carry the same array as the canonical single-line header.",
       "document": {
         "openapi": "3.0.4",
         "info": {
@@ -2803,11 +2835,43 @@
     {
       "id": "header-simple-array-duplicate-name-oas31",
       "title": "header, simple, array, the name sent twice",
-      "inShort": "Sends the header twice, once per item, instead of one comma-joined header. Whether those fold into one array is not written down.",
-      "tier": "divergence",
+      "inShort": "Sends p: blue followed by p: black. HTTP combines these list-valued fields in order, yielding the same array as p: blue,black.",
+      "tier": "conformance",
       "oasVersion": "3.1",
-      "question": "Two headers of the declared name arrive. Is that the array, a repeated scalar, or an error? The Style Examples table gives one comma-separated header for an array and says nothing about repetition.",
-      "basis": null,
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-locations",
+          "quoted": "header - Custom headers that are expected as part of the request. Note that [RFC7230] Section 3.2 states header names are case insensitive."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "style-examples",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#style-examples",
+          "quoted": "| simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |"
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "section-3.2.2",
+          "url": "https://www.rfc-editor.org/rfc/rfc7230.html#section-3.2.2",
+          "quoted": "A recipient MAY combine multiple header fields with the same field name into one \"field-name: field-value\" pair, without changing the semantics of the message, by appending each subsequent field value to the combined field value in order, separated by a comma."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": [
+          "blue",
+          "black"
+        ]
+      },
+      "rationale": "Simple style defines this header as a comma-separated array. RFC 7230 Section 3.2.2 allows repeated list-valued fields to be combined in received order without changing the message semantics. The two field lines therefore carry the same array as the canonical single-line header.",
       "document": {
         "openapi": "3.1.1",
         "info": {
@@ -7694,8 +7758,8 @@
     },
     {
       "id": "path-routing-concrete-before-templated-oas30",
-      "title": "path, a concrete path competing with a templated one",
-      "inShort": "/t/mine matches a literal path and a templated one. The literal wins and requires a query parameter the request omits, so the verdict says which path was taken.",
+      "title": "path, concrete precedence, concrete declared first, query absent",
+      "inShort": "The concrete operation requires q and the request omits it. Both declaration orders must reject.",
       "tier": "conformance",
       "oasVersion": "3.0",
       "citations": [
@@ -7720,7 +7784,7 @@
       ],
       "expected": "rejected",
       "expectedValues": null,
-      "rationale": "Concrete paths are matched before their templated counterparts, and the specification gives exactly this pair as its example. The concrete operation requires a query parameter the request does not carry, so matching it correctly means rejecting. A library that matched the templated path instead would accept, which is why the operations differ in what they require: the verdict alone distinguishes them, without needing the value channel. The matching sentences carry no RFC 2119 keyword; they are read here as defining what a Paths Object means, the way the style tables define serialization without saying MUST.",
+      "rationale": "Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.",
       "document": {
         "openapi": "3.0.4",
         "info": {
@@ -7793,18 +7857,19 @@
         "probeAxis": "competingPath"
       },
       "varies": [
-        "a concrete path competes with a templated one"
+        "path declaration order",
+        "presence of the concrete operation's required query parameter"
       ],
       "holdsConstant": [
-        "the request is well-formed for both",
-        "one operation each",
-        "the path parameter's style is declared"
+        "the request path matches both declarations",
+        "one operation per path",
+        "both parameters are strings"
       ]
     },
     {
       "id": "path-routing-concrete-before-templated-oas31",
-      "title": "path, a concrete path competing with a templated one",
-      "inShort": "/t/mine matches a literal path and a templated one. The literal wins and requires a query parameter the request omits, so the verdict says which path was taken.",
+      "title": "path, concrete precedence, concrete declared first, query absent",
+      "inShort": "The concrete operation requires q and the request omits it. Both declaration orders must reject.",
       "tier": "conformance",
       "oasVersion": "3.1",
       "citations": [
@@ -7829,7 +7894,7 @@
       ],
       "expected": "rejected",
       "expectedValues": null,
-      "rationale": "Concrete paths are matched before their templated counterparts, and the specification gives exactly this pair as its example. The concrete operation requires a query parameter the request does not carry, so matching it correctly means rejecting. A library that matched the templated path instead would accept, which is why the operations differ in what they require: the verdict alone distinguishes them, without needing the value channel. The matching sentences carry no RFC 2119 keyword; they are read here as defining what a Paths Object means, the way the style tables define serialization without saying MUST.",
+      "rationale": "Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.",
       "document": {
         "openapi": "3.1.1",
         "info": {
@@ -7902,12 +7967,673 @@
         "probeAxis": "competingPath"
       },
       "varies": [
-        "a concrete path competes with a templated one"
+        "path declaration order",
+        "presence of the concrete operation's required query parameter"
       ],
       "holdsConstant": [
-        "the request is well-formed for both",
-        "one operation each",
-        "the path parameter's style is declared"
+        "the request path matches both declarations",
+        "one operation per path",
+        "both parameters are strings"
+      ]
+    },
+    {
+      "id": "path-routing-concrete-before-templated-template-first-oas30",
+      "title": "path, concrete precedence, template declared first, query absent",
+      "inShort": "The concrete operation requires q and the request omits it. Both declaration orders must reject.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "paths-path",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#paths-path",
+          "quoted": "When matching URLs, concrete (non-templated) paths would be matched before their templated counterparts. Templated paths with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "path-templating-matching",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#path-templating-matching",
+          "quoted": "Assuming the following paths, the concrete definition, /pets/mine, will be matched first if used: /pets/{petId} /pets/mine The following paths are considered identical and invalid: /pets/{petId} /pets/{name} The following may lead to ambiguous resolution: /{entity}/me /books/{id}"
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe-/t/{p}",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": true,
+                  "style": "simple",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          },
+          "/t/mine": {
+            "get": {
+              "operationId": "probe-/t/mine",
+              "parameters": [
+                {
+                  "name": "q",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/mine",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "competingPath"
+      },
+      "varies": [
+        "path declaration order",
+        "presence of the concrete operation's required query parameter"
+      ],
+      "holdsConstant": [
+        "the request path matches both declarations",
+        "one operation per path",
+        "both parameters are strings"
+      ]
+    },
+    {
+      "id": "path-routing-concrete-before-templated-template-first-oas31",
+      "title": "path, concrete precedence, template declared first, query absent",
+      "inShort": "The concrete operation requires q and the request omits it. Both declaration orders must reject.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "paths-path",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#paths-path",
+          "quoted": "When matching URLs, concrete (non-templated) paths would be matched before their templated counterparts. Templated paths with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "path-templating-matching",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#path-templating-matching",
+          "quoted": "Assuming the following paths, the concrete definition, /pets/mine, will be matched first if used: /pets/{petId} /pets/mine The following paths are considered identical and invalid: /pets/{petId} /pets/{name} The following may lead to ambiguous resolution: /{entity}/me /books/{id}"
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.",
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe-/t/{p}",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": true,
+                  "style": "simple",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          },
+          "/t/mine": {
+            "get": {
+              "operationId": "probe-/t/mine",
+              "parameters": [
+                {
+                  "name": "q",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/mine",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "competingPath"
+      },
+      "varies": [
+        "path declaration order",
+        "presence of the concrete operation's required query parameter"
+      ],
+      "holdsConstant": [
+        "the request path matches both declarations",
+        "one operation per path",
+        "both parameters are strings"
+      ]
+    },
+    {
+      "id": "path-routing-concrete-before-templated-template-first-valid-oas30",
+      "title": "path, concrete precedence, template declared first, query present",
+      "inShort": "The concrete operation requires q and the request supplies it. Both declaration orders must accept.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "paths-path",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#paths-path",
+          "quoted": "When matching URLs, concrete (non-templated) paths would be matched before their templated counterparts. Templated paths with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "path-templating-matching",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#path-templating-matching",
+          "quoted": "Assuming the following paths, the concrete definition, /pets/mine, will be matched first if used: /pets/{petId} /pets/mine The following paths are considered identical and invalid: /pets/{petId} /pets/{name} The following may lead to ambiguous resolution: /{entity}/me /books/{id}"
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": null,
+      "rationale": "Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe-/t/{p}",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": true,
+                  "style": "simple",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          },
+          "/t/mine": {
+            "get": {
+              "operationId": "probe-/t/mine",
+              "parameters": [
+                {
+                  "name": "q",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/mine?q=blue",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "competingPath"
+      },
+      "varies": [
+        "path declaration order",
+        "presence of the concrete operation's required query parameter"
+      ],
+      "holdsConstant": [
+        "the request path matches both declarations",
+        "one operation per path",
+        "both parameters are strings"
+      ]
+    },
+    {
+      "id": "path-routing-concrete-before-templated-template-first-valid-oas31",
+      "title": "path, concrete precedence, template declared first, query present",
+      "inShort": "The concrete operation requires q and the request supplies it. Both declaration orders must accept.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "paths-path",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#paths-path",
+          "quoted": "When matching URLs, concrete (non-templated) paths would be matched before their templated counterparts. Templated paths with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "path-templating-matching",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#path-templating-matching",
+          "quoted": "Assuming the following paths, the concrete definition, /pets/mine, will be matched first if used: /pets/{petId} /pets/mine The following paths are considered identical and invalid: /pets/{petId} /pets/{name} The following may lead to ambiguous resolution: /{entity}/me /books/{id}"
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": null,
+      "rationale": "Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.",
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe-/t/{p}",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": true,
+                  "style": "simple",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          },
+          "/t/mine": {
+            "get": {
+              "operationId": "probe-/t/mine",
+              "parameters": [
+                {
+                  "name": "q",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/mine?q=blue",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "competingPath"
+      },
+      "varies": [
+        "path declaration order",
+        "presence of the concrete operation's required query parameter"
+      ],
+      "holdsConstant": [
+        "the request path matches both declarations",
+        "one operation per path",
+        "both parameters are strings"
+      ]
+    },
+    {
+      "id": "path-routing-concrete-before-templated-valid-oas30",
+      "title": "path, concrete precedence, concrete declared first, query present",
+      "inShort": "The concrete operation requires q and the request supplies it. Both declaration orders must accept.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "paths-path",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#paths-path",
+          "quoted": "When matching URLs, concrete (non-templated) paths would be matched before their templated counterparts. Templated paths with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "path-templating-matching",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#path-templating-matching",
+          "quoted": "Assuming the following paths, the concrete definition, /pets/mine, will be matched first if used: /pets/{petId} /pets/mine The following paths are considered identical and invalid: /pets/{petId} /pets/{name} The following may lead to ambiguous resolution: /{entity}/me /books/{id}"
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": null,
+      "rationale": "Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/mine": {
+            "get": {
+              "operationId": "probe-/t/mine",
+              "parameters": [
+                {
+                  "name": "q",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          },
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe-/t/{p}",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": true,
+                  "style": "simple",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/mine?q=blue",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "competingPath"
+      },
+      "varies": [
+        "path declaration order",
+        "presence of the concrete operation's required query parameter"
+      ],
+      "holdsConstant": [
+        "the request path matches both declarations",
+        "one operation per path",
+        "both parameters are strings"
+      ]
+    },
+    {
+      "id": "path-routing-concrete-before-templated-valid-oas31",
+      "title": "path, concrete precedence, concrete declared first, query present",
+      "inShort": "The concrete operation requires q and the request supplies it. Both declaration orders must accept.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "paths-path",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#paths-path",
+          "quoted": "When matching URLs, concrete (non-templated) paths would be matched before their templated counterparts. Templated paths with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "path-templating-matching",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#path-templating-matching",
+          "quoted": "Assuming the following paths, the concrete definition, /pets/mine, will be matched first if used: /pets/{petId} /pets/mine The following paths are considered identical and invalid: /pets/{petId} /pets/{name} The following may lead to ambiguous resolution: /{entity}/me /books/{id}"
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-required",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-required",
+          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": null,
+      "rationale": "Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.",
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t/mine": {
+            "get": {
+              "operationId": "probe-/t/mine",
+              "parameters": [
+                {
+                  "name": "q",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          },
+          "/t/{p}": {
+            "get": {
+              "operationId": "probe-/t/{p}",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "path",
+                  "required": true,
+                  "style": "simple",
+                  "explode": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t/mine?q=blue",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "schema",
+        "location": "path",
+        "style": "simple",
+        "explode": false,
+        "declaredStyle": "simple",
+        "declaredExplode": false,
+        "schema": "scalar",
+        "probeAxis": "competingPath"
+      },
+      "varies": [
+        "path declaration order",
+        "presence of the concrete operation's required query parameter"
+      ],
+      "holdsConstant": [
+        "the request path matches both declarations",
+        "one operation per path",
+        "both parameters are strings"
       ]
     },
     {
@@ -8300,12 +9026,49 @@
     },
     {
       "id": "path-simple-array-encoded-delimiter-oas30",
-      "title": "path, simple, array, the delimiter arrives percent-encoded",
-      "inShort": "The comma between two items arrives encoded as %2C, so whether it is a separator or part of one value depends on when decoding happens.",
-      "tier": "divergence",
+      "title": "path, simple, array, a percent-encoded comma inside one item",
+      "inShort": "Sends blue%2Cblack as one array item containing a comma. Literal commas separate items; a percent-encoded comma is data.",
+      "tier": "conformance",
       "oasVersion": "3.0",
-      "question": "A percent-encoded comma sits where the delimiter would be. Is this one item containing a comma, or two items? Decoding before splitting and splitting before decoding give different answers, and the specification prescribes no order.",
-      "basis": null,
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#style-values",
+          "quoted": "simple primitive, array, object path, header Simple style parameters defined by [RFC6570] Section 3.2.2."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "section-3.2.2",
+          "url": "https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.2",
+          "quoted": "For each defined variable in the variable-list, perform variable expansion, as defined in Section 3.2.1, with the allowed characters being those in the unreserved set."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "section-3.2.1",
+          "url": "https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.1",
+          "quoted": "For a variable that is a list of values, expansion depends on both the expression type and the presence of an explode modifier. If there is no explode modifier, the expansion consists of a comma-separated concatenation of the defined member string values."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "section-2.4",
+          "url": "https://www.rfc-editor.org/rfc/rfc3986.html#section-2.4",
+          "quoted": "When a URI is dereferenced, the components and subcomponents significant to the scheme-specific dereferencing process (if any) must be parsed and separated before the percent-encoded octets within those components can be safely decoded, as otherwise the data may be mistaken for component delimiters."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": [
+          "blue,black"
+        ]
+      },
+      "rationale": "Simple style incorporates RFC 6570 Section 3.2.2. Its list expansion joins encoded member values with literal commas, and a comma inside a member is percent-encoded. RFC 3986 Section 2.4 requires separating subcomponents before decoding their reserved characters. The wire therefore carries one item whose value is blue,black; two items would serialize as blue,black without %2C.",
       "document": {
         "openapi": "3.0.4",
         "info": {
@@ -8361,7 +9124,7 @@
         "probeAxis": "encodingVariant"
       },
       "varies": [
-        "the encoding of the delimiter"
+        "one array item contains a comma encoded as data"
       ],
       "holdsConstant": [
         "identifier is the declared one",
@@ -8370,12 +9133,49 @@
     },
     {
       "id": "path-simple-array-encoded-delimiter-oas31",
-      "title": "path, simple, array, the delimiter arrives percent-encoded",
-      "inShort": "The comma between two items arrives encoded as %2C, so whether it is a separator or part of one value depends on when decoding happens.",
-      "tier": "divergence",
+      "title": "path, simple, array, a percent-encoded comma inside one item",
+      "inShort": "Sends blue%2Cblack as one array item containing a comma. Literal commas separate items; a percent-encoded comma is data.",
+      "tier": "conformance",
       "oasVersion": "3.1",
-      "question": "A percent-encoded comma sits where the delimiter would be. Is this one item containing a comma, or two items? Decoding before splitting and splitting before decoding give different answers, and the specification prescribes no order.",
-      "basis": null,
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-style",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-style",
+          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "style-values",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#style-values",
+          "quoted": "simple primitive, array, object path, header Simple style parameters defined by [RFC6570] Section 3.2.2."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "section-3.2.2",
+          "url": "https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.2",
+          "quoted": "For each defined variable in the variable-list, perform variable expansion, as defined in Section 3.2.1, with the allowed characters being those in the unreserved set."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "section-3.2.1",
+          "url": "https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.1",
+          "quoted": "For a variable that is a list of values, expansion depends on both the expression type and the presence of an explode modifier. If there is no explode modifier, the expansion consists of a comma-separated concatenation of the defined member string values."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "section-2.4",
+          "url": "https://www.rfc-editor.org/rfc/rfc3986.html#section-2.4",
+          "quoted": "When a URI is dereferenced, the components and subcomponents significant to the scheme-specific dereferencing process (if any) must be parsed and separated before the percent-encoded octets within those components can be safely decoded, as otherwise the data may be mistaken for component delimiters."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": [
+          "blue,black"
+        ]
+      },
+      "rationale": "Simple style incorporates RFC 6570 Section 3.2.2. Its list expansion joins encoded member values with literal commas, and a comma inside a member is percent-encoded. RFC 3986 Section 2.4 requires separating subcomponents before decoding their reserved characters. The wire therefore carries one item whose value is blue,black; two items would serialize as blue,black without %2C.",
       "document": {
         "openapi": "3.1.1",
         "info": {
@@ -8431,7 +9231,7 @@
         "probeAxis": "encodingVariant"
       },
       "varies": [
-        "the encoding of the delimiter"
+        "one array item contains a comma encoded as data"
       ],
       "holdsConstant": [
         "identifier is the declared one",
@@ -10191,6 +10991,390 @@
       "holdsConstant": [
         "the identifier is the declared one",
         "the value is a well-formed representation of the content form"
+      ]
+    },
+    {
+      "id": "query-content-json-boolean-canonical-oas30",
+      "title": "query, content application/json, boolean, JSON true",
+      "inShort": "Sends the JSON boolean true against a boolean schema. The media type determines its type.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-content",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-content",
+          "quoted": "A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "media-type-object",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#media-type-object",
+          "quoted": "Each Media Type Object provides schema and examples for the media type identified by its key."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "decoding-uris-and-form-urlencoded-strings",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings",
+          "quoted": "The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": true
+      },
+      "rationale": "The parameter is serialized as application/json. JSON true is a boolean and JSON \"blue\" is a string, so the declared boolean schema accepts the first and rejects the second. Both representations are well-formed JSON and use the same schema; no primitive text conversion is needed to determine their types.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=true",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "query",
+        "mediaType": "application/json",
+        "schema": "scalar",
+        "probeAxis": "canonical"
+      },
+      "varies": [
+        "the JSON value's type"
+      ],
+      "holdsConstant": [
+        "one required parameter",
+        "the boolean schema",
+        "well-formed JSON",
+        "the declared name"
+      ]
+    },
+    {
+      "id": "query-content-json-boolean-canonical-oas31",
+      "title": "query, content application/json, boolean, JSON true",
+      "inShort": "Sends the JSON boolean true against a boolean schema. The media type determines its type.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-content",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-content",
+          "quoted": "A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "media-type-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#media-type-object",
+          "quoted": "Each Media Type Object provides schema and examples for the media type identified by its key."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "decoding-uris-and-form-urlencoded-strings",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings",
+          "quoted": "The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": true
+      },
+      "rationale": "The parameter is serialized as application/json. JSON true is a boolean and JSON \"blue\" is a string, so the declared boolean schema accepts the first and rejects the second. Both representations are well-formed JSON and use the same schema; no primitive text conversion is needed to determine their types.",
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=true",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "query",
+        "mediaType": "application/json",
+        "schema": "scalar",
+        "probeAxis": "canonical"
+      },
+      "varies": [
+        "the JSON value's type"
+      ],
+      "holdsConstant": [
+        "one required parameter",
+        "the boolean schema",
+        "well-formed JSON",
+        "the declared name"
+      ]
+    },
+    {
+      "id": "query-content-json-boolean-wrong-type-oas30",
+      "title": "query, content application/json, boolean, JSON string",
+      "inShort": "Sends the JSON string blue against a boolean schema. JSON supplies a string, which fails the boolean type.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-content",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-content",
+          "quoted": "A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "media-type-object",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#media-type-object",
+          "quoted": "Each Media Type Object provides schema and examples for the media type identified by its key."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "decoding-uris-and-form-urlencoded-strings",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#decoding-uris-and-form-urlencoded-strings",
+          "quoted": "The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly."
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "The parameter is serialized as application/json. JSON true is a boolean and JSON \"blue\" is a string, so the declared boolean schema accepts the first and rejects the second. Both representations are well-formed JSON and use the same schema; no primitive text conversion is needed to determine their types.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=%22blue%22",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "query",
+        "mediaType": "application/json",
+        "schema": "scalar",
+        "probeAxis": "wrongTypeValue"
+      },
+      "varies": [
+        "the JSON value's type"
+      ],
+      "holdsConstant": [
+        "one required parameter",
+        "the boolean schema",
+        "well-formed JSON",
+        "the declared name"
+      ]
+    },
+    {
+      "id": "query-content-json-boolean-wrong-type-oas31",
+      "title": "query, content application/json, boolean, JSON string",
+      "inShort": "Sends the JSON string blue against a boolean schema. JSON supplies a string, which fails the boolean type.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-content",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-content",
+          "quoted": "A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "media-type-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#media-type-object",
+          "quoted": "Each Media Type Object provides schema and examples for the media type identified by its key."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "decoding-uris-and-form-urlencoded-strings",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings",
+          "quoted": "The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly."
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "The parameter is serialized as application/json. JSON true is a boolean and JSON \"blue\" is a string, so the declared boolean schema accepts the first and rejects the second. Both representations are well-formed JSON and use the same schema; no primitive text conversion is needed to determine their types.",
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=%22blue%22",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "query",
+        "mediaType": "application/json",
+        "schema": "scalar",
+        "probeAxis": "wrongTypeValue"
+      },
+      "varies": [
+        "the JSON value's type"
+      ],
+      "holdsConstant": [
+        "one required parameter",
+        "the boolean schema",
+        "well-formed JSON",
+        "the declared name"
       ]
     },
     {
@@ -12507,7 +13691,7 @@
       "inShort": "Sends p=true where the schema says boolean. Every value in a query is text, so something has to decide whether that word is the boolean it spells.",
       "tier": "divergence",
       "oasVersion": "3.0",
-      "question": "The wire carries the four letters true for a parameter declared boolean. A boolean is one of the JSON Schema data model's primitives and a URL carries no primitives at all, so something has to convert, and Appendix B leaves the conversion between strings and other primitives implementation-defined. Accepting it as the boolean it spells and refusing a string against a boolean are both readings. The neighbouring conformance case asks whether a library refuses a word that is no boolean under any reading; this asks what it does with the one word that is.",
+      "question": "The wire carries the four letters true for a parameter declared boolean. A boolean is one of the JSON Schema data model's primitives and a URL carries no primitives at all, so something has to convert, and Appendix B leaves the conversion between strings and other primitives implementation-defined. Accepting it as the boolean it spells and refusing a string against a boolean are both readings. The companion blue case asks how this conversion handles text outside the JSON boolean literals.",
       "basis": {
         "oasVersion": "3.0",
         "anchor": "appendix-b-data-type-conversion",
@@ -12579,7 +13763,7 @@
       "inShort": "Sends p=true where the schema says boolean. Every value in a query is text, so something has to decide whether that word is the boolean it spells.",
       "tier": "divergence",
       "oasVersion": "3.1",
-      "question": "The wire carries the four letters true for a parameter declared boolean. A boolean is one of the JSON Schema data model's primitives and a URL carries no primitives at all, so something has to convert, and Appendix B leaves the conversion between strings and other primitives implementation-defined. Accepting it as the boolean it spells and refusing a string against a boolean are both readings. The neighbouring conformance case asks whether a library refuses a word that is no boolean under any reading; this asks what it does with the one word that is.",
+      "question": "The wire carries the four letters true for a parameter declared boolean. A boolean is one of the JSON Schema data model's primitives and a URL carries no primitives at all, so something has to convert, and Appendix B leaves the conversion between strings and other primitives implementation-defined. Accepting it as the boolean it spells and refusing a string against a boolean are both readings. The companion blue case asks how this conversion handles text outside the JSON boolean literals.",
       "basis": {
         "oasVersion": "3.1",
         "anchor": "appendix-b-data-type-conversion",
@@ -12647,33 +13831,17 @@
     },
     {
       "id": "query-form-boolean-wrong-type-oas30",
-      "title": "query, form, boolean scalar, a value that is not one",
-      "inShort": "Sends p=blue where the schema says boolean. Nothing turns that word into true or false, so a library that treats a present value as truthy accepts what it should not.",
-      "tier": "conformance",
+      "title": "query, form, boolean scalar, text outside the JSON boolean literals",
+      "inShort": "Sends p=blue for a boolean schema. Whether text is rejected or converted by a truthiness convention is an implementation-defined conversion question.",
+      "tier": "divergence",
       "oasVersion": "3.0",
-      "citations": [
-        {
-          "oasVersion": "3.0",
-          "anchor": "parameter-style",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-style",
-          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
-        },
-        {
-          "oasVersion": "3.0",
-          "anchor": "schema-object",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
-          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
-        },
-        {
-          "oasVersion": "3.0",
-          "anchor": "appendix-b-data-type-conversion",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion",
-          "quoted": "Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: \"integer\" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation."
-        }
-      ],
-      "expected": "rejected",
-      "expectedValues": null,
-      "rationale": "The JSON Schema data model recognises booleans as one of its four primitive types, and the word blue is not one under any reading. A library that converts text to primitives has nothing to convert it to; a library that converts nothing is holding a string against a boolean. Both reject, so the conversion question Appendix B leaves open does not reach this and the verdict is attributable.",
+      "question": "The wire carries blue for a boolean schema. A strict lexical conversion rejects it; a truthiness conversion produces true. Appendix B leaves primitive text conversion implementation-defined and supplies no boolean lexical grammar. This case records the conversion policy alongside the true literal case.",
+      "basis": {
+        "oasVersion": "3.0",
+        "anchor": "appendix-b-data-type-conversion",
+        "url": "https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion",
+        "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
+      },
       "document": {
         "openapi": "3.0.4",
         "info": {
@@ -12735,33 +13903,17 @@
     },
     {
       "id": "query-form-boolean-wrong-type-oas31",
-      "title": "query, form, boolean scalar, a value that is not one",
-      "inShort": "Sends p=blue where the schema says boolean. Nothing turns that word into true or false, so a library that treats a present value as truthy accepts what it should not.",
-      "tier": "conformance",
+      "title": "query, form, boolean scalar, text outside the JSON boolean literals",
+      "inShort": "Sends p=blue for a boolean schema. Whether text is rejected or converted by a truthiness convention is an implementation-defined conversion question.",
+      "tier": "divergence",
       "oasVersion": "3.1",
-      "citations": [
-        {
-          "oasVersion": "3.1",
-          "anchor": "parameter-style",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-style",
-          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
-        },
-        {
-          "oasVersion": "3.1",
-          "anchor": "schema-object",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
-          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
-        },
-        {
-          "oasVersion": "3.1",
-          "anchor": "appendix-b-data-type-conversion",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
-          "quoted": "Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: \"integer\" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation."
-        }
-      ],
-      "expected": "rejected",
-      "expectedValues": null,
-      "rationale": "The JSON Schema data model recognises booleans as one of its four primitive types, and the word blue is not one under any reading. A library that converts text to primitives has nothing to convert it to; a library that converts nothing is holding a string against a boolean. Both reject, so the conversion question Appendix B leaves open does not reach this and the verdict is attributable.",
+      "question": "The wire carries blue for a boolean schema. A strict lexical conversion rejects it; a truthiness conversion produces true. Appendix B leaves primitive text conversion implementation-defined and supplies no boolean lexical grammar. This case records the conversion policy alongside the true literal case.",
+      "basis": {
+        "oasVersion": "3.1",
+        "anchor": "appendix-b-data-type-conversion",
+        "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
+        "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
+      },
       "document": {
         "openapi": "3.1.1",
         "info": {
@@ -18366,7 +19518,7 @@
       ],
       "expected": "rejected",
       "expectedValues": null,
-      "rationale": "`R=blue&G=200` is a well-formed form-urlencoded value, so nothing about reading it fails and the whole question is the schema: R is declared integer and blue is not an integer under any coercion policy. This is the one querystring case whose expected verdict is reachable only by reading the parameter. Every other one here expects acceptance, and acceptance is what a library that validated correctly and a library that never looked both produce.",
+      "rationale": "`R=blue&G=200` is a well-formed form-urlencoded value, so nothing about reading it fails and the whole question is the schema: R is declared integer and blue is not an integer under the ordinary numeric conversions. Acceptance shows that this invalid value passed; a rejection alone does not establish which check refused it.",
       "document": {
         "openapi": "3.2.0",
         "info": {
@@ -18437,11 +19589,43 @@
     {
       "id": "querystring-json-object-canonical-oas32",
       "title": "querystring, application/json, object, percent-encoded",
-      "inShort": "The same location declared with a media type the specification does not pair with it, asking whether the query string is decoded before it is parsed.",
-      "tier": "divergence",
+      "inShort": "The whole query string carries percent-encoded JSON. Decode it before parsing the object.",
+      "tier": "conformance",
       "oasVersion": "3.2",
-      "question": "Is the query string percent-decoded before it is read as the parameter's declared media type? The value of a querystring parameter is the query string as it arrived, and a JSON object cannot be written in one without percent-encoding its braces and quotes. A library that decodes first reads a JSON object and accepts; one that hands the raw string to a JSON parser reads `%7B%22R%22` and rejects. Both are defensible readings of a location whose value is defined as the whole query string, and the specification pairs this location with `application/x-www-form-urlencoded` rather than settling what any other media type does here.",
-      "basis": null,
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-locations",
+          "quoted": "querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: \"query\" parameters."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "fixed-fields-for-use-with-content",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content",
+          "quoted": "For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: \"querystring\" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "url-percent-encoding",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding",
+          "quoted": "All API URLs MUST successfully parse and percent-decode using [RFC3986] rules. ... Percent-encoding is performed in several places: ... By the Parameter or Encoding Objects when incorporating a value serialized with a Media Type Object for a media type that does not already incorporate URI percent-encoding"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": {
+          "R": "100",
+          "G": "200"
+        }
+      },
+      "rationale": "The location uses content to specify its representation. Section 4.12.4 requires URI percent-decoding and describes percent-encoding when a Parameter Object incorporates a media type that has no URI encoding of its own. JSON therefore receives the decoded query string. The valid representation supplies both required string properties; the malformed representation cannot be read as JSON. Both requests use exactly the same document.",
       "document": {
         "openapi": "3.2.0",
         "info": {
@@ -18505,11 +19689,119 @@
         "probeAxis": "canonical"
       },
       "varies": [
-        "media type, which is the only dimension moved from the positive control"
+        "whether the decoded query string is well-formed JSON"
       ],
       "holdsConstant": [
-        "the target carries a percent-encoded JSON object, which is the only way to write one in a query string",
-        "the schema and the value it would deserialize to, once decoded",
+        "the application/json media type",
+        "the schema requires both string properties",
+        "URI percent-encoding",
+        "exactly one parameter is declared"
+      ]
+    },
+    {
+      "id": "querystring-json-object-malformed-oas32",
+      "title": "querystring, application/json, object, malformed",
+      "inShort": "The whole query string decodes to malformed JSON. The companion valid request uses the same document.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-locations",
+          "quoted": "querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: \"query\" parameters."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "fixed-fields-for-use-with-content",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content",
+          "quoted": "For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: \"querystring\" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "url-percent-encoding",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding",
+          "quoted": "All API URLs MUST successfully parse and percent-decode using [RFC3986] rules. ... Percent-encoding is performed in several places: ... By the Parameter or Encoding Objects when incorporating a value serialized with a Media Type Object for a media type that does not already incorporate URI percent-encoding"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "The location uses content to specify its representation. Section 4.12.4 requires URI percent-decoding and describes percent-encoding when a Parameter Object incorporates a media type that has no URI encoding of its own. JSON therefore receives the decoded query string. The valid representation supplies both required string properties; the malformed representation cannot be read as JSON. Both requests use exactly the same document.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "string"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "R",
+                          "G"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?%7Bnot-json",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/json",
+        "schema": "object",
+        "probeAxis": "foreignWireShape"
+      },
+      "varies": [
+        "whether the decoded query string is well-formed JSON"
+      ],
+      "holdsConstant": [
+        "the application/json media type",
+        "the schema requires both string properties",
+        "URI percent-encoding",
         "exactly one parameter is declared"
       ]
     }

@@ -104,6 +104,7 @@ rules the expected verdict rests on, and the argument for it.
 | [`header-reserved-name-accept-required-absent-oas31`](#header-reserved-name-accept-required-absent-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass |
 | [`header-simple-array-canonical-oas31`](#header-simple-array-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`header-simple-array-case-variant-oas31`](#header-simple-array-case-variant-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | n/a | FAIL (verdict) | n/a | pass |
+| [`header-simple-array-duplicate-name-oas31`](#header-simple-array-duplicate-name-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | n/a | pass | n/a | FAIL (value) |
 | [`header-simple-array-explicit-style-oas31`](#header-simple-array-explicit-style-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`header-simple-array-explode-oas31`](#header-simple-array-explode-oas31) | accepted | FAIL (verdict) | FAIL (value) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`header-simple-object-canonical-oas31`](#header-simple-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
@@ -130,7 +131,11 @@ rules the expected verdict rests on, and the argument for it.
 | [`path-matrix-scalar-foreign-name-oas31`](#path-matrix-scalar-foreign-name-oas31) | rejected | FAIL (verdict) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | FAIL (verdict) |
 | [`path-matrix-scalar-wrong-type-oas31`](#path-matrix-scalar-wrong-type-oas31) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a | pass |
 | [`path-routing-concrete-before-templated-oas31`](#path-routing-concrete-before-templated-oas31) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a | pass |
+| [`path-routing-concrete-before-templated-template-first-oas31`](#path-routing-concrete-before-templated-template-first-oas31) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a | pass |
+| [`path-routing-concrete-before-templated-template-first-valid-oas31`](#path-routing-concrete-before-templated-template-first-valid-oas31) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | n/a | pass |
+| [`path-routing-concrete-before-templated-valid-oas31`](#path-routing-concrete-before-templated-valid-oas31) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | n/a | pass |
 | [`path-simple-array-canonical-oas31`](#path-simple-array-canonical-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (verdict) | pass | n/a | pass |
+| [`path-simple-array-encoded-delimiter-oas31`](#path-simple-array-encoded-delimiter-oas31) | accepted | FAIL (verdict) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | FAIL (value) | FAIL (verdict) | FAIL (value) | n/a | FAIL (value) |
 | [`path-simple-array-explode-oas31`](#path-simple-array-explode-oas31) | accepted | FAIL (verdict) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`path-simple-object-canonical-oas31`](#path-simple-object-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`path-simple-object-explode-oas31`](#path-simple-object-explode-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
@@ -138,6 +143,8 @@ rules the expected verdict rests on, and the argument for it.
 | [`path-simple-scalar-explode-oas31`](#path-simple-scalar-explode-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`path-simple-scalar-unset-style-oas31`](#path-simple-scalar-unset-style-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`path-simple-scalar-wrong-type-oas31`](#path-simple-scalar-wrong-type-oas31) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| [`query-content-json-boolean-canonical-oas31`](#query-content-json-boolean-canonical-oas31) | accepted | n/a | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
+| [`query-content-json-boolean-wrong-type-oas31`](#query-content-json-boolean-wrong-type-oas31) | rejected | n/a | pass | pass | pass | pass | pass | pass | n/a | n/a | pass |
 | [`query-content-json-object-canonical-oas31`](#query-content-json-object-canonical-oas31) | accepted | n/a | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
 | [`query-content-json-object-malformed-oas31`](#query-content-json-object-malformed-oas31) | rejected | n/a | pass | pass | pass | pass | pass | RAISED | n/a | n/a | pass |
 | [`query-content-json-scalar-nullable-literal-oas31`](#query-content-json-scalar-nullable-literal-oas31) | rejected | n/a | FAIL (verdict) | pass | pass | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
@@ -145,7 +152,6 @@ rules the expected verdict rests on, and the argument for it.
 | [`query-form-array-canonical-explode-oas31`](#query-form-array-canonical-explode-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | pass | pass | n/a | pass |
 | [`query-form-array-canonical-no-explode-oas31`](#query-form-array-canonical-no-explode-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`query-form-array-unset-style-oas31`](#query-form-array-unset-style-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | pass | pass | n/a | pass |
-| [`query-form-boolean-wrong-type-oas31`](#query-form-boolean-wrong-type-oas31) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-object-canonical-explode-oas31`](#query-form-object-canonical-explode-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | n/a | FAIL (verdict) |
 | [`query-form-object-canonical-no-explode-oas31`](#query-form-object-canonical-no-explode-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`query-form-object-missing-name-oas31`](#query-form-object-missing-name-oas31) | rejected | pass | pass | pass | FAIL (verdict) | pass | pass | pass | pass | pass | pass |
@@ -312,6 +318,39 @@ Every rule the expected verdict rests on, OpenAPI 3.1:
 Header names are case insensitive, so a header sent as P satisfies a parameter declared as p. This is the one location where a casing variant must not change the verdict.
 
 Varies: casing of the identifier. Holds constant: value well-formed; one header of that name.
+
+##### `header-simple-array-duplicate-name-oas31`
+
+header, simple, array, the name sent twice. Expected: **accepted**.
+
+Sends p: blue followed by p: black. HTTP combines these list-valued fields in order, yielding the same array as p: blue,black.
+
+Request: `GET /t`
+
+Header: `p: blue`
+Header: `p: black`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[parameter-style](https://spec.openapis.org/oas/v3.1.1.html#parameter-style)
+
+> Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for "query" - "form"; for "path" - "simple"; for "header" - "simple"; for "cookie" - "form".
+
+[parameter-locations](https://spec.openapis.org/oas/v3.1.1.html#parameter-locations)
+
+> header - Custom headers that are expected as part of the request. Note that [RFC7230] Section 3.2 states header names are case insensitive.
+
+[style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
+
+> | simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |
+
+[section-3.2.2](https://www.rfc-editor.org/rfc/rfc7230.html#section-3.2.2)
+
+> A recipient MAY combine multiple header fields with the same field name into one "field-name: field-value" pair, without changing the semantics of the message, by appending each subsequent field value to the combined field value in order, separated by a comma.
+
+Simple style defines this header as a comma-separated array. RFC 7230 Section 3.2.2 allows repeated list-valued fields to be combined in received order without changing the message semantics. The two field lines therefore carry the same array as the canonical single-line header.
+
+Varies: the identifier appears more than once. Holds constant: identifier is the declared one; each value well-formed.
 
 ##### `header-simple-array-explicit-style-oas31`
 
@@ -943,9 +982,9 @@ Varies: the value is well-formed for a different type. Holds constant: identifie
 
 ##### `path-routing-concrete-before-templated-oas31`
 
-path, a concrete path competing with a templated one. Expected: **rejected**.
+path, concrete precedence, concrete declared first, query absent. Expected: **rejected**.
 
-/t/mine matches a literal path and a templated one. The literal wins and requires a query parameter the request omits, so the verdict says which path was taken.
+The concrete operation requires q and the request omits it. Both declaration orders must reject.
 
 Request: `GET /t/mine`
 
@@ -963,9 +1002,87 @@ Every rule the expected verdict rests on, OpenAPI 3.1:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-Concrete paths are matched before their templated counterparts, and the specification gives exactly this pair as its example. The concrete operation requires a query parameter the request does not carry, so matching it correctly means rejecting. A library that matched the templated path instead would accept, which is why the operations differ in what they require: the verdict alone distinguishes them, without needing the value channel. The matching sentences carry no RFC 2119 keyword; they are read here as defining what a Paths Object means, the way the style tables define serialization without saying MUST.
+Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.
 
-Varies: a concrete path competes with a templated one. Holds constant: the request is well-formed for both; one operation each; the path parameter's style is declared.
+Varies: path declaration order; presence of the concrete operation's required query parameter. Holds constant: the request path matches both declarations; one operation per path; both parameters are strings.
+
+##### `path-routing-concrete-before-templated-template-first-oas31`
+
+path, concrete precedence, template declared first, query absent. Expected: **rejected**.
+
+The concrete operation requires q and the request omits it. Both declaration orders must reject.
+
+Request: `GET /t/mine`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[paths-path](https://spec.openapis.org/oas/v3.1.1.html#paths-path)
+
+> When matching URLs, concrete (non-templated) paths would be matched before their templated counterparts. Templated paths with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use.
+
+[path-templating-matching](https://spec.openapis.org/oas/v3.1.1.html#path-templating-matching)
+
+> Assuming the following paths, the concrete definition, /pets/mine, will be matched first if used: /pets/{petId} /pets/mine The following paths are considered identical and invalid: /pets/{petId} /pets/{name} The following may lead to ambiguous resolution: /{entity}/me /books/{id}
+
+[parameter-required](https://spec.openapis.org/oas/v3.1.1.html#parameter-required)
+
+> Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
+
+Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.
+
+Varies: path declaration order; presence of the concrete operation's required query parameter. Holds constant: the request path matches both declarations; one operation per path; both parameters are strings.
+
+##### `path-routing-concrete-before-templated-template-first-valid-oas31`
+
+path, concrete precedence, template declared first, query present. Expected: **accepted**.
+
+The concrete operation requires q and the request supplies it. Both declaration orders must accept.
+
+Request: `GET /t/mine?q=blue`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[paths-path](https://spec.openapis.org/oas/v3.1.1.html#paths-path)
+
+> When matching URLs, concrete (non-templated) paths would be matched before their templated counterparts. Templated paths with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use.
+
+[path-templating-matching](https://spec.openapis.org/oas/v3.1.1.html#path-templating-matching)
+
+> Assuming the following paths, the concrete definition, /pets/mine, will be matched first if used: /pets/{petId} /pets/mine The following paths are considered identical and invalid: /pets/{petId} /pets/{name} The following may lead to ambiguous resolution: /{entity}/me /books/{id}
+
+[parameter-required](https://spec.openapis.org/oas/v3.1.1.html#parameter-required)
+
+> Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
+
+Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.
+
+Varies: path declaration order; presence of the concrete operation's required query parameter. Holds constant: the request path matches both declarations; one operation per path; both parameters are strings.
+
+##### `path-routing-concrete-before-templated-valid-oas31`
+
+path, concrete precedence, concrete declared first, query present. Expected: **accepted**.
+
+The concrete operation requires q and the request supplies it. Both declaration orders must accept.
+
+Request: `GET /t/mine?q=blue`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[paths-path](https://spec.openapis.org/oas/v3.1.1.html#paths-path)
+
+> When matching URLs, concrete (non-templated) paths would be matched before their templated counterparts. Templated paths with the same hierarchy but different templated names MUST NOT exist as they are identical. In case of ambiguous matching, it's up to the tooling to decide which one to use.
+
+[path-templating-matching](https://spec.openapis.org/oas/v3.1.1.html#path-templating-matching)
+
+> Assuming the following paths, the concrete definition, /pets/mine, will be matched first if used: /pets/{petId} /pets/mine The following paths are considered identical and invalid: /pets/{petId} /pets/{name} The following may lead to ambiguous resolution: /{entity}/me /books/{id}
+
+[parameter-required](https://spec.openapis.org/oas/v3.1.1.html#parameter-required)
+
+> Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
+
+Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.
+
+Varies: path declaration order; presence of the concrete operation's required query parameter. Holds constant: the request path matches both declarations; one operation per path; both parameters are strings.
 
 ##### `path-simple-array-canonical-oas31`
 
@@ -988,6 +1105,40 @@ Every rule the expected verdict rests on, OpenAPI 3.1:
 simple is the default path style; an array is comma separated with no prefix.
 
 Varies: nothing. Holds constant: canonical encoding; value well-formed; one parameter declared.
+
+##### `path-simple-array-encoded-delimiter-oas31`
+
+path, simple, array, a percent-encoded comma inside one item. Expected: **accepted**.
+
+Sends blue%2Cblack as one array item containing a comma. Literal commas separate items; a percent-encoded comma is data.
+
+Request: `GET /t/blue%2Cblack`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[parameter-style](https://spec.openapis.org/oas/v3.1.1.html#parameter-style)
+
+> Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for "query" - "form"; for "path" - "simple"; for "header" - "simple"; for "cookie" - "form".
+
+[style-values](https://spec.openapis.org/oas/v3.1.1.html#style-values)
+
+> simple primitive, array, object path, header Simple style parameters defined by [RFC6570] Section 3.2.2.
+
+[section-3.2.2](https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.2)
+
+> For each defined variable in the variable-list, perform variable expansion, as defined in Section 3.2.1, with the allowed characters being those in the unreserved set.
+
+[section-3.2.1](https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.1)
+
+> For a variable that is a list of values, expansion depends on both the expression type and the presence of an explode modifier. If there is no explode modifier, the expansion consists of a comma-separated concatenation of the defined member string values.
+
+[section-2.4](https://www.rfc-editor.org/rfc/rfc3986.html#section-2.4)
+
+> When a URI is dereferenced, the components and subcomponents significant to the scheme-specific dereferencing process (if any) must be parsed and separated before the percent-encoded octets within those components can be safely decoded, as otherwise the data may be mistaken for component delimiters.
+
+Simple style incorporates RFC 6570 Section 3.2.2. Its list expansion joins encoded member values with literal commas, and a comma inside a member is percent-encoded. RFC 3986 Section 2.4 requires separating subcomponents before decoding their reserved characters. The wire therefore carries one item whose value is blue,black; two items would serialize as blue,black without %2C.
+
+Varies: one array item contains a comma encoded as data. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 ##### `path-simple-array-explode-oas31`
 
@@ -1148,6 +1299,66 @@ The parameter is declared as an integer and the value is alphabetic. No conversi
 Varies: the value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 #### Query parameters
+
+##### `query-content-json-boolean-canonical-oas31`
+
+query, content application/json, boolean, JSON true. Expected: **accepted**.
+
+Sends the JSON boolean true against a boolean schema. The media type determines its type.
+
+Request: `GET /t?p=true`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[parameter-content](https://spec.openapis.org/oas/v3.1.1.html#parameter-content)
+
+> A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry.
+
+[media-type-object](https://spec.openapis.org/oas/v3.1.1.html#media-type-object)
+
+> Each Media Type Object provides schema and examples for the media type identified by its key.
+
+[schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+[decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings)
+
+> The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly.
+
+The parameter is serialized as application/json. JSON true is a boolean and JSON "blue" is a string, so the declared boolean schema accepts the first and rejects the second. Both representations are well-formed JSON and use the same schema; no primitive text conversion is needed to determine their types.
+
+Varies: the JSON value's type. Holds constant: one required parameter; the boolean schema; well-formed JSON; the declared name.
+
+##### `query-content-json-boolean-wrong-type-oas31`
+
+query, content application/json, boolean, JSON string. Expected: **rejected**.
+
+Sends the JSON string blue against a boolean schema. JSON supplies a string, which fails the boolean type.
+
+Request: `GET /t?p=%22blue%22`
+
+Every rule the expected verdict rests on, OpenAPI 3.1:
+
+[parameter-content](https://spec.openapis.org/oas/v3.1.1.html#parameter-content)
+
+> A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry.
+
+[media-type-object](https://spec.openapis.org/oas/v3.1.1.html#media-type-object)
+
+> Each Media Type Object provides schema and examples for the media type identified by its key.
+
+[schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
+
+[decoding-uris-and-form-urlencoded-strings](https://spec.openapis.org/oas/v3.1.1.html#decoding-uris-and-form-urlencoded-strings)
+
+> The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly.
+
+The parameter is serialized as application/json. JSON true is a boolean and JSON "blue" is a string, so the declared boolean schema accepts the first and rejects the second. Both representations are well-formed JSON and use the same schema; no primitive text conversion is needed to determine their types.
+
+Varies: the JSON value's type. Holds constant: one required parameter; the boolean schema; well-formed JSON; the declared name.
 
 ##### `query-content-json-object-canonical-oas31`
 
@@ -1350,32 +1561,6 @@ Every rule the expected verdict rests on, OpenAPI 3.1:
 The declaration writes neither style nor explode, so the library must resolve form for a query parameter and then true for explode under form, before it can deserialize anything. The wire form is identical to the case that declares both, so the pair differs only in whether a default had to be resolved. The defaulted form is reported to be much the more common in published documents; that report is not this repository's measurement, and is recorded under Figures from elsewhere in coverage.md.
 
 Varies: style and explode are left to the default. Holds constant: identifier is the declared one; wire shape matches the effective style.
-
-##### `query-form-boolean-wrong-type-oas31`
-
-query, form, boolean scalar, a value that is not one. Expected: **rejected**.
-
-Sends p=blue where the schema says boolean. Nothing turns that word into true or false, so a library that treats a present value as truthy accepts what it should not.
-
-Request: `GET /t?p=blue`
-
-Every rule the expected verdict rests on, OpenAPI 3.1:
-
-[parameter-style](https://spec.openapis.org/oas/v3.1.1.html#parameter-style)
-
-> Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for "query" - "form"; for "path" - "simple"; for "header" - "simple"; for "cookie" - "form".
-
-[schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
-
-> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
-
-[appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion)
-
-> Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: "integer" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation.
-
-The JSON Schema data model recognises booleans as one of its four primitive types, and the word blue is not one under any reading. A library that converts text to primitives has nothing to convert it to; a library that converts nothing is holding a string against a boolean. Both reject, so the conversion question Appendix B leaves open does not reach this and the verdict is attributable.
-
-Varies: the declared type is boolean, which no other case declares. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 ##### `query-form-object-canonical-explode-oas31`
 
@@ -2017,36 +2202,6 @@ The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://s
 
 Varies: explode is written out. Holds constant: identifier is the declared one; value well-formed; canonical encoding.
 
-### Header parameters
-
-#### `header-simple-array-duplicate-name-oas31`
-
-header, simple, array, the name sent twice.
-
-Sends the header twice, once per item, instead of one comma-joined header. Whether those fold into one array is not written down.
-
-Request: `GET /t`
-
-Header: `p: blue`
-Header: `p: black`
-
-Open question: Two headers of the declared name arrive. Is that the array, a repeated scalar, or an error? The Style Examples table gives one comma-separated header for an array and says nothing about repetition.
-
-| library | verdict | parsed values exposed by the library |
-| --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
-| `express-openapi-validator` | rejected | `{"p":"blue, black"}` (parsed before validation) |
-| `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
-| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
-| `league/openapi-psr7-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
-| `@oaverify/core` | accepted | `{"p":["blue","black"]}` (validated only, so an absent name failed its schema) |
-| `openapi-backend` | not asked (stageNotOwned) | - |
-| `openapi-core` | accepted | `{"p":["blue","black"]}` (validated only, so an absent name failed its schema) |
-| `openapi-request-validator` | not asked (stageNotOwned) | - |
-| `openapi_first` | accepted | `{"p":["blue"," black"]}` (parsed before validation) |
-
-Varies: the identifier appears more than once. Holds constant: identifier is the declared one; each value well-formed.
-
 ### Path parameters
 
 #### `path-routing-ambiguous-templates-oas31`
@@ -2110,31 +2265,6 @@ The text leaving it open: [path-templating-matching](https://spec.openapis.org/o
 | `openapi_first` | accepted | `{"p":"blue"}` (parsed before validation) |
 
 Varies: two templates are identical but for the parameter name. Holds constant: the value is well-formed for both; one operation each.
-
-#### `path-simple-array-encoded-delimiter-oas31`
-
-path, simple, array, the delimiter arrives percent-encoded.
-
-The comma between two items arrives encoded as %2C, so whether it is a separator or part of one value depends on when decoding happens.
-
-Request: `GET /t/blue%2Cblack`
-
-Open question: A percent-encoded comma sits where the delimiter would be. Is this one item containing a comma, or two items? Decoding before splitting and splitting before decoding give different answers, and the specification prescribes no order.
-
-| library | verdict | parsed values exposed by the library |
-| --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
-| `express-openapi-validator` | accepted | `{"p":["blue","black"]}` (handed to the handler) |
-| `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
-| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
-| `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
-| `@oaverify/core` | accepted | `{"p":["blue","black"]}` (validated only, so an absent name failed its schema) |
-| `openapi-backend` | rejected | `{"p":"blue,black"}` (parsed before validation) |
-| `openapi-core` | accepted | `{"p":["blue%2Cblack"]}` (validated only, so an absent name failed its schema) |
-| `openapi-request-validator` | not asked (stageNotOwned) | - |
-| `openapi_first` | accepted | `{"p":["blue%2Cblack"]}` (parsed before validation) |
-
-Varies: the encoding of the delimiter. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 #### `path-simple-scalar-required-false-oas31`
 
@@ -2347,7 +2477,7 @@ Sends p=true where the schema says boolean. Every value in a query is text, so s
 
 Request: `GET /t?p=true`
 
-Open question: The wire carries the four letters true for a parameter declared boolean. A boolean is one of the JSON Schema data model's primitives and a URL carries no primitives at all, so something has to convert, and Appendix B leaves the conversion between strings and other primitives implementation-defined. Accepting it as the boolean it spells and refusing a string against a boolean are both readings. The neighbouring conformance case asks whether a library refuses a word that is no boolean under any reading; this asks what it does with the one word that is.
+Open question: The wire carries the four letters true for a parameter declared boolean. A boolean is one of the JSON Schema data model's primitives and a URL carries no primitives at all, so something has to convert, and Appendix B leaves the conversion between strings and other primitives implementation-defined. Accepting it as the boolean it spells and refusing a string against a boolean are both readings. The companion blue case asks how this conversion handles text outside the JSON boolean literals.
 
 The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion)
 
@@ -2367,6 +2497,35 @@ The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapi
 | `openapi_first` | accepted | `{"p":true}` (parsed before validation) |
 
 Varies: the declared type is boolean and the value is well-formed for it. Holds constant: identifier is the declared one; wire shape matches the declared style.
+
+#### `query-form-boolean-wrong-type-oas31`
+
+query, form, boolean scalar, text outside the JSON boolean literals.
+
+Sends p=blue for a boolean schema. Whether text is rejected or converted by a truthiness convention is an implementation-defined conversion question.
+
+Request: `GET /t?p=blue`
+
+Open question: The wire carries blue for a boolean schema. A strict lexical conversion rejects it; a truthiness conversion produces true. Appendix B leaves primitive text conversion implementation-defined and supplies no boolean lexical grammar. This case records the conversion policy alongside the true literal case.
+
+The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion)
+
+> However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `express-openapi-validator` | rejected | `{"p":"blue"}` (parsed before validation) |
+| `github.com/getkin/kin-openapi` | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| `github.com/pb33f/libopenapi-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `@oaverify/core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `openapi-backend` | rejected | `{"p":["blue"]}` (parsed before validation) |
+| `openapi-core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `openapi-request-validator` | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
+| `openapi_first` | rejected | `{"p":"blue"}` (parsed before validation) |
+
+Varies: the declared type is boolean, which no other case declares. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 #### `query-form-object-integer-properties-oas31`
 

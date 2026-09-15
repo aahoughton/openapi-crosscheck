@@ -73,6 +73,14 @@ export const PARAMETER_EXPLODE = cite(
     "value is false.",
 );
 
+export const CONTENT_URI_PERCENT_ENCODING = cite(
+  "url-percent-encoding",
+  "All API URLs MUST successfully parse and percent-decode using [RFC3986] rules. " +
+    "... Percent-encoding is performed in several places: ... By the Parameter or " +
+    "Encoding Objects when incorporating a value serialized with a Media Type Object " +
+    "for a media type that does not already incorporate URI percent-encoding",
+);
+
 export const PARAMETER_REQUIRED = cite(
   "parameter-required",
   "Determines whether this parameter is mandatory. If the parameter location is " +

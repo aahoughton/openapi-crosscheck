@@ -174,6 +174,7 @@ export type Dimensions =
  * to remember.
  */
 export interface Citation {
+  /** OpenAPI version to which this rule is applied, including rules cited from RFCs. */
   readonly oasVersion: OasVersion;
   /** Section anchor within the specification document, e.g. `style-values`. */
   readonly anchor: string;

@@ -141,6 +141,13 @@ Conformance cases cite the OpenAPI specification rule that settles the expected
 answer. Divergence cases record implementation differences where the
 specification leaves room.
 
+OpenAPI is read together with the standards it builds on. HTTP defines the
+meaning of repeated header fields; RFC 3986 defines URI percent-encoding; and
+RFC 6570 defines the parameter styles OpenAPI incorporates. Silence in an
+OpenAPI style table can therefore be settled by a referenced standard. Cases
+cite both the applicable OpenAPI rule and the RFC text when the expectation
+depends on that connection. Divergence requires checking those rules too.
+
 Each library runs in its own container. The harness communicates with
 containers through [docs/container-protocol.md](docs/container-protocol.md), so
 adapters can be written in the library's own language.
