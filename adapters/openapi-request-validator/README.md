@@ -24,7 +24,7 @@ request target.
 | style and explode  | caller |
 | content media type | caller |
 | schema validation  | owned  |
-| value exposure     | caller |
+| value exposure     | owned  |
 
 ## Why These Claims
 
@@ -53,9 +53,19 @@ parameter is passed through as a string.
 Schema validation is claimed because `validateRequest` returns errors for
 schema violations.
 
-Value exposure is caller-owned because the public call returns validation errors
-only and does not mutate the request object into a value channel.
+Value exposure is claimed for a write-back channel rather than a return value.
+`validateRequest` returns validation errors only. Its schema engine writes
+coerced values and schema defaults onto the `{ params, query, headers }` object
+it is handed, so a caller reading that object after the call reads values the
+library supplied.
 
 ## Value Channel
 
-Results use `unexposed` for accepted and rejected verdicts.
+Values come from comparing the object handed to `validateRequest` against the
+same object after it returns, at vantage `parsedBeforeValidation`. Only the
+positions the library wrote are reported, because echoing untouched input would
+report this adapter's own preparse as library output. An input the library left
+unchanged reports `unexposed`.
+
+Cookies are never handed to the library, so a cookie position has nothing for it
+to write onto and is never read from this channel.

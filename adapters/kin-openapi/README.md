@@ -21,17 +21,17 @@ in v0.141.0, before the version measured here.
 
 ## Stage Claims
 
-| stage              | claim  |
-| ------------------ | ------ |
-| routing            | owned  |
-| splitting: path    | owned  |
-| splitting: query   | owned  |
-| splitting: header  | owned  |
-| splitting: cookie  | owned  |
-| style and explode  | owned  |
-| content media type | owned  |
-| schema validation  | owned  |
-| value exposure     | caller |
+| stage              | claim |
+| ------------------ | ----- |
+| routing            | owned |
+| splitting: path    | owned |
+| splitting: query   | owned |
+| splitting: header  | owned |
+| splitting: cookie  | owned |
+| style and explode  | owned |
+| content media type | owned |
+| schema validation  | owned |
+| value exposure     | owned |
 
 ## Why These Claims
 
@@ -54,13 +54,26 @@ is rejected.
 Schema validation is claimed because `ValidateRequest` returns validation errors
 for schema violations.
 
-Value exposure is caller-owned because the public validation path returns errors
-only. The parameter decoding helper is unexported, and the validation input does
-not expose decoded parameter values.
+Value exposure is claimed for a write-back channel rather than a return value.
+`ValidateRequest` and `ValidateParameter` return an error and nothing else, the
+parameter decoders are unexported, and the decoded value is a local in
+`ValidateParameter` that goes out of scope when it returns. What does reach the
+caller is the schema default: for an absent optional parameter
+`ValidateParameter` writes the default onto the request it was handed, into
+`URL.RawQuery`, the header map or a cookie. A caller reading that request after
+the call reads a value the library supplied.
 
 ## Value Channel
 
-Results use `unexposed` for accepted and rejected verdicts.
+Values come from comparing the request handed to `ValidateRequest` against the
+same request after it returns, at vantage `parsedBeforeValidation`. Only the
+positions the library wrote are reported, so only written-back defaults appear.
+Every other result reports `unexposed`: the decoded value of a parameter that
+was present on the wire is never handed back.
+
+`FindRoute` does return the path parameters, as raw strings before style
+deserialization. Those are routing output, and this adapter reads them for the
+before and after comparison rather than reporting them as deserialized values.
 
 ## Known Boundary
 
