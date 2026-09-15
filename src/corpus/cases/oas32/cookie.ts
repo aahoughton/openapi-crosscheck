@@ -5,29 +5,17 @@ import { STRING, STRING_ARRAY, STRING_OBJECT, document, request } from "./build"
 /**
  * Cookie parameters, under 3.2.0.
  *
- * The location 3.2 changed most. Through 3.1 every cookie case here is
- * divergence: `form` is the only style a cookie parameter can carry, and an
- * appendix calls that combination ambiguous for one value and incorrect for
- * several, so there is nothing to conform to. 3.2 adds `style: "cookie"`, whose
- * row gives the exact crumbs for each type and explode, and the same wire forms
- * become settled.
- *
- * So these are the same questions the 3.1 cookie cases ask, asked of a document
- * that can now express the answer. What a library does with them is a different
- * measurement from what it does with the 3.1 twins, and the two sit side by
- * side under one library's name.
- *
- * The last case holds the contrast: `form` is still the default style for a
- * cookie parameter, kept for compatibility, and 3.2 says no more about reading
- * one than 3.1 did.
+ * The `cookie` style defines serialization for scalars, arrays and objects.
+ * These cases cover both values of explode and literal percent sequences.
+ * The default remains `form`, whose repeated-value format is still unspecified
+ * for cookies. That case records divergence.
  */
 export const cookieCases32: readonly Case[] = [
   {
     id: "cookie-cookie-array-canonical-explode-oas32",
     title: "cookie, cookie style, array, explode defaulted true, canonical",
     inShort:
-      "Repeats the cookie name once per item, separated by the semicolon and space cookies " +
-      "use. The style table gives exactly these crumbs.",
+      "Sends p=blue; p=black; p=brown. Cookie style defaults explode to true, repeating the name for each item.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -40,9 +28,7 @@ export const cookieCases32: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: ["blue", "black", "brown"] },
     rationale:
-      "explode is left out and defaults to true for the cookie style, so the exploded row " +
-      "applies, and it writes an array as the name repeated with a semicolon and a space " +
-      "between the pairs. The request carries that, character for character.",
+      "Cookie style defaults explode to true. Its array row repeats name=value pairs separated by a semicolon and space, matching this request.",
     document: document(
       [{ name: "p", in: "cookie", required: true, style: "cookie", schema: STRING_ARRAY }],
       "/t",
@@ -68,7 +54,7 @@ export const cookieCases32: readonly Case[] = [
   {
     id: "cookie-cookie-array-no-explode-oas32",
     title: "cookie, cookie style, array, explode false",
-    inShort: "Joins the array with commas inside one crumb, which is the unexploded row.",
+    inShort: "Sends p=blue,black,brown in one cookie with explode false.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -80,9 +66,7 @@ export const cookieCases32: readonly Case[] = [
     ],
     expected: "accepted",
     expectedValues: { p: ["blue", "black", "brown"] },
-    rationale:
-      "The unexploded cookie row joins an array with commas under one name, which is one " +
-      "crumb, and the request carries that crumb.",
+    rationale: "Cookie style with explode false joins array items with commas under one name.",
     document: document(
       [
         {
@@ -114,8 +98,7 @@ export const cookieCases32: readonly Case[] = [
     id: "cookie-cookie-object-canonical-explode-oas32",
     title: "cookie, cookie style, object, explode defaulted true, canonical",
     inShort:
-      "Sends the object's properties as their own crumbs, R and G, which is what the " +
-      "exploded row writes and what a browser would send.",
+      "Sends R=100; G=200 as separate cookies for the object p. Cookie style defaults explode to true.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -128,9 +111,7 @@ export const cookieCases32: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "An exploded cookie object drops the parameter name and writes one crumb per " +
-      "property, delimited by a semicolon and a space. Recovering p from those crumbs is " +
-      "what the row describes, so the object is the value under the declared name.",
+      "An exploded cookie object writes one name=value pair per property, separated by a semicolon and space. R and G form the declared object p.",
     document: document(
       [{ name: "p", in: "cookie", required: true, style: "cookie", schema: STRING_OBJECT }],
       "/t",
@@ -156,7 +137,7 @@ export const cookieCases32: readonly Case[] = [
   {
     id: "cookie-cookie-object-no-explode-oas32",
     title: "cookie, cookie style, object, explode false",
-    inShort: "Packs the object into one crumb as R,100,G,200, which is the unexploded row.",
+    inShort: "Sends p=R,100,G,200 in one cookie with explode false.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -169,8 +150,7 @@ export const cookieCases32: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The unexploded cookie row writes an object as its property names and values joined " +
-      "by commas under the parameter's own name, which is the crumb the request carries.",
+      "Cookie style with explode false alternates property names and values under p, separated by commas. Both values match their string schemas.",
     document: document(
       [
         {
@@ -201,9 +181,7 @@ export const cookieCases32: readonly Case[] = [
   {
     id: "cookie-cookie-scalar-canonical-oas32",
     title: "cookie, cookie style, scalar, canonical",
-    inShort:
-      "One cookie, one value, under the style written for cookies. The ambiguity earlier " +
-      "versions leave over this crumb is what the style removes.",
+    inShort: "Sends p=blue using cookie style, which defines this scalar format.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -216,8 +194,7 @@ export const cookieCases32: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: "blue" },
     rationale:
-      "Both cookie rows give name=value for a string, so the defaulted explode selects " +
-      "between two rows that agree, and the crumb the request carries is that pair.",
+      "Both cookie scalar rows give name=value. The default explode value of true leaves that format unchanged.",
     document: document(
       [{ name: "p", in: "cookie", required: true, style: "cookie", schema: STRING }],
       "/t",
@@ -240,8 +217,7 @@ export const cookieCases32: readonly Case[] = [
     id: "cookie-cookie-scalar-no-explode-oas32",
     title: "cookie, cookie style, scalar, explode false",
     inShort:
-      "The same single crumb with explode written out as false. There is nothing to " +
-      "distribute over one value, so the flag should change nothing.",
+      "Sends p=blue using cookie style with explode false. Explode has no effect on a scalar.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -254,9 +230,7 @@ export const cookieCases32: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: "blue" },
     rationale:
-      "The unexploded cookie row gives name=value for a string, the same crumb the " +
-      "exploded row gives. The case exists because a library can branch on the flag before " +
-      "noticing that a scalar has nothing to distribute.",
+      "Both cookie scalar rows give name=value, so explicitly disabling explode leaves the expected string unchanged.",
     document: document(
       [
         {
@@ -287,9 +261,7 @@ export const cookieCases32: readonly Case[] = [
   {
     id: "cookie-cookie-scalar-percent-triple-oas32",
     title: "cookie, cookie style, scalar, a value carrying a percent triple",
-    inShort:
-      "The crumb reads blue%20black. Under this style a percent triple is three characters " +
-      "of data, and decoding it would hand the caller a value nobody sent.",
+    inShort: "Sends p=blue%20black. Cookie style requires preserving %20 as literal text.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -302,10 +274,7 @@ export const cookieCases32: readonly Case[] = [
     expectedValues: { p: "blue%20black" },
     answeredInValues: true,
     rationale:
-      "The style applies no percent-encoding and the parsing rule says apparent " +
-      "percent-encoding MUST NOT be decoded, so the value is the twelve characters sent. " +
-      "The schema admits any string, so the verdict is the same either way and the value " +
-      "is where the answer is.",
+      "Cookie style applies no percent-encoding, and its parsing rule forbids percent-decoding. The expected value is the literal string blue%20black.",
     document: document(
       [{ name: "p", in: "cookie", required: true, style: "cookie", schema: STRING }],
       "/t",
@@ -328,17 +297,11 @@ export const cookieCases32: readonly Case[] = [
     id: "cookie-form-array-explode-oas32",
     title: "cookie, form defaulted, array, explode defaulted true",
     inShort:
-      "The same repeated crumbs with the style left to its default, which is still form. " +
-      "An appendix says form uses the wrong delimiter here and stops there.",
+      "Repeats cookie pairs with style omitted. The default is form, whose & separator conflicts with cookie syntax.",
     tier: "divergence",
     oasVersion: "3.2",
     question:
-      "A cookie parameter that declares no style still resolves to form, kept for " +
-      "compatibility, and the appendix says the exploded form default uses the wrong " +
-      "delimiter for cookies: an ampersand where a cookie writes a semicolon and a space. " +
-      "The request carries the cookie delimiter. Whether a library reads the crumbs the " +
-      "location actually uses, or refuses a serialization the specification calls wrong " +
-      "now that a style exists which means it, is not settled.",
+      "Cookie parameters still default to form. Appendix D says its exploded-array separator, &, is incorrect for cookies, which use a semicolon and space. Handling of this request is unspecified.",
     basis: cite.COOKIE_FORM_WRONG_DELIMITER,
     document: document([{ name: "p", in: "cookie", required: true, schema: STRING_ARRAY }], "/t"),
     request: request("/t", [["Cookie", "p=blue; p=black"]]),

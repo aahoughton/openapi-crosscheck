@@ -15,8 +15,7 @@ export const headerCases: readonly Case[] = [
   {
     id: "header-content-json-object-canonical-oas31",
     title: "header, content application/json, object, canonical",
-    inShort:
-      "Sends a JSON object in a header, declared by media type instead of by style. The header carries the JSON as written.",
+    inShort: "Sends a JSON object directly in a header, using content: application/json.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [
@@ -29,7 +28,7 @@ export const headerCases: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The parameter declares one representation, application/json, and the header carries a well-formed JSON object matching the schema. No style applies, because the parameter declares content rather than schema, and the specification gives those as the two ways serialization is specified.",
+      "The content declaration selects application/json. The header contains valid JSON with both properties matching the string schemas.",
     document: document(
       [
         {
@@ -59,14 +58,14 @@ export const headerCases: readonly Case[] = [
     id: "header-reserved-name-accept-present-wrong-type-oas31",
     title: "header, a parameter named Accept, present and violating its schema",
     inShort:
-      "Declares Accept with an integer schema and sends a real Accept header. Ignoring the declaration means never holding the header against it.",
+      "Declares Accept as an integer and sends Accept: text/html. OpenAPI requires ignoring this parameter declaration.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_NAME_RESERVED_HEADERS, cite.SCHEMA_OBJECT],
     expected: "accepted",
     expectedValues: null,
     rationale:
-      "The request carries the Accept header a client would send, and the declaration says that header is an integer. Ignoring the declaration means the schema never applies and the request stands. This is the twin of the required-and-absent case and each covers the other's blind spot: a library that never checks required would accept that one without ignoring anything, and a library that never validates header schemas would accept this one the same way. Answering both correctly while rejecting neither is what ignoring the declaration looks like.",
+      "A header parameter named Accept SHALL be ignored, so its integer schema cannot invalidate this request. The absent-header companion checks required; this case checks the declared type.",
     document: document(
       [{ name: "Accept", in: "header", required: true, style: "simple", schema: INTEGER }],
       "/t",
@@ -89,14 +88,14 @@ export const headerCases: readonly Case[] = [
     id: "header-reserved-name-accept-required-absent-oas31",
     title: "header, a parameter named Accept, required and absent",
     inShort:
-      "Declares Accept as a required header parameter and sends no Accept header. The declaration is one the specification says to ignore, so the missing value is not missing.",
+      "Declares Accept as required and sends no Accept header. OpenAPI requires ignoring this parameter declaration.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_NAME_RESERVED_HEADERS, cite.PARAMETER_REQUIRED],
     expected: "accepted",
     expectedValues: null,
     rationale:
-      "A header parameter named Accept SHALL be ignored, and a declaration that is ignored cannot require anything. So the absent header is not an absent required parameter and the request stands. A library honouring the declaration rejects, which is the only other answer available and is attributable.",
+      "A header parameter named Accept SHALL be ignored. Its required flag therefore cannot invalidate a request with no Accept header.",
     document: document(
       [{ name: "Accept", in: "header", required: true, style: "simple", schema: STRING }],
       "/t",
@@ -119,13 +118,13 @@ export const headerCases: readonly Case[] = [
     id: "header-simple-array-canonical-oas31",
     title: "header, simple, array, canonical",
     inShort:
-      "Sends p: blue,black with nothing declared about its format, so the header default (one comma-separated value) has to be applied.",
+      "Sends p: blue,black with style omitted. The header default, simple, separates array items with commas.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_SIMPLE_NO_EXPLODE],
     expected: "accepted",
     expectedValues: { p: ["blue", "black"] },
-    rationale: "simple is the default style for header parameters; an array is comma separated.",
+    rationale: "The default header style is simple, which separates array items with commas.",
     document: document([{ name: "p", in: "header", required: true, schema: STRING_ARRAY }], "/t"),
     request: request("/t", [["p", "blue,black"]]),
     dimensions: {
@@ -156,8 +155,7 @@ export const headerCases: readonly Case[] = [
     ],
     expected: "accepted",
     expectedValues: { p: ["blue", "black"] },
-    rationale:
-      "Header names are case insensitive, so a header sent as P satisfies a parameter declared as p. This is the one location where a casing variant must not change the verdict.",
+    rationale: "Header names are case insensitive, so P matches the declared parameter p.",
     document: document([{ name: "p", in: "header", required: true, schema: STRING_ARRAY }], "/t"),
     request: request("/t", [["P", "blue,black"]]),
     dimensions: {
@@ -216,14 +214,14 @@ export const headerCases: readonly Case[] = [
     id: "header-simple-array-explicit-style-oas31",
     title: "header, simple, array, style written out rather than defaulted",
     inShort:
-      "The same p: blue,black header, with the serialization spelled out in the document instead of left to the default. Separates applying the default from supporting the format.",
+      "Sends p: blue,black with simple explicitly declared. The companion case uses the same header with style omitted.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_SIMPLE_NO_EXPLODE],
     expected: "accepted",
     expectedValues: { p: ["blue", "black"] },
     rationale:
-      "The same request as the canonical header case, with style written out instead of left to the default. The two cases differ only in whether the declaration relies on the default, so when a library handles one and not the other, default resolution is the difference; the style itself is supported.",
+      "Simple style separates array items with commas. This request also appears in the default-style case, allowing the two declarations to be compared.",
     document: document(
       [
         {
@@ -255,14 +253,14 @@ export const headerCases: readonly Case[] = [
     id: "header-simple-array-explode-oas31",
     title: "header, simple, array, explode true",
     inShort:
-      "Sends p: blue,black with explode turned on, which for a header the spec spells identically to explode off. The flag should change nothing.",
+      "Sends p: blue,black with explode on. Simple arrays use commas with either value of explode.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_SIMPLE_EXPLODE],
     expected: "accepted",
     expectedValues: { p: ["blue", "black"] },
     rationale:
-      "The simple rows agree on arrays: exploded or not, the items are comma joined. A library that treats explode as meaning repeated headers here is reading a rule the table does not give.",
+      "Both simple array rows separate items with commas, so explode leaves the expected array unchanged.",
     document: document(
       [
         {
@@ -300,7 +298,7 @@ export const headerCases: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
+      "The simple object row with explode false alternates property names and values, separated by commas. R and G both have string values matching their schemas.",
     document: document(
       [
         {
@@ -332,14 +330,14 @@ export const headerCases: readonly Case[] = [
     id: "header-simple-object-explode-oas31",
     title: "header, simple, object, explode true",
     inShort:
-      "The exploded spelling of an object in a header, R=100,G=200, where explode puts an equals sign between key and value.",
+      "Sends an object as p: R=100,G=200. Explode joins each property name to its value with =.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_SIMPLE_EXPLODE],
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "This is the one place explode changes a simple serialization: the properties are joined to their values with equals rather than laid out as a flat comma list.",
+      "The exploded simple object row uses name=value pairs separated by commas. R and G both have string values matching their schemas.",
     document: document(
       [
         {
@@ -370,14 +368,13 @@ export const headerCases: readonly Case[] = [
   {
     id: "header-simple-scalar-canonical-oas31",
     title: "header, simple, scalar, canonical",
-    inShort: "The plainest header case: one name, one value, the declared style written out.",
+    inShort: "Sends p: blue with simple explicitly declared.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_SIMPLE_NO_EXPLODE],
     expected: "accepted",
     expectedValues: { p: "blue" },
-    rationale:
-      "The declared style is simple, which is also the header default, and a simple scalar is the bare value. The canonical case for the location, against which the header variants are read.",
+    rationale: "A simple scalar is the header value itself, which satisfies the string schema.",
     document: document(
       [
         {
@@ -408,14 +405,14 @@ export const headerCases: readonly Case[] = [
   {
     id: "header-simple-scalar-explode-oas31",
     title: "header, simple, scalar, explode true",
-    inShort: "One header value with explode on, which has nothing to spread over.",
+    inShort: "Sends p: blue with explode on. Explode has no effect on a scalar.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_SIMPLE_EXPLODE],
     expected: "accepted",
     expectedValues: { p: "blue" },
     rationale:
-      "Both simple rows give the bare value for a scalar, so explode changes nothing that can be observed on the wire. What it can change is whether a library takes a different path to the same answer.",
+      "Both simple scalar rows give the bare value, so explode leaves the expected string unchanged.",
     document: document(
       [{ name: "p", in: "header", required: true, style: "simple", explode: true, schema: STRING }],
       "/t",

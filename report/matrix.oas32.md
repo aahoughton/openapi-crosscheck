@@ -137,7 +137,7 @@ table above within each group.
 
 cookie, cookie style, array, explode defaulted true, canonical. Expected: **accepted**.
 
-Repeats the cookie name once per item, separated by the semicolon and space cookies use. The style table gives exactly these crumbs.
+Sends p=blue; p=black; p=brown. Cookie style defaults explode to true, repeating the name for each item.
 
 Request: `GET /t`
 
@@ -165,7 +165,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-explode is left out and defaults to true for the cookie style, so the exploded row applies, and it writes an array as the name repeated with a semicolon and a space between the pairs. The request carries that, character for character.
+Cookie style defaults explode to true. Its array row repeats name=value pairs separated by a semicolon and space, matching this request.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style; explode is left to the version's default.
 
@@ -173,7 +173,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 cookie, cookie style, array, explode false. Expected: **accepted**.
 
-Joins the array with commas inside one crumb, which is the unexploded row.
+Sends p=blue,black,brown in one cookie with explode false.
 
 Request: `GET /t`
 
@@ -201,7 +201,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-The unexploded cookie row joins an array with commas under one name, which is one crumb, and the request carries that crumb.
+Cookie style with explode false joins array items with commas under one name.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -209,7 +209,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 cookie, cookie style, object, explode defaulted true, canonical. Expected: **accepted**.
 
-Sends the object's properties as their own crumbs, R and G, which is what the exploded row writes and what a browser would send.
+Sends R=100; G=200 as separate cookies for the object p. Cookie style defaults explode to true.
 
 Request: `GET /t`
 
@@ -237,7 +237,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-An exploded cookie object drops the parameter name and writes one crumb per property, delimited by a semicolon and a space. Recovering p from those crumbs is what the row describes, so the object is the value under the declared name.
+An exploded cookie object writes one name=value pair per property, separated by a semicolon and space. R and G form the declared object p.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style; explode is left to the version's default.
 
@@ -245,7 +245,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 cookie, cookie style, object, explode false. Expected: **accepted**.
 
-Packs the object into one crumb as R,100,G,200, which is the unexploded row.
+Sends p=R,100,G,200 in one cookie with explode false.
 
 Request: `GET /t`
 
@@ -273,7 +273,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-The unexploded cookie row writes an object as its property names and values joined by commas under the parameter's own name, which is the crumb the request carries.
+Cookie style with explode false alternates property names and values under p, separated by commas. Both values match their string schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -281,7 +281,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 cookie, cookie style, scalar, canonical. Expected: **accepted**.
 
-One cookie, one value, under the style written for cookies. The ambiguity earlier versions leave over this crumb is what the style removes.
+Sends p=blue using cookie style, which defines this scalar format.
 
 Request: `GET /t`
 
@@ -309,7 +309,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-Both cookie rows give name=value for a string, so the defaulted explode selects between two rows that agree, and the crumb the request carries is that pair.
+Both cookie scalar rows give name=value. The default explode value of true leaves that format unchanged.
 
 Varies: nothing. Holds constant: identifier is the declared one; value well-formed; canonical encoding.
 
@@ -317,7 +317,7 @@ Varies: nothing. Holds constant: identifier is the declared one; value well-form
 
 cookie, cookie style, scalar, explode false. Expected: **accepted**.
 
-The same single crumb with explode written out as false. There is nothing to distribute over one value, so the flag should change nothing.
+Sends p=blue using cookie style with explode false. Explode has no effect on a scalar.
 
 Request: `GET /t`
 
@@ -345,7 +345,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-The unexploded cookie row gives name=value for a string, the same crumb the exploded row gives. The case exists because a library can branch on the flag before noticing that a scalar has nothing to distribute.
+Both cookie scalar rows give name=value, so explicitly disabling explode leaves the expected string unchanged.
 
 Varies: explode is written out. Holds constant: identifier is the declared one; value well-formed; canonical encoding.
 
@@ -353,7 +353,7 @@ Varies: explode is written out. Holds constant: identifier is the declared one; 
 
 cookie, cookie style, scalar, a value carrying a percent triple. Expected: **accepted**.
 
-The crumb reads blue%20black. Under this style a percent triple is three characters of data, and decoding it would hand the caller a value nobody sent.
+Sends p=blue%20black. Cookie style requires preserving %20 as literal text.
 
 Request: `GET /t`
 
@@ -377,7 +377,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-The style applies no percent-encoding and the parsing rule says apparent percent-encoding MUST NOT be decoded, so the value is the twelve characters sent. The schema admits any string, so the verdict is the same either way and the value is where the answer is.
+Cookie style applies no percent-encoding, and its parsing rule forbids percent-decoding. The expected value is the literal string blue%20black.
 
 Varies: the value carries characters that look like an encoding of something else. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -387,7 +387,7 @@ Varies: the value carries characters that look like an encoding of something els
 
 path, simple, scalar, allowReserved declared and reserved characters unencoded. Expected: **accepted**.
 
-The segment carries an unencoded colon and at-sign, and allowReserved says to let reserved characters through. This version is the first where the field reaches a path.
+Sends a:b@c in the path with allowReserved true. OpenAPI 3.2 permits this field for path parameters.
 
 Request: `GET /t/a:b@c`
 
@@ -409,9 +409,9 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-simple is the default style for a path parameter and it percent-encodes, which is the scope this version gives allowReserved. With the field declared, the reserved set passes through unencoded, and the segment carries exactly that. The colon and the at-sign are the value rather than delimiters of anything.
+OpenAPI 3.2 applies allowReserved to styles that use percent-encoding, including simple. With it enabled, the colon and at-sign may appear unencoded as part of the string value.
 
-Varies: allowReserved is declared, in a location no earlier version applies it to. Holds constant: the identifier is the declared one; the style is the defaulted one.
+Varies: allowReserved is declared on a path parameter. Holds constant: the identifier is the declared one; the style is the defaulted one.
 
 #### Query parameters
 
@@ -441,7 +441,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-The deepObject row gives one bracketed pair per scalar property, and the request carries exactly that with the brackets percent-encoded as the row writes them.
+The deepObject row writes bracketed property names, with the brackets percent-encoded. Both values match their string schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; canonical encoding of the brackets.
 
@@ -449,7 +449,7 @@ Varies: nothing. Holds constant: identifier is the declared one; canonical encod
 
 query, deepObject, object, explode false. Expected: **accepted**.
 
-The same bracketed pairs with explode false, which this version says has no effect for this style. Earlier versions call the pairing undefined.
+Sends bracketed property names with deepObject and explode false. OpenAPI 3.2 says explode has no effect for this style.
 
 Request: `GET /t?p%5BR%5D=100&p%5BG%5D=200`
 
@@ -475,7 +475,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-explode has no effect when the style is deepObject, and the table gives one row for the style rather than one per explode value. So the declaration describes the same serialization as its exploded twin, and the request carries it.
+OpenAPI 3.2 gives deepObject one format regardless of explode. These bracketed pairs therefore encode the same object as the explode-true companion.
 
 Varies: explode, into a pairing earlier versions call undefined and this one defines. Holds constant: identifier is the declared one; wire shape as for the exploded twin.
 
@@ -483,7 +483,7 @@ Varies: explode, into a pairing earlier versions call undefined and this one def
 
 query, form, scalar, the value carries a percent-encoded plus. Expected: **accepted**.
 
-Sends p=a%2Bb, where WHATWG decoding yields a literal plus. The control that keeps the unencoded case from passing for the wrong reason.
+Sends p=a%2Bb. WHATWG form-urlencoded decoding reads %2B as a literal plus.
 
 Request: `GET /t?p=a%2Bb`
 
@@ -501,15 +501,15 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-WHATWG form-urlencoded decoding converts an unencoded + to a space and percent-decodes %2B to a literal +, so the value reaching the schema is a+b. This is the other side of the unencoded twin and the reason both are here: a library that turns every plus into a space answers that one correctly and this one wrong, and either case alone would not show it. This one asks nothing 3.0 and 3.1 do not also settle, which is why they carry a twin of it too.
+WHATWG form-urlencoded decoding reads %2B as +, yielding a+b. Paired with the unencoded-plus case, this checks whether encoded and unencoded plus signs are distinguished.
 
-Varies: the wire carries a percent-encoded plus, which no other case sends. Holds constant: the identifier is the declared one; the style is the defaulted one; the value is well-formed for the declared type.
+Varies: the value contains a percent-encoded plus. Holds constant: the identifier is the declared one; the style is the defaulted one; the value is well-formed for the declared type.
 
 ##### `query-form-scalar-unencoded-plus-oas32`
 
 query, form, scalar, the value carries an unencoded plus. Expected: **accepted**.
 
-Sends p=a+b. 3.2 makes WHATWG form-urlencoded decoding a MUST for query strings, which reads the plus as a space.
+Sends p=a+b. OpenAPI 3.2 requires WHATWG form-urlencoded decoding, which reads + as a space.
 
 Request: `GET /t?p=a+b`
 
@@ -527,7 +527,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-A query string produced by an in: query parameter MUST parse and percent-decode under WHATWG rules, and the same sentence says those rules treat a non-percent-encoded + as an escaped space. So the value reaching the schema is a, a space, b. Its 3.0 and 3.1 twins send the same request and are divergence: those versions name both decoders in Appendix E and pick neither, and this sentence is what 3.2 added.
+OpenAPI 3.2 requires query parameters to use WHATWG form-urlencoded decoding. An unencoded + becomes a space, so the expected value is a b.
 
 Varies: the wire spells a space with a plus rather than a percent-encoded triple. Holds constant: the identifier is the declared one; the style is the defaulted one; the value is well-formed for the declared type.
 
@@ -537,7 +537,7 @@ Varies: the wire spells a space with a plus rather than a percent-encoded triple
 
 querystring, optional, request carrying no query string at all. Expected: **accepted**.
 
-A target with no `?`. Asks whether a querystring parameter is absent or present and empty when there is no query string to read.
+Sends /t with no query string. The optional parameter allows omission; returned values show whether it is treated as empty.
 
 Request: `GET /t`
 
@@ -555,7 +555,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-required is false and written out, so a request the parameter is not in is valid and a library rejecting it has inverted its required check. That much is settled. What is not is whether the parameter is absent here at all: with no `?` there is no query string to read, and reading the empty string instead deserializes to the empty object, which this schema admits. Both readings accept, so no values are expected and the value channel is where libraries part. The case below sends `/t?` and asks the same question of a query string that is present and empty; one case cannot show that a library collapsed the two.
+The parameter is optional and its schema accepts an empty object. Both an absent-parameter reading and parsing an empty form-urlencoded string permit acceptance. Returned values can distinguish them.
 
 Varies: the request carries no query string. Holds constant: the parameter is optional, so the verdict does not turn on the required check; the schema requires no property, so an empty object is admitted; exactly one parameter is declared.
 
@@ -563,7 +563,7 @@ Varies: the request carries no query string. Holds constant: the parameter is op
 
 querystring, optional, request carrying an empty query string. Expected: **accepted**.
 
-A target ending in `?`. The same question as the case above, asked of a request that does carry a query string, which happens to be empty.
+Sends /t? with an empty query string. The schema accepts an empty object; the companion /t omits the query string entirely.
 
 Request: `GET /t?`
 
@@ -581,7 +581,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-The query string is present and empty, where the case above has none at all. An empty form-urlencoded value is a well-formed representation of the empty object and the schema requires no property, so acceptance is settled here for a second reason as well as the first: the parameter is optional either way. The value is what differs, and what differs between this case and the one above is what shows whether a library kept the distinction the wire carries.
+An empty form-urlencoded query string represents an empty object, which the schema accepts. The parameter is also optional. Returned values can show whether this is distinguished from the companion with no query string.
 
 Varies: the query string is present and empty. Holds constant: the parameter is optional, so the verdict does not turn on the required check; the schema requires no property, so an empty object is admitted; exactly one parameter is declared.
 
@@ -589,7 +589,7 @@ Varies: the query string is present and empty. Holds constant: the parameter is 
 
 querystring, x-www-form-urlencoded, object, canonical. Expected: **accepted**.
 
-The whole query string read as one form-urlencoded value. The positive control, and the media type the specification pairs with this location.
+Reads the whole query string R=100&G=200 as one form-urlencoded object.
 
 Request: `GET /t?R=100&G=200`
 
@@ -611,7 +611,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-The parameter's value is the entire query string, and `R=100&G=200` is that string read as the media type it declares. Both properties are present and both are strings, which is what the schema asks for.
+The querystring parameter uses the entire query string as its value. Form-urlencoded parsing yields R and G as strings, satisfying the schema.
 
 Varies: nothing. Holds constant: the media type is the one the specification pairs with this location; the query string is well-formed for it; exactly one parameter is declared; canonical encoding.
 
@@ -619,7 +619,7 @@ Varies: nothing. Holds constant: the media type is the one the specification pai
 
 querystring, x-www-form-urlencoded, object, a property well-formed for another type. Expected: **rejected**.
 
-The query string parses cleanly, then its R property is blue where the schema says integer. The case that tells a library which validated from one which never looked.
+Sends a correctly formatted query string with R=blue, where R requires an integer.
 
 Request: `GET /t?R=blue&G=200`
 
@@ -641,9 +641,9 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-`R=blue&G=200` is a well-formed form-urlencoded value, so nothing about reading it fails and the whole question is the schema: R is declared integer and blue is not an integer under the ordinary numeric conversions. Acceptance shows that this invalid value passed; a rejection alone does not establish which check refused it.
+Form-urlencoded parsing yields R=blue, which cannot represent the required integer. A rejection alone does not establish whether the library checked that property.
 
-Varies: a property spells one type while being well-formed for another. Holds constant: the query string is well-formed for the declared media type; exactly one parameter is declared; canonical encoding.
+Varies: a property value has the wrong type. Holds constant: the query string is well-formed for the declared media type; exactly one parameter is declared; canonical encoding.
 
 ##### `querystring-json-object-canonical-oas32`
 
@@ -671,7 +671,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-The location uses content to specify its representation. Section 4.12.4 requires URI percent-decoding and describes percent-encoding when a Parameter Object incorporates a media type that has no URI encoding of its own. JSON therefore receives the decoded query string. The valid representation supplies both required string properties; the malformed representation cannot be read as JSON. Both requests use exactly the same document.
+Section 4.12.4 requires percent-decoding before JSON parsing. The valid JSON supplies both required string properties; the malformed JSON fails parsing. Both requests use the same document.
 
 Varies: whether the decoded query string is well-formed JSON. Holds constant: the application/json media type; the schema requires both string properties; URI percent-encoding; exactly one parameter is declared.
 
@@ -701,7 +701,7 @@ Every rule the expected verdict rests on, OpenAPI 3.2:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
 
-The location uses content to specify its representation. Section 4.12.4 requires URI percent-decoding and describes percent-encoding when a Parameter Object incorporates a media type that has no URI encoding of its own. JSON therefore receives the decoded query string. The valid representation supplies both required string properties; the malformed representation cannot be read as JSON. Both requests use exactly the same document.
+Section 4.12.4 requires percent-decoding before JSON parsing. The valid JSON supplies both required string properties; the malformed JSON fails parsing. Both requests use the same document.
 
 Varies: whether the decoded query string is well-formed JSON. Holds constant: the application/json media type; the schema requires both string properties; URI percent-encoding; exactly one parameter is declared.
 
@@ -739,13 +739,13 @@ and answers nothing by it, so read those tables down the value column alone.
 
 cookie, form defaulted, array, explode defaulted true.
 
-The same repeated crumbs with the style left to its default, which is still form. An appendix says form uses the wrong delimiter here and stops there.
+Repeats cookie pairs with style omitted. The default is form, whose & separator conflicts with cookie syntax.
 
 Request: `GET /t`
 
 Header: `Cookie: p=blue; p=black`
 
-Open question: A cookie parameter that declares no style still resolves to form, kept for compatibility, and the appendix says the exploded form default uses the wrong delimiter for cookies: an ampersand where a cookie writes a semicolon and a space. The request carries the cookie delimiter. Whether a library reads the crumbs the location actually uses, or refuses a serialization the specification calls wrong now that a style exists which means it, is not settled.
+Open question: Cookie parameters still default to form. Appendix D says its exploded-array separator, &, is incorrect for cookies, which use a semicolon and space. Handling of this request is unspecified.
 
 The text leaving it open: [percent-encoding-and-cookies](https://spec.openapis.org/oas/v3.2.0.html#percent-encoding-and-cookies)
 
@@ -772,11 +772,11 @@ Varies: the location separates repeats differently from the location the table s
 
 path, simple, scalar, reserved characters unencoded with allowReserved left unset.
 
-The same segment with the field left off, so a client should have encoded the colon. The rule is written about the sender and says nothing about the reader.
+Sends a:b@c in the path with allowReserved omitted. The serialization rule calls for percent-encoding.
 
 Request: `GET /t/a:b@c`
 
-Open question: allowReserved defaults to false, so the reserved characters should have arrived percent-encoded, and they did not. The specification states what serialization the declaration prescribes and not what a validator owes a request that ignored it. Reading the colon and the at-sign as data and refusing the segment as mis-serialized are both consistent with a rule addressed to whoever built the URL.
+Open question: allowReserved defaults to false, so the declared serialization percent-encodes the colon and at-sign. The cited rule does not prescribe whether a validator accepts or rejects their unencoded forms.
 
 The text leaving it open: [parameter-allow-reserved](https://spec.openapis.org/oas/v3.2.0.html#parameter-allow-reserved)
 
@@ -803,11 +803,11 @@ Varies: the wire carries reserved characters the declaration did not permit unen
 
 querystring alongside an in: query parameter.
 
-One operation declaring both, which the specification forbids. The request carries a query string that answers either reading.
+Declares query and querystring parameters together, which OpenAPI forbids. The request satisfies either declaration alone.
 
 Request: `GET /t?R=100&G=200`
 
-Open question: Each location's own bullet forbids the combination, so the document breaks a rule written twice, and neither bullet says what a validator does with a document that breaks it. The two locations divide the same bytes twice, one as pairs and one whole, and the specification forbids the combination rather than saying how to reconcile them. `R=100&G=200` is a legitimate value for each of them read alone, so a library that accepts this document reports values for one, the other, or both, and that is the answer worth having.
+Open question: OpenAPI forbids these locations in the same operation but does not prescribe validator handling. R=100&G=200 satisfies either declaration alone; returned values can show which was used.
 
 **Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
 
@@ -830,11 +830,11 @@ Varies: an in: query parameter is declared beside the querystring one. Holds con
 
 querystring declared with content and style.
 
-The document adds a `style` the location may not carry.
+Adds style to a querystring parameter, where OpenAPI forbids it. Validator handling is unspecified.
 
 Request: `GET /t?R=100&G=200`
 
-Open question: `style` is among the fields the specification names as not for use with this location, and it says nothing about what a validator does with a document carrying one. The parameter is otherwise the canonical one, so a library refusing this and accepting the canonical case refused the field rather than the location, and one that ignores the field answers the request as though it were not there.
+Open question: The style field is forbidden for querystring parameters. OpenAPI does not prescribe how validators handle this invalid document. The companion without style uses the same request.
 
 **Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
 
@@ -857,11 +857,11 @@ Varies: the parameter carries a style. Holds constant: the request is the canoni
 
 two querystring parameters in one operation.
 
-The document declares the location twice, which it may appear at most once.
+Declares two querystring parameters, where OpenAPI allows at most one. Validator handling is unspecified.
 
 Request: `GET /t?R=100&G=200`
 
-Open question: Both parameters claim the entire query string, and the specification says the location MUST NOT appear more than once without saying what a validator does when handed two. There is no reading under which each gets its own value, so a library that accepts has taken one, taken both, or read neither, and which it did shows in the values.
+Open question: Both parameters claim the entire query string, violating the limit of one querystring parameter. OpenAPI does not prescribe how validators handle this invalid document.
 
 **Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
 
@@ -884,11 +884,11 @@ Varies: the location is declared twice. Holds constant: the request is the canon
 
 querystring declared with schema instead of content.
 
-The document breaks the rule that this location must be declared with `content`.
+Declares a querystring parameter with schema, where OpenAPI requires content. Validator handling is unspecified.
 
 Request: `GET /t?R=100&G=200`
 
-Open question: The document is invalid: the value is the whole query string, so `schema` has nothing to describe the serialization of, and the specification forbids the field here. What a validator does when handed it is not written down. Refusing the document and validating the request as though the parameter were declared some other way are each consistent with what is written.
+Open question: Querystring parameters must use content to specify their representation. This document uses schema, and OpenAPI does not prescribe how validators handle that violation.
 
 **Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
 

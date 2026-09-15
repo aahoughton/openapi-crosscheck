@@ -188,7 +188,7 @@ table above within each group.
 
 header, content application/json, object, canonical. Expected: **accepted**.
 
-Sends a JSON object in a header, declared by media type instead of by style. The header carries the JSON as written.
+Sends a JSON object directly in a header, using content: application/json.
 
 Request: `GET /t`
 
@@ -216,7 +216,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
 
-The parameter declares one representation, application/json, and the header carries a well-formed JSON object matching the schema. No style applies, because the parameter declares content rather than schema, and the specification gives those as the two ways serialization is specified.
+The content declaration selects application/json. The header contains valid JSON with both properties matching the string schemas.
 
 Varies: the parameter is declared with content rather than schema. Holds constant: one media type is declared; the value is a well-formed representation of it.
 
@@ -224,7 +224,7 @@ Varies: the parameter is declared with content rather than schema. Holds constan
 
 header, a parameter named Accept, present and violating its schema. Expected: **accepted**.
 
-Declares Accept with an integer schema and sends a real Accept header. Ignoring the declaration means never holding the header against it.
+Declares Accept as an integer and sends Accept: text/html. OpenAPI requires ignoring this parameter declaration.
 
 Request: `GET /t`
 
@@ -240,7 +240,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
 
-The request carries the Accept header a client would send, and the declaration says that header is an integer. Ignoring the declaration means the schema never applies and the request stands. This is the twin of the required-and-absent case and each covers the other's blind spot: a library that never checks required would accept that one without ignoring anything, and a library that never validates header schemas would accept this one the same way. Answering both correctly while rejecting neither is what ignoring the declaration looks like.
+A header parameter named Accept SHALL be ignored, so its integer schema cannot invalidate this request. The absent-header companion checks required; this case checks the declared type.
 
 Varies: the declared identifier is one the specification reserves. Holds constant: the style is declared; one parameter declared.
 
@@ -248,7 +248,7 @@ Varies: the declared identifier is one the specification reserves. Holds constan
 
 header, a parameter named Accept, required and absent. Expected: **accepted**.
 
-Declares Accept as a required header parameter and sends no Accept header. The declaration is one the specification says to ignore, so the missing value is not missing.
+Declares Accept as required and sends no Accept header. OpenAPI requires ignoring this parameter declaration.
 
 Request: `GET /t`
 
@@ -262,7 +262,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-A header parameter named Accept SHALL be ignored, and a declaration that is ignored cannot require anything. So the absent header is not an absent required parameter and the request stands. A library honouring the declaration rejects, which is the only other answer available and is attributable.
+A header parameter named Accept SHALL be ignored. Its required flag therefore cannot invalidate a request with no Accept header.
 
 Varies: the declared identifier is one the specification reserves. Holds constant: the style is declared; one parameter declared.
 
@@ -270,7 +270,7 @@ Varies: the declared identifier is one the specification reserves. Holds constan
 
 header, simple, array, canonical. Expected: **accepted**.
 
-Sends p: blue,black with nothing declared about its format, so the header default (one comma-separated value) has to be applied.
+Sends p: blue,black with style omitted. The header default, simple, separates array items with commas.
 
 Request: `GET /t`
 
@@ -286,7 +286,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |
 
-simple is the default style for header parameters; an array is comma separated.
+The default header style is simple, which separates array items with commas.
 
 Varies: nothing. Holds constant: identifier casing is the declared one; one header of that name.
 
@@ -314,7 +314,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |
 
-Header names are case insensitive, so a header sent as P satisfies a parameter declared as p. This is the one location where a casing variant must not change the verdict.
+Header names are case insensitive, so P matches the declared parameter p.
 
 Varies: casing of the identifier. Holds constant: value well-formed; one header of that name.
 
@@ -355,7 +355,7 @@ Varies: the identifier appears more than once. Holds constant: identifier is the
 
 header, simple, array, style written out rather than defaulted. Expected: **accepted**.
 
-The same p: blue,black header, with the serialization spelled out in the document instead of left to the default. Separates applying the default from supporting the format.
+Sends p: blue,black with simple explicitly declared. The companion case uses the same header with style omitted.
 
 Request: `GET /t`
 
@@ -371,7 +371,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |
 
-The same request as the canonical header case, with style written out instead of left to the default. The two cases differ only in whether the declaration relies on the default, so when a library handles one and not the other, default resolution is the difference; the style itself is supported.
+Simple style separates array items with commas. This request also appears in the default-style case, allowing the two declarations to be compared.
 
 Varies: style is stated rather than defaulted. Holds constant: identifier is the declared one; value well-formed; one header.
 
@@ -379,7 +379,7 @@ Varies: style is stated rather than defaulted. Holds constant: identifier is the
 
 header, simple, array, explode true. Expected: **accepted**.
 
-Sends p: blue,black with explode turned on, which for a header the spec spells identically to explode off. The flag should change nothing.
+Sends p: blue,black with explode on. Simple arrays use commas with either value of explode.
 
 Request: `GET /t`
 
@@ -395,7 +395,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | true | _empty_ | blue | blue,black,brown | R=100,G=200,B=150 |
 
-The simple rows agree on arrays: exploded or not, the items are comma joined. A library that treats explode as meaning repeated headers here is reading a rule the table does not give.
+Both simple array rows separate items with commas, so explode leaves the expected array unchanged.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -419,7 +419,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |
 
-The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.
+The simple object row with explode false alternates property names and values, separated by commas. R and G both have string values matching their schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; style is stated rather than defaulted.
 
@@ -427,7 +427,7 @@ Varies: nothing. Holds constant: identifier is the declared one; style is stated
 
 header, simple, object, explode true. Expected: **accepted**.
 
-The exploded spelling of an object in a header, R=100,G=200, where explode puts an equals sign between key and value.
+Sends an object as p: R=100,G=200. Explode joins each property name to its value with =.
 
 Request: `GET /t`
 
@@ -443,7 +443,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | true | _empty_ | blue | blue,black,brown | R=100,G=200,B=150 |
 
-This is the one place explode changes a simple serialization: the properties are joined to their values with equals rather than laid out as a flat comma list.
+The exploded simple object row uses name=value pairs separated by commas. R and G both have string values matching their schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -451,7 +451,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 header, simple, scalar, canonical. Expected: **accepted**.
 
-The plainest header case: one name, one value, the declared style written out.
+Sends p: blue with simple explicitly declared.
 
 Request: `GET /t`
 
@@ -467,7 +467,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |
 
-The declared style is simple, which is also the header default, and a simple scalar is the bare value. The canonical case for the location, against which the header variants are read.
+A simple scalar is the header value itself, which satisfies the string schema.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -475,7 +475,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 header, simple, scalar, explode true. Expected: **accepted**.
 
-One header value with explode on, which has nothing to spread over.
+Sends p: blue with explode on. Explode has no effect on a scalar.
 
 Request: `GET /t`
 
@@ -491,7 +491,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | true | _empty_ | blue | blue,black,brown | R=100,G=200,B=150 |
 
-Both simple rows give the bare value for a scalar, so explode changes nothing that can be observed on the wire. What it can change is whether a library takes a different path to the same answer.
+Both simple scalar rows give the bare value, so explode leaves the expected string unchanged.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -501,7 +501,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 path, content application/json, object, canonical. Expected: **accepted**.
 
-Puts percent-encoded JSON in a path segment, declared by media type: the path twin of the query content case.
+Sends a percent-encoded JSON object in one path segment, using content: application/json.
 
 Request: `GET /t/%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D`
 
@@ -531,7 +531,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
 
-The value is a percent-encoded JSON object, which is what a path segment can carry of the declared representation. Percent-decoding is ordinary URI processing and applies to a path segment as to any other component, so what reaches the schema is the object. The query twin scores the same way on the same citations; nothing the specification says about templating or content distinguishes the locations here, and the segment matches the template as one segment either way.
+The segment matches the path template. Percent-decoding followed by JSON parsing yields an object whose properties match the string schemas.
 
 Varies: the location is one where templating also applies. Holds constant: one media type is declared; the value is a well-formed representation of it.
 
@@ -553,7 +553,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | label | false | . | .blue | .blue,black,brown | .R,100,G,200,B,150 |
 
-label with explode false serializes an array as a dot followed by CSV.
+Label style with explode false writes a leading dot followed by comma-separated items.
 
 Varies: nothing. Holds constant: wire shape matches the declared style; value well-formed.
 
@@ -575,7 +575,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | label | true | . | .blue | .blue.black.brown | .R=100.G=200.B=150 |
 
-Exploding a label array separates items with dots rather than commas, so the wire form differs from the unexploded case on the same values. The pair isolates whether a library reads explode at all for this style.
+The exploded label array row prefixes each item with a dot, giving .blue.black.
 
 Varies: explode. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -583,7 +583,7 @@ Varies: explode. Holds constant: identifier is the declared one; wire shape matc
 
 path, label, array, the wire shape of a different style. Expected: **rejected**.
 
-Sends blue,black where a label parameter needs a leading dot, so the segment is not written in the declared style at all.
+Sends blue,black for a label array. The required leading dot is missing.
 
 Request: `GET /t/blue,black`
 
@@ -601,7 +601,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-Every label serialization begins with a dot. A value with no dot is the simple style's shape, and is not a label expansion of anything.
+Every label serialization begins with a dot. This segment lacks that required prefix.
 
 Varies: the wire shape belongs to another style. Holds constant: identifier is the declared one; value well-formed for the type.
 
@@ -623,7 +623,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | label | false | . | .blue | .blue,black,brown | .R,100,G,200,B,150 |
 
-The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.
+The label object row with explode false starts with a dot, then alternates property names and values separated by commas. Both values match their string schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -645,7 +645,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | label | true | . | .blue | .blue.black.brown | .R=100.G=200.B=150 |
 
-An exploded label object pairs each property to its value with equals and separates the pairs with the dot that also opens the segment, so the first dot and the separating dots are the same character doing two jobs.
+The exploded label object row prefixes each name=value pair with a dot. Both property values match their string schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -667,7 +667,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | label | false | . | .blue | .blue,black,brown | .R,100,G,200,B,150 |
 
-A label scalar is a dot followed by the value. The leading dot is part of the serialization rather than part of the value, which is the whole of what this case asks.
+A label scalar is a dot followed by the value. Removing that prefix gives the string blue.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -675,7 +675,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 path, label, scalar, explode true. Expected: **accepted**.
 
-Sends .blue with explode on, which the spec spells the same as explode off.
+Sends .blue with explode on. Explode has no effect on a label scalar.
 
 Request: `GET /t/.blue`
 
@@ -689,7 +689,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | label | true | . | .blue | .blue.black.brown | .R=100.G=200.B=150 |
 
-Both label rows give a dot and the value for a scalar, so explode is unobservable here and the leading dot is still not part of the value.
+Both label scalar rows prefix the value with a dot, so the expected value is blue.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -711,7 +711,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | matrix | true | ;color | ;color=blue | ;color=blue;color=black;color=brown | ;R=100;G=200;B=150 |
 
-The textbook RFC6570 expansion of an exploded matrix array: the name repeats once per item. This is the case every other matrix probe varies away from.
+The exploded matrix array row repeats ;name=value once per item.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style; value well-formed; one parameter declared.
 
@@ -719,7 +719,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 path, matrix, array, matrix syntax naming only foreign parameters. Expected: **rejected**.
 
-The segment is matrix syntax carrying q and r, so reading it correctly yields nothing for p. Different from a segment that will not parse at all.
+Sends valid matrix syntax naming q and r. Neither supplies the required p.
 
 Request: `GET /t/;q=blue;r=black`
 
@@ -741,7 +741,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-The segment is well-formed matrix syntax, and every name in it is a name other than the declared one. Parameter names are case sensitive and identify the parameter, so no value of p is present, and p is required. Distinct from a segment that never parsed as matrix at all.
+The segment contains valid matrix pairs, all with names other than p. Parameter names are case sensitive, so the required p is absent.
 
 Varies: the identifier is a foreign one. Holds constant: wire shape matches the declared style; values well-formed.
 
@@ -749,7 +749,7 @@ Varies: the identifier is a foreign one. Holds constant: wire shape matches the 
 
 path, matrix, array, no matrix syntax at all. Expected: **rejected**.
 
-Sends a bare blue where a matrix parameter needs ;p=, so the segment is not matrix syntax and no value for p can be read out of it.
+Sends blue for a required matrix array. The segment has no ;p= prefix.
 
 Request: `GET /t/blue`
 
@@ -767,7 +767,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-The segment carries no matrix syntax, so it is not an expansion of p, and p is required. Distinct from a segment that parsed as matrix and yielded nothing: this one never parsed.
+The bare segment lacks matrix syntax and supplies no value for the required parameter p.
 
 Varies: the wire shape belongs to another style. Holds constant: value well-formed for the item type; one parameter declared.
 
@@ -789,7 +789,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | matrix | false | ;color | ;color=blue | ;color=blue,black,brown | ;color=R,100,G,200,B,150 |
 
-Without explode a matrix array names the parameter once and comma joins the items, rather than repeating the name as the exploded row does.
+The matrix array row with explode false writes ;name= followed by comma-separated items.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -823,7 +823,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-Two parameters are declared, and each segment carries the other's name. Both names appear in the request, so a check that merely looks for a name somewhere is satisfied, while neither parameter has a value in its own position.
+Each segment names the other segment's parameter. Both required parameters lack values in their declared positions, even though both names appear in the request.
 
 Varies: two parameters declared, each segment naming the other. Holds constant: wire shape matches the declared style; values well-formed.
 
@@ -845,7 +845,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | matrix | false | ;color | ;color=blue | ;color=blue,black,brown | ;color=R,100,G,200,B,150 |
 
-The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.
+The matrix object row with explode false writes ;p= followed by alternating property names and values, separated by commas. Both values match their string schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -867,7 +867,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | matrix | true | ;color | ;color=blue | ;color=blue;color=black;color=brown | ;R=100;G=200;B=150 |
 
-An exploded matrix object drops the parameter name entirely and names the object properties instead, so nothing on the wire carries the declared identifier. A library keying off the parameter name has nothing to find.
+The exploded matrix object row writes ;name=value for each property. The parameter name p is omitted; R and G belong to the declared object.
 
 Varies: explode. Holds constant: wire shape matches the declared style; values well-formed.
 
@@ -911,7 +911,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | matrix | true | ;color | ;color=blue | ;color=blue;color=black;color=brown | ;R=100;G=200;B=150 |
 
-Both matrix rows give the same segment for a scalar, so explode is unobservable, and the name inside the segment is still the declared one.
+Both matrix scalar rows give ;name=value, so explode leaves the expected value unchanged.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -919,7 +919,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 path, matrix, scalar, a foreign parameter name. Expected: **rejected**.
 
-The segment is matrix syntax carrying q where p was declared. Something is there, and it is not the parameter.
+Sends ;q=blue where the required parameter is p. The matrix name does not match.
 
 Request: `GET /t/;q=blue`
 
@@ -941,7 +941,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-The segment names q. The declared parameter is p and it is required. No serialization of p produces ;q=blue, so p has no value here.
+The segment names q, so the required parameter p has no value.
 
 Varies: the identifier is a foreign one. Holds constant: wire shape matches the declared style; value well-formed; one parameter.
 
@@ -949,7 +949,7 @@ Varies: the identifier is a foreign one. Holds constant: wire shape matches the 
 
 path, matrix, scalar, a value well-formed for a different type. Expected: **rejected**.
 
-The segment says ;p=blue where the schema says integer. The name is inside the segment, so the value has to be read out of it before any type can be judged.
+Sends ;p=blue for an integer parameter. Matrix parsing yields blue, which fails the type check.
 
 Request: `GET /t/;p=blue`
 
@@ -975,7 +975,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: "integer" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation.
 
-The parameter is declared as an integer and the value inside the segment is alphabetic, so no conversion left to implementations makes it one. The wrong-typed sibling in `simple` asks the same question of a segment that is already the value; here the matrix syntax has to come off first, which is why a library that leaves path style to its caller is not asked this at all. Rejecting `;p=blue` for the semicolon would be the right verdict for the wrong reason, and the value channel is where the two come apart.
+Matrix parsing yields the alphabetic value blue, which cannot represent an integer. A rejection alone does not establish whether parsing or type validation refused it.
 
 Varies: the value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -1001,7 +1001,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.
+The concrete path /t/mine takes precedence over /t/{p}. Its required q determines acceptance. Both declaration orders and both present and absent q are tested.
 
 Varies: path declaration order; presence of the concrete operation's required query parameter. Holds constant: the request path matches both declarations; one operation per path; both parameters are strings.
 
@@ -1027,7 +1027,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.
+The concrete path /t/mine takes precedence over /t/{p}. Its required q determines acceptance. Both declaration orders and both present and absent q are tested.
 
 Varies: path declaration order; presence of the concrete operation's required query parameter. Holds constant: the request path matches both declarations; one operation per path; both parameters are strings.
 
@@ -1053,7 +1053,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.
+The concrete path /t/mine takes precedence over /t/{p}. Its required q determines acceptance. Both declaration orders and both present and absent q are tested.
 
 Varies: path declaration order; presence of the concrete operation's required query parameter. Holds constant: the request path matches both declarations; one operation per path; both parameters are strings.
 
@@ -1079,7 +1079,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-Concrete paths match before templated counterparts. The concrete operation requires q; the template accepts mine as a string. Both declaration orders are exercised with q present and absent. An insertion-order router fails one absent-q case, and an always-rejecting router fails the present-q cases.
+The concrete path /t/mine takes precedence over /t/{p}. Its required q determines acceptance. Both declaration orders and both present and absent q are tested.
 
 Varies: path declaration order; presence of the concrete operation's required query parameter. Holds constant: the request path matches both declarations; one operation per path; both parameters are strings.
 
@@ -1143,7 +1143,7 @@ Varies: one array item contains a comma encoded as data. Holds constant: identif
 
 path, simple, array, explode true. Expected: **accepted**.
 
-An exploded simple array, which the table spells the same as the unexploded one: commas either way.
+Sends blue,black with explode on. Simple arrays use commas with either value of explode.
 
 Request: `GET /t/blue,black`
 
@@ -1157,7 +1157,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | true | _empty_ | blue | blue,black,brown | R=100,G=200,B=150 |
 
-Exploding a simple array changes nothing: the table gives the same wire form for both values of explode. So this case and the unexploded one are the same bytes with different declarations, and a library that treats explode as meaningful here will disagree with one that reads the table.
+Both simple array rows separate items with commas, so explode leaves the expected array unchanged.
 
 Varies: explode. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -1179,7 +1179,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |
 
-The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.
+The simple object row with explode false alternates property names and values, separated by commas. R and G both have string values matching their schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -1201,7 +1201,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | true | _empty_ | blue | blue,black,brown | R=100,G=200,B=150 |
 
-An exploded simple object joins each property to its value with equals, where the unexploded row lays the same properties out as a flat comma list.
+The exploded simple object row uses name=value pairs separated by commas. R and G both have string values matching their schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -1209,7 +1209,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 path, simple, scalar, canonical. Expected: **accepted**.
 
-The plainest path case: one segment, one value.
+Sends blue as a single path segment with simple explicitly declared.
 
 Request: `GET /t/blue`
 
@@ -1223,7 +1223,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |
 
-A simple scalar is the value itself, so the wire form and the value are the same string. Nothing has to be deserialized for the schema question to be reachable.
+A simple scalar is the segment value itself, which satisfies the string schema.
 
 Varies: nothing. Holds constant: identifier is the declared one; value well-formed for its type.
 
@@ -1245,7 +1245,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | true | _empty_ | blue | blue,black,brown | R=100,G=200,B=150 |
 
-Simple is the defaulted style for a path and a scalar is the bare segment, exploded or not. The declared-explode counterpart of the canonical case.
+Simple is the default path style. Both scalar rows give the bare value, so explode leaves the expected string unchanged.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -1253,7 +1253,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 path, scalar, style and explode both left to the default. Expected: **accepted**.
 
-Sends blue as the path segment with nothing declared about its format, so the path default has to be resolved before reading it.
+Sends blue as a path segment with style omitted. The default is simple.
 
 Request: `GET /t/blue`
 
@@ -1267,7 +1267,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | simple | false | _empty_ | blue | blue,black,brown | R,100,G,200,B,150 |
 
-A path parameter with no serialization keywords, which the library must resolve to simple before reading the segment. Pairs with the declared-style case on the same wire bytes, so the two differ only in whether the default was resolved.
+The default path style is simple, which reads the bare segment as the scalar value. The explicit-style companion sends the same request.
 
 Varies: style and explode are left to the default. Holds constant: identifier is the declared one; value well-formed.
 
@@ -1275,7 +1275,7 @@ Varies: style and explode are left to the default. Holds constant: identifier is
 
 path, simple, scalar, a value well-formed for a different type. Expected: **rejected**.
 
-The segment says blue where the schema says integer. Letters are not a number under any reading, so no leniency about converting text can rescue it.
+Sends blue as a path segment for an integer parameter. The text cannot represent an integer.
 
 Request: `GET /t/blue`
 
@@ -1293,7 +1293,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: "integer" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation.
 
-The parameter is declared as an integer and the value is alphabetic. No conversion left to implementations makes this an integer, so the disagreement about coercing numeric strings does not reach this case.
+The parameter requires an integer. The alphabetic value blue cannot represent one.
 
 Varies: the value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -1303,7 +1303,7 @@ Varies: the value is well-formed for a different type. Holds constant: identifie
 
 query, content application/json, boolean, JSON true. Expected: **accepted**.
 
-Sends the JSON boolean true against a boolean schema. The media type determines its type.
+Sends JSON true for a boolean parameter. The type matches.
 
 Request: `GET /t?p=true`
 
@@ -1325,7 +1325,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly.
 
-The parameter is serialized as application/json. JSON true is a boolean and JSON "blue" is a string, so the declared boolean schema accepts the first and rejects the second. Both representations are well-formed JSON and use the same schema; no primitive text conversion is needed to determine their types.
+JSON gives these values explicit types: true is a boolean and "blue" is a string. The same boolean schema therefore accepts the first and rejects the second.
 
 Varies: the JSON value's type. Holds constant: one required parameter; the boolean schema; well-formed JSON; the declared name.
 
@@ -1333,7 +1333,7 @@ Varies: the JSON value's type. Holds constant: one required parameter; the boole
 
 query, content application/json, boolean, JSON string. Expected: **rejected**.
 
-Sends the JSON string blue against a boolean schema. JSON supplies a string, which fails the boolean type.
+Sends the JSON string "blue" for a boolean parameter. The type fails.
 
 Request: `GET /t?p=%22blue%22`
 
@@ -1355,7 +1355,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > The percent-decoding algorithm does not care which characters were or were not percent-decoded, which means that URIs percent-encoded according to any specification will be decoded correctly.
 
-The parameter is serialized as application/json. JSON true is a boolean and JSON "blue" is a string, so the declared boolean schema accepts the first and rejects the second. Both representations are well-formed JSON and use the same schema; no primitive text conversion is needed to determine their types.
+JSON gives these values explicit types: true is a boolean and "blue" is a string. The same boolean schema therefore accepts the first and rejects the second.
 
 Varies: the JSON value's type. Holds constant: one required parameter; the boolean schema; well-formed JSON; the declared name.
 
@@ -1363,7 +1363,7 @@ Varies: the JSON value's type. Holds constant: one required parameter; the boole
 
 query, content application/json, object, canonical. Expected: **accepted**.
 
-A JSON object percent-encoded into a query value, declared by media type rather than by style.
+Sends a percent-encoded JSON object as the query value, using content: application/json.
 
 Request: `GET /t?p=%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D`
 
@@ -1393,7 +1393,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
 
-The value is a percent-encoded JSON object, which is what a query string can carry of the declared representation. Percent-decoding is ordinary URI processing and happens before the value is read as its media type, so what reaches the schema is the object.
+Percent-decoding followed by JSON parsing yields an object whose properties match the string schemas.
 
 Varies: the parameter is declared with content rather than schema. Holds constant: one media type is declared; the value is a well-formed representation of it.
 
@@ -1401,7 +1401,7 @@ Varies: the parameter is declared with content rather than schema. Holds constan
 
 query, content application/json, object, value is not JSON. Expected: **rejected**.
 
-The query value is {not-json where application/json was declared, so nothing parses and no schema is ever reached.
+Sends {not-json after percent-decoding, where application/json is declared. The value fails JSON parsing.
 
 Request: `GET /t?p=%7Bnot-json`
 
@@ -1431,7 +1431,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
 
-The declared representation is application/json and the value is not JSON, so there is nothing for the schema to be evaluated against. Distinct from a value that parses and then fails its schema.
+The declared media type is application/json. The malformed value cannot be parsed as JSON for schema validation.
 
 Varies: the value is not a representation of the declared media type. Holds constant: one media type is declared; the identifier is the declared one.
 
@@ -1453,7 +1453,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | deepObject | true | _n/a_ | _n/a_ | _n/a_ | ?color%5BR%5D=100&color%5BG%5D=200&color%5BB%5D=150 |
 
-deepObject with explode true is the one defined deepObject combination.
+The deepObject row with explode true writes bracketed property names. Both values match their string schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; canonical encoding of the brackets.
 
@@ -1461,7 +1461,7 @@ Varies: nothing. Holds constant: identifier is the declared one; canonical encod
 
 query, form, array, explode true, canonical. Expected: **accepted**.
 
-The ordinary way to send a list in a query: repeat the name, p=blue&p=black.
+Sends an array as p=blue&p=black, repeating the name once per item.
 
 Request: `GET /t?p=blue&p=black`
 
@@ -1505,7 +1505,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | form | false | ?color= | ?color=blue | ?color=blue,black,brown | ?color=R,100,G,200,B,150 |
 
-form with explode false is one occurrence of the name carrying CSV.
+Form style with explode false writes one name followed by comma-separated items.
 
 Varies: nothing. Holds constant: identifier is the declared one; one occurrence of the name.
 
@@ -1513,7 +1513,7 @@ Varies: nothing. Holds constant: identifier is the declared one; one occurrence 
 
 query, array, style and explode both left to the default. Expected: **accepted**.
 
-Sends p=blue&p=black with nothing declared about its format, so form and explode both have to come from the defaults.
+Sends p=blue&p=black with style and explode omitted. Their defaults are form and true.
 
 Request: `GET /t?p=blue&p=black`
 
@@ -1531,7 +1531,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | form | true | ?color= | ?color=blue | ?color=blue&color=black&color=brown | ?R=100&G=200&B=150 |
 
-The declaration writes neither style nor explode, so the library must resolve form for a query parameter and then true for explode under form, before it can deserialize anything. The wire form is identical to the case that declares both, so the pair differs only in whether a default had to be resolved. The defaulted form is reported to be much the more common in published documents; that report is not this repository's measurement, and is recorded under Figures from elsewhere in coverage.md.
+Query parameters default to form, and form defaults explode to true. The repeated names therefore encode two array items, as in the explicit-defaults companion.
 
 Varies: style and explode are left to the default. Holds constant: identifier is the declared one; wire shape matches the effective style.
 
@@ -1557,7 +1557,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | form | true | ?color= | ?color=blue | ?color=blue&color=black&color=brown | ?R=100&G=200&B=150 |
 
-An exploded form object serializes as its own properties, so the declared parameter name appears nowhere in the query string. This is the shape most likely to be confused with two unrelated query parameters.
+Exploded form objects use each property name as a query key. R and G therefore form the declared object p even though p itself is absent from the query.
 
 Varies: nothing. Holds constant: wire shape matches the declared style; values well-formed.
 
@@ -1583,7 +1583,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | form | false | ?color= | ?color=blue | ?color=blue,black,brown | ?color=R,100,G,200,B,150 |
 
-The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.
+The form object row with explode false alternates property names and values under p, separated by commas. Both values match their string schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -1591,7 +1591,7 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 query, form, object, explode true, entirely absent. Expected: **rejected**.
 
-No query string at all for a required exploded object, whose absence looks like an empty request rather than a missing name.
+Sends no query string for a required exploded object whose R and G properties are also required.
 
 Request: `GET /t`
 
@@ -1609,7 +1609,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-A required exploded form object serializes as its own properties, so its absence looks like an empty query string rather than a missing named parameter. There is nothing whose absence a name check could notice, which is the condition under which a library is most likely to accept nothing at all. The schema requires both properties: without that, the empty object would validate, and RFC 6570 treats a zero-member associative array as undefined, making an empty query string a legitimate serialization of a schema-valid value and the rejection unsettled.
+An exploded form object is sent as its properties. Neither required property is present. Requiring R and G also rules out an empty object, which RFC 6570 could serialize as no query string.
 
 Varies: the declared parameter is absent entirely. Holds constant: style and explode are stated; no foreign parameter present.
 
@@ -1617,7 +1617,7 @@ Varies: the declared parameter is absent entirely. Holds constant: style and exp
 
 query, form, object, explode true, a property well-formed for a different type. Expected: **rejected**.
 
-The object arrives fine, then its R property is blue where the schema says integer. Watches whether validation reaches inside an object.
+Sends a correctly formatted object with R=blue, where R requires an integer.
 
 Request: `GET /t?R=blue&G=200`
 
@@ -1635,7 +1635,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: "integer" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation.
 
-The object deserializes cleanly and one property then fails its declared type. The value is alphabetic against an integer, so no conversion left to implementations reaches it. This asks whether schema validation runs through to an object's properties, which the accepting object cases cannot ask.
+The object format is valid, but R's alphabetic value blue cannot represent an integer. A rejection alone does not establish whether the library checked that property.
 
 Varies: a property value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -1643,7 +1643,7 @@ Varies: a property value is well-formed for a different type. Holds constant: id
 
 query, form, scalar, allowReserved declared and reserved characters unencoded. Expected: **accepted**.
 
-The value carries an unencoded slash and colon, and allowReserved says to let reserved characters through.
+Sends an unencoded slash and colon with allowReserved true, which permits both characters.
 
 Request: `GET /t?p=a/b:c`
 
@@ -1661,15 +1661,15 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
 
-allowReserved is declared, so the reserved set passes through unencoded, and the request carries exactly that. The slash and the colon are the value rather than delimiters, and nothing else in the request is unusual.
+With allowReserved true, the slash and colon may appear unencoded. Both are part of the value and satisfy the string schema.
 
-Varies: allowReserved is declared, which the corpus otherwise leaves unset. Holds constant: the identifier is the declared one; the style is the defaulted one.
+Varies: allowReserved is declared. Holds constant: the identifier is the declared one; the style is the defaulted one.
 
 ##### `query-form-scalar-encoded-plus-oas30`
 
 query, form, scalar, the value carries a percent-encoded plus. Expected: **accepted**.
 
-Sends p=a%2Bb. Both decoders Appendix E names agree here, so the plus is data and the answer is settled.
+Sends p=a%2Bb. Both decoders named in Appendix E read %2B as a literal plus.
 
 Request: `GET /t?p=a%2Bb`
 
@@ -1691,15 +1691,15 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
 
-Appendix E leaves an unencoded + open by naming two decoders, and this case is where the two agree: form-urlencoded decoding adds +-for-space handling to percent-decoding and converts an unencoded + only, so %2B is a literal + under both. The value reaching the schema is a+b whichever decoder read it. This is the control for its unencoded twin, and the two together separate a library that percent-decodes from one that converts every plus it sees.
+Both percent-decoding and form-urlencoded decoding read %2B as +, yielding a+b. Paired with the unencoded-plus case, this checks whether encoded and unencoded plus signs are distinguished.
 
-Varies: the wire carries a percent-encoded plus, which no other case sends. Holds constant: the identifier is the declared one; the style is the defaulted one; the value is well-formed for the declared type.
+Varies: the value contains a percent-encoded plus. Holds constant: the identifier is the declared one; the style is the defaulted one; the value is well-formed for the declared type.
 
 ##### `query-form-scalar-missing-name-oas30`
 
 query, form, scalar, the declared name absent. Expected: **rejected**.
 
-The query carries x where p was declared, so a parameter is present and it is the wrong one.
+Sends x where the required query parameter is p. The name does not match.
 
 Request: `GET /t?x=blue`
 
@@ -1717,7 +1717,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-A required parameter is absent, and a different name is present in its place. The presence of some query parameter is not the presence of this one.
+The required parameter p is absent. Supplying a different parameter x does not satisfy it.
 
 Varies: the declared identifier is absent. Holds constant: wire shape matches the declared style; value well-formed.
 
@@ -1725,7 +1725,7 @@ Varies: the declared identifier is absent. Holds constant: wire shape matches th
 
 query, form, nullable scalar, name present with a zero-length value. Expected: **accepted**.
 
-Sends p= for a nullable parameter, where the empty string is either a value or a way of spelling null.
+Sends p= for a parameter allowing strings and null. Either an empty string or null satisfies the schema.
 
 Request: `GET /t?p=`
 
@@ -1751,7 +1751,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > This keyword only takes effect if type is explicitly defined within the same Schema Object. A true value indicates that both null values and values of the type specified by type are allowed. Other Schema Object constraints retain their defined behavior, and therefore may disallow the use of null as a value. A false value leaves the specified or default type unmodified. The default value is false.
 
-The name is present with a zero-length value, and the schema admits both a string and null. Read as the empty string, which the specification says is not undefined, it is a value the schema accepts; read as the serialization of an undefined null, the Style Examples table's ?color= column, it is the other value the schema accepts. Every reading accepts, so the verdict is settled. Which value comes back is not, so no values are expected: the readings part only in the value channel. The schema admits null through 3.0's nullable keyword; 3.0 has no type arrays.
+The present name carries an empty string, which the schema accepts. A reading as null also satisfies the schema. Acceptance is expected; the returned value is left unspecified.
 
 Adjudicated 2026-08-14 by aah: Reviewed the contest that allowEmptyValue (default false, with its schema interaction implementation-defined) licenses a rejecting reading of p=. The tier stays conformance: p= carries the empty string, which the specification says is not undefined, so this is a value in the declared serialization rather than an empty-valued parameter standing in for omission, and allowEmptyValue governs the latter. The dispute procedure covers alternative readings.
 
@@ -1761,7 +1761,7 @@ Varies: the schema admits null as well as the empty string the wire could carry.
 
 query, form, nullable scalar, the value spells the other admitted type. Expected: **accepted**.
 
-Sends the four letters null for a nullable parameter, which is either that string or the null it spells.
+Sends p=null for a parameter allowing strings and null. Both the literal string and a conversion to null satisfy the schema.
 
 Request: `GET /t?p=null`
 
@@ -1783,15 +1783,15 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > This keyword only takes effect if type is explicitly defined within the same Schema Object. A true value indicates that both null values and values of the type specified by type are allowed. Other Schema Object constraints retain their defined behavior, and therefore may disallow the use of null as a value. A false value leaves the specified or default type unmodified. The default value is false.
 
-The wire carries the four characters n, u, l, l for a schema admitting a string or null. Read as a string they are an ordinary value the schema accepts; read through the implementation-defined conversion Appendix B allows, they are the null the schema also accepts. Every reading accepts, so the verdict is settled. The value handed back is where the readings part, and no values are expected because the specification does not choose between them. The schema admits null through 3.0's nullable keyword; 3.0 has no type arrays.
+The schema accepts both the string null and the null value. Appendix B leaves text conversion implementation-defined, so acceptance is expected with no single expected value.
 
-Varies: the value spells one admitted type while being well-formed for another. Holds constant: identifier is the declared one; the style is the defaulted one.
+Varies: the text can represent either allowed type. Holds constant: identifier is the declared one; the style is the defaulted one.
 
 ##### `query-form-scalar-optional-absent-oas30`
 
 query, form, scalar, optional and absent. Expected: **accepted**.
 
-Declares p as optional and sends nothing at all. Accepting is settled; what the values carry for an absent optional parameter is not.
+Omits an optional parameter. The request is valid; the returned values are unspecified.
 
 Request: `GET /t`
 
@@ -1805,7 +1805,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
 
-required defaults to false and this declaration writes it out, so a request without the parameter is valid and a library that rejects it has inverted its required check. What the caller receives is open: the key absent from the values, the key present as null, and the key present with something the library supplied are each defensible, so no values are expected and the value channel is where libraries part.
+required is false, so omitting the parameter is valid. OpenAPI does not prescribe how an absent optional parameter appears in the library's returned values.
 
 Varies: the declared parameter is optional and absent. Holds constant: style and explode are stated; no foreign parameter present.
 
@@ -1813,7 +1813,7 @@ Varies: the declared parameter is optional and absent. Holds constant: style and
 
 query, form, scalar, optional with a schema default, absent. Expected: **accepted**.
 
-An optional p whose schema carries default blue, and nothing sent. Whether a library invents the default is what the values answer.
+Omits an optional parameter whose schema has default: blue. Returned values show whether the library supplies the default.
 
 Request: `GET /t`
 
@@ -1831,7 +1831,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > default - The default value represents what would be assumed by the consumer of the input as the value of the schema if one is not provided. Unlike JSON Schema, the value MUST conform to the defined type for the Schema Object defined at the same level.
 
-The same absent optional parameter, with a default in its schema. Acceptance is settled by required being false. The value channel is where this case lives, and 3.0 gives it its own flavor: the specification says the default is what would be assumed by the consumer of the input if none is provided, which reads as an invitation a JSON Schema annotation is not. A library injecting blue and a library handing back nothing both have textual cover, so no values are expected.
+required is false, so omission is valid. OpenAPI 3.0 describes default as the value a consumer would assume when input is absent. The case records whether the library supplies blue, with no expected returned value.
 
 Varies: the schema carries a default the specification says a consumer would assume. Holds constant: style and explode are stated; no foreign parameter present.
 
@@ -1839,7 +1839,7 @@ Varies: the schema carries a default the specification says a consumer would ass
 
 query, form, string scalar, a value the declared pattern refuses. Expected: **rejected**.
 
-Sends p=abc against pattern ^[0-9]+$. The value is a clean string of the declared type, so only a library that applies constraint keywords rejects.
+Sends p=abc for a string matching ^[0-9]+$. The type matches, but the digits-only pattern fails.
 
 Request: `GET /t?p=abc`
 
@@ -1857,15 +1857,15 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > The following keywords are taken directly from the JSON Schema definition and follow the same specifications: ... pattern (This string SHOULD be a valid regular expression, according to the Ecma-262 Edition 5.1 regular expression dialect)
 
-The word abc deserializes cleanly and is a string, exactly what the schema's type says, so neither the conversion Appendix B leaves open nor any style question can reach the verdict. What decides it is pattern, which 3.0 takes directly from the JSON Schema definition with the same specification: a string the regular expression does not match fails validation. ^[0-9]+$ matches digits only, so the value fails and a library that applies the constraint vocabulary rejects. A library that reads type and stops accepts, and that acceptance is attributable.
+The value is a valid string, but pattern requires a match for ^[0-9]+$. Since abc contains no digits, it fails this constraint.
 
-Varies: the schema writes a constraint keyword, which no other case declares. Holds constant: identifier is the declared one; wire shape matches the declared style; the value is well-formed for the declared type.
+Varies: the schema declares a pattern constraint. Holds constant: identifier is the declared one; wire shape matches the declared style; the value is well-formed for the declared type.
 
 ##### `query-form-scalar-unset-style-oas30`
 
 query, scalar, style and explode both left to the default. Expected: **accepted**.
 
-Sends p=blue with nothing declared about its format, so the query default has to be resolved before reading it.
+Sends p=blue with style omitted. The query default is form.
 
 Request: `GET /t?p=blue`
 
@@ -1879,7 +1879,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | form | false | ?color= | ?color=blue | ?color=blue,black,brown | ?color=R,100,G,200,B,150 |
 
-The most common shape in published documents: a query parameter with a scalar schema and no serialization keywords at all. Explode has no effect on a scalar, so only the style default is under test here.
+Query parameters default to form, which writes a scalar as name=value. Explode has no effect on a scalar.
 
 Varies: style and explode are left to the default. Holds constant: identifier is the declared one; value well-formed.
 
@@ -1923,7 +1923,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | pipeDelimited | false | _n/a_ | _n/a_ | ?color=blue%7Cblack%7Cbrown | ?color=R%7C100%7CG%7C200%7CB%7C150 |
 
-The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.
+The pipeDelimited object row alternates property names and values, separated by percent-encoded pipes. Both values match their string schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -1967,7 +1967,7 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 
 > | spaceDelimited | false | _n/a_ | _n/a_ | ?color=blue%20black%20brown | ?color=R%20100%20G%20200%20B%20150 |
 
-The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.
+The spaceDelimited object row alternates property names and values, separated by percent-encoded spaces. Both values match their string schemas.
 
 Varies: nothing. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
@@ -2005,13 +2005,13 @@ and answers nothing by it, so read those tables down the value column alone.
 
 cookie, form, array, explode false, canonical.
 
-Puts a comma-joined list in one cookie crumb. The style table says that is how it is written, and an appendix says form in a cookie is wrong for more than one value.
+Sends one cookie as p=blue,black. The style table shows this format; Appendix D calls form incorrect for multiple cookie values.
 
 Request: `GET /t`
 
 Header: `Cookie: p=blue,black`
 
-Open question: The form row without explode joins an array with commas under one name, and a cookie can carry that pair as its crumb. Appendix D then says form in a cookie is incorrect for multiple values whether or not explode produced them, and an array of two is multiple values. A library reading the table and a library reading the appendix disagree about whether this document describes anything at all.
+Open question: The form table joins array items with commas under one name. Appendix D calls form in cookies incorrect for multiple values, including arrays without explode. These descriptions leave acceptance unsettled.
 
 The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://spec.openapis.org/oas/v3.0.4.html#appendix-d-serializing-headers-and-cookies)
 
@@ -2036,13 +2036,13 @@ Varies: nothing. Holds constant: identifier is the declared one; wire shape matc
 
 cookie, form, array, explode true, repeated name.
 
-Sends the same cookie name twice, once per item. Nothing says what joins repeated crumbs, so a library picks a separator or refuses.
+Repeats the cookie name once per item. The form table uses query separators; cookies use semicolons.
 
 Request: `GET /t`
 
 Header: `Cookie: p=blue; p=black`
 
-Open question: The form row with explode repeats the name once per item, and it writes that in query syntax: ?color=blue&color=black. A cookie is not a query string and separates its crumbs with semicolons, so the table prescribes the repetition without prescribing what joins the repeats here. Ampersand, semicolon, and refusing an exploded array in a cookie at all are each consistent with what is written.
+Open question: Exploded form arrays repeat the name using & in the style table. Cookie pairs use a semicolon and space. Appendix D calls this combination incorrect, leaving its handling unspecified.
 
 The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 
@@ -2067,13 +2067,13 @@ Varies: the location separates repeats differently from the location the table s
 
 cookie, form, object, canonical.
 
-Packs an object into one cookie crumb as R,100,G,200. The table shows exactly this, and an appendix calls form in a cookie wrong for several values.
+Sends one cookie as p=R,100,G,200. The style table shows this format; Appendix D calls form incorrect for multiple cookie values.
 
 Request: `GET /t`
 
 Header: `Cookie: p=R,100,G,200`
 
-Open question: The Style Examples table gives this exact serialization for an object under this style and explode, and an object of two properties is the multiple values Appendix D calls incorrect in a cookie. Accepting the crumb the table describes and refusing a combination the specification disowns are both readings of what is written. Object schemas are where the styles differ most from one another, so the disagreement is widest here.
+Open question: The form table alternates property names and values under one name. Appendix D calls form in cookies incorrect for multiple values, including objects without explode. These descriptions leave acceptance unsettled.
 
 The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://spec.openapis.org/oas/v3.0.4.html#appendix-d-serializing-headers-and-cookies)
 
@@ -2098,13 +2098,13 @@ Varies: nothing. Holds constant: identifier is the declared one; style is stated
 
 cookie, form, object, explode true.
 
-Sends the object's properties as their own cookies, R and G, so nothing in the request says they belong to p.
+Sends the object's properties as cookies named R and G. The parameter name p is absent.
 
 Request: `GET /t`
 
 Header: `Cookie: R=100; G=200`
 
-Open question: An exploded form object drops the parameter name and serializes its properties as their own pairs, written in the table as ?R=100&G=200. In a cookie those pairs become crumbs, and a crumb named R is indistinguishable from any other cookie of that name. Whether a library reassembles them into p, and what it joins them with, is not stated.
+Open question: The exploded form table writes an object's properties as query pairs, ?R=100&G=200. Appendix D calls this style incorrect for multiple cookie values. How to group the cookies into p is unspecified.
 
 The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 
@@ -2129,13 +2129,13 @@ Varies: the exploded properties compete with the cookie namespace. Holds constan
 
 cookie, form, scalar, canonical.
 
-One cookie, one value, nothing unusual. An appendix still calls this ambiguous, because one of its two definitions of the format was written for query strings and starts with a ? no cookie carries.
+Sends p=blue using the default cookie style, form. Appendix D calls even a single value ambiguous.
 
 Request: `GET /t`
 
 Header: `Cookie: p=blue`
 
-Open question: form is the default style for cookie parameters, and a scalar serializes to name=value, which is what the cookie carries. Appendix D calls that combination ambiguous for a single value and implementation-defined between two readings: form expansion, which includes the ? the cookie syntax has no place for, and the style example, which does not. A reader expects the single crumb, and neither reading uniquely produces it.
+Open question: The style example gives name=value. RFC 6570 form expansion adds a leading ?, which cookie syntax does not use. Appendix D leaves the choice between these definitions implementation-defined.
 
 The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://spec.openapis.org/oas/v3.0.4.html#appendix-d-serializing-headers-and-cookies)
 
@@ -2160,13 +2160,13 @@ Varies: nothing. Holds constant: identifier is the declared one; value well-form
 
 cookie, form, scalar, explode true.
 
-The same single cookie with explode turned on. Explode has nothing to spread over one value, so the flag should change nothing.
+Sends p=blue with explode on. The scalar format is unchanged, including form's ambiguity in cookies.
 
 Request: `GET /t`
 
 Header: `Cookie: p=blue`
 
-Open question: Explode has nothing to distribute over a scalar, so the exploded and unexploded form rows give the same crumb, and Appendix D's ambiguity for a single value in a cookie covers both. The case exists because a library may branch on the flag before noticing that there is nothing to distribute, and because the appendix says the ambiguity holds whether or not explode is what produced the values.
+Open question: Both form rows give the same scalar format. Appendix D's ambiguity for a single cookie value applies with either value of explode.
 
 The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://spec.openapis.org/oas/v3.0.4.html#appendix-d-serializing-headers-and-cookies)
 
@@ -2193,11 +2193,11 @@ Varies: explode is written out. Holds constant: identifier is the declared one; 
 
 path, two templates that both match the request.
 
-Two templates both match /t/me, and the specification says out loud that which one wins is up to the tooling.
+Two path templates match /t/me. The specification leaves the choice to the tooling.
 
 Request: `GET /t/me`
 
-Open question: The request matches both declared templates, and the specification says in so many words that it is up to the tooling to decide which one to use. It even gives this shape as its own example of ambiguous resolution. Which parameter comes back names which path was chosen, so the value channel reports the choice that the verdict cannot.
+Open question: Both templates match, and the specification explicitly leaves this ambiguity to the tooling. A returned parameter name can identify which path was chosen.
 
 **Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
 
@@ -2224,11 +2224,11 @@ Varies: two declared templates match the same request. Holds constant: both para
 
 path, two templates identical but for the parameter name.
 
-Two paths differ only in what their template is named, which the specification forbids writing. Whether a validator refuses the document is up to it.
+Two paths differ only in the template parameter's name. OpenAPI forbids this, but leaves validator handling unspecified.
 
 Request: `GET /t/blue`
 
-Open question: Two templates differ only in what they call their parameter, which the specification says MUST NOT exist because they are identical, and names as invalid in its own example. That rule is addressed to whoever wrote the document, and nothing says what a validator does when handed one. Refusing the document, taking the first, and taking the last are each consistent with what is written, and which parameter comes back says which was taken.
+Open question: OpenAPI forbids templates with identical structure and different parameter names. It does not prescribe how validators handle such a document. Returned parameter names can reveal which path was chosen.
 
 **Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
 
@@ -2255,11 +2255,11 @@ Varies: two templates are identical but for the parameter name. Holds constant: 
 
 path, simple, scalar, declared required: false.
 
-Declares a path parameter with required: false, which the specification forbids. The segment arrives either way, so what can move is refusal of the document.
+Declares required: false on a path parameter, which OpenAPI forbids. The request supplies the segment.
 
 Request: `GET /t/blue`
 
-Open question: The required field of a path parameter MUST be true, and this document writes false. The rule constrains the document author and does not say what a validator does with a document breaking it: refusing the document, reading the field as written, and repairing it to true are each defensible. A matched template always carries a segment, so an optional path parameter has no absent request to observe and the readings part at the document boundary.
+Open question: Path parameters MUST declare required: true. OpenAPI does not prescribe how validators handle a document declaring false. The supplied segment otherwise satisfies the parameter.
 
 The text leaving it open: [parameter-required](https://spec.openapis.org/oas/v3.0.4.html#parameter-required)
 
@@ -2286,11 +2286,11 @@ Varies: the declaration writes required: false on a path parameter. Holds consta
 
 query, both content and schema declared.
 
-Declares both content and schema on one parameter, which the specification forbids. What a validator does with a document that breaks the rule is not written.
+Declares both content and schema, which OpenAPI forbids. Validator handling of this invalid document is unspecified.
 
 Request: `GET /t?p=%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D`
 
-Open question: A parameter MUST include either content or schema and not both, and this one includes both. The two prescribe different serializations of the same value, so a library that honours either is following one of the two rules the document states. The specification constrains the document rather than the validator, and does not say which wins.
+Open question: A parameter must declare exactly one of content and schema. This document declares both, with different serializations. OpenAPI does not prescribe whether a validator rejects the document or selects a declaration.
 
 The text leaving it open: [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 
@@ -2315,11 +2315,11 @@ Varies: both declaration forms are present. Holds constant: the identifier is th
 
 query, content declaring two media types.
 
-Declares two media types where the map must hold one. Refusing the document and picking an entry are both defensible.
+Declares two media types where content must contain exactly one. Validator handling is unspecified.
 
 Request: `GET /t?p=%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D`
 
-Open question: The map MUST contain one entry and this one contains two, so the document breaks a rule addressed to whoever wrote it. The specification does not say what a validator does when it is handed one. Refusing the document, choosing an entry, and validating against whichever matches are all answers a reader might expect.
+Open question: The content map must contain exactly one entry. This document contains two, and OpenAPI does not prescribe how a validator handles that violation.
 
 The text leaving it open: [parameter-content](https://spec.openapis.org/oas/v3.0.4.html#parameter-content)
 
@@ -2344,11 +2344,11 @@ Varies: two media types are declared where one is allowed. Holds constant: the i
 
 query, deepObject, object, explode false.
 
-deepObject with explode false, a combination the specification calls undefined, sent as the bracketed pairs anyway.
+Sends bracketed property names with deepObject and explode false, a combination this version leaves undefined.
 
 Request: `GET /t?p%5BR%5D=100&p%5BG%5D=200`
 
-Open question: deepObject with explode false is named by the specification as undefined. What does an implementation do with a combination it is told nothing about?
+Open question: OpenAPI explicitly leaves deepObject with explode false undefined. The request uses the bracketed format defined for explode true.
 
 The text leaving it open: [parameter-explode](https://spec.openapis.org/oas/v3.0.4.html#parameter-explode)
 
@@ -2373,11 +2373,11 @@ Varies: explode, into a combination the specification calls undefined. Holds con
 
 query, form, array, explode false, but the name repeats.
 
-The name repeats, which is the exploded wire form, while the declaration says explode is off. Nothing says which one wins.
+Repeats p with explode false, which calls for one comma-separated value. Handling of this mismatch is unspecified.
 
 Request: `GET /t?p=blue&p=black`
 
-Open question: The declaration says explode false, and the wire carries the exploded shape. Does an implementation follow the declaration, follow the wire, or refuse?
+Open question: The declaration calls for one comma-separated value, but the request repeats the name. OpenAPI does not prescribe how a validator handles this mismatch.
 
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
@@ -2398,11 +2398,11 @@ Varies: the identifier appears more than once. Holds constant: identifier is the
 
 query, form, array, the name present with an empty value.
 
-Sends p= with nothing after it for an array. Empty list, list of one empty string, and absent are all readings of p= with nothing after it.
+Sends p= for a required array. An empty array, one empty-string item, and an undefined value are possible readings.
 
 Request: `GET /t?p=`
 
-Open question: The Style Examples table gives ?name= as the serialization of an undefined value. The parameter is required and the name is present. Is a required parameter satisfied by the serialization of undefined, an empty array, or neither?
+Open question: The style table uses ?name= for an undefined value. With the name present and the parameter required, it leaves acceptance and the resulting array unspecified.
 
 The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 
@@ -2421,17 +2421,17 @@ The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.0.4.
 | `openapi-request-validator` | not asked (stageNotOwned) | - |
 | `openapi_first` | accepted | `{"p":[]}` (parsed before validation) |
 
-Varies: the container is empty. Holds constant: identifier is the declared one; wire shape matches the declared style.
+Varies: the value is empty. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 #### `query-form-array-integer-items-oas30`
 
 query, form, exploded array of integers, canonical wire form.
 
-Repeats the name with 1 and 2 for an array of integers, so something has to turn text into numbers, and the specification leaves that conversion open.
+Sends p=1&p=2 for an integer array. Conversion from text to integers is implementation-defined.
 
 Request: `GET /t?p=1&p=2`
 
-Open question: The wire carries the digits 1 and 2 for an array of integers. Does a decimal string satisfy type integer after deserialization? Appendix B leaves the conversion between strings and other primitives implementation-defined, so the specification declines to settle it.
+Open question: The array items arrive as text. Appendix B leaves conversion between strings and other primitive types implementation-defined, so it does not settle whether these items become integers.
 
 The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
 
@@ -2456,11 +2456,11 @@ Varies: the item type is numeric rather than string. Holds constant: identifier 
 
 query, form, boolean scalar, the word a boolean is written as.
 
-Sends p=true where the schema says boolean. Every value in a query is text, so something has to decide whether that word is the boolean it spells.
+Sends p=true for a boolean parameter. Whether the text becomes a boolean is implementation-defined.
 
 Request: `GET /t?p=true`
 
-Open question: The wire carries the four letters true for a parameter declared boolean. A boolean is one of the JSON Schema data model's primitives and a URL carries no primitives at all, so something has to convert, and Appendix B leaves the conversion between strings and other primitives implementation-defined. Accepting it as the boolean it spells and refusing a string against a boolean are both readings. The companion blue case asks how this conversion handles text outside the JSON boolean literals.
+Open question: Appendix B leaves conversion from text to primitive types implementation-defined. It does not require converting true to a boolean. The blue companion probes text outside the JSON boolean literals.
 
 The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
 
@@ -2485,11 +2485,11 @@ Varies: the declared type is boolean and the value is well-formed for it. Holds 
 
 query, form, boolean scalar, text outside the JSON boolean literals.
 
-Sends p=blue for a boolean schema. Whether text is rejected or converted by a truthiness convention is an implementation-defined conversion question.
+Sends p=blue for a boolean parameter. Implementations choose whether to reject it or apply a truthiness conversion.
 
 Request: `GET /t?p=blue`
 
-Open question: The wire carries blue for a boolean schema. A strict lexical conversion rejects it; a truthiness conversion produces true. Appendix B leaves primitive text conversion implementation-defined and supplies no boolean lexical grammar. This case records the conversion policy alongside the true literal case.
+Open question: Appendix B leaves primitive text conversion implementation-defined and gives no boolean grammar. A strict conversion rejects blue; a truthiness conversion produces true.
 
 The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
 
@@ -2508,17 +2508,17 @@ The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapi
 | `openapi-request-validator` | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | `openapi_first` | rejected | `{"p":"blue"}` (parsed before validation) |
 
-Varies: the declared type is boolean, which no other case declares. Holds constant: identifier is the declared one; wire shape matches the declared style.
+Varies: the declared type is boolean. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 #### `query-form-object-integer-properties-oas30`
 
 query, form, object of integers, canonical wire form.
 
-The same question the integer array asks, asked of an object: p=R,100,G,200 where both properties are integers, so something has to turn 100 into a number.
+Sends p=R,100,G,200 for an object with integer properties. Conversion of the property values from text is implementation-defined.
 
 Request: `GET /t?p=R,100,G,200`
 
-Open question: The wire carries the digits 100 and 200 for an object whose properties are both integers. Does a decimal string satisfy type integer once the object has been deserialized? Appendix B leaves the conversion between strings and other primitives implementation-defined, and says nothing about whether being inside an object changes that, so a library may reasonably convert the properties, leave them as the text it split, or reject the request.
+Open question: The property values arrive as text. Appendix B leaves conversion between strings and other primitive types implementation-defined, including values inside objects.
 
 The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
 
@@ -2543,11 +2543,11 @@ Varies: the property type is numeric rather than string. Holds constant: identif
 
 query, form, scalar, allowEmptyValue declared and the value is empty.
 
-Sends p= for a required parameter declaring allowEmptyValue, which the specification says means unused. Required and unused at the same time.
+Sends p= with required and allowEmptyValue both true. The specification describes this empty value as unused.
 
 Request: `GET /t?p=`
 
-Open question: The parameter is required and declares allowEmptyValue, and the request carries the name with a zero-length value. The specification says a server SHOULD read that as the parameter being unused, which for a required parameter means absent, and in the same paragraph hands the interaction with the schema to implementations. The document asks for two things at once and the specification settles neither: is a required parameter satisfied by a value declared to mean unused?
+Open question: OpenAPI says a zero-length value SHOULD mean the parameter is unused and leaves its interaction with the schema implementation-defined. It does not settle whether p= satisfies required here.
 
 The text leaving it open: [parameter-allow-empty-value](https://spec.openapis.org/oas/v3.0.4.html#parameter-allow-empty-value)
 
@@ -2566,17 +2566,17 @@ The text leaving it open: [parameter-allow-empty-value](https://spec.openapis.or
 | `openapi-request-validator` | not asked (stageNotOwned) | - |
 | `openapi_first` | accepted | `{"p":""}` (parsed before validation) |
 
-Varies: allowEmptyValue is declared, which the corpus otherwise leaves unset. Holds constant: the identifier is the declared one; the style is the defaulted one.
+Varies: allowEmptyValue is declared. Holds constant: the identifier is the declared one; the style is the defaulted one.
 
 #### `query-form-scalar-allow-reserved-percent-triple-oas30`
 
 query, form, scalar, allowReserved declared and the value carries a percent triple.
 
-With allowReserved on, the value carries an encoded %2F. Whether that stays a triple or becomes a slash is the disagreement.
+Sends %2F with allowReserved true. The serialization rule leaves the decoder's choice between %2F and / unsettled.
 
 Request: `GET /t?p=a%2Fb`
 
-Open question: allowReserved is declared and the value carries %2F. The specification says percent-encoded triples pass through unchanged, which describes what a client writes rather than what a server reads back. Unchanged from the sender's side is the literal three characters; a reader that decodes anyway gets a slash. Both are readings of the same sentence and it does not choose between them.
+Open question: With allowReserved true, serialization preserves percent-encoded sequences. That sender-side rule does not distinguish a literal %2F from an encoded slash when decoding this value.
 
 **Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
 
@@ -2603,11 +2603,11 @@ Varies: a percent-encoded triple appears where reserved characters may pass unen
 
 query, form, scalar, reserved characters unencoded with allowReserved left unset.
 
-The same unencoded slash and colon with allowReserved left off, a field about how a client writes rather than what a server takes.
+Sends an unencoded slash and colon with allowReserved omitted. The serialization rule calls for percent-encoding.
 
 Request: `GET /t?p=a/b:c`
 
-Open question: allowReserved defaults to false, so a client should have percent-encoded the slash, and this request did not. The specification states what serialization the declaration prescribes and not what a validator owes a request that ignored it. Reading the slash as data and refusing it as a mis-serialized value are both consistent with a rule written about the sender.
+Open question: allowReserved defaults to false, so the declared serialization percent-encodes the slash and colon. The cited rule does not prescribe whether a validator accepts or rejects their unencoded forms.
 
 The text leaving it open: [parameter-allow-reserved](https://spec.openapis.org/oas/v3.0.4.html#parameter-allow-reserved)
 
@@ -2632,11 +2632,11 @@ Varies: the wire carries reserved characters the declaration did not permit unen
 
 query, form, integer scalar, a number with a fraction.
 
-Sends p=1.5 where the schema says integer. Whether the implementation-defined conversion may truncate before the mathematical integer test is left open.
+Sends p=1.5 for an integer parameter. Appendix B does not settle whether conversion may truncate it to 1.
 
 Request: `GET /t?p=1.5`
 
-Open question: The wire carries 1.5 for a schema saying integer. A conversion that preserves the value yields a number failing the mathematical integer test, and no conversion at all holds a string against integer; both of those reject. Appendix B leaves the conversion between strings and other primitives implementation-defined and does not say it preserves the value, and the truncating conversion several languages ship reads 1.5 as 1, which the schema accepts. Nothing rules the truncating reading out, so the verdict is open in a way it is not for a value made of letters, which no conversion of the representation turns into an integer.
+Open question: Preserving 1.5 as a number fails the integer type; truncating it to 1 satisfies it. Appendix B leaves text conversion implementation-defined without requiring it to preserve the numeric value.
 
 The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
 
@@ -2655,17 +2655,17 @@ The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapi
 | `openapi-request-validator` | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | `openapi_first` | rejected | `{"p":"1.5"}` (parsed before validation) |
 
-Varies: the value is well-formed for a number and not for the declared integer. Holds constant: identifier is the declared one; wire shape matches the declared style; the value is a numeric lexeme.
+Varies: the value is well-formed for a number and not for the declared integer. Holds constant: identifier is the declared one; wire shape matches the declared style; the value is numeric text.
 
 #### `query-form-scalar-integer-oas30`
 
 query, form, integer scalar, canonical.
 
-Sends p=100 where the schema says integer. The plainest form of a question the corpus already asks of arrays and objects: is a decimal string a number yet?
+Sends p=100 for an integer parameter. Conversion from text to an integer is implementation-defined.
 
 Request: `GET /t?p=100`
 
-Open question: The wire carries the digits 100 for a parameter declared integer. Every value in a URL is text, so something has to decide whether that text satisfies type integer, and Appendix B leaves the conversion between strings and other primitives implementation-defined. The array and object cases ask this of values recovered from a container; this asks it where there is no container and no deserialization to attribute an answer to.
+Open question: The value arrives as text. Appendix B leaves conversion between strings and other primitive types implementation-defined, so it does not settle whether 100 becomes an integer.
 
 The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
 
@@ -2690,11 +2690,11 @@ Varies: the declared type is numeric rather than string. Holds constant: identif
 
 query, form, scalar, the name present with no delimiter after it.
 
-Sends ?p with no equals sign at all, which is a wire form no expansion in the table produces: absent, empty, and present-with-nothing are all readings of it.
+Sends ?p without an equals sign. The style table defines ?p=, leaving this bare-name form unspecified.
 
 Request: `GET /t?p`
 
-Open question: The Style Examples table gives ?name= for an undefined value and ?name=value otherwise, and produces no bare ?name at all. The parameter is required and the name is on the wire. Is it satisfied by a name carrying no delimiter, is that the same request as ?name=, or is the parameter absent?
+Open question: The style table writes ?name= for an undefined value and ?name=value otherwise. It does not settle whether bare ?p satisfies required or is equivalent to p=.
 
 The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 
@@ -2719,11 +2719,11 @@ Varies: the name arrives with no delimiter after it. Holds constant: identifier 
 
 query, form, nullable scalar, required and nothing sent.
 
-A required parameter whose type allows null is left out entirely. Absent and null look the same on the wire and different to a schema.
+Omits a required parameter that allows null. RFC 6570 can serialize null as absence, making the two indistinguishable here.
 
 Request: `GET /t`
 
-Open question: This is null's own serialization. OpenAPI defers to RFC 6570 for which values count as undefined, that list includes null, and an undefined variable is ignored by the expansion process, so a client sending null sends nothing. The parameter is required and admits null, so the wire form that means null is the same wire form that means absent, and a library cannot tell the two apart from the request alone. The schema admits null through 3.0's nullable keyword; 3.0 has no type arrays.
+Open question: RFC 6570 treats null as undefined and omits its expansion, while the style table shows ?name= for undefined. Under the RFC reading, the request could represent either null or an absent required parameter.
 
 The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
 
@@ -2742,17 +2742,17 @@ The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapi
 | `openapi-request-validator` | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | `openapi_first` | rejected | `{}` (parsed before validation) |
 
-Varies: the schema admits null and the wire carries null's own serialization. Holds constant: the style is the defaulted one; one parameter declared.
+Varies: the schema allows null and the parameter is omitted. Holds constant: the style is the defaulted one; one parameter declared.
 
 #### `query-form-scalar-type-array-oas30`
 
 query, form, scalar, type written as an array.
 
-Declares type: [string, null], the 3.1 spelling, in a 3.0 document where type MUST be one string. The value is an ordinary string, so what can move is how a validator treats the unsupported spelling.
+Declares type: [string, null] in 3.0, which requires type to be one string. The request sends blue.
 
 Request: `GET /t?p=blue`
 
-Open question: 3.0 takes type from JSON Schema with an adjustment: the value MUST be a string, and multiple types via an array are not supported. This document writes the array spelling 3.1 admits. The rule constrains the document author and does not say what a validator does with a document breaking it: refusing the document, ignoring the unsupported keyword form, and reading it with 3.1 semantics are each defensible, and the wire value blue is a string under every one of those readings, so the readings part at the document boundary.
+Open question: OpenAPI 3.0 requires type to be a string and forbids arrays of types. It does not prescribe how validators handle this invalid document. The request value otherwise satisfies the string type.
 
 The text leaving it open: [json-schema-keywords](https://spec.openapis.org/oas/v3.0.4.html#json-schema-keywords)
 
@@ -2777,11 +2777,11 @@ Varies: the schema writes type as an array, which this version does not support.
 
 query, form, scalar, the value carries an unencoded plus.
 
-Sends p=a+b. Whether that plus is a space or a plus depends on which decoder reads it, and this version names both without choosing.
+Sends p=a+b. Appendix E names decoders that read + as either a space or a literal plus, without choosing one here.
 
 Request: `GET /t?p=a+b`
 
-Open question: The wire carries an unencoded + in a query parameter value. Appendix E says a form-urlencoded decoder reads it as a space and a percent-decoder reads it as itself, and that care must be taken to use the right one. It does not say which one a form-style parameter value gets. The style table defers to RFC6570 expansion, which has no +-for-space convention, so nothing upstream settles it either. Both a and b joined by a space and the literal three characters are readings of what this version wrote. 3.2 settles this and its twin there is attributable.
+Open question: Appendix E describes both form-urlencoded decoding, where + means space, and percent-decoding, where it stays +. This version does not select one for form-style query parameters, leaving a b and a+b as possible values.
 
 **Answered in the values.** The verdict cannot carry this finding, so a library that exposes no deserialized values reaches a verdict here and answers nothing by it.
 

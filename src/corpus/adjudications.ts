@@ -61,9 +61,4 @@ export const adjudications: readonly Adjudication[] = [
  *   the raw reserved characters are legal query bytes a receiver decodes
  *   regardless (Appendix E), so the verdict is a settled accept; another
  *   withdrew the same lean after reading the cited basis. Divergence held.
- * - query-form-scalar-nullable-absent-oas30 / -oas31: prose nit rather than a
- *   tier question. The question states the RFC 6570 reading (null serializes
- *   to nothing) as the only serialization of null, while the Style Examples
- *   table's undefined column offers ?p= as a rival. The tier is undisputed;
- *   the wording overstates one side.
  */

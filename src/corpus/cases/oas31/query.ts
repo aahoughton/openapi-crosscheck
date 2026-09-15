@@ -28,8 +28,8 @@ export const queryCases: readonly Case[] = [
     id: `query-content-json-boolean-${valid ? "canonical" : "wrong-type"}-oas31`,
     title: `query, content application/json, boolean, ${valid ? "JSON true" : "JSON string"}`,
     inShort: valid
-      ? "Sends the JSON boolean true against a boolean schema. The media type determines its type."
-      : "Sends the JSON string blue against a boolean schema. JSON supplies a string, which fails the boolean type.",
+      ? "Sends JSON true for a boolean parameter. The type matches."
+      : 'Sends the JSON string "blue" for a boolean parameter. The type fails.',
     tier: "conformance",
     oasVersion: "3.1",
     citations: [
@@ -41,7 +41,7 @@ export const queryCases: readonly Case[] = [
     expected: valid ? "accepted" : "rejected",
     expectedValues: valid ? { p: true } : null,
     rationale:
-      'The parameter is serialized as application/json. JSON true is a boolean and JSON "blue" is a string, so the declared boolean schema accepts the first and rejects the second. Both representations are well-formed JSON and use the same schema; no primitive text conversion is needed to determine their types.',
+      'JSON gives these values explicit types: true is a boolean and "blue" is a string. The same boolean schema therefore accepts the first and rejects the second.',
     document: document(
       [
         {
@@ -73,11 +73,11 @@ export const queryCases: readonly Case[] = [
     id: "query-content-and-schema-declared-oas31",
     title: "query, both content and schema declared",
     inShort:
-      "Declares both content and schema on one parameter, which the specification forbids. What a validator does with a document that breaks the rule is not written.",
+      "Declares both content and schema, which OpenAPI forbids. Validator handling of this invalid document is unspecified.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "A parameter MUST include either content or schema and not both, and this one includes both. The two prescribe different serializations of the same value, so a library that honours either is following one of the two rules the document states. The specification constrains the document rather than the validator, and does not say which wins.",
+      "A parameter must declare exactly one of content and schema. This document declares both, with different serializations. OpenAPI does not prescribe whether a validator rejects the document or selects a declaration.",
     basis: cite.PARAMETER_CONTENT_OR_SCHEMA,
     document: document(
       [
@@ -116,7 +116,7 @@ export const queryCases: readonly Case[] = [
     id: "query-content-json-object-canonical-oas31",
     title: "query, content application/json, object, canonical",
     inShort:
-      "A JSON object percent-encoded into a query value, declared by media type rather than by style.",
+      "Sends a percent-encoded JSON object as the query value, using content: application/json.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [
@@ -130,7 +130,7 @@ export const queryCases: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The value is a percent-encoded JSON object, which is what a query string can carry of the declared representation. Percent-decoding is ordinary URI processing and happens before the value is read as its media type, so what reaches the schema is the object.",
+      "Percent-decoding followed by JSON parsing yields an object whose properties match the string schemas.",
     document: document(
       [
         {
@@ -160,7 +160,7 @@ export const queryCases: readonly Case[] = [
     id: "query-content-json-object-malformed-oas31",
     title: "query, content application/json, object, value is not JSON",
     inShort:
-      "The query value is {not-json where application/json was declared, so nothing parses and no schema is ever reached.",
+      "Sends {not-json after percent-decoding, where application/json is declared. The value fails JSON parsing.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [
@@ -174,7 +174,7 @@ export const queryCases: readonly Case[] = [
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "The declared representation is application/json and the value is not JSON, so there is nothing for the schema to be evaluated against. Distinct from a value that parses and then fails its schema.",
+      "The declared media type is application/json. The malformed value cannot be parsed as JSON for schema validation.",
     document: document(
       [
         {
@@ -206,14 +206,14 @@ export const queryCases: readonly Case[] = [
     id: "query-content-json-scalar-nullable-literal-oas31",
     title: "query, content application/json, nullable keyword, a literal null",
     inShort:
-      "Declares {type: string, nullable: true}, the 3.0 spelling, and sends a JSON null. This version's dialect has no nullable keyword, so the schema admits strings only and the null is to be rejected.",
+      "Sends JSON null for {type: string, nullable: true}. In 3.1, nullable has no validation effect, so null fails the string type.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_CONTENT, cite.MEDIA_TYPE_OBJECT, cite.SCHEMA_OBJECT],
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "The Schema Object here is a superset of JSON Schema Draft 2020-12, and 2020-12 defines no nullable keyword: an unrecognized keyword collects as an annotation and asserts nothing. So this schema constrains exactly as {type: string} does, and the JSON null the wire carries is not a string. A validator reading the dialect rejects; one carrying 3.0's nullable semantics into a 3.1 document accepts, and that acceptance is attributable. The declaration is legal, which separates this from the invalid-document cases: 2020-12 admits unknown keywords, so the document breaks no rule and the verdict is settled.",
+      "OpenAPI 3.1 uses JSON Schema 2020-12, which allows unknown keywords but gives nullable no validation effect. The string type therefore rejects JSON null. The document itself is valid.",
     document: document(
       [
         {
@@ -245,11 +245,11 @@ export const queryCases: readonly Case[] = [
     id: "query-content-two-media-types-oas31",
     title: "query, content declaring two media types",
     inShort:
-      "Declares two media types where the map must hold one. Refusing the document and picking an entry are both defensible.",
+      "Declares two media types where content must contain exactly one. Validator handling is unspecified.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The map MUST contain one entry and this one contains two, so the document breaks a rule addressed to whoever wrote it. The specification does not say what a validator does when it is handed one. Refusing the document, choosing an entry, and validating against whichever matches are all answers a reader might expect.",
+      "The content map must contain exactly one entry. This document contains two, and OpenAPI does not prescribe how a validator handles that violation.",
     basis: cite.PARAMETER_CONTENT,
     document: document(
       [
@@ -293,7 +293,8 @@ export const queryCases: readonly Case[] = [
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_DEEP_OBJECT],
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
-    rationale: "deepObject with explode true is the one defined deepObject combination.",
+    rationale:
+      "The deepObject row with explode true writes bracketed property names. Both values match their string schemas.",
     document: document(
       [
         {
@@ -325,11 +326,11 @@ export const queryCases: readonly Case[] = [
     id: "query-deep-object-no-explode-oas31",
     title: "query, deepObject, object, explode false",
     inShort:
-      "deepObject with explode false, a combination the specification calls undefined, sent as the bracketed pairs anyway.",
+      "Sends bracketed property names with deepObject and explode false, a combination this version leaves undefined.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "deepObject with explode false is named by the specification as undefined. What does an implementation do with a combination it is told nothing about?",
+      "OpenAPI explicitly leaves deepObject with explode false undefined. The request uses the bracketed format defined for explode true.",
     basis: cite.PARAMETER_EXPLODE,
     document: document(
       [
@@ -361,7 +362,7 @@ export const queryCases: readonly Case[] = [
   {
     id: "query-form-array-canonical-explode-oas31",
     title: "query, form, array, explode true, canonical",
-    inShort: "The ordinary way to send a list in a query: repeat the name, p=blue&p=black.",
+    inShort: "Sends an array as p=blue&p=black, repeating the name once per item.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.PARAMETER_EXPLODE, cite.STYLE_EXAMPLE_FORM_EXPLODE],
@@ -404,7 +405,7 @@ export const queryCases: readonly Case[] = [
     citations: [cite.PARAMETER_STYLE, cite.PARAMETER_EXPLODE, cite.STYLE_EXAMPLE_FORM_NO_EXPLODE],
     expected: "accepted",
     expectedValues: { p: ["blue", "black"] },
-    rationale: "form with explode false is one occurrence of the name carrying CSV.",
+    rationale: "Form style with explode false writes one name followed by comma-separated items.",
     document: document(
       [
         {
@@ -436,11 +437,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-array-duplicate-name-oas31",
     title: "query, form, array, explode false, but the name repeats",
     inShort:
-      "The name repeats, which is the exploded wire form, while the declaration says explode is off. Nothing says which one wins.",
+      "Repeats p with explode false, which calls for one comma-separated value. Handling of this mismatch is unspecified.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The declaration says explode false, and the wire carries the exploded shape. Does an implementation follow the declaration, follow the wire, or refuse?",
+      "The declaration calls for one comma-separated value, but the request repeats the name. OpenAPI does not prescribe how a validator handles this mismatch.",
     basis: null,
     document: document(
       [
@@ -473,11 +474,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-array-empty-value-oas31",
     title: "query, form, array, the name present with an empty value",
     inShort:
-      "Sends p= with nothing after it for an array. Empty list, list of one empty string, and absent are all readings of p= with nothing after it.",
+      "Sends p= for a required array. An empty array, one empty-string item, and an undefined value are possible readings.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The Style Examples table gives ?name= as the serialization of an undefined value. The parameter is required and the name is present. Is a required parameter satisfied by the serialization of undefined, an empty array, or neither?",
+      "The style table uses ?name= for an undefined value. With the name present and the parameter required, it leaves acceptance and the resulting array unspecified.",
     basis: cite.STYLE_EXAMPLE_FORM_NO_EXPLODE,
     document: document(
       [
@@ -503,18 +504,18 @@ export const queryCases: readonly Case[] = [
       declaredExplode: false,
       probeAxis: "emptyContainer",
     },
-    varies: ["the container is empty"],
+    varies: ["the value is empty"],
     holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
   },
   {
     id: "query-form-array-integer-items-oas31",
     title: "query, form, exploded array of integers, canonical wire form",
     inShort:
-      "Repeats the name with 1 and 2 for an array of integers, so something has to turn text into numbers, and the specification leaves that conversion open.",
+      "Sends p=1&p=2 for an integer array. Conversion from text to integers is implementation-defined.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The wire carries the digits 1 and 2 for an array of integers. Does a decimal string satisfy type integer after deserialization? Appendix B leaves the conversion between strings and other primitives implementation-defined, so the specification declines to settle it.",
+      "The array items arrive as text. Appendix B leaves conversion between strings and other primitive types implementation-defined, so it does not settle whether these items become integers.",
     basis: cite.DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED,
     document: document(
       [
@@ -547,14 +548,14 @@ export const queryCases: readonly Case[] = [
     id: "query-form-array-unset-style-oas31",
     title: "query, array, style and explode both left to the default",
     inShort:
-      "Sends p=blue&p=black with nothing declared about its format, so form and explode both have to come from the defaults.",
+      "Sends p=blue&p=black with style and explode omitted. Their defaults are form and true.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.PARAMETER_EXPLODE, cite.STYLE_EXAMPLE_FORM_EXPLODE],
     expected: "accepted",
     expectedValues: { p: ["blue", "black"] },
     rationale:
-      "The declaration writes neither style nor explode, so the library must resolve form for a query parameter and then true for explode under form, before it can deserialize anything. The wire form is identical to the case that declares both, so the pair differs only in whether a default had to be resolved. The defaulted form is reported to be much the more common in published documents; that report is not this repository's measurement, and is recorded under Figures from elsewhere in coverage.md.",
+      "Query parameters default to form, and form defaults explode to true. The repeated names therefore encode two array items, as in the explicit-defaults companion.",
     document: document([{ name: "p", in: "query", required: true, schema: STRING_ARRAY }], "/t"),
     request: request("/t?p=blue&p=black"),
     dimensions: {
@@ -574,11 +575,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-boolean-literal-oas31",
     title: "query, form, boolean scalar, the word a boolean is written as",
     inShort:
-      "Sends p=true where the schema says boolean. Every value in a query is text, so something has to decide whether that word is the boolean it spells.",
+      "Sends p=true for a boolean parameter. Whether the text becomes a boolean is implementation-defined.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The wire carries the four letters true for a parameter declared boolean. A boolean is one of the JSON Schema data model's primitives and a URL carries no primitives at all, so something has to convert, and Appendix B leaves the conversion between strings and other primitives implementation-defined. Accepting it as the boolean it spells and refusing a string against a boolean are both readings. The companion blue case asks how this conversion handles text outside the JSON boolean literals.",
+      "Appendix B leaves conversion from text to primitive types implementation-defined. It does not require converting true to a boolean. The blue companion probes text outside the JSON boolean literals.",
     basis: cite.DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED,
     document: document(
       [
@@ -611,11 +612,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-boolean-wrong-type-oas31",
     title: "query, form, boolean scalar, text outside the JSON boolean literals",
     inShort:
-      "Sends p=blue for a boolean schema. Whether text is rejected or converted by a truthiness convention is an implementation-defined conversion question.",
+      "Sends p=blue for a boolean parameter. Implementations choose whether to reject it or apply a truthiness conversion.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The wire carries blue for a boolean schema. A strict lexical conversion rejects it; a truthiness conversion produces true. Appendix B leaves primitive text conversion implementation-defined and supplies no boolean lexical grammar. This case records the conversion policy alongside the true literal case.",
+      "Appendix B leaves primitive text conversion implementation-defined and gives no boolean grammar. A strict conversion rejects blue; a truthiness conversion produces true.",
     basis: cite.DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED,
     document: document(
       [
@@ -641,7 +642,7 @@ export const queryCases: readonly Case[] = [
       schema: "scalar",
       probeAxis: "wrongTypeValue",
     },
-    varies: ["the declared type is boolean, which no other case declares"],
+    varies: ["the declared type is boolean"],
     holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
   },
   {
@@ -656,7 +657,7 @@ export const queryCases: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "An exploded form object serializes as its own properties, so the declared parameter name appears nowhere in the query string. This is the shape most likely to be confused with two unrelated query parameters.",
+      "Exploded form objects use each property name as a query key. R and G therefore form the declared object p even though p itself is absent from the query.",
     document: document(
       [
         {
@@ -694,7 +695,7 @@ export const queryCases: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
+      "The form object row with explode false alternates property names and values under p, separated by commas. Both values match their string schemas.",
     document: document(
       [
         {
@@ -726,11 +727,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-object-integer-properties-oas31",
     title: "query, form, object of integers, canonical wire form",
     inShort:
-      "The same question the integer array asks, asked of an object: p=R,100,G,200 where both properties are integers, so something has to turn 100 into a number.",
+      "Sends p=R,100,G,200 for an object with integer properties. Conversion of the property values from text is implementation-defined.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The wire carries the digits 100 and 200 for an object whose properties are both integers. Does a decimal string satisfy type integer once the object has been deserialized? Appendix B leaves the conversion between strings and other primitives implementation-defined, and says nothing about whether being inside an object changes that, so a library may reasonably convert the properties, leave them as the text it split, or reject the request.",
+      "The property values arrive as text. Appendix B leaves conversion between strings and other primitive types implementation-defined, including values inside objects.",
     basis: cite.DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED,
     document: document(
       [
@@ -763,14 +764,14 @@ export const queryCases: readonly Case[] = [
     id: "query-form-object-missing-name-oas31",
     title: "query, form, object, explode true, entirely absent",
     inShort:
-      "No query string at all for a required exploded object, whose absence looks like an empty request rather than a missing name.",
+      "Sends no query string for a required exploded object whose R and G properties are also required.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.PARAMETER_EXPLODE, cite.PARAMETER_REQUIRED],
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "A required exploded form object serializes as its own properties, so its absence looks like an empty query string rather than a missing named parameter. There is nothing whose absence a name check could notice, which is the condition under which a library is most likely to accept nothing at all. The schema requires both properties: without that, the empty object would validate, and RFC 6570 treats a zero-member associative array as undefined, making an empty query string a legitimate serialization of a schema-valid value and the rejection unsettled.",
+      "An exploded form object is sent as its properties. Neither required property is present. Requiring R and G also rules out an empty object, which RFC 6570 could serialize as no query string.",
     document: document(
       [
         {
@@ -801,15 +802,14 @@ export const queryCases: readonly Case[] = [
   {
     id: "query-form-object-wrong-type-oas31",
     title: "query, form, object, explode true, a property well-formed for a different type",
-    inShort:
-      "The object arrives fine, then its R property is blue where the schema says integer. Watches whether validation reaches inside an object.",
+    inShort: "Sends a correctly formatted object with R=blue, where R requires an integer.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.SCHEMA_OBJECT, cite.JSON_SCHEMA_DATA_MODEL],
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "The object deserializes cleanly and one property then fails its declared type. The value is alphabetic against an integer, so no conversion left to implementations reaches it. This asks whether schema validation runs through to an object's properties, which the accepting object cases cannot ask.",
+      "The object format is valid, but R's alphabetic value blue cannot represent an integer. A rejection alone does not establish whether the library checked that property.",
     document: document(
       [
         {
@@ -841,11 +841,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-scalar-allow-empty-value-declared-oas31",
     title: "query, form, scalar, allowEmptyValue declared and the value is empty",
     inShort:
-      "Sends p= for a required parameter declaring allowEmptyValue, which the specification says means unused. Required and unused at the same time.",
+      "Sends p= with required and allowEmptyValue both true. The specification describes this empty value as unused.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The parameter is required and declares allowEmptyValue, and the request carries the name with a zero-length value. The specification says a server SHOULD read that as the parameter being unused, which for a required parameter means absent, and in the same paragraph hands the interaction with the schema to implementations. The document asks for two things at once and the specification settles neither: is a required parameter satisfied by a value declared to mean unused?",
+      "OpenAPI says a zero-length value SHOULD mean the parameter is unused and leaves its interaction with the schema implementation-defined. It does not settle whether p= satisfies required here.",
     basis: cite.PARAMETER_ALLOW_EMPTY_VALUE,
     document: document(
       [{ name: "p", in: "query", required: true, allowEmptyValue: true, schema: STRING }],
@@ -862,21 +862,21 @@ export const queryCases: readonly Case[] = [
       schema: "scalar",
       probeAxis: "declarationFlag",
     },
-    varies: ["allowEmptyValue is declared, which the corpus otherwise leaves unset"],
+    varies: ["allowEmptyValue is declared"],
     holdsConstant: ["the identifier is the declared one", "the style is the defaulted one"],
   },
   {
     id: "query-form-scalar-allow-reserved-declared-oas31",
     title: "query, form, scalar, allowReserved declared and reserved characters unencoded",
     inShort:
-      "The value carries an unencoded slash and colon, and allowReserved says to let reserved characters through.",
+      "Sends an unencoded slash and colon with allowReserved true, which permits both characters.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.PARAMETER_ALLOW_RESERVED, cite.SCHEMA_OBJECT],
     expected: "accepted",
     expectedValues: { p: "a/b:c" },
     rationale:
-      "allowReserved is declared, so the reserved set passes through unencoded, and the request carries exactly that. The slash and the colon are the value rather than delimiters, and nothing else in the request is unusual.",
+      "With allowReserved true, the slash and colon may appear unencoded. Both are part of the value and satisfy the string schema.",
     document: document(
       [{ name: "p", in: "query", required: true, allowReserved: true, schema: STRING }],
       "/t",
@@ -892,18 +892,18 @@ export const queryCases: readonly Case[] = [
       schema: "scalar",
       probeAxis: "declarationFlag",
     },
-    varies: ["allowReserved is declared, which the corpus otherwise leaves unset"],
+    varies: ["allowReserved is declared"],
     holdsConstant: ["the identifier is the declared one", "the style is the defaulted one"],
   },
   {
     id: "query-form-scalar-allow-reserved-percent-triple-oas31",
     title: "query, form, scalar, allowReserved declared and the value carries a percent triple",
     inShort:
-      "With allowReserved on, the value carries an encoded %2F. Whether that stays a triple or becomes a slash is the disagreement.",
+      "Sends %2F with allowReserved true. The serialization rule leaves the decoder's choice between %2F and / unsettled.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "allowReserved is declared and the value carries %2F. The specification says percent-encoded triples pass through unchanged, which describes what a client writes rather than what a server reads back. Unchanged from the sender's side is the literal three characters; a reader that decodes anyway gets a slash. Both are readings of the same sentence and it does not choose between them.",
+      "With allowReserved true, serialization preserves percent-encoded sequences. That sender-side rule does not distinguish a literal %2F from an encoded slash when decoding this value.",
     basis: cite.PARAMETER_ALLOW_RESERVED,
     answeredInValues: true,
     document: document(
@@ -928,11 +928,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-scalar-allow-reserved-unset-oas31",
     title: "query, form, scalar, reserved characters unencoded with allowReserved left unset",
     inShort:
-      "The same unencoded slash and colon with allowReserved left off, a field about how a client writes rather than what a server takes.",
+      "Sends an unencoded slash and colon with allowReserved omitted. The serialization rule calls for percent-encoding.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "allowReserved defaults to false, so a client should have percent-encoded the slash, and this request did not. The specification states what serialization the declaration prescribes and not what a validator owes a request that ignored it. Reading the slash as data and refusing it as a mis-serialized value are both consistent with a rule written about the sender.",
+      "allowReserved defaults to false, so the declared serialization percent-encodes the slash and colon. The cited rule does not prescribe whether a validator accepts or rejects their unencoded forms.",
     basis: cite.PARAMETER_ALLOW_RESERVED,
     document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
     request: request("/t?p=a/b:c"),
@@ -952,8 +952,7 @@ export const queryCases: readonly Case[] = [
   {
     id: "query-form-scalar-encoded-plus-oas31",
     title: "query, form, scalar, the value carries a percent-encoded plus",
-    inShort:
-      "Sends p=a%2Bb. Both decoders Appendix E names agree here, so the plus is data and the answer is settled.",
+    inShort: "Sends p=a%2Bb. Both decoders named in Appendix E read %2B as a literal plus.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [
@@ -965,7 +964,7 @@ export const queryCases: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: "a+b" },
     rationale:
-      "Appendix E leaves an unencoded + open by naming two decoders, and this case is where the two agree: form-urlencoded decoding adds +-for-space handling to percent-decoding and converts an unencoded + only, so %2B is a literal + under both. The value reaching the schema is a+b whichever decoder read it. This is the control for its unencoded twin, and the two together separate a library that percent-decodes from one that converts every plus it sees.",
+      "Both percent-decoding and form-urlencoded decoding read %2B as +, yielding a+b. Paired with the unencoded-plus case, this checks whether encoded and unencoded plus signs are distinguished.",
     document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
     request: request("/t?p=a%2Bb"),
     dimensions: {
@@ -978,7 +977,7 @@ export const queryCases: readonly Case[] = [
       schema: "scalar",
       probeAxis: "encodingVariant",
     },
-    varies: ["the wire carries a percent-encoded plus, which no other case sends"],
+    varies: ["the value contains a percent-encoded plus"],
     holdsConstant: [
       "the identifier is the declared one",
       "the style is the defaulted one",
@@ -989,11 +988,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-scalar-integer-fractional-oas31",
     title: "query, form, integer scalar, a number with a fraction",
     inShort:
-      "Sends p=1.5 where the schema says integer. Whether the implementation-defined conversion may truncate before the mathematical integer test is left open.",
+      "Sends p=1.5 for an integer parameter. Appendix B does not settle whether conversion may truncate it to 1.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The wire carries 1.5 for a schema saying integer. A conversion that preserves the value yields a number failing the mathematical integer test, and no conversion at all holds a string against integer; both of those reject. Appendix B leaves the conversion between strings and other primitives implementation-defined and does not say it preserves the value, and the truncating conversion several languages ship reads 1.5 as 1, which the schema accepts. Nothing rules the truncating reading out, so the verdict is open in a way it is not for a value made of letters, which no conversion of the representation turns into an integer.",
+      "Preserving 1.5 as a number fails the integer type; truncating it to 1 satisfies it. Appendix B leaves text conversion implementation-defined without requiring it to preserve the numeric value.",
     basis: cite.DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED,
     document: document(
       [
@@ -1023,18 +1022,18 @@ export const queryCases: readonly Case[] = [
     holdsConstant: [
       "identifier is the declared one",
       "wire shape matches the declared style",
-      "the value is a numeric lexeme",
+      "the value is numeric text",
     ],
   },
   {
     id: "query-form-scalar-integer-oas31",
     title: "query, form, integer scalar, canonical",
     inShort:
-      "Sends p=100 where the schema says integer. The plainest form of a question the corpus already asks of arrays and objects: is a decimal string a number yet?",
+      "Sends p=100 for an integer parameter. Conversion from text to an integer is implementation-defined.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The wire carries the digits 100 for a parameter declared integer. Every value in a URL is text, so something has to decide whether that text satisfies type integer, and Appendix B leaves the conversion between strings and other primitives implementation-defined. The array and object cases ask this of values recovered from a container; this asks it where there is no container and no deserialization to attribute an answer to.",
+      "The value arrives as text. Appendix B leaves conversion between strings and other primitive types implementation-defined, so it does not settle whether 100 becomes an integer.",
     basis: cite.DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED,
     document: document(
       [
@@ -1070,15 +1069,14 @@ export const queryCases: readonly Case[] = [
   {
     id: "query-form-scalar-missing-name-oas31",
     title: "query, form, scalar, the declared name absent",
-    inShort:
-      "The query carries x where p was declared, so a parameter is present and it is the wrong one.",
+    inShort: "Sends x where the required query parameter is p. The name does not match.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.PARAMETER_NAME, cite.PARAMETER_REQUIRED],
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "A required parameter is absent, and a different name is present in its place. The presence of some query parameter is not the presence of this one.",
+      "The required parameter p is absent. Supplying a different parameter x does not satisfy it.",
     document: document(
       [{ name: "p", in: "query", required: true, style: "form", explode: false, schema: STRING }],
       "/t",
@@ -1101,11 +1099,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-scalar-name-without-value-oas31",
     title: "query, form, scalar, the name present with no delimiter after it",
     inShort:
-      "Sends ?p with no equals sign at all, which is a wire form no expansion in the table produces: absent, empty, and present-with-nothing are all readings of it.",
+      "Sends ?p without an equals sign. The style table defines ?p=, leaving this bare-name form unspecified.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The Style Examples table gives ?name= for an undefined value and ?name=value otherwise, and produces no bare ?name at all. The parameter is required and the name is on the wire. Is it satisfied by a name carrying no delimiter, is that the same request as ?name=, or is the parameter absent?",
+      "The style table writes ?name= for an undefined value and ?name=value otherwise. It does not settle whether bare ?p satisfies required or is equivalent to p=.",
     basis: cite.STYLE_EXAMPLE_FORM_NO_EXPLODE,
     document: document(
       [{ name: "p", in: "query", required: true, style: "form", explode: false, schema: STRING }],
@@ -1133,11 +1131,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-scalar-nullable-absent-oas31",
     title: "query, form, nullable scalar, required and nothing sent",
     inShort:
-      "A required parameter whose type allows null is left out entirely. Absent and null look the same on the wire and different to a schema.",
+      "Omits a required parameter that allows null. RFC 6570 can serialize null as absence, making the two indistinguishable here.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "This is null's own serialization. OpenAPI defers to RFC 6570 for which values count as undefined, that list includes null, and an undefined variable is ignored by the expansion process, so a client sending null sends nothing. The parameter is required and admits null, so the wire form that means null is the same wire form that means absent, and a library cannot tell the two apart from the request alone.",
+      "RFC 6570 treats null as undefined and omits its expansion, while the style table shows ?name= for undefined. Under the RFC reading, the request could represent either null or an absent required parameter.",
     basis: cite.RFC6570_UNDEFINED_INCLUDES_NULL,
     document: document([{ name: "p", in: "query", required: true, schema: NULLABLE_STRING }], "/t"),
     request: request("/t"),
@@ -1151,14 +1149,14 @@ export const queryCases: readonly Case[] = [
       schema: "nullableScalar",
       probeAxis: "missingName",
     },
-    varies: ["the schema admits null and the wire carries null's own serialization"],
+    varies: ["the schema allows null and the parameter is omitted"],
     holdsConstant: ["the style is the defaulted one", "one parameter declared"],
   },
   {
     id: "query-form-scalar-nullable-empty-oas31",
     title: "query, form, nullable scalar, name present with a zero-length value",
     inShort:
-      "Sends p= for a nullable parameter, where the empty string is either a value or a way of spelling null.",
+      "Sends p= for a parameter allowing strings and null. Either an empty string or null satisfies the schema.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [
@@ -1170,7 +1168,7 @@ export const queryCases: readonly Case[] = [
     expected: "accepted",
     expectedValues: null,
     rationale:
-      "The name is present with a zero-length value, and the schema admits both a string and null. Read as the empty string, which the specification says is not undefined, it is a value the schema accepts; read as the serialization of an undefined null, the Style Examples table's ?color= column, it is the other value the schema accepts. Every reading accepts, so the verdict is settled. Which value comes back is not, so no values are expected: the readings part only in the value channel.",
+      "The present name carries an empty string, which the schema accepts. A reading as null also satisfies the schema. Acceptance is expected; the returned value is left unspecified.",
     document: document([{ name: "p", in: "query", required: true, schema: NULLABLE_STRING }], "/t"),
     request: request("/t?p="),
     dimensions: {
@@ -1190,7 +1188,7 @@ export const queryCases: readonly Case[] = [
     id: "query-form-scalar-nullable-literal-oas31",
     title: "query, form, nullable scalar, the value spells the other admitted type",
     inShort:
-      "Sends the four letters null for a nullable parameter, which is either that string or the null it spells.",
+      "Sends p=null for a parameter allowing strings and null. Both the literal string and a conversion to null satisfy the schema.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [
@@ -1201,7 +1199,7 @@ export const queryCases: readonly Case[] = [
     expected: "accepted",
     expectedValues: null,
     rationale:
-      "The wire carries the four characters n, u, l, l for a schema admitting a string or null. Read as a string they are an ordinary value the schema accepts; read through the implementation-defined conversion Appendix B allows, they are the null the schema also accepts. Every reading accepts, so the verdict is settled. The value handed back is where the readings part, and no values are expected because the specification does not choose between them.",
+      "The schema accepts both the string null and the null value. Appendix B leaves text conversion implementation-defined, so acceptance is expected with no single expected value.",
     document: document([{ name: "p", in: "query", required: true, schema: NULLABLE_STRING }], "/t"),
     request: request("/t?p=null"),
     dimensions: {
@@ -1214,21 +1212,21 @@ export const queryCases: readonly Case[] = [
       schema: "nullableScalar",
       probeAxis: "wrongTypeValue",
     },
-    varies: ["the value spells one admitted type while being well-formed for another"],
+    varies: ["the text can represent either allowed type"],
     holdsConstant: ["identifier is the declared one", "the style is the defaulted one"],
   },
   {
     id: "query-form-scalar-optional-absent-oas31",
     title: "query, form, scalar, optional and absent",
     inShort:
-      "Declares p as optional and sends nothing at all. Accepting is settled; what the values carry for an absent optional parameter is not.",
+      "Omits an optional parameter. The request is valid; the returned values are unspecified.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.PARAMETER_REQUIRED],
     expected: "accepted",
     expectedValues: null,
     rationale:
-      "required defaults to false and this declaration writes it out, so a request without the parameter is valid and a library that rejects it has inverted its required check. What the caller receives is open: the key absent from the values, the key present as null, and the key present with something the library supplied are each defensible, so no values are expected and the value channel is where libraries part. Until this case, every declaration in the corpus was required, which was a constant the corpus was holding fixed.",
+      "required is false, so omitting the parameter is valid. OpenAPI does not prescribe how an absent optional parameter appears in the library's returned values.",
     document: document(
       [{ name: "p", in: "query", required: false, style: "form", explode: false, schema: STRING }],
       "/t",
@@ -1251,14 +1249,14 @@ export const queryCases: readonly Case[] = [
     id: "query-form-scalar-optional-default-absent-oas31",
     title: "query, form, scalar, optional with a schema default, absent",
     inShort:
-      "An optional p whose schema carries default blue, and nothing sent. Whether a library invents the default is what the values answer.",
+      "Omits an optional parameter whose schema has default: blue. Returned values show whether the library supplies the default.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.PARAMETER_REQUIRED, cite.SCHEMA_OBJECT],
     expected: "accepted",
     expectedValues: null,
     rationale:
-      "The same absent optional parameter, with a default in its schema. Acceptance is settled by required being false. The value channel is where this case lives: in 3.1 the Schema Object is a superset of JSON Schema 2020-12, where default is an annotation, and annotations do not modify the instance, so a validator that injects blue supplies a value the specification does not ask for. Libraries differ, the values answer, and none are expected.",
+      "required is false, so omission is valid. In JSON Schema 2020-12, default is an annotation and does not insert a value. The case records whether the library supplies blue, with no expected returned value.",
     document: document(
       [
         {
@@ -1290,14 +1288,14 @@ export const queryCases: readonly Case[] = [
     id: "query-form-scalar-pattern-mismatch-oas31",
     title: "query, form, string scalar, a value the declared pattern refuses",
     inShort:
-      "Sends p=abc against pattern ^[0-9]+$. The value is a clean string of the declared type, so only a library that applies constraint keywords rejects.",
+      "Sends p=abc for a string matching ^[0-9]+$. The type matches, but the digits-only pattern fails.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.SCHEMA_OBJECT],
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "The word abc deserializes cleanly and is a string, exactly what the schema's type says, so neither the conversion Appendix B leaves open nor any style question can reach the verdict. What decides it is pattern, which this version's Schema Object carries as a superset of JSON Schema Draft 2020-12: a string the regular expression does not match fails validation. ^[0-9]+$ matches digits only, so the value fails and a library that applies the constraint vocabulary rejects. A library that reads type and stops accepts, and that acceptance is attributable.",
+      "The value is a valid string, but pattern requires a match for ^[0-9]+$. Since abc contains no digits, it fails this constraint.",
     document: document(
       [
         {
@@ -1322,7 +1320,7 @@ export const queryCases: readonly Case[] = [
       schema: "scalar",
       probeAxis: "constraintViolation",
     },
-    varies: ["the schema writes a constraint keyword, which no other case declares"],
+    varies: ["the schema declares a pattern constraint"],
     holdsConstant: [
       "identifier is the declared one",
       "wire shape matches the declared style",
@@ -1333,11 +1331,11 @@ export const queryCases: readonly Case[] = [
     id: "query-form-scalar-unencoded-plus-oas31",
     title: "query, form, scalar, the value carries an unencoded plus",
     inShort:
-      "Sends p=a+b. Whether that plus is a space or a plus depends on which decoder reads it, and this version names both without choosing.",
+      "Sends p=a+b. Appendix E names decoders that read + as either a space or a literal plus, without choosing one here.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The wire carries an unencoded + in a query parameter value. Appendix E says a form-urlencoded decoder reads it as a space and a percent-decoder reads it as itself, and that care must be taken to use the right one. It does not say which one a form-style parameter value gets. The style table defers to RFC6570 expansion, which has no +-for-space convention, so nothing upstream settles it either. Both a and b joined by a space and the literal three characters are readings of what this version wrote. 3.2 settles this and its twin there is attributable.",
+      "Appendix E describes both form-urlencoded decoding, where + means space, and percent-decoding, where it stays +. This version does not select one for form-style query parameters, leaving a b and a+b as possible values.",
     basis: cite.PLUS_DECODING_AMBIGUOUS,
     answeredInValues: true,
     document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
@@ -1362,15 +1360,14 @@ export const queryCases: readonly Case[] = [
   {
     id: "query-form-scalar-unset-style-oas31",
     title: "query, scalar, style and explode both left to the default",
-    inShort:
-      "Sends p=blue with nothing declared about its format, so the query default has to be resolved before reading it.",
+    inShort: "Sends p=blue with style omitted. The query default is form.",
     tier: "conformance",
     oasVersion: "3.1",
     citations: [cite.PARAMETER_STYLE, cite.STYLE_EXAMPLE_FORM_NO_EXPLODE],
     expected: "accepted",
     expectedValues: { p: "blue" },
     rationale:
-      "The most common shape in published documents: a query parameter with a scalar schema and no serialization keywords at all. Explode has no effect on a scalar, so only the style default is under test here.",
+      "Query parameters default to form, which writes a scalar as name=value. Explode has no effect on a scalar.",
     document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
     request: request("/t?p=blue"),
     dimensions: {
@@ -1434,7 +1431,7 @@ export const queryCases: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
+      "The pipeDelimited object row alternates property names and values, separated by percent-encoded pipes. Both values match their string schemas.",
     document: document(
       [
         {
@@ -1548,7 +1545,7 @@ export const queryCases: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The Style Examples table gives this exact serialization for an object under this style and explode, so both the verdict and the deserialized value are settled. Object schemas are where the styles differ most from one another.",
+      "The spaceDelimited object row alternates property names and values, separated by percent-encoded spaces. Both values match their string schemas.",
     document: document(
       [
         {

@@ -5,23 +5,9 @@ import { STRING, STRING_OBJECT, document, request } from "./build";
 /**
  * Query parameters, under 3.2.0.
  *
- * Two pairs, and every one of the four sends a request some 3.1 case also
- * sends. What moved is the tier.
- *
- * The deepObject pair: 3.1 calls deepObject with explode false undefined, so
- * its twin there is divergence and nobody can fail it, and 3.2 says the flag
- * has no effect for this style, so the wire form is the one defined form and
- * the case is attributable. The exploded case is here beside it because a
- * version that says a flag has no effect is a claim about a pair. A library
- * that reads the flag answers the two differently, and one of them alone could
- * not show that.
- *
- * The plus pair: 4.12.4 is new text making WHATWG form-urlencoded decoding a
- * MUST for query strings a `query` parameter produced, which reads an
- * unencoded + as a space. 3.0 and 3.1 name both decoders in Appendix E and
- * choose neither, so the unencoded twin is divergence there and conformance
- * here. The percent-encoded case is its control: a library converting every
- * plus it sees passes the first and fails this one.
+ * Two pairs cover rules 3.2 settles: explode has no effect on deepObject, and
+ * query parameters require WHATWG form-urlencoded decoding. Each pair varies
+ * one detail: the explode flag, or whether a plus sign is percent-encoded.
  */
 export const queryCases32: readonly Case[] = [
   {
@@ -39,8 +25,7 @@ export const queryCases32: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The deepObject row gives one bracketed pair per scalar property, and the request " +
-      "carries exactly that with the brackets percent-encoded as the row writes them.",
+      "The deepObject row writes bracketed property names, with the brackets percent-encoded. Both values match their string schemas.",
     document: document(
       [
         {
@@ -72,8 +57,7 @@ export const queryCases32: readonly Case[] = [
     id: "query-deep-object-no-explode-oas32",
     title: "query, deepObject, object, explode false",
     inShort:
-      "The same bracketed pairs with explode false, which this version says has no effect " +
-      "for this style. Earlier versions call the pairing undefined.",
+      "Sends bracketed property names with deepObject and explode false. OpenAPI 3.2 says explode has no effect for this style.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -86,9 +70,7 @@ export const queryCases32: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "explode has no effect when the style is deepObject, and the table gives one row for " +
-      "the style rather than one per explode value. So the declaration describes the same " +
-      "serialization as its exploded twin, and the request carries it.",
+      "OpenAPI 3.2 gives deepObject one format regardless of explode. These bracketed pairs therefore encode the same object as the explode-true companion.",
     document: document(
       [
         {
@@ -119,21 +101,14 @@ export const queryCases32: readonly Case[] = [
   {
     id: "query-form-scalar-encoded-plus-oas32",
     title: "query, form, scalar, the value carries a percent-encoded plus",
-    inShort:
-      "Sends p=a%2Bb, where WHATWG decoding yields a literal plus. The control that keeps " +
-      "the unencoded case from passing for the wrong reason.",
+    inShort: "Sends p=a%2Bb. WHATWG form-urlencoded decoding reads %2B as a literal plus.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [cite.PARAMETER_STYLE, cite.URL_PERCENT_ENCODING, cite.SCHEMA_OBJECT],
     expected: "accepted",
     expectedValues: { p: "a+b" },
     rationale:
-      "WHATWG form-urlencoded decoding converts an unencoded + to a space and " +
-      "percent-decodes %2B to a literal +, so the value reaching the schema is a+b. This " +
-      "is the other side of the unencoded twin and the reason both are here: a library " +
-      "that turns every plus into a space answers that one correctly and this one wrong, " +
-      "and either case alone would not show it. This one asks nothing 3.0 and 3.1 do not " +
-      "also settle, which is why they carry a twin of it too.",
+      "WHATWG form-urlencoded decoding reads %2B as +, yielding a+b. Paired with the unencoded-plus case, this checks whether encoded and unencoded plus signs are distinguished.",
     document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
     request: request("/t?p=a%2Bb"),
     dimensions: {
@@ -146,7 +121,7 @@ export const queryCases32: readonly Case[] = [
       schema: "scalar",
       probeAxis: "encodingVariant",
     },
-    varies: ["the wire carries a percent-encoded plus, which no other case sends"],
+    varies: ["the value contains a percent-encoded plus"],
     holdsConstant: [
       "the identifier is the declared one",
       "the style is the defaulted one",
@@ -157,20 +132,14 @@ export const queryCases32: readonly Case[] = [
     id: "query-form-scalar-unencoded-plus-oas32",
     title: "query, form, scalar, the value carries an unencoded plus",
     inShort:
-      "Sends p=a+b. 3.2 makes WHATWG form-urlencoded decoding a MUST for query strings, " +
-      "which reads the plus as a space.",
+      "Sends p=a+b. OpenAPI 3.2 requires WHATWG form-urlencoded decoding, which reads + as a space.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [cite.PARAMETER_STYLE, cite.URL_PERCENT_ENCODING, cite.SCHEMA_OBJECT],
     expected: "accepted",
     expectedValues: { p: "a b" },
     rationale:
-      "A query string produced by an in: query parameter MUST parse and percent-decode " +
-      "under WHATWG rules, and the same sentence says those rules treat a " +
-      "non-percent-encoded + as an escaped space. So the value reaching the schema is a, " +
-      "a space, b. Its 3.0 and 3.1 twins send the same request and are divergence: those " +
-      "versions name both decoders in Appendix E and pick neither, and this sentence is " +
-      "what 3.2 added.",
+      "OpenAPI 3.2 requires query parameters to use WHATWG form-urlencoded decoding. An unencoded + becomes a space, so the expected value is a b.",
     document: document([{ name: "p", in: "query", required: true, schema: STRING }], "/t"),
     request: request("/t?p=a+b"),
     dimensions: {

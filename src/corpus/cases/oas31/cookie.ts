@@ -5,25 +5,19 @@ import { STRING, STRING_ARRAY, STRING_OBJECT, document, request } from "./build"
 /**
  * Cookie parameters.
  *
- * The smallest group, and the one the specification says least about. `form` is
- * the default style here and Appendix D calls that combination ambiguous for a
- * single value and incorrect for several, so most of these are divergence.
+ * Appendix D calls `form` in cookies ambiguous for a single value and incorrect
+ * for multiple values. These cases record divergence.
  */
 export const cookieCases: readonly Case[] = [
   {
     id: "cookie-form-array-canonical-no-explode-oas31",
     title: "cookie, form, array, explode false, canonical",
     inShort:
-      "Puts a comma-joined list in one cookie crumb. The style table says that is how it is " +
-      "written, and an appendix says form in a cookie is wrong for more than one value.",
+      "Sends one cookie as p=blue,black. The style table shows this format; Appendix D calls form incorrect for multiple cookie values.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The form row without explode joins an array with commas under one name, and a cookie " +
-      "can carry that pair as its crumb. Appendix D then says form in a cookie is incorrect " +
-      "for multiple values whether or not explode produced them, and an array of two is " +
-      "multiple values. A library reading the table and a library reading the appendix " +
-      "disagree about whether this document describes anything at all.",
+      "The form table joins array items with commas under one name. Appendix D calls form in cookies incorrect for multiple values, including arrays without explode. These descriptions leave acceptance unsettled.",
     basis: cite.COOKIE_FORM_MULTIPLE_VALUES,
     document: document(
       [
@@ -56,16 +50,11 @@ export const cookieCases: readonly Case[] = [
     id: "cookie-form-array-explode-oas31",
     title: "cookie, form, array, explode true, repeated name",
     inShort:
-      "Sends the same cookie name twice, once per item. Nothing says what joins repeated " +
-      "crumbs, so a library picks a separator or refuses.",
+      "Repeats the cookie name once per item. The form table uses query separators; cookies use semicolons.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The form row with explode repeats the name once per item, and it writes that in query " +
-      "syntax: ?color=blue&color=black. A cookie is not a query string and separates its " +
-      "crumbs with semicolons, so the table prescribes the repetition without prescribing " +
-      "what joins the repeats here. Ampersand, semicolon, and refusing an exploded array in " +
-      "a cookie at all are each consistent with what is written.",
+      "Exploded form arrays repeat the name using & in the style table. Cookie pairs use a semicolon and space. Appendix D calls this combination incorrect, leaving its handling unspecified.",
     basis: cite.STYLE_EXAMPLE_FORM_EXPLODE,
     document: document(
       [
@@ -98,17 +87,11 @@ export const cookieCases: readonly Case[] = [
     id: "cookie-form-object-canonical-oas31",
     title: "cookie, form, object, canonical",
     inShort:
-      "Packs an object into one cookie crumb as R,100,G,200. The table shows exactly this, " +
-      "and an appendix calls form in a cookie wrong for several values.",
+      "Sends one cookie as p=R,100,G,200. The style table shows this format; Appendix D calls form incorrect for multiple cookie values.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "The Style Examples table gives this exact serialization for an object under this " +
-      "style and explode, and an object of two properties is the multiple values Appendix D " +
-      "calls incorrect in a cookie. Accepting the crumb the table describes and refusing a " +
-      "combination the specification disowns are both readings of what is written. Object " +
-      "schemas are where the styles differ most from one another, so the disagreement is " +
-      "widest here.",
+      "The form table alternates property names and values under one name. Appendix D calls form in cookies incorrect for multiple values, including objects without explode. These descriptions leave acceptance unsettled.",
     basis: cite.COOKIE_FORM_MULTIPLE_VALUES,
     document: document(
       [
@@ -141,15 +124,11 @@ export const cookieCases: readonly Case[] = [
     id: "cookie-form-object-explode-oas31",
     title: "cookie, form, object, explode true",
     inShort:
-      "Sends the object's properties as their own cookies, R and G, so nothing in the " +
-      "request says they belong to p.",
+      "Sends the object's properties as cookies named R and G. The parameter name p is absent.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "An exploded form object drops the parameter name and serializes its properties as " +
-      "their own pairs, written in the table as ?R=100&G=200. In a cookie those pairs become " +
-      "crumbs, and a crumb named R is indistinguishable from any other cookie of that name. " +
-      "Whether a library reassembles them into p, and what it joins them with, is not stated.",
+      "The exploded form table writes an object's properties as query pairs, ?R=100&G=200. Appendix D calls this style incorrect for multiple cookie values. How to group the cookies into p is unspecified.",
     basis: cite.STYLE_EXAMPLE_FORM_EXPLODE,
     document: document(
       [
@@ -182,18 +161,11 @@ export const cookieCases: readonly Case[] = [
     id: "cookie-form-scalar-canonical-oas31",
     title: "cookie, form, scalar, canonical",
     inShort:
-      "One cookie, one value, nothing unusual. An appendix still calls this ambiguous, " +
-      "because one of its two definitions of the format was written for query strings and " +
-      "starts with a ? no cookie carries.",
+      "Sends p=blue using the default cookie style, form. Appendix D calls even a single value ambiguous.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "form is the default style for cookie parameters, and a scalar serializes to " +
-      "name=value, which is what the cookie carries. Appendix D calls that combination " +
-      "ambiguous for a single value and implementation-defined between two readings: form " +
-      "expansion, which includes the ? the cookie syntax has no place for, and the style " +
-      "example, which does not. A reader expects the single crumb, and neither reading " +
-      "uniquely produces it.",
+      "The style example gives name=value. RFC 6570 form expansion adds a leading ?, which cookie syntax does not use. Appendix D leaves the choice between these definitions implementation-defined.",
     basis: cite.COOKIE_FORM_AMBIGUOUS,
     document: document([{ name: "p", in: "cookie", required: true, schema: STRING }], "/t"),
     request: request("/t", [["Cookie", "p=blue"]]),
@@ -214,16 +186,11 @@ export const cookieCases: readonly Case[] = [
     id: "cookie-form-scalar-explode-oas31",
     title: "cookie, form, scalar, explode true",
     inShort:
-      "The same single cookie with explode turned on. Explode has nothing to spread over " +
-      "one value, so the flag should change nothing.",
+      "Sends p=blue with explode on. The scalar format is unchanged, including form's ambiguity in cookies.",
     tier: "divergence",
     oasVersion: "3.1",
     question:
-      "Explode has nothing to distribute over a scalar, so the exploded and unexploded form " +
-      "rows give the same crumb, and Appendix D's ambiguity for a single value in a cookie " +
-      "covers both. The case exists because a library may branch on the flag before noticing " +
-      "that there is nothing to distribute, and because the appendix says the ambiguity holds " +
-      "whether or not explode is what produced the values.",
+      "Both form rows give the same scalar format. Appendix D's ambiguity for a single cookie value applies with either value of explode.",
     basis: cite.COOKIE_FORM_AMBIGUOUS,
     document: document(
       [{ name: "p", in: "cookie", required: true, explode: true, schema: STRING }],

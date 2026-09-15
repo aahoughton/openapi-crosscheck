@@ -70,8 +70,7 @@ export const querystringCases32: readonly Case[] = [
   {
     id: "querystring-form-urlencoded-object-canonical-oas32",
     title: "querystring, x-www-form-urlencoded, object, canonical",
-    inShort:
-      "The whole query string read as one form-urlencoded value. The positive control, and the media type the specification pairs with this location.",
+    inShort: "Reads the whole query string R=100&G=200 as one form-urlencoded object.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -83,7 +82,7 @@ export const querystringCases32: readonly Case[] = [
     expected: "accepted",
     expectedValues: { p: { R: "100", G: "200" } },
     rationale:
-      "The parameter's value is the entire query string, and `R=100&G=200` is that string read as the media type it declares. Both properties are present and both are strings, which is what the schema asks for.",
+      "The querystring parameter uses the entire query string as its value. Form-urlencoded parsing yields R and G as strings, satisfying the schema.",
     document: document(
       [
         {
@@ -128,7 +127,7 @@ export const querystringCases32: readonly Case[] = [
     expected: valid ? "accepted" : "rejected",
     expectedValues: valid ? { p: { R: "100", G: "200" } } : null,
     rationale:
-      "The location uses content to specify its representation. Section 4.12.4 requires URI percent-decoding and describes percent-encoding when a Parameter Object incorporates a media type that has no URI encoding of its own. JSON therefore receives the decoded query string. The valid representation supplies both required string properties; the malformed representation cannot be read as JSON. Both requests use exactly the same document.",
+      "Section 4.12.4 requires percent-decoding before JSON parsing. The valid JSON supplies both required string properties; the malformed JSON fails parsing. Both requests use the same document.",
     document: document(
       [
         {
@@ -165,8 +164,7 @@ export const querystringCases32: readonly Case[] = [
   {
     id: "querystring-form-urlencoded-object-wrong-type-oas32",
     title: "querystring, x-www-form-urlencoded, object, a property well-formed for another type",
-    inShort:
-      "The query string parses cleanly, then its R property is blue where the schema says integer. The case that tells a library which validated from one which never looked.",
+    inShort: "Sends a correctly formatted query string with R=blue, where R requires an integer.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -178,7 +176,7 @@ export const querystringCases32: readonly Case[] = [
     expected: "rejected",
     expectedValues: null,
     rationale:
-      "`R=blue&G=200` is a well-formed form-urlencoded value, so nothing about reading it fails and the whole question is the schema: R is declared integer and blue is not an integer under the ordinary numeric conversions. Acceptance shows that this invalid value passed; a rejection alone does not establish which check refused it.",
+      "Form-urlencoded parsing yields R=blue, which cannot represent the required integer. A rejection alone does not establish whether the library checked that property.",
     document: document(
       [
         {
@@ -198,7 +196,7 @@ export const querystringCases32: readonly Case[] = [
       schema: "object",
       probeAxis: "wrongTypeValue",
     },
-    varies: ["a property spells one type while being well-formed for another"],
+    varies: ["a property value has the wrong type"],
     holdsConstant: [
       "the query string is well-formed for the declared media type",
       "exactly one parameter is declared",
@@ -209,7 +207,7 @@ export const querystringCases32: readonly Case[] = [
     id: "querystring-absent-no-question-mark-oas32",
     title: "querystring, optional, request carrying no query string at all",
     inShort:
-      "A target with no `?`. Asks whether a querystring parameter is absent or present and empty when there is no query string to read.",
+      "Sends /t with no query string. The optional parameter allows omission; returned values show whether it is treated as empty.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -220,7 +218,7 @@ export const querystringCases32: readonly Case[] = [
     expected: "accepted",
     expectedValues: null,
     rationale:
-      "required is false and written out, so a request the parameter is not in is valid and a library rejecting it has inverted its required check. That much is settled. What is not is whether the parameter is absent here at all: with no `?` there is no query string to read, and reading the empty string instead deserializes to the empty object, which this schema admits. Both readings accept, so no values are expected and the value channel is where libraries part. The case below sends `/t?` and asks the same question of a query string that is present and empty; one case cannot show that a library collapsed the two.",
+      "The parameter is optional and its schema accepts an empty object. Both an absent-parameter reading and parsing an empty form-urlencoded string permit acceptance. Returned values can distinguish them.",
     answeredInValues: true,
     document: document(
       [
@@ -252,7 +250,7 @@ export const querystringCases32: readonly Case[] = [
     id: "querystring-empty-after-question-mark-oas32",
     title: "querystring, optional, request carrying an empty query string",
     inShort:
-      "A target ending in `?`. The same question as the case above, asked of a request that does carry a query string, which happens to be empty.",
+      "Sends /t? with an empty query string. The schema accepts an empty object; the companion /t omits the query string entirely.",
     tier: "conformance",
     oasVersion: "3.2",
     citations: [
@@ -263,7 +261,7 @@ export const querystringCases32: readonly Case[] = [
     expected: "accepted",
     expectedValues: null,
     rationale:
-      "The query string is present and empty, where the case above has none at all. An empty form-urlencoded value is a well-formed representation of the empty object and the schema requires no property, so acceptance is settled here for a second reason as well as the first: the parameter is optional either way. The value is what differs, and what differs between this case and the one above is what shows whether a library kept the distinction the wire carries.",
+      "An empty form-urlencoded query string represents an empty object, which the schema accepts. The parameter is also optional. Returned values can show whether this is distinguished from the companion with no query string.",
     answeredInValues: true,
     document: document(
       [
@@ -294,11 +292,12 @@ export const querystringCases32: readonly Case[] = [
   {
     id: "querystring-declared-with-schema-oas32",
     title: "querystring declared with schema instead of content",
-    inShort: "The document breaks the rule that this location must be declared with `content`.",
+    inShort:
+      "Declares a querystring parameter with schema, where OpenAPI requires content. Validator handling is unspecified.",
     tier: "divergence",
     oasVersion: "3.2",
     question:
-      "The document is invalid: the value is the whole query string, so `schema` has nothing to describe the serialization of, and the specification forbids the field here. What a validator does when handed it is not written down. Refusing the document and validating the request as though the parameter were declared some other way are each consistent with what is written.",
+      "Querystring parameters must use content to specify their representation. This document uses schema, and OpenAPI does not prescribe how validators handle that violation.",
     basis: null,
     answeredInValues: true,
     breaksDocumentRule: {
@@ -351,11 +350,12 @@ export const querystringCases32: readonly Case[] = [
   {
     id: "querystring-content-with-style-oas32",
     title: "querystring declared with content and style",
-    inShort: "The document adds a `style` the location may not carry.",
+    inShort:
+      "Adds style to a querystring parameter, where OpenAPI forbids it. Validator handling is unspecified.",
     tier: "divergence",
     oasVersion: "3.2",
     question:
-      "`style` is among the fields the specification names as not for use with this location, and it says nothing about what a validator does with a document carrying one. The parameter is otherwise the canonical one, so a library refusing this and accepting the canonical case refused the field rather than the location, and one that ignores the field answers the request as though it were not there.",
+      "The style field is forbidden for querystring parameters. OpenAPI does not prescribe how validators handle this invalid document. The companion without style uses the same request.",
     basis: null,
     answeredInValues: true,
     breaksDocumentRule: {
@@ -391,13 +391,14 @@ export const querystringCases32: readonly Case[] = [
   {
     id: "querystring-declared-twice-oas32",
     title: "two querystring parameters in one operation",
-    inShort: "The document declares the location twice, which it may appear at most once.",
+    inShort:
+      "Declares two querystring parameters, where OpenAPI allows at most one. Validator handling is unspecified.",
     tier: "divergence",
     oasVersion: "3.2",
     basis: null,
     answeredInValues: true,
     question:
-      "Both parameters claim the entire query string, and the specification says the location MUST NOT appear more than once without saying what a validator does when handed two. There is no reading under which each gets its own value, so a library that accepts has taken one, taken both, or read neither, and which it did shows in the values.",
+      "Both parameters claim the entire query string, violating the limit of one querystring parameter. OpenAPI does not prescribe how validators handle this invalid document.",
     breaksDocumentRule: {
       citation: PARAMETER_LOCATIONS_QUERYSTRING,
       detail: 'Two parameters declare `in: "querystring"` in the same operation.',
@@ -435,13 +436,13 @@ export const querystringCases32: readonly Case[] = [
     id: "querystring-beside-query-oas32",
     title: "querystring alongside an in: query parameter",
     inShort:
-      "One operation declaring both, which the specification forbids. The request carries a query string that answers either reading.",
+      "Declares query and querystring parameters together, which OpenAPI forbids. The request satisfies either declaration alone.",
     tier: "divergence",
     oasVersion: "3.2",
     basis: null,
     answeredInValues: true,
     question:
-      "Each location's own bullet forbids the combination, so the document breaks a rule written twice, and neither bullet says what a validator does with a document that breaks it. The two locations divide the same bytes twice, one as pairs and one whole, and the specification forbids the combination rather than saying how to reconcile them. `R=100&G=200` is a legitimate value for each of them read alone, so a library that accepts this document reports values for one, the other, or both, and that is the answer worth having.",
+      "OpenAPI forbids these locations in the same operation but does not prescribe validator handling. R=100&G=200 satisfies either declaration alone; returned values can show which was used.",
     breaksDocumentRule: {
       // The `query` bullet, which is the same prohibition written from the other
       // side. Either bullet is the rule this document breaks, and this case
