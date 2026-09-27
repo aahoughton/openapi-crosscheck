@@ -170,6 +170,20 @@ export interface StageReading {
    * Always empty for the stages where no such probe can be built.
    */
   readonly refutedBy: readonly string[];
+  /**
+   * Splitting controls, for a location the library disclaims, that accepted
+   * the invalid side with the harness's split supplied.
+   *
+   * The harness splits a disclaimed location and the container hands that
+   * split to the library, so every corpus cell in the location rests on the
+   * hand-off. A control accepting both sides has not shown the split reaching
+   * the library: either the container dropped it, or the library does not read
+   * that location at all. The first is an adapter bug and the second a
+   * finding, and from outside they look the same, so this is published for a
+   * reader and fails the gate only for the containers this repository builds.
+   * Always empty for every other stage.
+   */
+  readonly inputNotShownReaching: readonly string[];
 }
 
 /**
@@ -270,6 +284,16 @@ export function stageReading(
       )
       .map((entry) => entry.probeId),
     refutedBy: probes.filter((entry) => refutes(entry, probes)).map((entry) => entry.probeId),
+    inputNotShownReaching: probes
+      .filter(
+        (entry) =>
+          entry.stage === "splitting" &&
+          entry.supply === "withProbedLocation" &&
+          !entry.declared &&
+          entry.accepted.outcome === "accepted" &&
+          entry.rejected.outcome === "accepted",
+      )
+      .map((entry) => entry.probeId),
   };
 }
 

@@ -5,7 +5,9 @@ import { fileURLToPath } from "node:url";
 import { createAdapters, resolveAdapterDirs } from "../adapters/registry";
 import { cases, corpusDigest } from "../corpus/index";
 import { disposeAll, measure } from "../runner/run";
-import { renderCorpus, renderMeasurement } from "../report/render";
+import { STAGE_SLOTS, renderCorpus, renderMeasurement } from "../report/render";
+import { stageReading } from "../capability/evidence";
+import type { LibraryMeasurement } from "../types/measurement";
 
 /**
  * Ask every named container the corpus and write what they answered.
@@ -82,6 +84,9 @@ async function main(): Promise<void> {
       const path = join(outDir, "libraries", `${measurement.provenance.slug}.json`);
       writeFileSync(path, renderMeasurement(measurement), "utf8");
       process.stdout.write(`${measurement.library} ${measurement.libraryVersion} -> ${path}\n`);
+      for (const warning of gateWarnings(measurement)) {
+        process.stderr.write(`warning: ${measurement.library}: ${warning}\n`);
+      }
     }
 
     // Last, so its presence is what says the run finished.
@@ -93,6 +98,33 @@ async function main(): Promise<void> {
   } finally {
     await disposeAll(adapters);
   }
+}
+
+/**
+ * What the capability probes contradicted or could not show reaching the
+ * library.
+ *
+ * Written as it is published rather than refused. The container gate holds the
+ * containers in this repository to it, and a container measured from outside
+ * never meets that gate, so the person running it hears here what
+ * `capabilities.md` will say.
+ */
+function gateWarnings(measurement: LibraryMeasurement): readonly string[] {
+  const warnings: string[] = [];
+  for (const { stage, location } of STAGE_SLOTS) {
+    const reading = stageReading(measurement.capabilityEvidence, stage, location);
+    const slot = location === null ? stage : `${stage}:${location}`;
+    if (reading.refutedBy.length > 0) {
+      warnings.push(`${slot} declaration contradicted by ${reading.refutedBy.join(", ")}`);
+    }
+    if (reading.inputNotShownReaching.length > 0) {
+      warnings.push(
+        `${slot} split not shown reaching the library: ` +
+          `${reading.inputNotShownReaching.join(", ")} accepted both sides`,
+      );
+    }
+  }
+  return warnings;
 }
 
 /**

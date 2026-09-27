@@ -107,7 +107,10 @@ listed in `docs/adding-an-adapter.md`; each fires positively and none reads an
 absence. A declared stage no probe showed is published as an unbacked claim
 naming the probes that showed nothing, and a container that cannot compare the
 input it handed over is published as a gap in the measurement rather than a
-clean result.
+clean result. The containers written here also fail when a disclaimed split
+does not reach the library: a control that accepts both sides with the split
+supplied is published for everyone and gates only the containers whose authors
+can tell a dropped hand-off from a library that ignores the location.
 
 **Committed containers install from the public registry.** Every container
 under `adapters/`, and so everything under `report/`, installs the library

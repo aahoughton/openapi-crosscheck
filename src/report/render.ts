@@ -1640,6 +1640,15 @@ function renderCapabilities(
   lines.push("A stage a library disclaims that a probe exercised anyway is printed for a");
   lines.push("reader to judge rather than treated as a correction.");
   lines.push("");
+  lines.push("A disclaimed splitting location has one more reading. Every corpus cell there");
+  lines.push("rests on the harness's split reaching the library, so the control that supplies");
+  lines.push("it is read on its own: accepting both sides with the split in hand means the");
+  lines.push("split is not shown to reach the library. Either the container dropped it or the");
+  lines.push("library does not read that location, and from outside the two look the same, so");
+  lines.push("the table names the control and the cells in that location should be read with");
+  lines.push("it. It fails the gate only for the containers in this repository, whose authors");
+  lines.push("can tell the two apart.");
+  lines.push("");
   lines.push("One declaration is outside all of this and is published as what it is. The");
   lines.push("`query pair input` column in `fitness.md` states the encoding state a library's");
   lines.push("public pre-split query input accepts, and no probe reaches it: it is a fact");
@@ -1671,16 +1680,25 @@ function renderCapabilities(
       const reading = stageReading(adapter.capabilityEvidence, stage, location);
       const name = location === null ? stage : `${stage}: ${location}`;
       const declared = ownsStage(adapter.capabilities.stages, stage, location ?? "path");
-      const rests =
+      const shown =
         reading.demonstratedBy.length > 0
           ? listCases(reading.demonstratedBy)
           : declared
             ? "nothing this run could show, so the claim is unbacked here"
             : "nothing, which is what a disclaim predicts";
+      const rests =
+        reading.refutedBy.length > 0
+          ? `CONTRADICTED by ${listCases(reading.refutedBy)}; ${shown}`
+          : shown;
+      const unreached =
+        reading.inputNotShownReaching.length === 0
+          ? ""
+          : `; with the split supplied, ${listCases(reading.inputNotShownReaching)} ` +
+            "accepted both sides, so the harness's split is not shown to reach the library";
       const unshown =
         reading.notShownBy.length === 0
-          ? "none"
-          : `${listCases(reading.notShownBy)}${declared ? "" : " (consistent with the disclaim)"}`;
+          ? `none${unreached}`
+          : `${listCases(reading.notShownBy)}${declared ? "" : " (consistent with the disclaim)"}${unreached}`;
       lines.push(
         `| \`${adapter.library}\` | ${name} | ${owned(declared)} | ${rests} | ${unshown} |`,
       );

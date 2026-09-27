@@ -260,6 +260,24 @@ describe("declared capabilities are demonstrated, not asserted", () => {
       });
     });
 
+    it(`${adapter.library} hands every split it disclaims to its library`, async () => {
+      // A disclaimed location is split by the harness and handed over by the
+      // container, and every corpus cell there rests on that hand-off. A
+      // control accepting both sides with the split supplied has not shown it
+      // arriving. For a container in this repository that is read as the
+      // container's fault: if the library genuinely ignores the location, the
+      // container says so by answering `cannotRepresentCase` for cases declaring
+      // it, rather than publishing verdicts on input the library never read.
+      const evidence = await runCapabilityEvidence(adapter);
+      const unreached = STAGE_SLOTS.flatMap(
+        ({ stage, location }) => stageReading(evidence, stage, location).inputNotShownReaching,
+      );
+      expect({ library: adapter.library, unreached }).toEqual({
+        library: adapter.library,
+        unreached: [],
+      });
+    });
+
     it(`${adapter.library} declares a value channel if it writes one back`, async () => {
       // The third constructible contradiction, and the only one that reaches a
       // channel the published surface does not have. A library writing

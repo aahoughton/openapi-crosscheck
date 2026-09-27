@@ -55,6 +55,14 @@ show is published as an unbacked claim, with the probes that showed nothing
 named beside it. That is a finding about the measurement rather than a failure,
 and it is the row to look at when a probe appears mismatched to the library.
 
+For a splitting location you disclaim, the harness splits and your container
+hands the split over, so check that it arrives. The control probe that supplies
+the split must not accept both sides. If it does, `capabilities.md` says the
+split is not shown to reach your library, and the containers in this repository
+fail their gate on it. If your library genuinely has no input for that location,
+answer `cannotRepresentCase` for cases declaring it rather than a verdict
+reached without it.
+
 **One declaration is yours alone to get right.** If your library leaves query
 splitting to its caller, `/describe` must also answer
 `capabilities.queryPairInput` with the encoding state its public input accepts:
