@@ -1,4 +1,5 @@
 import type { Case, Citation, ConformanceCase } from "../types/case";
+import { tableCell } from "./markdown";
 import type { JsonValue } from "../types/json";
 import type { OasVersion, ParameterLocation } from "../types/openapi";
 import type { PipelineStage } from "../types/pipeline";
@@ -14,6 +15,7 @@ import { PARAMETER_NAME_RESERVED_HEADERS as RESERVED_HEADERS_OAS32 } from "../co
 import type { CoverageView } from "./view";
 import {
   coverage,
+  disagreements,
   matrixFileName,
   orderMeasurements,
   placeContentCases,
@@ -410,6 +412,10 @@ function locationGroup(location: string): string {
 }
 
 function verdictOf(result: AdapterResult | undefined): string {
+  return tableCell(verdictText(result));
+}
+
+function verdictText(result: AdapterResult | undefined): string {
   if (result === undefined) return "-";
   if (result.outcome === "unsupported") return `not asked (${result.reason})`;
   if (result.outcome === "adapterError") return "harness error";
@@ -418,6 +424,10 @@ function verdictOf(result: AdapterResult | undefined): string {
 }
 
 function valuesOf(result: AdapterResult | undefined): string {
+  return tableCell(valuesText(result));
+}
+
+function valuesText(result: AdapterResult | undefined): string {
   if (result === undefined || result.outcome === "unsupported") return "-";
   if (result.outcome === "adapterError" || result.outcome === "libraryError") return "-";
   const observation = result.deserialized;
@@ -1253,11 +1263,24 @@ function renderFitness(cases: readonly Case[], measurements: readonly LibraryMea
         lines.push("");
       }
       if (behind.unsettled.length > 0) {
+        // Disagreement is read off the measurements, never asserted: a
+        // divergence case is one the specification leaves open, and whether the
+        // measured libraries then answered it differently is a separate fact.
+        const split = new Set(
+          disagreements(
+            cases.filter((testCase) => behind.unsettled.includes(testCase.id)),
+            measurements.map((measurement) => ({ label: measurement.library, measurement })),
+          ).map((found) => found.caseId),
+        );
+        const disagreed = behind.unsettled.filter((id) => split.has(id));
         lines.push(
           `${String(behind.unsettled.length)} divergence case${behind.unsettled.length === 1 ? "" : "s"} ` +
             `also probe${behind.unsettled.length === 1 ? "s" : ""} it: ${listCases(behind.unsettled)}. ` +
-            "The specification does not settle those, and measured implementations disagree, " +
-            "so implementing this stage means choosing a side rather than following a rule.",
+            "The specification does not settle those, so implementing this stage means " +
+            "choosing a side rather than following a rule. " +
+            (disagreed.length === 0
+              ? "The measured libraries that answered did not split on them."
+              : `The measured libraries split on ${listCases(disagreed)}.`),
         );
         lines.push("");
       }
@@ -1510,9 +1533,10 @@ function renderCapabilities(
   lines.push("");
   lines.push("`reached a verdict` is the denominator: cases where the library decided, so");
   lines.push("there was a point at which values could have been reported. `observed`,");
-  lines.push("`unexposed` and `not reached` partition it. `never asked` and `raised` sit");
-  lines.push("outside it, because a case the library was never given and a case it threw on");
-  lines.push("never reached that point at all.");
+  lines.push("`unexposed` and `not reached` partition it. `never asked`, `raised` and");
+  lines.push("`harness error` sit outside it, because a case the library was never given, a");
+  lines.push("case it threw on and a case the harness broke on never reached that point at");
+  lines.push("all. `harness error` is this repository's failure and is never the library's.");
   lines.push("");
   lines.push(
     "`observed` counts an answer that named a parameter this container could not read, and",
@@ -1523,15 +1547,16 @@ function renderCapabilities(
   lines.push("it.");
   lines.push("");
   lines.push(
-    `| library | reached a verdict | observed | of those, one withheld | unexposed | not reached | never asked | raised |`,
+    `| library | reached a verdict | observed | of those, one withheld | unexposed | not reached | never asked | raised | harness error |`,
   );
-  lines.push("| --- | --- | --- | --- | --- | --- | --- | --- |");
+  lines.push("| --- | --- | --- | --- | --- | --- | --- | --- | --- |");
   for (const adapter of measurements) {
     const tally = exposureTally(adapter);
     lines.push(
       `| \`${adapter.library}\` | ${String(tally.decided)} | ${String(tally.observed)} | ` +
         `${String(tally.partlyObserved)} | ${String(tally.unexposed)} | ` +
-        `${String(tally.notReached)} | ${String(tally.neverAsked)} | ${String(tally.raised)} |`,
+        `${String(tally.notReached)} | ${String(tally.neverAsked)} | ${String(tally.raised)} | ` +
+        `${String(tally.harnessErrors)} |`,
     );
   }
   lines.push("");
@@ -1796,6 +1821,7 @@ interface ExposureTally {
   readonly notReached: number;
   readonly neverAsked: number;
   readonly raised: number;
+  readonly harnessErrors: number;
   readonly vantages: string;
 }
 
@@ -1817,6 +1843,7 @@ function exposureTally(
   let partlyObserved = 0;
   let neverAsked = 0;
   let raised = 0;
+  let harnessErrors = 0;
   const vantages = new Set<ValueVantage>();
 
   for (const { result } of measurement.answers) {
@@ -1824,8 +1851,12 @@ function exposureTally(
       if (verdict === undefined) neverAsked += 1;
       continue;
     }
-    if (result.outcome === "libraryError" || result.outcome === "adapterError") {
+    if (result.outcome === "libraryError") {
       if (verdict === undefined) raised += 1;
+      continue;
+    }
+    if (result.outcome === "adapterError") {
+      if (verdict === undefined) harnessErrors += 1;
       continue;
     }
     if (verdict !== undefined && result.outcome !== verdict) continue;
@@ -1846,6 +1877,7 @@ function exposureTally(
     notReached,
     neverAsked,
     raised,
+    harnessErrors,
     vantages: vantages.size === 0 ? "none" : [...vantages].map(vantageOf).join("; "),
   };
 }

@@ -1,4 +1,5 @@
 import type { Case, ConformanceCase } from "../types/case";
+import { tableCell } from "./markdown";
 import { OAS_VERSIONS } from "../types/openapi";
 import type { AdapterResult } from "../types/result";
 import type { LibraryMeasurement } from "../types/measurement";
@@ -227,6 +228,10 @@ function describeOutcome(outcome: ConformanceOutcome): string {
 }
 
 function verdictOf(result: AdapterResult | undefined): string {
+  return tableCell(verdictText(result));
+}
+
+function verdictText(result: AdapterResult | undefined): string {
   if (result === undefined) return "-";
   if (result.outcome === "unsupported") return `not asked (${result.reason})`;
   if (result.outcome === "adapterError") return "harness error";
@@ -235,6 +240,10 @@ function verdictOf(result: AdapterResult | undefined): string {
 }
 
 function valuesOf(result: AdapterResult | undefined): string {
+  return tableCell(valuesText(result));
+}
+
+function valuesText(result: AdapterResult | undefined): string {
   if (result === undefined) return "-";
   if (result.outcome === "unsupported") return "-";
   if (result.outcome === "adapterError" || result.outcome === "libraryError") return "-";

@@ -1,4 +1,5 @@
 import type { AdapterResult } from "../types/result";
+import { tableCell } from "./markdown";
 import type { LibraryMeasurement } from "../types/measurement";
 
 /**
@@ -234,6 +235,6 @@ export function renderComparison(
 
 /** Values can carry pipes and newlines, and a table cell cannot. */
 function cell(value: string): string {
-  const flat = value.replace(/\s+/g, " ").replace(/\|/g, "\\|");
+  const flat = tableCell(value);
   return flat.length > 90 ? `${flat.slice(0, 89)}...` : flat;
 }

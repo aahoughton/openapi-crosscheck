@@ -811,3 +811,94 @@ describe("a parameter the container could not read", () => {
     expect(matrix).toContain("this library's request shape has no slot for it");
   });
 });
+
+/**
+ * Every table row has as many cells as its header.
+ *
+ * Checked on output rather than by comparing bytes against a committed file,
+ * because a byte comparison certifies whatever was committed, including a row
+ * a stray `|` already split.
+ */
+function misalignedRows(markdown: string): string[] {
+  const cells = (line: string): number => line.split(/(?<!\\)\|/).length;
+  const bad: string[] = [];
+  let header: number | null = null;
+  for (const line of markdown.split("\n")) {
+    if (!line.startsWith("|")) {
+      header = null;
+      continue;
+    }
+    if (header === null) header = cells(line);
+    else if (cells(line) !== header) bad.push(line);
+  }
+  return bad;
+}
+
+describe("rendered tables stay rectangular whatever a library reports", () => {
+  it("escapes a pipe in a reported value", () => {
+    const testCase = divergenceCase("query-pipe-delimited-object-canonical-oas31");
+    const artifacts = renderMarkdown(
+      [testCase],
+      [measurement("lib", "1.0.0", { [testCase.id]: accepted({ p: "R|100|G|200" }) })],
+    );
+    for (const [name, markdown] of Object.entries(artifacts)) {
+      expect({ name, bad: misalignedRows(markdown) }).toEqual({ name, bad: [] });
+    }
+  });
+});
+
+describe("the report never charges the library for the harness", () => {
+  it("counts a harness error apart from the library raising", () => {
+    const harnessError: AdapterResult = {
+      library: "lib",
+      libraryVersion: "1.0.0",
+      configurationId: "fixture",
+      preparse: null,
+      outcome: "adapterError",
+      detail: "container unreachable",
+      raw: null,
+    };
+    const artifacts = renderMarkdown(cases, [
+      measurement("lib", "1.0.0", { a: harnessError, b: raised() }),
+    ]);
+    const row = (artifacts["capabilities.md"] ?? "")
+      .split("\n")
+      .find((line) => line.startsWith("| `lib` | 0 |"));
+    // decided, observed, withheld, unexposed, not reached, never asked, raised, harness error
+    expect(row).toBe("| `lib` | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 |");
+  });
+});
+
+describe("fitness claims a split only where the measurements show one", () => {
+  it("says the libraries did not split when they answered alike", () => {
+    const testCase: DivergenceCase = {
+      ...divergenceCase("cookie-form-object-explode-oas31"),
+      dimensions: {
+        location: "cookie",
+        schema: "object",
+        probeAxis: "canonical",
+        declaration: "schema",
+        style: "form",
+        explode: true,
+        declaredStyle: "form",
+        declaredExplode: true,
+      },
+    };
+    const disclaiming = (library: string): LibraryMeasurement => {
+      const base = measurement(library, "1.0.0", { [testCase.id]: rejected() });
+      return {
+        ...base,
+        capabilities: {
+          ...base.capabilities,
+          // A canonical case probes style deserialization, so disclaiming it is
+          // what puts the case under this library's delegated stages.
+          stages: { ...base.capabilities.stages, styleDeserialization: false },
+        },
+      };
+    };
+    const fitness =
+      renderMarkdown([testCase], [disclaiming("one"), disclaiming("two")])["fitness.md"] ?? "";
+    expect(fitness).not.toContain("measured implementations disagree");
+    expect(fitness).toContain("did not split on them");
+  });
+});
