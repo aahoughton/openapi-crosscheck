@@ -41,8 +41,11 @@ parameters as pairs or a mapping. Those values are strings, so a pair the
 harness supplies with no `=` at all is answered as a case this shape cannot
 represent, rather than handed over as an empty value.
 
-Header splitting is claimed because the adapter preserves the header names it
-received, and the library matches them to declared parameters.
+Header splitting is claimed because the adapter hands every received header
+line to the library in werkzeug's `Headers`, the case-insensitive mapping the
+library's request type defaults to, and the library looks each declared
+parameter up in it. Repeated lines are combined with a comma first, as an HTTP
+server would combine them.
 
 Cookie splitting is caller-owned because the Request protocol supplies cookies
 as a mapping. The harness's cookie pairs go in as a `MultiDict`, which is the

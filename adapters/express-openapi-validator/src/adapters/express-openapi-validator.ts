@@ -11,6 +11,7 @@ import type {
 import type { AdapterResult, DeserializedValues, Observation, ValueVantage } from "../types/result";
 import type { JsonValue } from "../types/json";
 import type { WireRequest } from "../types/wire";
+import type { PreparsedRequest } from "../wire/preparse";
 import { toJsonValue } from "../runner/jsonSafe";
 import { sendRaw } from "../wire/http";
 import { declaredParameters, templatesOf, toColonTemplate } from "../wire/pathTemplate";
@@ -41,6 +42,10 @@ const configuration: Configuration = {
     "express app, exactly as the published usage shows, with a handler that echoes " +
     "the request it received and an error handler that reports the thrown status " +
     "alongside the same request fields. " +
+    "Cookies reach it the way the published usage expects, as req.cookies: a " +
+    "middleware ahead of the validator installs the harness's cookie pairs there, " +
+    "in the place a cookie parser would. A repeated cookie name or a crumb with no " +
+    "`=` has no spelling in that record and is answered as a case it cannot carry. " +
     "Reading its values: on an accepted request they are what the handler was " +
     "handed. On a rejected one they are what the middleware had coerced onto the " +
     "request before it stopped, so they are partial and stop at the first failure.",
@@ -54,6 +59,11 @@ interface Mounted {
 
 export function createAdapter(): LibraryAdapter {
   const mounted = new Map<string, Promise<Mounted>>();
+  // The cookies the next request should carry as req.cookies. Runs are
+  // serialised through `queue`, so exactly one request is in flight when the
+  // middleware reads this.
+  let pendingCookies: Record<string, string> | undefined;
+  let queue: Promise<unknown> = Promise.resolve();
 
   async function mount(testCase: AdapterCase): Promise<Mounted> {
     const key = JSON.stringify(testCase.document);
@@ -67,6 +77,14 @@ export function createAdapter(): LibraryAdapter {
 
   async function start(testCase: AdapterCase): Promise<Mounted> {
     const app = express();
+    app.use((req, _res, next) => {
+      if (pendingCookies !== undefined) {
+        (req as express.Request & { cookies?: Record<string, string> }).cookies = {
+          ...pendingCookies,
+        };
+      }
+      next();
+    });
     app.use(
       OpenApiValidator.middleware({
         apiSpec: testCase.document as never,
@@ -75,7 +93,12 @@ export function createAdapter(): LibraryAdapter {
     );
     for (const template of templatesOf(testCase.document)) {
       app.all(toColonTemplate(template), (req, res) => {
-        res.status(200).json({ params: req.params, query: req.query, headers: req.headers });
+        res.status(200).json({
+          params: req.params,
+          query: req.query,
+          headers: req.headers,
+          cookies: cookiesOf(req),
+        });
       });
     }
     app.use(
@@ -91,6 +114,7 @@ export function createAdapter(): LibraryAdapter {
           params: req.params,
           query: req.query,
           headers: req.headers,
+          cookies: cookiesOf(req),
         });
       },
     );
@@ -110,73 +134,14 @@ export function createAdapter(): LibraryAdapter {
     capabilities,
     configuration,
 
-    async run(testCase: AdapterCase, request: WireRequest): Promise<AdapterResult> {
-      const base = {
-        library: LIBRARY,
-        libraryVersion: readVersion(LIBRARY),
-        configurationId: configuration.id,
-        preparse: null,
-      } as const;
-
-      let target: Mounted;
-      try {
-        target = await mount(testCase);
-      } catch (error) {
-        return {
-          ...base,
-          outcome: "unsupported",
-          reason: "libraryInitUnsupported",
-          detail: error instanceof Error ? error.message : String(error),
-        };
-      }
-
-      const response = await sendRaw(target.port, request);
-      const body = parseBody(response.body);
-
-      if (response.status >= 200 && response.status < 300) {
-        return {
-          ...base,
-          outcome: "accepted",
-          deserialized: observeValues(testCase, body, "handedToHandler"),
-          inputMutation: {
-            kind: "notCompared",
-            detail:
-              "the library runs as middleware inside an express app this container drives " +
-              "over a socket, so the request object it could write onto is one that server " +
-              "built and this container never holds",
-          },
-          raw: toJsonValue({ status: response.status, body }),
-        };
-      }
-      if (response.status >= 400 && response.status < 500) {
-        return {
-          ...base,
-          outcome: "rejected",
-          deserialized: observeValues(testCase, body, "parsedBeforeValidation"),
-          inputMutation: {
-            kind: "notCompared",
-            detail:
-              "the library runs as middleware inside an express app this container drives " +
-              "over a socket, so the request object it could write onto is one that server " +
-              "built and this container never holds",
-          },
-          raw: toJsonValue({ status: response.status, body }),
-        };
-      }
-      if (response.status >= 500) {
-        return {
-          ...base,
-          outcome: "libraryError",
-          detail: `the middleware raised; the app answered ${response.status}`,
-          raw: toJsonValue({ status: response.status, body }),
-        };
-      }
-      return {
-        ...base,
-        outcome: "adapterError",
-        detail: `unreadable status ${response.status}`,
-        raw: toJsonValue({ status: response.status, body }),
-      };
+    run(
+      testCase: AdapterCase,
+      request: WireRequest,
+      preparsed: PreparsedRequest | null,
+    ): Promise<AdapterResult> {
+      const next = queue.then(() => runOne(testCase, request, preparsed));
+      queue = next.catch(() => undefined);
+      return next;
     },
 
     async dispose(): Promise<void> {
@@ -187,6 +152,96 @@ export function createAdapter(): LibraryAdapter {
       mounted.clear();
     },
   };
+
+  async function runOne(
+    testCase: AdapterCase,
+    request: WireRequest,
+    preparsed: PreparsedRequest | null,
+  ): Promise<AdapterResult> {
+    const base = {
+      library: LIBRARY,
+      libraryVersion: readVersion(LIBRARY),
+      configurationId: configuration.id,
+      preparse: null,
+    } as const;
+
+    let target: Mounted;
+    try {
+      target = await mount(testCase);
+    } catch (error) {
+      return {
+        ...base,
+        outcome: "unsupported",
+        reason: "libraryInitUnsupported",
+        detail: error instanceof Error ? error.message : String(error),
+      };
+    }
+
+    const cookies = cookieRecord(preparsed?.cookies ?? null);
+    if (cookies === "unrepresentable") {
+      return {
+        ...base,
+        outcome: "unsupported",
+        reason: "cannotRepresentCase",
+        detail:
+          "a cookie name repeated or a crumb carried no `=`, and req.cookies holds one " +
+          "string per name, so the request cannot be handed over as it was sent",
+      };
+    }
+    pendingCookies = cookies;
+    let response;
+    try {
+      response = await sendRaw(target.port, request);
+    } finally {
+      pendingCookies = undefined;
+    }
+    const body = parseBody(response.body);
+
+    if (response.status >= 200 && response.status < 300) {
+      return {
+        ...base,
+        outcome: "accepted",
+        deserialized: observeValues(testCase, body, "handedToHandler"),
+        inputMutation: {
+          kind: "notCompared",
+          detail:
+            "the library runs as middleware inside an express app this container drives " +
+            "over a socket, so the request object it could write onto is one that server " +
+            "built and this container never holds",
+        },
+        raw: toJsonValue({ status: response.status, body }),
+      };
+    }
+    if (response.status >= 400 && response.status < 500) {
+      return {
+        ...base,
+        outcome: "rejected",
+        deserialized: observeValues(testCase, body, "parsedBeforeValidation"),
+        inputMutation: {
+          kind: "notCompared",
+          detail:
+            "the library runs as middleware inside an express app this container drives " +
+            "over a socket, so the request object it could write onto is one that server " +
+            "built and this container never holds",
+        },
+        raw: toJsonValue({ status: response.status, body }),
+      };
+    }
+    if (response.status >= 500) {
+      return {
+        ...base,
+        outcome: "libraryError",
+        detail: `the middleware raised; the app answered ${response.status}`,
+        raw: toJsonValue({ status: response.status, body }),
+      };
+    }
+    return {
+      ...base,
+      outcome: "adapterError",
+      detail: `unreadable status ${response.status}`,
+      raw: toJsonValue({ status: response.status, body }),
+    };
+  }
 }
 
 function parseBody(body: string): unknown {
@@ -202,24 +257,16 @@ function observeValues(
   body: unknown,
   vantage: ValueVantage,
 ): Observation<DeserializedValues> {
-  if (declaredParameters(testCase.document).some((parameter) => parameter.in === "cookie")) {
-    return {
-      kind: "unexposed",
-      reason:
-        "cookie values are not exposed in this configuration; mounting a cookie parser " +
-        "would make the harness perform the split under test",
-    };
-  }
-  // The echo carries params, query and headers. A parameter declared anywhere
+  // The echo carries params, query, headers and cookies. A parameter declared anywhere
   // else has no slot in it, and leaving it out of `value` would say this library
   // reported nothing for it. Reported per parameter, so a case declaring one
   // echoed parameter and one unechoed one still publishes the value for the
   // first.
   const unreadable: Record<string, string> = {};
   for (const parameter of declaredParameters(testCase.document)) {
-    if (parameter.in === "path" || parameter.in === "query" || parameter.in === "header") continue;
+    if (ECHOED.has(parameter.in)) continue;
     unreadable[parameter.name] =
-      `the echoed request carries params, query and headers, so a parameter declared in ` +
+      `the echoed request carries params, query, headers and cookies, so a parameter declared in ` +
       `${parameter.in} has no slot to be read from`;
   }
   return observed(vantage, echoedValues(testCase, body), unreadable);
@@ -233,27 +280,47 @@ function echoedValues(testCase: AdapterCase, body: unknown): DeserializedValues 
     params?: Record<string, JsonValue>;
     query?: Record<string, JsonValue>;
     headers?: Record<string, JsonValue>;
+    cookies?: Record<string, JsonValue>;
   };
 
   for (const parameter of declaredParameters(testCase.document)) {
-    // Only the three locations the echo carries. The chain used to end at
-    // `headers`, so a location with no bag of its own was looked up there by
-    // name: a `querystring` parameter, which a 3.2 document can declare, would
-    // have read whatever header shared its name and had it published as that
-    // parameter's value. An echo has nothing to say about a location express
-    // never populated, and saying nothing is the answer.
-    if (parameter.in !== "path" && parameter.in !== "query" && parameter.in !== "header") {
-      continue;
-    }
+    // Only the locations the echo carries. A location express never populated
+    // has nothing to say about the parameter.
+    if (!ECHOED.has(parameter.in)) continue;
     const source =
       parameter.in === "path"
         ? echoed.params
         : parameter.in === "query"
           ? echoed.query
-          : echoed.headers;
+          : parameter.in === "cookie"
+            ? echoed.cookies
+            : echoed.headers;
     const key = parameter.in === "header" ? parameter.name.toLowerCase() : parameter.name;
     const value = source?.[key];
     if (value !== undefined) values[parameter.name] = value;
   }
   return values;
+}
+
+const ECHOED: ReadonlySet<string> = new Set(["cookie", "header", "path", "query"]);
+
+function cookiesOf(req: express.Request): unknown {
+  return (req as express.Request & { cookies?: unknown }).cookies ?? null;
+}
+
+/**
+ * The harness's cookie pairs as the record req.cookies holds, `undefined` when
+ * the harness supplied none, or "unrepresentable" when a pair has no spelling
+ * in a record of one string per name.
+ */
+function cookieRecord(
+  cookies: ReadonlyArray<readonly [name: string, value: string | null]> | null,
+): Record<string, string> | undefined | "unrepresentable" {
+  if (cookies === null) return undefined;
+  const record = new Map<string, string>();
+  for (const [name, value] of cookies) {
+    if (value === null || record.has(name)) return "unrepresentable";
+    record.set(name, value);
+  }
+  return Object.fromEntries(record);
 }

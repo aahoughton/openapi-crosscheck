@@ -39,9 +39,8 @@ an empty value.
 
 Cookie splitting is caller-owned for a stronger reason: the call takes
 `{ params, query, headers }` and there is no cookie position in it, so a cookie
-value is never put to the library at all. Nothing here relies on that being
-noticed, because every stage a cookie case travels through is caller-owned too
-and the runner asks none of them.
+value is never put to the library at all. A case declaring a cookie parameter
+answers `cannotRepresentCase` rather than a verdict reached without it.
 
 Style and explode are caller-owned because the library expects values in the
 shape the schema should validate. A comma-joined array value is rejected as a
@@ -67,5 +66,4 @@ positions the library wrote are reported, because echoing untouched input would
 report this adapter's own preparse as library output. An input the library left
 unchanged reports `unexposed`.
 
-Cookies are never handed to the library, so a cookie position has nothing for it
-to write onto and is never read from this channel.
+Cookies are never handed to the library, so no cookie case reaches this channel.

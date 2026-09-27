@@ -48,7 +48,9 @@ const configuration: Configuration = {
     "raw names into the object shape validateRequest accepts. That shape holds a " +
     "string per name, so a query pair that arrived with no `=` is answered as a case " +
     "this shape cannot represent, rather than as an empty value. It is told which " +
-    "operation applies, because it has no routing of its own. " +
+    "operation applies, because it has no routing of its own. A case declaring a " +
+    "cookie parameter is answered as one this shape cannot represent, because " +
+    "validateRequest has no cookie input. " +
     "Values are read from a write-back channel: validateRequest returns errors only, " +
     "and its schema engine writes coerced values and schema defaults onto the params, " +
     "query and headers object it is handed. This adapter reports the declared " +
@@ -108,6 +110,20 @@ export function createAdapter(): LibraryAdapter {
           outcome: "adapterError",
           detail: "declares preparsed delivery but was given no split",
           raw: null,
+        };
+      }
+
+      // validateRequest takes params, query and headers and has no cookie
+      // input, so a declared cookie parameter would be checked against nothing
+      // and the verdict would be on a request without it.
+      if ((parameters ?? []).some((parameter) => parameter.in === "cookie")) {
+        return {
+          ...base,
+          outcome: "unsupported",
+          reason: "cannotRepresentCase",
+          detail:
+            "the case declares a cookie parameter, and validateRequest accepts params, " +
+            "query and headers with no cookie input to carry it",
         };
       }
 
@@ -183,9 +199,6 @@ function deserializedObservation(
   const value: Record<string, JsonValue> = {};
   const nativeTypes: Record<string, string> = {};
   for (const parameter of declared) {
-    // Cookies are never handed to the library, so there is nothing there for
-    // it to write onto.
-    if (parameter.in === "cookie") continue;
     const was = atPosition(before, parameter);
     const now = atPosition(after, parameter);
     if (deepEqual(was, now)) continue;
@@ -219,10 +232,9 @@ function atPosition(request: LibraryRequest, parameter: ParameterObject): unknow
   if (parameter.in === "path") return record(request.params, parameter.name);
   if (parameter.in === "query") return record(request.query, parameter.name);
   // A location with no slot on this library's request shape has no value to
-  // read. Falling through to the headers slot, which is what this did, looked a
-  // querystring parameter up among the headers and would have reported a header
-  // of the same name as that parameter's value. Cookies already take this exit:
-  // the caller skips them before asking.
+  // read. Falling through to the headers slot would look a querystring
+  // parameter up among the headers and report a header of the same name as its
+  // value.
   if (parameter.in !== "header") return undefined;
   // Preparse folds header names to lower case, so the declared name is folded
   // the same way before lookup.

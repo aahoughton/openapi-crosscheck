@@ -34,9 +34,11 @@ selects the operation from the incoming HTTP request.
 Path, query and header splitting are claimed because the adapter sends the raw
 HTTP request to Express and the middleware validates what the application sees.
 
-Cookie splitting is caller-owned in this configuration because Express does not
-populate `req.cookies` without a cookie parser. Adding such a parser would make
-the surrounding app split cookies before the validator sees them.
+Cookie splitting is caller-owned because the middleware reads `req.cookies`,
+which Express leaves empty until something ahead of the validator fills it. A
+middleware in this container installs the harness's cookie pairs there, in the
+place a cookie parser would. A repeated cookie name or a crumb with no `=` has
+no spelling in that record, so those cases answer `cannotRepresentCase`.
 
 Style and explode are claimed because the middleware receives raw request
 locations and writes parsed values onto the request object.
@@ -57,7 +59,7 @@ Accepted results report values with the `handedToHandler` vantage. Rejected
 results report values with the `parsedBeforeValidation` vantage, and those
 values can be partial.
 
-The echoed request carries params, query and headers, so a parameter declared
+The echoed request carries params, query, headers and cookies, so a parameter declared
 anywhere else has no slot in it. Those are reported by name in `unreadable`,
 with the reason, rather than left out of the values, which would say the library
 reported nothing for the parameter.

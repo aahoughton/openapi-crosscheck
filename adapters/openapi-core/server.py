@@ -11,7 +11,7 @@ from typing import Any
 
 from openapi_core import OpenAPI
 from openapi_core.datatypes import RequestParameters
-from werkzeug.datastructures import ImmutableMultiDict
+from werkzeug.datastructures import Headers, ImmutableMultiDict
 
 PROTOCOL_VERSION = 5
 LIBRARY = "openapi-core"
@@ -66,7 +66,9 @@ CONFIGURATION = {
         "left in the path, so the split into decoded pairs is the caller's. The harness "
         "supplies raw pairs only where their encoding state is equivalent and withholds "
         "cases whose query decoding would change them. Style and explode are still applied "
-        "by the library to those pairs. Cookie pairs go in as the MultiDict this library "
+        "by the library to those pairs. Header lines go in as werkzeug's case-insensitive "
+        "Headers, the mapping the library's request type defaults to, with repeated "
+        "lines combined by a comma. Cookie pairs go in as the MultiDict this library "
         "documents for "
         "that field, so a repeated cookie name reaches it rather than being collapsed "
         "on the way in. Every value in both mappings is a string, so a query pair or a "
@@ -198,9 +200,15 @@ def build_request(message: Mapping[str, Any]) -> ProtocolRequest:
         )
     query_pairs: list[tuple[str, str]] = [(str(pair[0]), str(pair[1])) for pair in raw_query]
 
-    headers: dict[str, str] = {}
+    # werkzeug's Headers, the case-insensitive mapping RequestParameters
+    # defaults to and the library's own integrations build. A plain dict makes
+    # the declared-name lookup case-sensitive, which the library never does.
+    # Repeated field lines are combined with a comma, as an HTTP server would
+    # hand them to the application.
+    headers = Headers()
     for name, value in wire.get("headers", []):
-        headers[name] = value if name not in headers else f"{headers[name]},{value}"
+        existing = headers.get(name)
+        headers.set(name, value if existing is None else f"{existing},{value}")
 
     # A repeated cookie name survives the trip. The library documents this
     # field as a MultiDict and reads repeats out of one, so collapsing the
