@@ -136,6 +136,84 @@ describe("a container that misbehaves is attributed to the harness, never the li
   });
 });
 
+describe("a /run answer outside the protocol is refused rather than published", () => {
+  async function answerOf(body: unknown): Promise<ReturnType<typeof adapter.run>> {
+    const mock = await startMockContainer({ run: () => body as ReturnType<typeof accepted> });
+    const connected = await connect(mock.transport, inProcessProvenance("malformed"));
+    try {
+      return await connected.run(
+        document,
+        request,
+        preparse(document.document, request, delegatedSplits(connected.capabilities)),
+      );
+    } finally {
+      await mock.close();
+    }
+  }
+
+  it("refuses an outcome the protocol does not define", async () => {
+    const result = await answerOf({ ...accepted(), outcome: "accept" });
+    expect(result.outcome).toBe("adapterError");
+    if (result.outcome === "adapterError") expect(result.detail).toContain("outcome");
+  });
+
+  it("refuses a reason only the runner may issue", async () => {
+    // Published as-is, a container's `stageNotOwned` would read as the harness
+    // having withheld the case.
+    const result = await answerOf({
+      protocol: PROTOCOL_VERSION,
+      outcome: "unsupported",
+      reason: "stageNotOwned",
+      detail: "not mine",
+    });
+    expect(result.outcome).toBe("adapterError");
+    if (result.outcome === "adapterError") expect(result.detail).toContain("stageNotOwned");
+  });
+
+  it("refuses a verdict with no inputMutation", async () => {
+    const result = await answerOf({
+      protocol: PROTOCOL_VERSION,
+      outcome: "accepted",
+      deserialized: { kind: "unexposed", reason: "none" },
+      raw: null,
+    });
+    expect(result.outcome).toBe("adapterError");
+    if (result.outcome === "adapterError") expect(result.detail).toContain("inputMutation");
+  });
+
+  it("refuses a parameter reported both read and unreadable", async () => {
+    const result = await answerOf({
+      ...accepted(),
+      deserialized: {
+        kind: "observed",
+        vantage: "validatedOnly",
+        value: { p: "blue" },
+        nativeTypes: { p: "string" },
+        unreadable: { p: "no slot" },
+      },
+    });
+    expect(result.outcome).toBe("adapterError");
+    if (result.outcome === "adapterError") expect(result.detail).toContain("unreadable");
+  });
+
+  it("publishes a well-formed observation with its unreadable names", async () => {
+    const result = await answerOf({
+      ...accepted(),
+      deserialized: {
+        kind: "observed",
+        vantage: "validatedOnly",
+        value: { p: "blue" },
+        nativeTypes: { p: "string" },
+        unreadable: { q: "no slot" },
+      },
+    });
+    expect(result.outcome).toBe("accepted");
+    if (result.outcome === "accepted" && result.deserialized.kind === "observed") {
+      expect(result.deserialized.unreadable).toEqual({ q: "no slot" });
+    }
+  });
+});
+
 describe("a container speaking another protocol version is refused at connect", () => {
   it("does not connect, rather than guessing at compatibility", async () => {
     // The version is the only thing standing between a field changing meaning
