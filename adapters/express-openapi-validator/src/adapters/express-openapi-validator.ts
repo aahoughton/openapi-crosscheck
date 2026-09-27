@@ -212,6 +212,18 @@ export function createAdapter(): LibraryAdapter {
         raw: toJsonValue({ status: response.status, body }),
       };
     }
+    // A 4xx is the library's verdict only when it carries the library's error
+    // list. Node's parser, the router's own parameter decoding and Express's
+    // fallthrough 404 answer 4xx too, and none of those is this library
+    // deciding anything.
+    if (response.status >= 400 && response.status < 500 && !carriesLibraryErrors(body)) {
+      return {
+        ...base,
+        outcome: "adapterError",
+        detail: `the app answered ${response.status} without the library's error list`,
+        raw: toJsonValue({ status: response.status, body }),
+      };
+    }
     if (response.status >= 400 && response.status < 500) {
       return {
         ...base,
@@ -323,4 +335,13 @@ function cookieRecord(
     record.set(name, value);
   }
   return Object.fromEntries(record);
+}
+
+/** Whether the error handler echoed an error list the middleware raised. */
+function carriesLibraryErrors(body: unknown): boolean {
+  return (
+    typeof body === "object" &&
+    body !== null &&
+    Array.isArray((body as { errors?: unknown }).errors)
+  );
 }

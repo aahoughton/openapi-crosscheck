@@ -65,7 +65,7 @@ var declaredCapabilities = capabilities{
 		ValueExposure:          true,
 	},
 	QueryPairInput: "notUsed",
-	OasVersions: map[string]bool{"3.0": true, "3.1": true, "3.2": true},
+	OasVersions:    map[string]bool{"3.0": true, "3.1": true, "3.2": true},
 }
 
 var declaredConfiguration = configuration{
@@ -162,7 +162,11 @@ func unexposed() map[string]any {
 
 func runCase(message runRequest) map[string]any {
 	loader := openapi3.NewLoader()
-	doc, err := loader.LoadFromData(message.Document)
+	var doc *openapi3.T
+	var err error
+	if raised := guarded(func() { doc, err = loader.LoadFromData(message.Document) }); raised != nil {
+		return libraryError(fmt.Sprintf("load: %v", raised))
+	}
 	if err != nil {
 		return map[string]any{
 			"protocol": protocolVersion,
@@ -171,7 +175,10 @@ func runCase(message runRequest) map[string]any {
 			"detail":   fmt.Sprintf("load: %v", err),
 		}
 	}
-	if err := doc.Validate(loader.Context); err != nil {
+	if raised := guarded(func() { err = doc.Validate(loader.Context) }); raised != nil {
+		return libraryError(fmt.Sprintf("validate: %v", raised))
+	}
+	if err != nil {
 		return map[string]any{
 			"protocol": protocolVersion,
 			"outcome":  "unsupported",
@@ -180,7 +187,10 @@ func runCase(message runRequest) map[string]any {
 		}
 	}
 
-	router, err := gorillamux.NewRouter(doc)
+	var router routers.Router
+	if raised := guarded(func() { router, err = gorillamux.NewRouter(doc) }); raised != nil {
+		return libraryError(fmt.Sprintf("router: %v", raised))
+	}
 	if err != nil {
 		return map[string]any{
 			"protocol": protocolVersion,
@@ -209,7 +219,11 @@ func runCase(message runRequest) map[string]any {
 		}
 	}
 
-	route, pathParams, err := router.FindRoute(request)
+	var route *routers.Route
+	var pathParams map[string]string
+	if raised := guarded(func() { route, pathParams, err = router.FindRoute(request) }); raised != nil {
+		return libraryError(fmt.Sprintf("routing: %v", raised))
+	}
 	if err != nil {
 		return map[string]any{
 			"protocol":     protocolVersion,
@@ -232,7 +246,12 @@ func runCase(message runRequest) map[string]any {
 	declared := declaredParameters(route)
 	before := requestSnapshot(request, pathParams)
 	beforeValues := parameterValues(request, pathParams, declared)
-	validationErr := openapi3filter.ValidateRequest(context.Background(), input)
+	var validationErr error
+	if raised := guarded(func() {
+		validationErr = openapi3filter.ValidateRequest(context.Background(), input)
+	}); raised != nil {
+		return libraryError(fmt.Sprintf("%v", raised))
+	}
 	mutation := inputMutation(before, requestSnapshot(request, pathParams), scope)
 	afterValues := parameterValues(request, pathParams, declared)
 
@@ -471,16 +490,25 @@ func run(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, answer(message))
 }
 
-// answer runs one case, turning a panic out of the library into a libraryError.
+// guarded runs one library call and returns what it panicked with, or nil.
 //
-// Go reports a validation failure by returning an error, so the raise this
-// recovers is a panic and nothing else. Without it a panic unwinds past the
-// handler, the harness sees a dropped connection, and the cell blames the
-// harness for something the library did.
+// Go reports a validation failure by returning an error, so a library's raise
+// is a panic. Recovering around each library call, and only there, keeps that
+// raise attributed to the library while a panic in this adapter's own code
+// stays the adapter's.
+func guarded(call func()) (raised any) {
+	defer func() { raised = recover() }()
+	call()
+	return nil
+}
+
+// answer runs one case. A panic reaching here came from this adapter's own
+// code, since every library call is guarded, so it is reported as ours rather
+// than unwinding past the handler as a dropped connection.
 func answer(message runRequest) (result map[string]any) {
 	defer func() {
 		if raised := recover(); raised != nil {
-			result = libraryError(fmt.Sprintf("%v", raised))
+			result = adapterError(fmt.Sprintf("adapter panicked: %v", raised))
 		}
 	}()
 	return runCase(message)

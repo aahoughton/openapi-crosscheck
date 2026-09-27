@@ -147,20 +147,12 @@ export function createAdapter(): LibraryAdapter {
       };
       const before = snapshotInput(libraryRequest);
 
+      // Only the library call is guarded. A throw from this adapter's own
+      // reading of the result below reaches the server as `adapterError`
+      // rather than being published as the library raising.
+      let errors: unknown;
       try {
-        const errors = validator.validateRequest(libraryRequest);
-        const mutation = inputMutation(
-          before,
-          libraryRequest,
-          "the params, query and headers object handed to validateRequest",
-        );
-        return {
-          ...base,
-          outcome: errors === undefined ? "accepted" : "rejected",
-          deserialized: deserializedObservation(parameters ?? [], before, libraryRequest, mutation),
-          inputMutation: mutation,
-          raw: toJsonValue(errors ?? { errors: null }),
-        };
+        errors = validator.validateRequest(libraryRequest);
       } catch (error) {
         return {
           ...base,
@@ -169,6 +161,18 @@ export function createAdapter(): LibraryAdapter {
           raw: toJsonValue(error),
         };
       }
+      const mutation = inputMutation(
+        before,
+        libraryRequest,
+        "the params, query and headers object handed to validateRequest",
+      );
+      return {
+        ...base,
+        outcome: errors === undefined ? "accepted" : "rejected",
+        deserialized: deserializedObservation(parameters ?? [], before, libraryRequest, mutation),
+        inputMutation: mutation,
+        raw: toJsonValue(errors ?? { errors: null }),
+      };
     },
   };
 }

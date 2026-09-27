@@ -12,6 +12,7 @@ import (
 
 	"github.com/pb33f/libopenapi"
 	validator "github.com/pb33f/libopenapi-validator"
+	validatorerrors "github.com/pb33f/libopenapi-validator/errors"
 )
 
 const (
@@ -62,7 +63,7 @@ var declaredCapabilities = capabilities{
 		ValueExposure:          false,
 	},
 	QueryPairInput: "notUsed",
-	OasVersions: map[string]bool{"3.0": true, "3.1": true, "3.2": true},
+	OasVersions:    map[string]bool{"3.0": true, "3.1": true, "3.2": true},
 }
 
 var declaredConfiguration = configuration{
@@ -165,12 +166,20 @@ func unsupported(detail string) map[string]any {
 }
 
 func runCase(message runRequest) map[string]any {
-	document, err := libopenapi.NewDocument(message.Document)
+	var document libopenapi.Document
+	var err error
+	if raised := guarded(func() { document, err = libopenapi.NewDocument(message.Document) }); raised != nil {
+		return libraryError(fmt.Sprintf("load: %v", raised))
+	}
 	if err != nil {
 		return unsupported(fmt.Sprintf("load: %v", err))
 	}
 
-	requestValidator, buildErrors := validator.NewValidator(document)
+	var requestValidator validator.Validator
+	var buildErrors []error
+	if raised := guarded(func() { requestValidator, buildErrors = validator.NewValidator(document) }); raised != nil {
+		return libraryError(fmt.Sprintf("validator: %v", raised))
+	}
 	if len(buildErrors) > 0 {
 		return unsupported(fmt.Sprintf("validator: %v", buildErrors))
 	}
@@ -196,7 +205,13 @@ func runCase(message runRequest) map[string]any {
 
 	const scope = "the method, target and headers of the http.Request handed to ValidateHttpRequest"
 	before := requestSnapshot(request, nil)
-	valid, validationErrors := requestValidator.ValidateHttpRequest(request)
+	var valid bool
+	var validationErrors []*validatorerrors.ValidationError
+	if raised := guarded(func() {
+		valid, validationErrors = requestValidator.ValidateHttpRequest(request)
+	}); raised != nil {
+		return libraryError(fmt.Sprintf("%v", raised))
+	}
 	mutation := inputMutation(before, requestSnapshot(request, nil), scope)
 
 	reported := make([]map[string]any, 0, len(validationErrors))
@@ -314,16 +329,25 @@ func run(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, answer(message))
 }
 
-// answer runs one case, turning a panic out of the library into a libraryError.
+// guarded runs one library call and returns what it panicked with, or nil.
 //
-// Go reports a validation failure by returning an error, so the raise this
-// recovers is a panic and nothing else. Without it a panic unwinds past the
-// handler, the harness sees a dropped connection, and the cell blames the
-// harness for something the library did.
+// Go reports a validation failure by returning an error, so a library's raise
+// is a panic. Recovering around each library call, and only there, keeps that
+// raise attributed to the library while a panic in this adapter's own code
+// stays the adapter's.
+func guarded(call func()) (raised any) {
+	defer func() { raised = recover() }()
+	call()
+	return nil
+}
+
+// answer runs one case. A panic reaching here came from this adapter's own
+// code, since every library call is guarded, so it is reported as ours rather
+// than unwinding past the handler as a dropped connection.
 func answer(message runRequest) (result map[string]any) {
 	defer func() {
 		if raised := recover(); raised != nil {
-			result = libraryError(fmt.Sprintf("%v", raised))
+			result = adapterError(fmt.Sprintf("adapter panicked: %v", raised))
 		}
 	}()
 	return runCase(message)

@@ -121,23 +121,12 @@ export function createAdapter(): LibraryAdapter {
       const libraryRequest = { method: request.method, path, query, headers };
       const before = snapshotInput(libraryRequest);
 
+      // Only the library call is guarded. A throw from this adapter's own
+      // reading of the result below reaches the server as `adapterError`
+      // rather than being published as the library raising.
+      let result: ReturnType<typeof api.validateRequest>;
       try {
-        const result = api.validateRequest(libraryRequest);
-        // Compared before the value channel is read, because reading it calls
-        // the library again and a second call could write where the first did
-        // not, which would report the reading rather than the validation.
-        const mutation = inputMutation(
-          before,
-          libraryRequest,
-          "the method, path, query and headers object handed to validateRequest",
-        );
-        return {
-          ...base,
-          outcome: result.valid === true ? "accepted" : "rejected",
-          deserialized: parsedValues(api, libraryRequest, testCase),
-          inputMutation: mutation,
-          raw: toJsonValue(result),
-        };
+        result = api.validateRequest(libraryRequest);
       } catch (error) {
         return {
           ...base,
@@ -146,6 +135,21 @@ export function createAdapter(): LibraryAdapter {
           raw: toJsonValue(error),
         };
       }
+      // Compared before the value channel is read, because reading it calls
+      // the library again and a second call could write where the first did
+      // not, which would report the reading rather than the validation.
+      const mutation = inputMutation(
+        before,
+        libraryRequest,
+        "the method, path, query and headers object handed to validateRequest",
+      );
+      return {
+        ...base,
+        outcome: result.valid === true ? "accepted" : "rejected",
+        deserialized: parsedValues(api, libraryRequest, testCase),
+        inputMutation: mutation,
+        raw: toJsonValue(result),
+      };
     },
   };
 }
@@ -155,52 +159,57 @@ function parsedValues(
   request: Parameters<OpenAPIBackend["validateRequest"]>[0],
   testCase: AdapterCase,
 ): Observation<DeserializedValues> {
+  // Only the router calls are guarded: a library that declines to match or
+  // parse has not reached the values. A throw from this adapter's own reading
+  // below reaches the server as `adapterError`.
+  let operation: ReturnType<typeof api.router.matchOperation> | undefined;
+  let parsed: ReturnType<typeof api.router.parseRequest>;
   try {
-    const operation = api.router.matchOperation(request);
+    operation = api.router.matchOperation(request);
     if (operation === undefined) {
       return {
         kind: "notReached",
         reason: "no operation matched, so nothing was parsed",
       };
     }
-    const parsed = api.router.parseRequest(request, operation);
-    const byLocation: Record<string, Record<string, JsonValue> | undefined> = {
-      path: toJsonValue(parsed.params) as Record<string, JsonValue>,
-      query: toJsonValue(parsed.query) as Record<string, JsonValue>,
-      cookie: toJsonValue(parsed.cookies) as Record<string, JsonValue>,
-      header: toJsonValue(parsed.headers) as Record<string, JsonValue>,
-    };
-
-    const values: DeserializedValues = {};
-    const pathItem = testCase.document.paths[operation.path];
-    if (pathItem === undefined) {
-      return {
-        kind: "notReached",
-        reason: `matched ${operation.path}, which the case document does not declare`,
-      };
-    }
-    const declared = pathItem.get?.parameters ?? pathItem.post?.parameters ?? [];
-    // A location this library does not parse into a bag has no value to read,
-    // and leaving the parameter out of `value` would say the library reported
-    // nothing for it. Reported per parameter, so a case declaring one parsed
-    // parameter and one unparsed one still publishes the value for the first.
-    const unreadable: Record<string, string> = {};
-    for (const parameter of declared) {
-      if (byLocation[parameter.in] !== undefined) continue;
-      unreadable[parameter.name] =
-        `this library parses the request into path, query, cookie and header bags, so a ` +
-        `parameter declared in ${parameter.in} has no bag to be read from`;
-    }
-    for (const parameter of declared) {
-      const key = parameter.in === "header" ? parameter.name.toLowerCase() : parameter.name;
-      const value = byLocation[parameter.in]?.[key];
-      if (value !== undefined) values[parameter.name] = value;
-    }
-    return observed("parsedBeforeValidation", values, unreadable);
+    parsed = api.router.parseRequest(request, operation);
   } catch (error) {
     return {
       kind: "notReached",
       reason: `router declined to parse: ${error instanceof Error ? error.message : String(error)}`,
     };
   }
+  const byLocation: Record<string, Record<string, JsonValue> | undefined> = {
+    path: toJsonValue(parsed.params) as Record<string, JsonValue>,
+    query: toJsonValue(parsed.query) as Record<string, JsonValue>,
+    cookie: toJsonValue(parsed.cookies) as Record<string, JsonValue>,
+    header: toJsonValue(parsed.headers) as Record<string, JsonValue>,
+  };
+
+  const values: DeserializedValues = {};
+  const pathItem = testCase.document.paths[operation.path];
+  if (pathItem === undefined) {
+    return {
+      kind: "notReached",
+      reason: `matched ${operation.path}, which the case document does not declare`,
+    };
+  }
+  const declared = pathItem.get?.parameters ?? pathItem.post?.parameters ?? [];
+  // A location this library does not parse into a bag has no value to read,
+  // and leaving the parameter out of `value` would say the library reported
+  // nothing for it. Reported per parameter, so a case declaring one parsed
+  // parameter and one unparsed one still publishes the value for the first.
+  const unreadable: Record<string, string> = {};
+  for (const parameter of declared) {
+    if (byLocation[parameter.in] !== undefined) continue;
+    unreadable[parameter.name] =
+      `this library parses the request into path, query, cookie and header bags, so a ` +
+      `parameter declared in ${parameter.in} has no bag to be read from`;
+  }
+  for (const parameter of declared) {
+    const key = parameter.in === "header" ? parameter.name.toLowerCase() : parameter.name;
+    const value = byLocation[parameter.in]?.[key];
+    if (value !== undefined) values[parameter.name] = value;
+  }
+  return observed("parsedBeforeValidation", values, unreadable);
 }

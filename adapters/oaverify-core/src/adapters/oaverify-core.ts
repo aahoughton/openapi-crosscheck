@@ -110,19 +110,12 @@ export function createAdapter(): LibraryAdapter {
       };
       const before = snapshotInput(libraryRequest);
 
+      // Only the library call is guarded. A throw from this adapter's own
+      // reading of the result below reaches the server as `adapterError`
+      // rather than being published as the library raising.
+      let result: ReturnType<typeof validator.validateRequest>;
       try {
-        const result = validator.validateRequest(libraryRequest);
-        return {
-          ...base,
-          outcome: result.valid === true ? "accepted" : "rejected",
-          deserialized: observation(testCase, result.value),
-          inputMutation: inputMutation(
-            before,
-            libraryRequest,
-            "the method, path, headers and cookies object handed to validateRequest",
-          ),
-          raw: toJsonValue(result),
-        };
+        result = validator.validateRequest(libraryRequest);
       } catch (error) {
         return {
           ...base,
@@ -131,6 +124,17 @@ export function createAdapter(): LibraryAdapter {
           raw: toJsonValue(error),
         };
       }
+      return {
+        ...base,
+        outcome: result.valid === true ? "accepted" : "rejected",
+        deserialized: observation(testCase, result.value),
+        inputMutation: inputMutation(
+          before,
+          libraryRequest,
+          "the method, path, headers and cookies object handed to validateRequest",
+        ),
+        raw: toJsonValue(result),
+      };
     },
   };
 }

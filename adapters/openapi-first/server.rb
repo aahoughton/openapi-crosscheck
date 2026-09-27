@@ -247,11 +247,16 @@ def run_case(message)
   end
   mutation = input_mutation(before, env_snapshot(request.env), scope)
 
-  deserialized = begin
-    observed_values(document, validated)
-  rescue StandardError
-    not_reached("no operation matched, so no parameters were parsed")
-  end
+  # Read off the library's own routing answer. An unmatched request parses
+  # nothing, and reporting its empty hashes as observed would say the library
+  # parsed every declared parameter to nothing. An exception while reading the
+  # values is this adapter's, and reaches `answer` as adapterError.
+  deserialized =
+    if validated.unknown?
+      not_reached("no operation matched, so no parameters were parsed")
+    else
+      observed_values(document, validated)
+    end
 
   error = validated.error
   {
