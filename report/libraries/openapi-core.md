@@ -9,9 +9,9 @@ Source, as its container states it: https://github.com/python-openapi/openapi-co
 
 Built from: `adapters/openapi-core/`
 
-Image: `sha256:393f13eb696d549f21eda47fd4328c5354ab5198a910df8a0ddd6882a312d851`
+Image: `sha256:239e5de1b05d788cce0ded8f6ca36e62c0ceb1029e8668cee2fec560047765c3`
 
-Configuration `unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. This library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into decoded pairs is the caller's. The harness supplies raw pairs only where their encoding state is equivalent and withholds cases whose query decoding would change them. Style and explode are still applied by the library to those pairs. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
+Configuration `unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. This library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into decoded pairs is the caller's. The harness supplies raw pairs only where their encoding state is equivalent and withholds cases whose query decoding would change them. Style and explode are still applied by the library to those pairs. Header lines go in as werkzeug's case-insensitive Headers, the mapping the library's request type defaults to, with repeated lines combined by a comma. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
 
 ## What it does for itself
 
@@ -46,8 +46,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 41 |
-| FAIL (verdict) | 18 |
+| pass | 42 |
+| FAIL (verdict) | 17 |
 | FAIL (value) | 1 |
 | not asked | 9 |
 | every conformance case | 69 |
@@ -58,7 +58,6 @@ the page with the numbers.
 | --- | --- | --- | --- |
 | [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | `{}` |
 | [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | `{}` |
-| [`header-simple-array-case-variant-oas30`](../matrix.oas30.md#header-simple-array-case-variant-oas30) | accepted | rejected | `{}` |
 | [`path-content-json-object-canonical-oas30`](../matrix.oas30.md#path-content-json-object-canonical-oas30) | accepted | rejected | `{}` |
 | [`path-label-array-canonical-oas30`](../matrix.oas30.md#path-label-array-canonical-oas30) | accepted | rejected | `{}` |
 | [`path-label-array-explode-oas30`](../matrix.oas30.md#path-label-array-explode-oas30) | accepted | rejected | `{}` |
@@ -147,8 +146,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 41 |
-| FAIL (verdict) | 17 |
+| pass | 42 |
+| FAIL (verdict) | 16 |
 | FAIL (value) | 1 |
 | raised instead of answering | 2 |
 | not asked | 9 |
@@ -160,7 +159,6 @@ the page with the numbers.
 | --- | --- | --- | --- |
 | [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | `{}` |
 | [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | `{}` |
-| [`header-simple-array-case-variant-oas31`](../matrix.oas31.md#header-simple-array-case-variant-oas31) | accepted | rejected | `{}` |
 | [`path-content-json-object-canonical-oas31`](../matrix.oas31.md#path-content-json-object-canonical-oas31) | accepted | rejected | `{}` |
 | [`path-label-array-canonical-oas31`](../matrix.oas31.md#path-label-array-canonical-oas31) | accepted | rejected | `{}` |
 | [`path-label-array-explode-oas31`](../matrix.oas31.md#path-label-array-explode-oas31) | accepted | rejected | `{}` |

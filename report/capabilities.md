@@ -51,9 +51,10 @@ different facts, and a column of blanks renders them the same.
 
 `reached a verdict` is the denominator: cases where the library decided, so
 there was a point at which values could have been reported. `observed`,
-`unexposed` and `not reached` partition it. `never asked` and `raised` sit
-outside it, because a case the library was never given and a case it threw on
-never reached that point at all.
+`unexposed` and `not reached` partition it. `never asked`, `raised` and
+`harness error` sit outside it, because a case the library was never given, a
+case it threw on and a case the harness broke on never reached that point at
+all. `harness error` is this repository's failure and is never the library's.
 
 `observed` counts an answer that named a parameter this container could not read, and
 `of those, one withheld` says how many. A parameter with no slot in a
@@ -61,18 +62,18 @@ container's request shape was never put to the library, so counting it as a
 value the library declined to report would attribute the container's reach to
 it.
 
-| library | reached a verdict | observed | of those, one withheld | unexposed | not reached | never asked | raised |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | 170 | 0 | 0 | 170 | 0 | 48 | 0 |
-| `express-openapi-validator` | 183 | 173 | 0 | 10 | 0 | 26 | 9 |
-| `github.com/getkin/kin-openapi` | 189 | 2 | 0 | 187 | 0 | 29 | 0 |
-| `github.com/pb33f/libopenapi-validator` | 218 | 0 | 0 | 218 | 0 | 0 | 0 |
-| `league/openapi-psr7-validator` | 185 | 0 | 0 | 185 | 0 | 24 | 9 |
-| `@oaverify/core` | 199 | 199 | 0 | 0 | 0 | 18 | 1 |
-| `openapi-backend` | 184 | 184 | 0 | 0 | 0 | 28 | 6 |
-| `openapi-core` | 164 | 164 | 0 | 0 | 0 | 48 | 6 |
-| `openapi-request-validator` | 27 | 2 | 0 | 25 | 0 | 191 | 0 |
-| `openapi_first` | 194 | 194 | 0 | 0 | 0 | 24 | 0 |
+| library | reached a verdict | observed | of those, one withheld | unexposed | not reached | never asked | raised | harness error |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | 170 | 0 | 0 | 170 | 0 | 48 | 0 | 0 |
+| `express-openapi-validator` | 181 | 181 | 0 | 0 | 0 | 28 | 9 | 0 |
+| `github.com/getkin/kin-openapi` | 189 | 2 | 0 | 187 | 0 | 29 | 0 | 0 |
+| `github.com/pb33f/libopenapi-validator` | 218 | 0 | 0 | 218 | 0 | 0 | 0 | 0 |
+| `league/openapi-psr7-validator` | 185 | 0 | 0 | 185 | 0 | 24 | 9 | 0 |
+| `@oaverify/core` | 199 | 199 | 0 | 0 | 0 | 18 | 1 | 0 |
+| `openapi-backend` | 186 | 186 | 0 | 0 | 0 | 28 | 4 | 0 |
+| `openapi-core` | 164 | 164 | 0 | 0 | 0 | 48 | 6 | 0 |
+| `openapi-request-validator` | 27 | 2 | 0 | 25 | 0 | 191 | 0 | 0 |
+| `openapi_first` | 194 | 194 | 0 | 0 | 0 | 24 | 0 | 0 |
 
 Split by the verdict the values were reported alongside, because a library that
 exposes what it parsed even for a request it rejected is stating something a
@@ -83,8 +84,8 @@ a failure.
 | --- | --- | --- | --- | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | accepted | 0 | 0 | 86 | 0 | none |
 | `com.atlassian.oai:openapi-request-validator-core` | rejected | 0 | 0 | 84 | 0 | none |
-| `express-openapi-validator` | accepted | 99 | 0 | 10 | 0 | handed to the handler |
-| `express-openapi-validator` | rejected | 74 | 0 | 0 | 0 | parsed before validation |
+| `express-openapi-validator` | accepted | 105 | 0 | 0 | 0 | handed to the handler |
+| `express-openapi-validator` | rejected | 76 | 0 | 0 | 0 | parsed before validation |
 | `github.com/getkin/kin-openapi` | accepted | 2 | 0 | 133 | 0 | parsed before validation |
 | `github.com/getkin/kin-openapi` | rejected | 0 | 0 | 54 | 0 | none |
 | `github.com/pb33f/libopenapi-validator` | accepted | 0 | 0 | 186 | 0 | none |
@@ -94,9 +95,9 @@ a failure.
 | `@oaverify/core` | accepted | 158 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
 | `@oaverify/core` | rejected | 41 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
 | `openapi-backend` | accepted | 89 | 0 | 0 | 0 | parsed before validation |
-| `openapi-backend` | rejected | 95 | 0 | 0 | 0 | parsed before validation |
-| `openapi-core` | accepted | 91 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
-| `openapi-core` | rejected | 73 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-backend` | rejected | 97 | 0 | 0 | 0 | parsed before validation |
+| `openapi-core` | accepted | 93 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-core` | rejected | 71 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
 | `openapi-request-validator` | accepted | 2 | 0 | 7 | 0 | parsed before validation |
 | `openapi-request-validator` | rejected | 0 | 0 | 18 | 0 | none |
 | `openapi_first` | accepted | 157 | 0 | 0 | 0 | parsed before validation |
@@ -123,12 +124,12 @@ failure.
 | library | declares exposure | wrote back | unchanged | not compared |
 | --- | --- | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | no | 0 | 170 | 0 |
-| `express-openapi-validator` | yes | 0 | 0 | 183 |
+| `express-openapi-validator` | yes | 0 | 0 | 181 |
 | `github.com/getkin/kin-openapi` | yes | 2 | 187 | 0 |
 | `github.com/pb33f/libopenapi-validator` | no | 0 | 218 | 0 |
 | `league/openapi-psr7-validator` | no | 0 | 185 | 0 |
 | `@oaverify/core` | yes | 0 | 199 | 0 |
-| `openapi-backend` | yes | 0 | 184 | 0 |
+| `openapi-backend` | yes | 0 | 186 | 0 |
 | `openapi-core` | yes | 62 | 102 | 0 |
 | `openapi-request-validator` | yes | 2 | 25 | 0 |
 | `openapi_first` | yes | 0 | 194 | 0 |
@@ -181,6 +182,15 @@ the library's behalf to build the counterfactual, which it must never do.
 
 A stage a library disclaims that a probe exercised anyway is printed for a
 reader to judge rather than treated as a correction.
+
+A disclaimed splitting location has one more reading. Every corpus cell there
+rests on the harness's split reaching the library, so the control that supplies
+it is read on its own: accepting both sides with the split in hand means the
+split is not shown to reach the library. Either the container dropped it or the
+library does not read that location, and from outside the two look the same, so
+the table names the control and the cells in that location should be read with
+it. It fails the gate only for the containers in this repository, whose authors
+can tell the two apart.
 
 One declaration is outside all of this and is published as what it is. The
 `query pair input` column in `fitness.md` states the encoding state a library's
@@ -325,8 +335,8 @@ support, and printing only the support would turn that into a checkbox.
 | probe | asks | declared | accepted side | rejected side | reading |
 | --- | --- | --- | --- | --- | --- |
 | `routing-method` | whether a request for an undeclared method reaches an operation at all | owned | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
-| `splitting-cookie-withoutProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie | caller | accepted, no values exposed | accepted, no values exposed | disclaimed, and not shown |
-| `splitting-cookie-withProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself | caller | accepted, no values exposed | accepted, no values exposed | control only; the harness supplied this location, so this row is not evidence |
+| `splitting-cookie-withoutProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie | caller | accepted, values exposed without the probed name | accepted, values exposed without the probed name | disclaimed, and not shown |
+| `splitting-cookie-withProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself | caller | accepted, value exposed | rejected, value exposed | control only; the harness supplied this location, so this row is not evidence |
 | `splitting-header-withoutProbedLocation` | whether a declared header parameter's value is recovered, with the harness supplying its usual split for every location except header | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `splitting-header-withProbedLocation` | whether a declared header parameter's value is recovered, with the harness supplying the header split itself | owned | accepted, value exposed | rejected, value exposed | control only; the harness supplied this location, so this row is not evidence |
 | `splitting-path-withoutProbedLocation` | whether a declared path parameter's value is recovered, with the harness supplying its usual split for every location except path | owned | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
@@ -441,7 +451,7 @@ support, and printing only the support would turn that into a checkbox.
 | `style-deserialization-array-header` | whether a comma-joined header array is split before its members are judged | owned | rejected, value exposed | rejected, value exposed | declared, and this probe did not show it |
 | `style-deserialization-array-path` | whether a comma-joined path array is split before its members are judged | owned | rejected, value exposed | rejected, value exposed | declared, and this probe did not show it |
 | `style-deserialization-array-query` | whether a comma-joined query array is split before its members are judged | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
-| `content-deserialization-json-object` | whether a content parameter's value is read as its declared media type | owned | accepted, value exposed | raised, no verdict | exercised, and raised on the invalid side rather than returning a verdict |
+| `content-deserialization-json-object` | whether a content parameter's value is read as its declared media type | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `schema-validation-enum` | whether a recovered value is judged against its schema | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `value-exposure-accepted` | whether the deserialized value of an accepted parameter is handed back | owned | accepted, value exposed | rejected, value exposed | demonstrated by the value it exposed |
 | `value-exposure-write-back` | whether a value the library supplied for an absent optional parameter reaches the caller | owned | accepted, values exposed without the probed name | rejected, value exposed | declared, and this probe did not show it |
@@ -472,8 +482,8 @@ support, and printing only the support would turn that into a checkbox.
 | probe | asks | declared | accepted side | rejected side | reading |
 | --- | --- | --- | --- | --- | --- |
 | `routing-method` | whether a request for an undeclared method reaches an operation at all | caller | accepted, no values exposed | accepted, no values exposed | disclaimed, and not shown |
-| `splitting-cookie-withoutProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie | caller | accepted, no values exposed | accepted, no values exposed | disclaimed, and not shown |
-| `splitting-cookie-withProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself | caller | accepted, no values exposed | accepted, no values exposed | control only; the harness supplied this location, so this row is not evidence |
+| `splitting-cookie-withoutProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie | caller | not asked (the case declares a cookie parameter, and validateRequest accepts params, query and headers with no cookie input to carry it) | not asked (the case declares a cookie parameter, and validateRequest accepts params, query and headers with no cookie input to carry it) | disclaimed, and not shown |
+| `splitting-cookie-withProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself | caller | not asked (the case declares a cookie parameter, and validateRequest accepts params, query and headers with no cookie input to carry it) | not asked (the case declares a cookie parameter, and validateRequest accepts params, query and headers with no cookie input to carry it) | control only; the harness supplied this location, so this row is not evidence |
 | `splitting-header-withoutProbedLocation` | whether a declared header parameter's value is recovered, with the harness supplying its usual split for every location except header | caller | rejected, no values exposed | rejected, no values exposed | disclaimed, and not shown |
 | `splitting-header-withProbedLocation` | whether a declared header parameter's value is recovered, with the harness supplying the header split itself | caller | accepted, no values exposed | rejected, no values exposed | control only; the harness supplied this location, so this row is not evidence |
 | `splitting-path-withoutProbedLocation` | whether a declared path parameter's value is recovered, with the harness supplying its usual split for every location except path | caller | rejected, no values exposed | rejected, no values exposed | disclaimed, and not shown |
@@ -492,7 +502,7 @@ support, and printing only the support would turn that into a checkbox.
 
 | probe | asks | declared | accepted side | rejected side | reading |
 | --- | --- | --- | --- | --- | --- |
-| `routing-method` | whether a request for an undeclared method reaches an operation at all | owned | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
+| `routing-method` | whether a request for an undeclared method reaches an operation at all | owned | accepted, value exposed | rejected, no values reached | demonstrated by the pair of verdicts |
 | `splitting-cookie-withoutProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying its usual split for every location except cookie | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `splitting-cookie-withProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself | owned | accepted, value exposed | rejected, value exposed | control only; the harness supplied this location, so this row is not evidence |
 | `splitting-header-withoutProbedLocation` | whether a declared header parameter's value is recovered, with the harness supplying its usual split for every location except header | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
@@ -563,7 +573,7 @@ an unbacked claim rather than treated as false.
 | `openapi-request-validator` | 3.2 | no | accepted, no values exposed | rejected, no values exposed | disclaimed, and demonstrated by the pair of verdicts |
 | `openapi_first` | 3.0 | yes | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `openapi_first` | 3.1 | yes | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
-| `openapi_first` | 3.2 | no | not asked (OpenapiFirst::Error: Unsupported OpenAPI version "3.2.0" ) | not asked (OpenapiFirst::Error: Unsupported OpenAPI version "3.2.0" ) | disclaimed, and not shown |
+| `openapi_first` | 3.2 | no | accepted, value exposed | rejected, value exposed | disclaimed, and demonstrated by the pair of verdicts |
 
 ## Configuration
 
@@ -573,7 +583,7 @@ an unbacked claim rather than treated as false.
 
 ### `express-openapi-validator`
 
-`middleware-validate-requests`: OpenApiValidator.middleware({ apiSpec, validateRequests: true }) mounted on an express app, exactly as the published usage shows, with a handler that echoes the request it received and an error handler that reports the thrown status alongside the same request fields. Reading its values: on an accepted request they are what the handler was handed. On a rejected one they are what the middleware had coerced onto the request before it stopped, so they are partial and stop at the first failure.
+`middleware-validate-requests`: OpenApiValidator.middleware({ apiSpec, validateRequests: true }) mounted on an express app, exactly as the published usage shows, with a handler that echoes the request it received and an error handler that reports the thrown status alongside the same request fields. Cookies reach it the way the published usage expects, as req.cookies: a middleware ahead of the validator installs the harness's cookie pairs there, in the place a cookie parser would. A repeated cookie name or a crumb with no `=` has no spelling in that record and is answered as a case it cannot carry. Reading its values: on an accepted request they are what the handler was handed. On a rejected one they are what the middleware had coerced onto the request before it stopped, so they are partial and stop at the first failure.
 
 ### `github.com/getkin/kin-openapi`
 
@@ -597,11 +607,11 @@ an unbacked claim rather than treated as false.
 
 ### `openapi-core`
 
-`unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. This library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into decoded pairs is the caller's. The harness supplies raw pairs only where their encoding state is equivalent and withholds cases whose query decoding would change them. Style and explode are still applied by the library to those pairs. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
+`unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. This library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into decoded pairs is the caller's. The harness supplies raw pairs only where their encoding state is equivalent and withholds cases whose query decoding would change them. Style and explode are still applied by the library to those pairs. Header lines go in as werkzeug's case-insensitive Headers, the mapping the library's request type defaults to, with repeated lines combined by a comma. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
 
 ### `openapi-request-validator`
 
-`parameters-only`: new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. That shape holds a string per name, so a query pair that arrived with no `=` is answered as a case this shape cannot represent, rather than as an empty value. It is told which operation applies, because it has no routing of its own. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
+`parameters-only`: new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. That shape holds a string per name, so a query pair that arrived with no `=` is answered as a case this shape cannot represent, rather than as an empty value. It is told which operation applies, because it has no routing of its own. A case declaring a cookie parameter is answered as one this shape cannot represent, because validateRequest has no cookie input. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 
 ### `openapi_first`
 

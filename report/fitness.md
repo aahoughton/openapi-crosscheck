@@ -60,7 +60,7 @@ expected verdicts rest on.
 
 **Query splitting.** Split the query string into name and value pairs.
 
-6 divergence cases also probe it: `query-content-and-schema-declared-oas30`, `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas30`, `query-content-two-media-types-oas31`, `query-form-array-duplicate-name-oas30`, `query-form-array-duplicate-name-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+6 divergence cases also probe it: `query-content-and-schema-declared-oas30`, `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas30`, `query-content-two-media-types-oas31`, `query-form-array-duplicate-name-oas30`, `query-form-array-duplicate-name-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 
@@ -86,7 +86,7 @@ Rules those verdicts rest on:
 - [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 - [x4-8-12-2-fixed-fields](https://spec.openapis.org/oas/v3.1.1.html#x4-8-12-2-fixed-fields)
 
-4 divergence cases also probe it: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+4 divergence cases also probe it: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 **Value exposure.** It returns a verdict and no values, so a caller needing the deserialized values computes them again from the request.
 
@@ -102,7 +102,7 @@ expected verdicts rest on.
 
 **Cookie splitting.** Split the `Cookie` header into name and value pairs.
 
-2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 ### `github.com/getkin/kin-openapi`
 
@@ -140,7 +140,7 @@ expected verdicts rest on.
 
 **Cookie splitting.** Split the `Cookie` header into name and value pairs.
 
-2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 ### `openapi-backend`
 
@@ -171,11 +171,11 @@ expected verdicts rest on.
 
 **Query splitting.** Split the query string into name and value pairs.
 
-6 divergence cases also probe it: `query-content-and-schema-declared-oas30`, `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas30`, `query-content-two-media-types-oas31`, `query-form-array-duplicate-name-oas30`, `query-form-array-duplicate-name-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+6 divergence cases also probe it: `query-content-and-schema-declared-oas30`, `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas30`, `query-content-two-media-types-oas31`, `query-form-array-duplicate-name-oas30`, `query-form-array-duplicate-name-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 **Cookie splitting.** Split the `Cookie` header into name and value pairs.
 
-2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 ### `openapi-request-validator`
 
@@ -196,7 +196,7 @@ Rules those verdicts rest on:
 - [paths-path](https://spec.openapis.org/oas/v3.0.4.html#paths-path)
 - [paths-path](https://spec.openapis.org/oas/v3.1.1.html#paths-path)
 
-4 divergence cases also probe it: `path-routing-ambiguous-templates-oas30`, `path-routing-ambiguous-templates-oas31`, `path-routing-identical-templates-oas30`, `path-routing-identical-templates-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+4 divergence cases also probe it: `path-routing-ambiguous-templates-oas30`, `path-routing-ambiguous-templates-oas31`, `path-routing-identical-templates-oas30`, `path-routing-identical-templates-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries split on `path-routing-ambiguous-templates-oas30`, `path-routing-ambiguous-templates-oas31`.
 
 **Path splitting.** Recover each path parameter's raw value from the target.
 
@@ -221,11 +221,11 @@ Rules those verdicts rest on:
 
 **Query splitting.** Split the query string into name and value pairs.
 
-6 divergence cases also probe it: `query-content-and-schema-declared-oas30`, `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas30`, `query-content-two-media-types-oas31`, `query-form-array-duplicate-name-oas30`, `query-form-array-duplicate-name-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+6 divergence cases also probe it: `query-content-and-schema-declared-oas30`, `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas30`, `query-content-two-media-types-oas31`, `query-form-array-duplicate-name-oas30`, `query-form-array-duplicate-name-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 **Cookie splitting.** Split the `Cookie` header into name and value pairs.
 
-2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 **Style and explode.** Apply each parameter's `style` and `explode` yourself. It validates the structured value you hand it and performs no deserialization of its own.
 
@@ -271,7 +271,7 @@ Rules those verdicts rest on:
 - [style-values](https://spec.openapis.org/oas/v3.2.0.html#style-values)
 - [url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
 
-36 divergence cases also probe it: `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-array-explode-oas30`, `cookie-form-array-explode-oas31`, `cookie-form-array-explode-oas32`, `cookie-form-object-canonical-oas30`, `cookie-form-object-canonical-oas31`, `cookie-form-scalar-canonical-oas30`, and 28 more in the matrix files. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+36 divergence cases also probe it: `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-array-explode-oas30`, `cookie-form-array-explode-oas31`, `cookie-form-array-explode-oas32`, `cookie-form-object-canonical-oas30`, `cookie-form-object-canonical-oas31`, `cookie-form-scalar-canonical-oas30`, and 28 more in the matrix files. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries split on `cookie-form-array-canonical-no-explode-oas30`, `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-array-explode-oas30`, `cookie-form-array-explode-oas31`, `cookie-form-array-explode-oas32`, `cookie-form-object-canonical-oas30`, `cookie-form-object-canonical-oas31`, `query-form-array-empty-value-oas30`, and 19 more in the matrix files.
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 
@@ -297,7 +297,7 @@ Rules those verdicts rest on:
 - [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 - [x4-8-12-2-fixed-fields](https://spec.openapis.org/oas/v3.1.1.html#x4-8-12-2-fixed-fields)
 
-4 divergence cases also probe it: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`. The specification does not settle those, and measured implementations disagree, so implementing this stage means choosing a side rather than following a rule.
+4 divergence cases also probe it: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 ### `openapi_first`
 

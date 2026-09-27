@@ -1348,7 +1348,7 @@
   "provenance": {
     "kind": "container",
     "slug": "oaverify-core",
-    "imageId": "sha256:cc81c49c8bd04fe6ac958529036cc2f5e5bdcc901d41cd5efae1fe214db4425a",
+    "imageId": "sha256:1379be6e37fbd0b0b6a6e4a714a154ed389128a483db45c4d5b8cfeb08debf25",
     "ecosystem": "npm"
   },
   "answers": [

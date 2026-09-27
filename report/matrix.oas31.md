@@ -59,10 +59,10 @@ it was given.
 | [`github.com/pb33f/libopenapi-validator`](libraries/libopenapi-validator.md) | 0.14.0 | `validate-http-request` |
 | [`league/openapi-psr7-validator`](libraries/league-openapi-psr7-validator.md) | 0.24 | `request-validator-psr7` |
 | [`@oaverify/core`](libraries/oaverify-core.md) | 7.2.2 | `request-return-values` |
-| [`openapi-backend`](libraries/openapi-backend.md) | 5.20.1 | `coerce-types-on` |
+| [`openapi-backend`](libraries/openapi-backend.md) | 5.21.1 | `coerce-types-on` |
 | [`openapi-core`](libraries/openapi-core.md) | 0.23.1 | `unmarshal-request-protocol` |
 | [`openapi-request-validator`](libraries/openapi-request-validator.md) | 12.1.3 | `parameters-only` |
-| [`openapi_first`](libraries/openapi-first.md) | 3.4.3 | `validate-request-rack` |
+| [`openapi_first`](libraries/openapi-first.md) | 4.0.0 | `validate-request-rack` |
 
 ### Provenance
 
@@ -75,16 +75,16 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:ed827b5519bce6b00069353aedb8ca51579bb4a1235ac7897f6a7e909f6bf34d` |
-| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:f9ec45fefa3ae8a9d2e91e433360cd0dedb6bb65985d4ae2bdb22d3c6904e86c` |
-| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:aa8fdcd4def2d1c37c1419468521f202dc758c1691b80ea1eb443eab936343ed` |
-| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:bcf5927a0aafcd10aa9a4d91a802aa765fbac6ca96da780e93a56b1bdeffb05a` |
-| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:b9e32e6ee2319c3d99a6d0e43135dcbfe796bd7183409a1078a388264c974924` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:cc81c49c8bd04fe6ac958529036cc2f5e5bdcc901d41cd5efae1fe214db4425a` |
-| `openapi-backend` | `adapters/openapi-backend/` | `sha256:0f8dea7f4caaf35369d0f9486b31f2436c7bf68bd39abbe80846f83f61aca175` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:393f13eb696d549f21eda47fd4328c5354ab5198a910df8a0ddd6882a312d851` |
-| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:e501f2f247f1d0c339cbe01c88f9df9ee1269b8e8e2bb5099702a6c62cb41d93` |
-| `openapi_first` | `adapters/openapi-first/` | `sha256:e5b110f8813008d243b59a5a430012f6142066159e0fe15167a560120e8cdab2` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:7749465637e71323c0c5f59059e1a47d2aaf0dbe177c46d87592d969ff16aff2` |
+| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:e91f010f6f01526465c620dd0b196e84f4a7036fcd7778bae571fa973fed1a42` |
+| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:aa381975bf50534da9e96f5fe019cb352777140dc33c08173865619e49871306` |
+| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:6e13fbf071c33805afd0c2b3d14e5bc45ff31b448f3b88df9aa690f421f0f73b` |
+| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:38fb96db69239acf2f5c947fec663fdd0cf824a81fcc252d4cefc4f1860c5bee` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:1379be6e37fbd0b0b6a6e4a714a154ed389128a483db45c4d5b8cfeb08debf25` |
+| `openapi-backend` | `adapters/openapi-backend/` | `sha256:96f42f30914aa9469462c6b69a04573f0fff627b72a8072a3b1099a3a5cefe1a` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:239e5de1b05d788cce0ded8f6ca36e62c0ceb1029e8668cee2fec560047765c3` |
+| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:5e0592d18565733866973e56ea68e676cc362b25dc96ad40fb72b6dff972f409` |
+| `openapi_first` | `adapters/openapi-first/` | `sha256:463955fb2c2e00c86c3ec05937a016de878eeadf58b365d994dea08c69069265` |
 
 ## Conformance
 
@@ -103,7 +103,7 @@ rules the expected verdict rests on, and the argument for it.
 | [`header-reserved-name-accept-present-wrong-type-oas31`](#header-reserved-name-accept-present-wrong-type-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass |
 | [`header-reserved-name-accept-required-absent-oas31`](#header-reserved-name-accept-required-absent-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass |
 | [`header-simple-array-canonical-oas31`](#header-simple-array-canonical-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
-| [`header-simple-array-case-variant-oas31`](#header-simple-array-case-variant-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | n/a | FAIL (verdict) | n/a | pass |
+| [`header-simple-array-case-variant-oas31`](#header-simple-array-case-variant-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | n/a | pass | n/a | pass |
 | [`header-simple-array-duplicate-name-oas31`](#header-simple-array-duplicate-name-oas31) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | n/a | pass | n/a | FAIL (value) |
 | [`header-simple-array-explicit-style-oas31`](#header-simple-array-explicit-style-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`header-simple-array-explode-oas31`](#header-simple-array-explode-oas31) | accepted | FAIL (verdict) | FAIL (value) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
@@ -146,7 +146,7 @@ rules the expected verdict rests on, and the argument for it.
 | [`query-content-json-boolean-canonical-oas31`](#query-content-json-boolean-canonical-oas31) | accepted | n/a | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a | pass |
 | [`query-content-json-boolean-wrong-type-oas31`](#query-content-json-boolean-wrong-type-oas31) | rejected | n/a | pass | pass | pass | pass | pass | pass | n/a | n/a | pass |
 | [`query-content-json-object-canonical-oas31`](#query-content-json-object-canonical-oas31) | accepted | n/a | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
-| [`query-content-json-object-malformed-oas31`](#query-content-json-object-malformed-oas31) | rejected | n/a | pass | pass | pass | pass | pass | RAISED | n/a | n/a | pass |
+| [`query-content-json-object-malformed-oas31`](#query-content-json-object-malformed-oas31) | rejected | n/a | pass | pass | pass | pass | pass | pass | n/a | n/a | pass |
 | [`query-content-json-scalar-nullable-literal-oas31`](#query-content-json-scalar-nullable-literal-oas31) | rejected | n/a | FAIL (verdict) | pass | pass | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a | pass |
 | [`query-deep-object-canonical-oas31`](#query-deep-object-canonical-oas31) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a | n/a | pass |
 | [`query-form-array-canonical-explode-oas31`](#query-form-array-canonical-explode-oas31) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | pass | pass | n/a | pass |
@@ -2035,7 +2035,7 @@ The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://s
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
-| `express-openapi-validator` | accepted | not exposed by this library (cookie values are not exposed in this configuration; mounting a cookie parser would make the harness perform the split under test) |
+| `express-openapi-validator` | accepted | `{"p":["blue","black"]}` (handed to the handler) |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
@@ -2066,7 +2066,7 @@ The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.1.1.
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
-| `express-openapi-validator` | accepted | not exposed by this library (cookie values are not exposed in this configuration; mounting a cookie parser would make the harness perform the split under test) |
+| `express-openapi-validator` | not asked (cannotRepresentCase) | - |
 | `github.com/getkin/kin-openapi` | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
@@ -2097,7 +2097,7 @@ The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://s
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
-| `express-openapi-validator` | accepted | not exposed by this library (cookie values are not exposed in this configuration; mounting a cookie parser would make the harness perform the split under test) |
+| `express-openapi-validator` | rejected | `{"p":"R,100,G,200"}` (parsed before validation) |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
@@ -2159,7 +2159,7 @@ The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://s
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
-| `express-openapi-validator` | accepted | not exposed by this library (cookie values are not exposed in this configuration; mounting a cookie parser would make the harness perform the split under test) |
+| `express-openapi-validator` | accepted | `{"p":"blue"}` (handed to the handler) |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
@@ -2190,7 +2190,7 @@ The text leaving it open: [appendix-d-serializing-headers-and-cookies](https://s
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
-| `express-openapi-validator` | accepted | not exposed by this library (cookie values are not exposed in this configuration; mounting a cookie parser would make the harness perform the split under test) |
+| `express-openapi-validator` | accepted | `{"p":"blue"}` (handed to the handler) |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |

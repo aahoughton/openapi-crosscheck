@@ -895,7 +895,7 @@
   "provenance": {
     "kind": "container",
     "slug": "com-atlassian-oai-openapi-request-validator-core",
-    "imageId": "sha256:ed827b5519bce6b00069353aedb8ca51579bb4a1235ac7897f6a7e909f6bf34d",
+    "imageId": "sha256:7749465637e71323c0c5f59059e1a47d2aaf0dbe177c46d87592d969ff16aff2",
     "ecosystem": "maven"
   },
   "answers": [
