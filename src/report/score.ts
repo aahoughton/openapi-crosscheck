@@ -5,14 +5,24 @@ import type { AdapterResult } from "../types/result";
 /**
  * What a conformance case says about one library.
  *
- * `passVerdictOnly` exists so that a library which exposes no deserialized
- * values is scored on what it can be asked, rather than failed for a capability
- * it never claimed. `adapterError` belongs to the adapter or harness.
+ * Three outcomes pass on the verdict with the value half unanswered, and they
+ * are kept apart because each is a different fact:
+ *
+ * - `passVerdictOnly`: the library has no call that exposes deserialized
+ *   values, so the value half could not be asked of it.
+ * - `passValuesNotReached`: the library has such a call and reported reaching
+ *   no values on this request.
+ * - `passValuesUnreadable`: the container could not read at least one expected
+ *   parameter, and every expected value it could read matched.
+ *
+ * `adapterError` belongs to the adapter or harness.
  */
 export type ConformanceOutcome =
   | "pass"
   | "libraryError"
   | "passVerdictOnly"
+  | "passValuesNotReached"
+  | "passValuesUnreadable"
   | "failVerdict"
   | "failValue"
   | "notApplicable"
@@ -27,18 +37,20 @@ export function score(testCase: ConformanceCase, result: AdapterResult): Conform
 
   if (testCase.expectedValues === null) return "pass";
   if (result.deserialized.kind === "unexposed") return "passVerdictOnly";
-  if (result.deserialized.kind === "notReached") return "passVerdictOnly";
+  // The verdict is right and the answer holds no values to compare. Scoring it
+  // `failValue` would read "reached no values" as "handed back wrong values",
+  // which the observation does not say, and the reason beside it may name the
+  // container's reach as easily as the library's. It passes on the verdict
+  // under an outcome of its own, so a reader sees that the value half went
+  // unanswered for this reason and no other.
+  if (result.deserialized.kind === "notReached") return "passValuesNotReached";
 
   const observed = result.deserialized.value;
   const unreadable = result.deserialized.unreadable ?? {};
 
   // Every expected name is compared before anything is returned, and a real
-  // failure outranks an unreadable one. Returning on the first unreadable name
-  // instead made the score depend on the order the case wrote `expectedValues`:
-  // with one name failing and another unreadable, `{failing, unreadable}`
-  // scored failValue and `{unreadable, failing}` scored passVerdictOnly, so a
-  // library's attributable failure was masked by a key order nothing about the
-  // measurement should turn on.
+  // failure outranks an unreadable one, so the score does not depend on the
+  // order the case writes `expectedValues`.
   let withheld = false;
   for (const [name, expected] of Object.entries(testCase.expectedValues)) {
     // A parameter this container could not read is the whole-case `unexposed`
@@ -56,7 +68,7 @@ export function score(testCase: ConformanceCase, result: AdapterResult): Conform
     const value = observed[name];
     if (value === undefined || !deepEqual(value, expected)) return "failValue";
   }
-  return withheld ? "passVerdictOnly" : "pass";
+  return withheld ? "passValuesUnreadable" : "pass";
 }
 
 export function deepEqual(a: JsonValue, b: JsonValue): boolean {
@@ -65,6 +77,7 @@ export function deepEqual(a: JsonValue, b: JsonValue): boolean {
     return a.length === b.length && a.every((item, index) => deepEqual(item, b[index] ?? null));
   }
   if (typeof a === "object" && a !== null && typeof b === "object" && b !== null) {
+    if (Array.isArray(a) || Array.isArray(b)) return false;
     const aKeys = Object.keys(a).sort();
     const bKeys = Object.keys(b).sort();
     if (aKeys.length !== bKeys.length || !aKeys.every((key, i) => key === bKeys[i])) return false;

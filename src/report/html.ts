@@ -44,6 +44,8 @@ import {
 const OUTCOME_CLASS: Record<ConformanceOutcome, string> = {
   pass: "pass",
   passVerdictOnly: "pass",
+  passValuesNotReached: "pass",
+  passValuesUnreadable: "pass",
   failVerdict: "fail",
   failValue: "fail",
   libraryError: "raise",

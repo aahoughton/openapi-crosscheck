@@ -18,7 +18,7 @@ import {
 } from "../surface/surface";
 import type { ContentCell, ContentCondition } from "../surface/surface";
 import { score, type ConformanceOutcome } from "./score";
-import { STAGE_SLOTS, valuesText, verdictText } from "./cells";
+import { CONFORMANCE_OUTCOMES, STAGE_SLOTS, valuesText, verdictText } from "./cells";
 
 /**
  * The numbers a results report is made of, computed once and rendered by
@@ -564,15 +564,10 @@ export function conformanceTallies(
 ): readonly ConformanceTally[] {
   const conformance = cases.filter((c): c is ConformanceCase => c.tier === "conformance");
   return entries.map(({ label, measurement }) => {
-    const counts: Record<ConformanceOutcome, number> = {
-      pass: 0,
-      passVerdictOnly: 0,
-      failVerdict: 0,
-      failValue: 0,
-      libraryError: 0,
-      adapterError: 0,
-      notApplicable: 0,
-    };
+    const counts = Object.fromEntries(CONFORMANCE_OUTCOMES.map((outcome) => [outcome, 0])) as Record<
+      ConformanceOutcome,
+      number
+    >;
     for (const testCase of conformance) {
       const result = answerFor(measurement, testCase.id);
       // A case the measurement has no answer for is counted as unasked rather

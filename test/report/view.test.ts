@@ -747,12 +747,13 @@ describe("corpus agreement", () => {
 describe("a parameter the container could not read", () => {
   const unreadable = { q: "this library's request shape has no slot for it" };
 
-  it("scores as a verdict-only pass rather than a value failure", () => {
-    // The whole-case `unexposed` answer narrowed to one name, and it scores the
-    // same way. Reading the container's reach as the library omitting a value
-    // would fail a library for the harness's limit.
+  it("scores as a pass with the value unread rather than a value failure", () => {
+    // The whole-case `unexposed` answer narrowed to one name, and it passes on
+    // the verdict the same way, under an outcome that says which of the two it
+    // was. Reading the container's reach as the library omitting a value would
+    // fail a library for the harness's limit.
     const testCase = { ...conformanceCase("c"), expectedValues: { q: "blue" } };
-    expect(score(testCase, acceptedWithUnreadable({}, unreadable))).toBe("passVerdictOnly");
+    expect(score(testCase, acceptedWithUnreadable({}, unreadable))).toBe("passValuesUnreadable");
   });
 
   it("still scores the values it did report", () => {
@@ -766,9 +767,8 @@ describe("a parameter the container could not read", () => {
 
   it("does not let an unreadable name mask a value that failed", () => {
     // Both orders, because the score must not depend on the order the case
-    // wrote `expectedValues`. Returning on the first unreadable name scored
-    // this `passVerdictOnly` when the unreadable one came first, hiding an
-    // attributable failure behind a key order.
+    // writes `expectedValues`: an unreadable name met first must not hide an
+    // attributable failure met second.
     const answer = acceptedWithUnreadable({ p: "red" }, unreadable);
     expect(score({ ...conformanceCase("c"), expectedValues: { p: "blue", q: "x" } }, answer)).toBe(
       "failValue",
@@ -781,7 +781,7 @@ describe("a parameter the container could not read", () => {
   it("withholds only when every expected value it could compare matched", () => {
     const answer = acceptedWithUnreadable({ p: "blue" }, unreadable);
     expect(score({ ...conformanceCase("c"), expectedValues: { q: "x", p: "blue" } }, answer)).toBe(
-      "passVerdictOnly",
+      "passValuesUnreadable",
     );
   });
 

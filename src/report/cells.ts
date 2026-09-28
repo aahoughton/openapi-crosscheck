@@ -19,6 +19,8 @@ import type { ConformanceOutcome } from "./score";
 export const CONFORMANCE_OUTCOMES: readonly ConformanceOutcome[] = [
   "pass",
   "passVerdictOnly",
+  "passValuesNotReached",
+  "passValuesUnreadable",
   "failVerdict",
   "failValue",
   "libraryError",
@@ -30,6 +32,8 @@ export const CONFORMANCE_OUTCOMES: readonly ConformanceOutcome[] = [
 export const OUTCOME_LABEL: Readonly<Record<ConformanceOutcome, string>> = {
   pass: "pass",
   passVerdictOnly: "pass (verdict only)",
+  passValuesNotReached: "pass (values not reached)",
+  passValuesUnreadable: "pass (value unreadable here)",
   failVerdict: "FAIL (verdict)",
   failValue: "FAIL (value)",
   libraryError: "RAISED",
@@ -42,6 +46,10 @@ export const OUTCOME_NOTE: Readonly<Record<ConformanceOutcome, string>> = {
   pass: "The verdict the specification settles, and its values where the specification settles those too.",
   passVerdictOnly:
     "The settled verdict, from a library that exposes no deserialized values, so the value half of the case could not be asked of it.",
+  passValuesNotReached:
+    "The settled verdict, from a library that exposes values and reported reaching none on this request, so the value half has nothing to compare.",
+  passValuesUnreadable:
+    "The settled verdict, and every expected value this container could read matched. At least one expected parameter has no slot in the request shape this library takes, so its value was never put to the library.",
   failVerdict: "It reached the opposite verdict.",
   failValue:
     "It reached the settled verdict and handed back values the specification settles differently.",

@@ -172,7 +172,11 @@ rules the expected verdict rests on, and the argument for it.
 
 Legend: `pass (verdict only)` means the library reached the right verdict and
 exposes no deserialized values, so the value half of the case could not be
-asked of it. `n/a` means the library was never asked, and why is in
+asked of it. `pass (values not reached)` means it reached the right verdict,
+exposes values, and reported reaching none on this request.
+`pass (value unreadable here)` means it reached the right verdict and every
+expected value the container could read matched, while at least one expected
+parameter had no slot in the library's request shape. `n/a` means the library was never asked, and why is in
 `capabilities.md`. `RAISED` means the library threw instead of answering, which is
 attributable to it and is not a rejection: an application would have seen an
 exception rather than a refusal. `harness error` is an error in the adapter or

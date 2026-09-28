@@ -236,7 +236,11 @@ function renderMatrix(
   lines.push("");
   lines.push("Legend: `pass (verdict only)` means the library reached the right verdict and");
   lines.push("exposes no deserialized values, so the value half of the case could not be");
-  lines.push("asked of it. `n/a` means the library was never asked, and why is in");
+  lines.push("asked of it. `pass (values not reached)` means it reached the right verdict,");
+  lines.push("exposes values, and reported reaching none on this request.");
+  lines.push("`pass (value unreadable here)` means it reached the right verdict and every");
+  lines.push("expected value the container could read matched, while at least one expected");
+  lines.push("parameter had no slot in the library's request shape. `n/a` means the library was never asked, and why is in");
   lines.push("`capabilities.md`. `RAISED` means the library threw instead of answering, which is");
   lines.push("attributable to it and is not a rejection: an application would have seen an");
   lines.push("exception rather than a refusal. `harness error` is an error in the adapter or");
