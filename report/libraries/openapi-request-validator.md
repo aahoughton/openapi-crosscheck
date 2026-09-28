@@ -18,10 +18,10 @@ Configuration `parameters-only`: new OpenAPIRequestValidator({ parameters }) wit
 | stage | |
 | --- | --- |
 | routing | caller |
+| split: cookie | caller |
+| split: header | caller |
 | split: path | caller |
 | split: query | caller |
-| split: header | caller |
-| split: cookie | caller |
 | style and explode | caller |
 | content media type | caller |
 | schema validation | owned |
@@ -48,15 +48,19 @@ the page with the numbers.
 | --- | --- |
 | pass | 7 |
 | FAIL (verdict) | 2 |
-| not asked | 60 |
+| n/a | 60 |
 | every conformance case | 69 |
+
+- `pass`: The verdict the specification settles, and its values where the specification settles those too.
+- `FAIL (verdict)`: It reached the opposite verdict.
+- `n/a`: No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
-| [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | not exposed by this library |
-| [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | not exposed by this library |
+| [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
+| [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
@@ -146,7 +150,7 @@ nothing is attributed to it.
 | [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | not asked (stageNotOwned) | - |
 | [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | not asked (stageNotOwned) | - |
 | [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | not asked (stageNotOwned) | - |
-| [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | accepted | not exposed by this library |
+| [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | accepted | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | not asked (stageNotOwned) | - |
 | [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | not asked (stageNotOwned) | - |
 | [`query-deep-object-no-explode-oas30`](../matrix.oas30.md#query-deep-object-no-explode-oas30) | not asked (stageNotOwned) | - |
@@ -154,16 +158,16 @@ nothing is attributed to it.
 | [`query-form-array-empty-value-oas30`](../matrix.oas30.md#query-form-array-empty-value-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-array-integer-items-oas30`](../matrix.oas30.md#query-form-array-integer-items-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | not asked (stageNotOwned) | - |
-| [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | not exposed by this library |
+| [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | not asked (stageNotOwned) | - |
-| [`query-form-scalar-integer-fractional-oas30`](../matrix.oas30.md#query-form-scalar-integer-fractional-oas30) | rejected | not exposed by this library |
+| [`query-form-scalar-integer-fractional-oas30`](../matrix.oas30.md#query-form-scalar-integer-fractional-oas30) | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | not asked (stageNotOwned) | - |
-| [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | not exposed by this library |
-| [`query-form-scalar-type-array-oas30`](../matrix.oas30.md#query-form-scalar-type-array-oas30) | accepted | not exposed by this library |
+| [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
+| [`query-form-scalar-type-array-oas30`](../matrix.oas30.md#query-form-scalar-type-array-oas30) | accepted | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | not asked (stageNotOwned) | - |
 | [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | not asked (stageNotOwned) | - |
 
@@ -182,15 +186,19 @@ the page with the numbers.
 | --- | --- |
 | pass | 7 |
 | FAIL (verdict) | 2 |
-| not asked | 61 |
+| n/a | 61 |
 | every conformance case | 70 |
+
+- `pass`: The verdict the specification settles, and its values where the specification settles those too.
+- `FAIL (verdict)`: It reached the opposite verdict.
+- `n/a`: No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
-| [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | not exposed by this library |
-| [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | not exposed by this library |
+| [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
+| [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
@@ -281,7 +289,7 @@ nothing is attributed to it.
 | [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | not asked (stageNotOwned) | - |
 | [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | not asked (stageNotOwned) | - |
 | [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | not asked (stageNotOwned) | - |
-| [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | accepted | not exposed by this library |
+| [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | accepted | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | not asked (stageNotOwned) | - |
 | [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | not asked (stageNotOwned) | - |
 | [`query-deep-object-no-explode-oas31`](../matrix.oas31.md#query-deep-object-no-explode-oas31) | not asked (stageNotOwned) | - |
@@ -289,15 +297,15 @@ nothing is attributed to it.
 | [`query-form-array-empty-value-oas31`](../matrix.oas31.md#query-form-array-empty-value-oas31) | not asked (stageNotOwned) | - |
 | [`query-form-array-integer-items-oas31`](../matrix.oas31.md#query-form-array-integer-items-oas31) | not asked (stageNotOwned) | - |
 | [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | not asked (stageNotOwned) | - |
-| [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | not exposed by this library |
+| [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | not asked (stageNotOwned) | - |
-| [`query-form-scalar-integer-fractional-oas31`](../matrix.oas31.md#query-form-scalar-integer-fractional-oas31) | rejected | not exposed by this library |
+| [`query-form-scalar-integer-fractional-oas31`](../matrix.oas31.md#query-form-scalar-integer-fractional-oas31) | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | not asked (stageNotOwned) | - |
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | not asked (stageNotOwned) | - |
-| [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | rejected | not exposed by this library |
+| [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | not asked (stageNotOwned) | - |
 | [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | not asked (stageNotOwned) | - |
 
@@ -314,8 +322,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| not asked | 18 |
+| n/a | 18 |
 | every conformance case | 18 |
+
+- `n/a`: No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.
 
 #### Cases it was not asked
 

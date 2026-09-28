@@ -18,10 +18,10 @@ Configuration `validate-request-rack`: OpenapiFirst.parse(document) driven throu
 | stage | |
 | --- | --- |
 | routing | owned |
+| split: cookie | owned |
+| split: header | owned |
 | split: path | owned |
 | split: query | owned |
-| split: header | owned |
-| split: cookie | owned |
 | style and explode | owned |
 | content media type | owned |
 | schema validation | owned |
@@ -51,27 +51,31 @@ the page with the numbers.
 | FAIL (value) | 9 |
 | every conformance case | 69 |
 
+- `pass`: The verdict the specification settles, and its values where the specification settles those too.
+- `FAIL (verdict)`: It reached the opposite verdict.
+- `FAIL (value)`: It reached the settled verdict and handed back values the specification settles differently.
+
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
-| [`header-simple-array-duplicate-name-oas30`](../matrix.oas30.md#header-simple-array-duplicate-name-oas30) | accepted | accepted | `{"p":["blue"," black"]}` |
-| [`path-content-json-object-canonical-oas30`](../matrix.oas30.md#path-content-json-object-canonical-oas30) | accepted | rejected | `{"p":"%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"}` |
-| [`path-label-array-canonical-oas30`](../matrix.oas30.md#path-label-array-canonical-oas30) | accepted | accepted | `{"p":["blue,black"]}` |
-| [`path-label-array-foreign-shape-oas30`](../matrix.oas30.md#path-label-array-foreign-shape-oas30) | rejected | accepted | `{"p":["lue,black"]}` |
-| [`path-label-object-canonical-oas30`](../matrix.oas30.md#path-label-object-canonical-oas30) | accepted | rejected | `{"p":".R,100,G,200"}` |
-| [`path-label-object-explode-oas30`](../matrix.oas30.md#path-label-object-explode-oas30) | accepted | accepted | `{"p":{".R":"100.G=200"}}` |
-| [`path-label-scalar-canonical-oas30`](../matrix.oas30.md#path-label-scalar-canonical-oas30) | accepted | accepted | `{"p":".blue"}` |
-| [`path-label-scalar-explode-oas30`](../matrix.oas30.md#path-label-scalar-explode-oas30) | accepted | accepted | `{"p":".blue"}` |
-| [`path-matrix-array-empty-after-parse-oas30`](../matrix.oas30.md#path-matrix-array-empty-after-parse-oas30) | rejected | accepted | `{"p":[]}` |
-| [`path-matrix-array-foreign-shape-oas30`](../matrix.oas30.md#path-matrix-array-foreign-shape-oas30) | rejected | accepted | `{"p":[]}` |
-| [`path-matrix-competing-parameters-oas30`](../matrix.oas30.md#path-matrix-competing-parameters-oas30) | rejected | accepted | `{"p":";q=blue","q":";p=black"}` |
-| [`path-matrix-object-explode-oas30`](../matrix.oas30.md#path-matrix-object-explode-oas30) | accepted | accepted | `{"p":{";R":"100;G=200"}}` |
-| [`path-matrix-scalar-canonical-oas30`](../matrix.oas30.md#path-matrix-scalar-canonical-oas30) | accepted | accepted | `{"p":";p=blue"}` |
-| [`path-matrix-scalar-explode-oas30`](../matrix.oas30.md#path-matrix-scalar-explode-oas30) | accepted | accepted | `{"p":";p=blue"}` |
-| [`path-matrix-scalar-foreign-name-oas30`](../matrix.oas30.md#path-matrix-scalar-foreign-name-oas30) | rejected | accepted | `{"p":";q=blue"}` |
-| [`path-simple-array-encoded-delimiter-oas30`](../matrix.oas30.md#path-simple-array-encoded-delimiter-oas30) | accepted | accepted | `{"p":["blue%2Cblack"]}` |
-| [`query-form-object-canonical-explode-oas30`](../matrix.oas30.md#query-form-object-canonical-explode-oas30) | accepted | rejected | `{}` |
+| [`header-simple-array-duplicate-name-oas30`](../matrix.oas30.md#header-simple-array-duplicate-name-oas30) | accepted | accepted | `{"p":["blue"," black"]}` (parsed before validation) |
+| [`path-content-json-object-canonical-oas30`](../matrix.oas30.md#path-content-json-object-canonical-oas30) | accepted | rejected | `{"p":"%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"}` (parsed before validation) |
+| [`path-label-array-canonical-oas30`](../matrix.oas30.md#path-label-array-canonical-oas30) | accepted | accepted | `{"p":["blue,black"]}` (parsed before validation) |
+| [`path-label-array-foreign-shape-oas30`](../matrix.oas30.md#path-label-array-foreign-shape-oas30) | rejected | accepted | `{"p":["lue,black"]}` (parsed before validation) |
+| [`path-label-object-canonical-oas30`](../matrix.oas30.md#path-label-object-canonical-oas30) | accepted | rejected | `{"p":".R,100,G,200"}` (parsed before validation) |
+| [`path-label-object-explode-oas30`](../matrix.oas30.md#path-label-object-explode-oas30) | accepted | accepted | `{"p":{".R":"100.G=200"}}` (parsed before validation) |
+| [`path-label-scalar-canonical-oas30`](../matrix.oas30.md#path-label-scalar-canonical-oas30) | accepted | accepted | `{"p":".blue"}` (parsed before validation) |
+| [`path-label-scalar-explode-oas30`](../matrix.oas30.md#path-label-scalar-explode-oas30) | accepted | accepted | `{"p":".blue"}` (parsed before validation) |
+| [`path-matrix-array-empty-after-parse-oas30`](../matrix.oas30.md#path-matrix-array-empty-after-parse-oas30) | rejected | accepted | `{"p":[]}` (parsed before validation) |
+| [`path-matrix-array-foreign-shape-oas30`](../matrix.oas30.md#path-matrix-array-foreign-shape-oas30) | rejected | accepted | `{"p":[]}` (parsed before validation) |
+| [`path-matrix-competing-parameters-oas30`](../matrix.oas30.md#path-matrix-competing-parameters-oas30) | rejected | accepted | `{"p":";q=blue","q":";p=black"}` (parsed before validation) |
+| [`path-matrix-object-explode-oas30`](../matrix.oas30.md#path-matrix-object-explode-oas30) | accepted | accepted | `{"p":{";R":"100;G=200"}}` (parsed before validation) |
+| [`path-matrix-scalar-canonical-oas30`](../matrix.oas30.md#path-matrix-scalar-canonical-oas30) | accepted | accepted | `{"p":";p=blue"}` (parsed before validation) |
+| [`path-matrix-scalar-explode-oas30`](../matrix.oas30.md#path-matrix-scalar-explode-oas30) | accepted | accepted | `{"p":";p=blue"}` (parsed before validation) |
+| [`path-matrix-scalar-foreign-name-oas30`](../matrix.oas30.md#path-matrix-scalar-foreign-name-oas30) | rejected | accepted | `{"p":";q=blue"}` (parsed before validation) |
+| [`path-simple-array-encoded-delimiter-oas30`](../matrix.oas30.md#path-simple-array-encoded-delimiter-oas30) | accepted | accepted | `{"p":["blue%2Cblack"]}` (parsed before validation) |
+| [`query-form-object-canonical-explode-oas30`](../matrix.oas30.md#query-form-object-canonical-explode-oas30) | accepted | rejected | `{}` (parsed before validation) |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
@@ -87,34 +91,34 @@ nothing is attributed to it.
 
 | case | verdict | values |
 | --- | --- | --- |
-| [`cookie-form-array-canonical-no-explode-oas30`](../matrix.oas30.md#cookie-form-array-canonical-no-explode-oas30) | accepted | `{"p":["blue","black"]}` |
-| [`cookie-form-array-explode-oas30`](../matrix.oas30.md#cookie-form-array-explode-oas30) | accepted | `{"p":["blue"]}` |
-| [`cookie-form-object-canonical-oas30`](../matrix.oas30.md#cookie-form-object-canonical-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` |
-| [`cookie-form-object-explode-oas30`](../matrix.oas30.md#cookie-form-object-explode-oas30) | rejected | `{}` |
-| [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | accepted | `{"p":"blue"}` |
-| [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | accepted | `{"p":"blue"}` |
-| [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | `{"entity":"t"}` |
-| [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | accepted | `{"p":"blue"}` |
-| [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | accepted | `{"p":"blue"}` |
-| [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` |
-| [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` |
-| [`query-deep-object-no-explode-oas30`](../matrix.oas30.md#query-deep-object-no-explode-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` |
-| [`query-form-array-duplicate-name-oas30`](../matrix.oas30.md#query-form-array-duplicate-name-oas30) | accepted | `{"p":["blue","black"]}` |
-| [`query-form-array-empty-value-oas30`](../matrix.oas30.md#query-form-array-empty-value-oas30) | accepted | `{"p":[]}` |
-| [`query-form-array-integer-items-oas30`](../matrix.oas30.md#query-form-array-integer-items-oas30) | accepted | `{"p":[1,2]}` |
-| [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | accepted | `{"p":true}` |
-| [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | `{"p":"blue"}` |
-| [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | accepted | `{"p":{"R":100,"G":200}}` |
-| [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | `{"p":""}` |
-| [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | accepted | `{"p":"a/b"}` |
-| [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | accepted | `{"p":"a/b:c"}` |
-| [`query-form-scalar-integer-fractional-oas30`](../matrix.oas30.md#query-form-scalar-integer-fractional-oas30) | rejected | `{"p":"1.5"}` |
-| [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | `{"p":100}` |
-| [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | rejected | `{"p":null}` |
-| [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | `{}` |
-| [`query-form-scalar-type-array-oas30`](../matrix.oas30.md#query-form-scalar-type-array-oas30) | accepted | `{"p":"blue"}` |
-| [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | `{"p":"a b"}` |
-| [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | accepted | `{"p":["blue","black"]}` |
+| [`cookie-form-array-canonical-no-explode-oas30`](../matrix.oas30.md#cookie-form-array-canonical-no-explode-oas30) | accepted | `{"p":["blue","black"]}` (parsed before validation) |
+| [`cookie-form-array-explode-oas30`](../matrix.oas30.md#cookie-form-array-explode-oas30) | accepted | `{"p":["blue"]}` (parsed before validation) |
+| [`cookie-form-object-canonical-oas30`](../matrix.oas30.md#cookie-form-object-canonical-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
+| [`cookie-form-object-explode-oas30`](../matrix.oas30.md#cookie-form-object-explode-oas30) | rejected | `{}` (parsed before validation) |
+| [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | `{"entity":"t"}` (parsed before validation) |
+| [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
+| [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
+| [`query-deep-object-no-explode-oas30`](../matrix.oas30.md#query-deep-object-no-explode-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
+| [`query-form-array-duplicate-name-oas30`](../matrix.oas30.md#query-form-array-duplicate-name-oas30) | accepted | `{"p":["blue","black"]}` (parsed before validation) |
+| [`query-form-array-empty-value-oas30`](../matrix.oas30.md#query-form-array-empty-value-oas30) | accepted | `{"p":[]}` (parsed before validation) |
+| [`query-form-array-integer-items-oas30`](../matrix.oas30.md#query-form-array-integer-items-oas30) | accepted | `{"p":[1,2]}` (parsed before validation) |
+| [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | accepted | `{"p":true}` (parsed before validation) |
+| [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | `{"p":"blue"}` (parsed before validation) |
+| [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | accepted | `{"p":{"R":100,"G":200}}` (parsed before validation) |
+| [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | `{"p":""}` (parsed before validation) |
+| [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | accepted | `{"p":"a/b"}` (parsed before validation) |
+| [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | accepted | `{"p":"a/b:c"}` (parsed before validation) |
+| [`query-form-scalar-integer-fractional-oas30`](../matrix.oas30.md#query-form-scalar-integer-fractional-oas30) | rejected | `{"p":"1.5"}` (parsed before validation) |
+| [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | `{"p":100}` (parsed before validation) |
+| [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | rejected | `{"p":null}` (parsed before validation) |
+| [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | `{}` (parsed before validation) |
+| [`query-form-scalar-type-array-oas30`](../matrix.oas30.md#query-form-scalar-type-array-oas30) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | accepted | `{"p":"a b"}` (parsed before validation) |
+| [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | accepted | `{"p":["blue","black"]}` (parsed before validation) |
 
 ## OpenAPI 3.1
 
@@ -134,27 +138,31 @@ the page with the numbers.
 | FAIL (value) | 9 |
 | every conformance case | 70 |
 
+- `pass`: The verdict the specification settles, and its values where the specification settles those too.
+- `FAIL (verdict)`: It reached the opposite verdict.
+- `FAIL (value)`: It reached the settled verdict and handed back values the specification settles differently.
+
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
-| [`header-simple-array-duplicate-name-oas31`](../matrix.oas31.md#header-simple-array-duplicate-name-oas31) | accepted | accepted | `{"p":["blue"," black"]}` |
-| [`path-content-json-object-canonical-oas31`](../matrix.oas31.md#path-content-json-object-canonical-oas31) | accepted | rejected | `{"p":"%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"}` |
-| [`path-label-array-canonical-oas31`](../matrix.oas31.md#path-label-array-canonical-oas31) | accepted | accepted | `{"p":["blue,black"]}` |
-| [`path-label-array-foreign-shape-oas31`](../matrix.oas31.md#path-label-array-foreign-shape-oas31) | rejected | accepted | `{"p":["lue,black"]}` |
-| [`path-label-object-canonical-oas31`](../matrix.oas31.md#path-label-object-canonical-oas31) | accepted | rejected | `{"p":".R,100,G,200"}` |
-| [`path-label-object-explode-oas31`](../matrix.oas31.md#path-label-object-explode-oas31) | accepted | accepted | `{"p":{".R":"100.G=200"}}` |
-| [`path-label-scalar-canonical-oas31`](../matrix.oas31.md#path-label-scalar-canonical-oas31) | accepted | accepted | `{"p":".blue"}` |
-| [`path-label-scalar-explode-oas31`](../matrix.oas31.md#path-label-scalar-explode-oas31) | accepted | accepted | `{"p":".blue"}` |
-| [`path-matrix-array-empty-after-parse-oas31`](../matrix.oas31.md#path-matrix-array-empty-after-parse-oas31) | rejected | accepted | `{"p":[]}` |
-| [`path-matrix-array-foreign-shape-oas31`](../matrix.oas31.md#path-matrix-array-foreign-shape-oas31) | rejected | accepted | `{"p":[]}` |
-| [`path-matrix-competing-parameters-oas31`](../matrix.oas31.md#path-matrix-competing-parameters-oas31) | rejected | accepted | `{"p":";q=blue","q":";p=black"}` |
-| [`path-matrix-object-explode-oas31`](../matrix.oas31.md#path-matrix-object-explode-oas31) | accepted | accepted | `{"p":{";R":"100;G=200"}}` |
-| [`path-matrix-scalar-canonical-oas31`](../matrix.oas31.md#path-matrix-scalar-canonical-oas31) | accepted | accepted | `{"p":";p=blue"}` |
-| [`path-matrix-scalar-explode-oas31`](../matrix.oas31.md#path-matrix-scalar-explode-oas31) | accepted | accepted | `{"p":";p=blue"}` |
-| [`path-matrix-scalar-foreign-name-oas31`](../matrix.oas31.md#path-matrix-scalar-foreign-name-oas31) | rejected | accepted | `{"p":";q=blue"}` |
-| [`path-simple-array-encoded-delimiter-oas31`](../matrix.oas31.md#path-simple-array-encoded-delimiter-oas31) | accepted | accepted | `{"p":["blue%2Cblack"]}` |
-| [`query-form-object-canonical-explode-oas31`](../matrix.oas31.md#query-form-object-canonical-explode-oas31) | accepted | rejected | `{}` |
+| [`header-simple-array-duplicate-name-oas31`](../matrix.oas31.md#header-simple-array-duplicate-name-oas31) | accepted | accepted | `{"p":["blue"," black"]}` (parsed before validation) |
+| [`path-content-json-object-canonical-oas31`](../matrix.oas31.md#path-content-json-object-canonical-oas31) | accepted | rejected | `{"p":"%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"}` (parsed before validation) |
+| [`path-label-array-canonical-oas31`](../matrix.oas31.md#path-label-array-canonical-oas31) | accepted | accepted | `{"p":["blue,black"]}` (parsed before validation) |
+| [`path-label-array-foreign-shape-oas31`](../matrix.oas31.md#path-label-array-foreign-shape-oas31) | rejected | accepted | `{"p":["lue,black"]}` (parsed before validation) |
+| [`path-label-object-canonical-oas31`](../matrix.oas31.md#path-label-object-canonical-oas31) | accepted | rejected | `{"p":".R,100,G,200"}` (parsed before validation) |
+| [`path-label-object-explode-oas31`](../matrix.oas31.md#path-label-object-explode-oas31) | accepted | accepted | `{"p":{".R":"100.G=200"}}` (parsed before validation) |
+| [`path-label-scalar-canonical-oas31`](../matrix.oas31.md#path-label-scalar-canonical-oas31) | accepted | accepted | `{"p":".blue"}` (parsed before validation) |
+| [`path-label-scalar-explode-oas31`](../matrix.oas31.md#path-label-scalar-explode-oas31) | accepted | accepted | `{"p":".blue"}` (parsed before validation) |
+| [`path-matrix-array-empty-after-parse-oas31`](../matrix.oas31.md#path-matrix-array-empty-after-parse-oas31) | rejected | accepted | `{"p":[]}` (parsed before validation) |
+| [`path-matrix-array-foreign-shape-oas31`](../matrix.oas31.md#path-matrix-array-foreign-shape-oas31) | rejected | accepted | `{"p":[]}` (parsed before validation) |
+| [`path-matrix-competing-parameters-oas31`](../matrix.oas31.md#path-matrix-competing-parameters-oas31) | rejected | accepted | `{"p":";q=blue","q":";p=black"}` (parsed before validation) |
+| [`path-matrix-object-explode-oas31`](../matrix.oas31.md#path-matrix-object-explode-oas31) | accepted | accepted | `{"p":{";R":"100;G=200"}}` (parsed before validation) |
+| [`path-matrix-scalar-canonical-oas31`](../matrix.oas31.md#path-matrix-scalar-canonical-oas31) | accepted | accepted | `{"p":";p=blue"}` (parsed before validation) |
+| [`path-matrix-scalar-explode-oas31`](../matrix.oas31.md#path-matrix-scalar-explode-oas31) | accepted | accepted | `{"p":";p=blue"}` (parsed before validation) |
+| [`path-matrix-scalar-foreign-name-oas31`](../matrix.oas31.md#path-matrix-scalar-foreign-name-oas31) | rejected | accepted | `{"p":";q=blue"}` (parsed before validation) |
+| [`path-simple-array-encoded-delimiter-oas31`](../matrix.oas31.md#path-simple-array-encoded-delimiter-oas31) | accepted | accepted | `{"p":["blue%2Cblack"]}` (parsed before validation) |
+| [`query-form-object-canonical-explode-oas31`](../matrix.oas31.md#query-form-object-canonical-explode-oas31) | accepted | rejected | `{}` (parsed before validation) |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
@@ -170,33 +178,33 @@ nothing is attributed to it.
 
 | case | verdict | values |
 | --- | --- | --- |
-| [`cookie-form-array-canonical-no-explode-oas31`](../matrix.oas31.md#cookie-form-array-canonical-no-explode-oas31) | accepted | `{"p":["blue","black"]}` |
-| [`cookie-form-array-explode-oas31`](../matrix.oas31.md#cookie-form-array-explode-oas31) | accepted | `{"p":["blue"]}` |
-| [`cookie-form-object-canonical-oas31`](../matrix.oas31.md#cookie-form-object-canonical-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` |
-| [`cookie-form-object-explode-oas31`](../matrix.oas31.md#cookie-form-object-explode-oas31) | rejected | `{}` |
-| [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | accepted | `{"p":"blue"}` |
-| [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | accepted | `{"p":"blue"}` |
-| [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | `{"entity":"t"}` |
-| [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | accepted | `{"p":"blue"}` |
-| [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | accepted | `{"p":"blue"}` |
-| [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` |
-| [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` |
-| [`query-deep-object-no-explode-oas31`](../matrix.oas31.md#query-deep-object-no-explode-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` |
-| [`query-form-array-duplicate-name-oas31`](../matrix.oas31.md#query-form-array-duplicate-name-oas31) | accepted | `{"p":["blue","black"]}` |
-| [`query-form-array-empty-value-oas31`](../matrix.oas31.md#query-form-array-empty-value-oas31) | accepted | `{"p":[]}` |
-| [`query-form-array-integer-items-oas31`](../matrix.oas31.md#query-form-array-integer-items-oas31) | accepted | `{"p":[1,2]}` |
-| [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | accepted | `{"p":true}` |
-| [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | `{"p":"blue"}` |
-| [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | accepted | `{"p":{"R":100,"G":200}}` |
-| [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | `{"p":""}` |
-| [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | accepted | `{"p":"a/b"}` |
-| [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | accepted | `{"p":"a/b:c"}` |
-| [`query-form-scalar-integer-fractional-oas31`](../matrix.oas31.md#query-form-scalar-integer-fractional-oas31) | rejected | `{"p":"1.5"}` |
-| [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | `{"p":100}` |
-| [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | rejected | `{"p":null}` |
-| [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | rejected | `{}` |
-| [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | accepted | `{"p":"a b"}` |
-| [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | accepted | `{"p":["blue","black"]}` |
+| [`cookie-form-array-canonical-no-explode-oas31`](../matrix.oas31.md#cookie-form-array-canonical-no-explode-oas31) | accepted | `{"p":["blue","black"]}` (parsed before validation) |
+| [`cookie-form-array-explode-oas31`](../matrix.oas31.md#cookie-form-array-explode-oas31) | accepted | `{"p":["blue"]}` (parsed before validation) |
+| [`cookie-form-object-canonical-oas31`](../matrix.oas31.md#cookie-form-object-canonical-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
+| [`cookie-form-object-explode-oas31`](../matrix.oas31.md#cookie-form-object-explode-oas31) | rejected | `{}` (parsed before validation) |
+| [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | `{"entity":"t"}` (parsed before validation) |
+| [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
+| [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
+| [`query-deep-object-no-explode-oas31`](../matrix.oas31.md#query-deep-object-no-explode-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
+| [`query-form-array-duplicate-name-oas31`](../matrix.oas31.md#query-form-array-duplicate-name-oas31) | accepted | `{"p":["blue","black"]}` (parsed before validation) |
+| [`query-form-array-empty-value-oas31`](../matrix.oas31.md#query-form-array-empty-value-oas31) | accepted | `{"p":[]}` (parsed before validation) |
+| [`query-form-array-integer-items-oas31`](../matrix.oas31.md#query-form-array-integer-items-oas31) | accepted | `{"p":[1,2]}` (parsed before validation) |
+| [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | accepted | `{"p":true}` (parsed before validation) |
+| [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | `{"p":"blue"}` (parsed before validation) |
+| [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | accepted | `{"p":{"R":100,"G":200}}` (parsed before validation) |
+| [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | `{"p":""}` (parsed before validation) |
+| [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | accepted | `{"p":"a/b"}` (parsed before validation) |
+| [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | accepted | `{"p":"a/b:c"}` (parsed before validation) |
+| [`query-form-scalar-integer-fractional-oas31`](../matrix.oas31.md#query-form-scalar-integer-fractional-oas31) | rejected | `{"p":"1.5"}` (parsed before validation) |
+| [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | `{"p":100}` (parsed before validation) |
+| [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | rejected | `{"p":null}` (parsed before validation) |
+| [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | rejected | `{}` (parsed before validation) |
+| [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | accepted | `{"p":"a b"}` (parsed before validation) |
+| [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | accepted | `{"p":["blue","black"]}` (parsed before validation) |
 
 ## OpenAPI 3.2
 
@@ -211,8 +219,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| not asked | 18 |
+| n/a | 18 |
 | every conformance case | 18 |
+
+- `n/a`: No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.
 
 #### Cases it was not asked
 

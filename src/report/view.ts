@@ -1,12 +1,12 @@
 import type { Case, Citation, ConformanceCase, Dimensions, ProbeAxis } from "../types/case";
 import type { LibraryMeasurement } from "../types/measurement";
 import type { AdapterResult } from "../types/result";
-import type { PipelineStage, SplittableLocation } from "../types/pipeline";
+import type { PipelineStage } from "../types/pipeline";
 import type { WireRequest } from "../types/wire";
 import type { OasVersion, OpenApiDocument, ParameterObject } from "../types/openapi";
 import { OAS_VERSIONS } from "../types/openapi";
 import type { JsonValue } from "../types/json";
-import { PIPELINE_STAGES, SPLITTABLE_LOCATIONS, ownsStage, probedStage } from "../types/pipeline";
+import { PIPELINE_STAGES, ownsStage, probedStage } from "../types/pipeline";
 import type { DeclaredType } from "../surface/surface";
 import {
   DECLARED_TYPES,
@@ -18,6 +18,7 @@ import {
 } from "../surface/surface";
 import type { ContentCell, ContentCondition } from "../surface/surface";
 import { score, type ConformanceOutcome } from "./score";
+import { STAGE_SLOTS, valuesText, verdictText } from "./cells";
 
 /**
  * The numbers a results report is made of, computed once and rendered by
@@ -494,58 +495,6 @@ function describeDimensions(dimensions: Dimensions): string {
   return parts.join(", ");
 }
 
-export interface StageSlot {
-  readonly stage: PipelineStage;
-  readonly location: SplittableLocation | null;
-  readonly title: string;
-  /** What work this slot names, for a reader who has not read `pipeline.ts`. */
-  readonly description: string;
-}
-
-/**
- * What each stage is, in one sentence.
- *
- * The pipeline is the frame the whole roster is drawn in, and a strip of nine
- * segments labelled `styleDeserialization` and `split: cookie` assumes a reader
- * who already knows what those are. A reader who does not cannot tell a library
- * that delegates a stage from one that fails it, which is the single distinction
- * the roster exists to make.
- *
- * Splitting is described per location because the work differs by location and
- * the difference is why the stage is split at all: a query string is parsed on
- * delimiters, a path segment is read against a template, and a header arrives
- * named by whoever built the map.
- */
-const STAGE_DESCRIPTIONS: Readonly<Record<PipelineStage, string>> = {
-  routing: "Match the method and target of a request to an operation in the document.",
-  splitting: "Recover each declared parameter's raw value from the request.",
-  styleDeserialization:
-    "Apply the declared style and explode to a raw value to produce a structured one.",
-  contentDeserialization:
-    "Read a raw value as a representation of the media type the parameter declares.",
-  schemaValidation: "Coerce a value to its declared type and validate it against the schema.",
-  valueExposure: "Hand the deserialized values back to the caller, where they can be read.",
-};
-
-const SPLIT_DESCRIPTIONS: Readonly<Record<SplittableLocation, string>> = {
-  cookie: "Split the Cookie header into crumbs and find the declared name among them.",
-  header: "Find the declared name among the headers received, whatever their casing.",
-  path: "Read the request target against the path template to recover each segment.",
-  query: "Split the query string on its delimiters into names and raw values.",
-};
-
-/** Every stage a declaration can fill, splitting once per location. */
-export const STAGE_SLOTS: readonly StageSlot[] = PIPELINE_STAGES.flatMap((stage): StageSlot[] =>
-  stage === "splitting"
-    ? SPLITTABLE_LOCATIONS.map((location) => ({
-        stage,
-        location,
-        title: `split: ${location}`,
-        description: SPLIT_DESCRIPTIONS[location],
-      }))
-    : [{ stage, location: null, title: stage, description: STAGE_DESCRIPTIONS[stage] }],
-);
-
 export interface RosterRow {
   readonly label: string;
   readonly library: string;
@@ -608,16 +557,6 @@ export interface ConformanceTally {
   readonly counts: Readonly<Record<ConformanceOutcome, number>>;
   readonly total: number;
 }
-
-export const CONFORMANCE_OUTCOMES: readonly ConformanceOutcome[] = [
-  "pass",
-  "passVerdictOnly",
-  "failVerdict",
-  "failValue",
-  "libraryError",
-  "adapterError",
-  "notApplicable",
-];
 
 export function conformanceTallies(
   cases: readonly Case[],
@@ -715,20 +654,11 @@ export function divergenceGrid(
       answers: entries.map((entry) => {
         const result = answerFor(entry.measurement, testCase.id);
         return {
-          verdict: describeVerdict(result),
-          values: result === undefined ? "-" : describeValues(result),
+          verdict: verdictText(result),
+          values: valuesText(result),
         };
       }),
     }));
-}
-
-/** What a measurement answered, keeping "never asked" apart from "refused". */
-export function describeVerdict(result: AdapterResult | undefined): string {
-  if (result === undefined) return "not asked";
-  if (result.outcome === "unsupported") return `not asked (${result.reason})`;
-  if (result.outcome === "adapterError") return "harness error";
-  if (result.outcome === "libraryError") return "raised, no verdict";
-  return result.outcome;
 }
 
 /** Coverage of the two enumerated surfaces, and of the probe axes. */
@@ -988,7 +918,7 @@ export function disagreements(
       answers: answered.map((entry) => ({
         label: entry.label,
         verdict: entry.result.outcome,
-        values: describeValues(entry.result),
+        values: valuesText(entry.result),
       })),
     });
   }
@@ -1113,23 +1043,6 @@ function outcomeOf(testCase: ConformanceCase, measurement: LibraryMeasurement): 
 
 function answerFor(measurement: LibraryMeasurement, caseId: string): AdapterResult | undefined {
   return measurement.answers.find((answer) => answer.caseId === caseId)?.result;
-}
-
-/** The value channel in one cell, keeping the three observations distinct. */
-export function describeValues(result: AdapterResult): string {
-  if (result.outcome !== "accepted" && result.outcome !== "rejected") return "-";
-  const observation = result.deserialized;
-  if (observation.kind === "unexposed") return "not exposed by this library";
-  if (observation.kind === "notReached") return "none reached";
-  // A parameter the container could not read is named, for the same reason the
-  // three observation kinds are kept apart: it is absent from `value` exactly
-  // as a parameter the library reported nothing for is, and the two are
-  // different facts.
-  const unreadable = Object.keys(observation.unreadable ?? {}).sort();
-  const values = JSON.stringify(observation.value);
-  return unreadable.length === 0
-    ? values
-    : `${values} (not readable here: ${unreadable.join(", ")})`;
 }
 
 /**

@@ -5,8 +5,8 @@ import type { LibraryMeasurement } from "../../src/types/measurement";
 import { readRun } from "../../src/report/read";
 import { renderHtml } from "../../src/report/html";
 import { score } from "../../src/report/score";
+import { OUTCOME_LABEL as LABELS, STAGE_SLOTS } from "../../src/report/cells";
 import {
-  STAGE_SLOTS,
   caseNote,
   compareLibraryNames,
   coverage,
@@ -431,17 +431,6 @@ describe("the page stands alone", () => {
 function answerFor(measurement: LibraryMeasurement, caseId: string) {
   return measurement.answers.find((answer) => answer.caseId === caseId)?.result;
 }
-
-/** The page's own labels, which are what a reader sees in a cell. */
-const LABELS = {
-  pass: "pass",
-  passVerdictOnly: "verdict only",
-  failVerdict: "fail (verdict)",
-  failValue: "fail (value)",
-  libraryError: "raised",
-  adapterError: "harness error",
-  notApplicable: "not asked",
-} as const;
 
 describe("the page claims nothing the run does not carry", () => {
   const alone = renderHtml(run.cases, entries.slice(0, 1));

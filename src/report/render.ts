@@ -1,11 +1,17 @@
 import type { Case, Citation, ConformanceCase } from "../types/case";
-import { tableCell } from "./markdown";
 import type { JsonValue } from "../types/json";
 import type { OasVersion, ParameterLocation } from "../types/openapi";
 import type { PipelineStage } from "../types/pipeline";
-import type { SplittableLocation } from "../types/pipeline";
-import { PIPELINE_STAGES, SPLITTABLE_LOCATIONS, ownsStage, probedStage } from "../types/pipeline";
+import { PIPELINE_STAGES, ownsStage, probedStage } from "../types/pipeline";
 import type { AdapterResult, ValueVantage } from "../types/result";
+import {
+  OUTCOME_LABEL,
+  STAGE_SLOTS,
+  VANTAGES,
+  valuesCell,
+  vantageText,
+  verdictCell,
+} from "./cells";
 import type { LibraryMeasurement } from "../types/measurement";
 import { MEASUREMENT_SCHEMA_VERSION } from "../types/measurement";
 import { renderLibrary } from "./display";
@@ -46,15 +52,7 @@ import { score } from "./score";
  */
 export type Artifacts = Record<string, string>;
 
-const OUTCOME_SYMBOL: Record<string, string> = {
-  pass: "pass",
-  passVerdictOnly: "pass (verdict only)",
-  failVerdict: "FAIL (verdict)",
-  failValue: "FAIL (value)",
-  notApplicable: "n/a",
-  libraryError: "RAISED",
-  adapterError: "harness error",
-};
+export { STAGE_SLOTS, type StageSlot } from "./cells";
 
 /**
  * The questions, serialized.
@@ -231,7 +229,7 @@ function renderMatrix(
     const results = resultsFor(measurements, testCase.id);
     const cells = measurements.map((adapter) => {
       const result = results.find((r) => r.library === adapter.library);
-      return result === undefined ? "-" : (OUTCOME_SYMBOL[score(testCase, result)] ?? "?");
+      return result === undefined ? "-" : OUTCOME_LABEL[score(testCase, result)];
     });
     lines.push(`| [\`${testCase.id}\`](#${testCase.id}) | ${testCase.expected} | ${cells.join(" | ")} |`);
   }
@@ -388,7 +386,7 @@ function renderMatrix(
     for (const adapter of measurements) {
       const result = resultsFor(measurements, testCase.id).find((r) => r.library === adapter.library);
       lines.push(
-        `| \`${adapter.library}\` | ${verdictOf(result)} | ${valuesOf(result)} |`,
+        `| \`${adapter.library}\` | ${verdictCell(result)} | ${valuesCell(result)} |`,
       );
     }
     lines.push("");
@@ -409,56 +407,6 @@ function renderMatrix(
 /** The heading a case files under when the cases in full are grouped. */
 function locationGroup(location: string): string {
   return `${location.charAt(0).toUpperCase()}${location.slice(1)} parameters`;
-}
-
-function verdictOf(result: AdapterResult | undefined): string {
-  return tableCell(verdictText(result));
-}
-
-function verdictText(result: AdapterResult | undefined): string {
-  if (result === undefined) return "-";
-  if (result.outcome === "unsupported") return `not asked (${result.reason})`;
-  if (result.outcome === "adapterError") return "harness error";
-  if (result.outcome === "libraryError") return "raised, no verdict";
-  return result.outcome;
-}
-
-function valuesOf(result: AdapterResult | undefined): string {
-  return tableCell(valuesText(result));
-}
-
-function valuesText(result: AdapterResult | undefined): string {
-  if (result === undefined || result.outcome === "unsupported") return "-";
-  if (result.outcome === "adapterError" || result.outcome === "libraryError") return "-";
-  const observation = result.deserialized;
-  if (observation.kind === "unexposed") return `not exposed by this library (${observation.reason})`;
-  if (observation.kind === "notReached") return `none reached (${observation.reason})`;
-  // Named rather than left out. A parameter the container could not read is
-  // absent from `value` exactly as a parameter the library reported nothing for
-  // is, and a cell that prints only the values it has says the second when the
-  // first is true.
-  const unreadable = Object.entries(observation.unreadable ?? {}).sort(([one], [other]) =>
-    one < other ? -1 : 1,
-  );
-  const gap =
-    unreadable.length === 0
-      ? ""
-      : `, and this container could not read ${unreadable
-          .map(([name, reason]) => `\`${name}\` (${reason})`)
-          .join(", ")}`;
-  return `\`${JSON.stringify(observation.value)}\` (${vantageOf(observation.vantage)})${gap}`;
-}
-
-/**
- * Say from what point the values were read. Without this an absent parameter
- * name reads the same across the roster while meaning three different things,
- * and an empty object reads as "returned nothing" when it can mean "withheld
- * because it did not pass".
- */
-function vantageOf(vantage: ValueVantage): string {
-  if (vantage === "handedToHandler") return "handed to the handler";
-  if (vantage === "parsedBeforeValidation") return "parsed before validation";
-  return "validated only, so an absent name failed its schema";
 }
 
 function list(items: readonly string[]): string {
@@ -1256,20 +1204,19 @@ function renderFitness(cases: readonly Case[], measurements: readonly LibraryMea
   lines.push("read the list as what the corpus knows about that stage rather than as the");
   lines.push("exact set of rules governing it and nothing else.");
   lines.push("");
-  lines.push(
-    "| library | routing | split: path | split: query | query pair input | split: header | split: cookie | " +
-      "style and explode | content media type | schema validation | value exposure |",
+  // `query pair input` sits beside query splitting, the stage whose delegation
+  // it qualifies.
+  const columns = STAGE_SLOTS.flatMap((slot) =>
+    slot.location === "query" ? [slot.label, "query pair input"] : [slot.label],
   );
-  lines.push("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |");
+  lines.push(`| library | ${columns.join(" | ")} |`);
+  lines.push(`| --- | ${columns.map(() => "---").join(" | ")} |`);
   for (const adapter of measurements) {
-    const s = adapter.capabilities.stages;
-    lines.push(
-      `| \`${adapter.library}\` | ${owned(s.routing)} | ${owned(s.splitting.path)} | ` +
-        `${owned(s.splitting.query)} | ${adapter.capabilities.queryPairInput} | ` +
-        `${owned(s.splitting.header)} | ${owned(s.splitting.cookie)} | ` +
-        `${owned(s.styleDeserialization)} | ${owned(s.contentDeserialization)} | ` +
-        `${owned(s.schemaValidation)} | ${owned(s.valueExposure)} |`,
-    );
+    const cells = STAGE_SLOTS.flatMap((slot) => {
+      const cell = owned(ownsStage(adapter.capabilities.stages, slot.stage, slot.location ?? "path"));
+      return slot.location === "query" ? [cell, adapter.capabilities.queryPairInput] : [cell];
+    });
+    lines.push(`| \`${adapter.library}\` | ${cells.join(" | ")} |`);
   }
   lines.push("");
   lines.push("`style and explode` and `content media type` are the two ways a parameter's");
@@ -1527,24 +1474,6 @@ function listCases(ids: readonly string[]): string {
     ? shown.join(", ")
     : `${shown.join(", ")}, and ${String(remainder)} more in the matrix files`;
 }
-
-/**
- * Every slot a declaration can fill: the stages, with splitting once per
- * location because that is how it is claimed.
- *
- * Enumerated rather than derived from what any library declared, so a stage no
- * library claims still gets a row saying so.
- */
-export interface StageSlot {
-  readonly stage: PipelineStage;
-  readonly location: SplittableLocation | null;
-}
-
-export const STAGE_SLOTS: readonly StageSlot[] = PIPELINE_STAGES.flatMap((stage): StageSlot[] =>
-  stage === "splitting"
-    ? SPLITTABLE_LOCATIONS.map((location) => ({ stage, location }))
-    : [{ stage, location: null }],
-);
 
 function renderCapabilities(
   cases: readonly Case[],
@@ -1946,7 +1875,7 @@ function exposureTally(
     neverAsked,
     raised,
     harnessErrors,
-    vantages: vantages.size === 0 ? "none" : [...vantages].map(vantageOf).join("; "),
+    vantages: vantages.size === 0 ? "none" : [...vantages].map(vantageText).join("; "),
   };
 }
 
@@ -2014,14 +1943,8 @@ function observedVantages(measurements: readonly LibraryMeasurement[], library: 
   if (seen.size === 0) return "none";
   // Ordered by the type's own declaration order, so the column does not reorder
   // itself when a library's results change.
-  const order: readonly ValueVantage[] = [
-    "handedToHandler",
-    "parsedBeforeValidation",
-    "validatedOnly",
-  ];
-  return order
-    .filter((vantage) => seen.has(vantage))
-    .map((vantage) => `\`${vantageOf(vantage)}\``)
+  return VANTAGES.filter((vantage) => seen.has(vantage))
+    .map((vantage) => `\`${vantageText(vantage)}\``)
     .join("; ");
 }
 

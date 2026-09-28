@@ -3,9 +3,8 @@ import type { OasVersion } from "../types/openapi";
 import type { RunSidecarState } from "./read";
 import type { ConformanceOutcome } from "./score";
 import type { CoverageView, Disagreement } from "./view";
+import { CONFORMANCE_OUTCOMES, OUTCOME_LABEL, OUTCOME_NOTE, STAGE_SLOTS } from "./cells";
 import {
-  CONFORMANCE_OUTCOMES,
-  STAGE_SLOTS,
   caseNotes,
   conformanceGrid,
   corpusAgreement,
@@ -41,38 +40,6 @@ import {
  * denominator, so across measurements this page publishes which case produced
  * which outcome and leaves the arithmetic undone.
  */
-
-const OUTCOME_LABEL: Record<ConformanceOutcome, string> = {
-  pass: "pass",
-  passVerdictOnly: "verdict only",
-  failVerdict: "fail (verdict)",
-  failValue: "fail (value)",
-  libraryError: "raised",
-  adapterError: "harness error",
-  notApplicable: "not asked",
-};
-
-/**
- * What each chip means, one line each.
- *
- * Keyed by outcome rather than written as prose, so the key covers every chip
- * the grid can draw, including the ones a reader is most likely to take for
- * granted: what separates a pass from a pass on the verdict alone, and a
- * verdict mismatch from a matching verdict carrying mismatched values.
- */
-const OUTCOME_NOTE: Record<ConformanceOutcome, string> = {
-  pass: "The verdict the specification settles, and its values where the specification settles those too.",
-  passVerdictOnly:
-    "The settled verdict, from a library that exposes no deserialized values, so the value half of the case could not be asked of it.",
-  failVerdict: "It reached the opposite verdict.",
-  failValue:
-    "It reached the settled verdict and handed back values the specification settles differently.",
-  libraryError:
-    "It threw instead of answering, which is attributable to it. An application would have seen an exception rather than a refusal.",
-  adapterError: "An error in the adapter or the harness rather than an answer from the library.",
-  notApplicable:
-    "No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.",
-};
 
 const OUTCOME_CLASS: Record<ConformanceOutcome, string> = {
   pass: "pass",

@@ -4,13 +4,13 @@ import type { LibraryMeasurement } from "../../src/types/measurement";
 import type { AdapterResult, DeserializedValues } from "../../src/types/result";
 import { renderMarkdown } from "../../src/report/render";
 import { score } from "../../src/report/score";
+import { valuesText } from "../../src/report/cells";
 import {
   caseNote,
   caseNotes,
   conformanceTallies,
   contentConditionOf,
   corpusAgreement,
-  describeValues,
   disagreements,
   divergenceGrid,
   orderEntries,
@@ -788,13 +788,14 @@ describe("a parameter the container could not read", () => {
   it("is named in the value cell rather than left out of it", () => {
     // Absent from `value` is what a library reporting nothing looks like, so a
     // cell printing only the values it has says that when this is true instead.
-    expect(describeValues(acceptedWithUnreadable({ p: "blue" }, unreadable))).toBe(
-      '{"p":"blue"} (not readable here: q)',
+    expect(valuesText(acceptedWithUnreadable({ p: "blue" }, unreadable))).toBe(
+      '{"p":"blue"} (handed to the handler), and this container could not read q ' +
+        "(this library's request shape has no slot for it)",
     );
   });
 
   it("reads as an ordinary value cell when there is none", () => {
-    expect(describeValues(accepted({ p: "blue" }))).toBe('{"p":"blue"}');
+    expect(valuesText(accepted({ p: "blue" }))).toBe('{"p":"blue"} (handed to the handler)');
   });
 
   it("is named with its reason in the rendered matrix", () => {

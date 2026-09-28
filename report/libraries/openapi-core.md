@@ -18,10 +18,10 @@ Configuration `unmarshal-request-protocol`: OpenAPI.from_dict(document) driven t
 | stage | |
 | --- | --- |
 | routing | owned |
+| split: cookie | caller |
+| split: header | owned |
 | split: path | owned |
 | split: query | caller |
-| split: header | owned |
-| split: cookie | caller |
 | style and explode | owned |
 | content media type | owned |
 | schema validation | owned |
@@ -49,31 +49,36 @@ the page with the numbers.
 | pass | 42 |
 | FAIL (verdict) | 17 |
 | FAIL (value) | 1 |
-| not asked | 9 |
+| n/a | 9 |
 | every conformance case | 69 |
+
+- `pass`: The verdict the specification settles, and its values where the specification settles those too.
+- `FAIL (verdict)`: It reached the opposite verdict.
+- `FAIL (value)`: It reached the settled verdict and handed back values the specification settles differently.
+- `n/a`: No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
-| [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | `{}` |
-| [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | `{}` |
-| [`path-content-json-object-canonical-oas30`](../matrix.oas30.md#path-content-json-object-canonical-oas30) | accepted | rejected | `{}` |
-| [`path-label-array-canonical-oas30`](../matrix.oas30.md#path-label-array-canonical-oas30) | accepted | rejected | `{}` |
-| [`path-label-array-explode-oas30`](../matrix.oas30.md#path-label-array-explode-oas30) | accepted | rejected | `{}` |
-| [`path-label-object-canonical-oas30`](../matrix.oas30.md#path-label-object-canonical-oas30) | accepted | rejected | `{}` |
-| [`path-label-object-explode-oas30`](../matrix.oas30.md#path-label-object-explode-oas30) | accepted | rejected | `{}` |
-| [`path-label-scalar-canonical-oas30`](../matrix.oas30.md#path-label-scalar-canonical-oas30) | accepted | rejected | `{}` |
-| [`path-label-scalar-explode-oas30`](../matrix.oas30.md#path-label-scalar-explode-oas30) | accepted | rejected | `{}` |
-| [`path-matrix-array-canonical-oas30`](../matrix.oas30.md#path-matrix-array-canonical-oas30) | accepted | rejected | `{}` |
-| [`path-matrix-array-no-explode-oas30`](../matrix.oas30.md#path-matrix-array-no-explode-oas30) | accepted | rejected | `{}` |
-| [`path-matrix-object-canonical-oas30`](../matrix.oas30.md#path-matrix-object-canonical-oas30) | accepted | rejected | `{}` |
-| [`path-matrix-object-explode-oas30`](../matrix.oas30.md#path-matrix-object-explode-oas30) | accepted | rejected | `{}` |
-| [`path-matrix-scalar-canonical-oas30`](../matrix.oas30.md#path-matrix-scalar-canonical-oas30) | accepted | rejected | `{}` |
-| [`path-matrix-scalar-explode-oas30`](../matrix.oas30.md#path-matrix-scalar-explode-oas30) | accepted | rejected | `{}` |
-| [`path-simple-array-encoded-delimiter-oas30`](../matrix.oas30.md#path-simple-array-encoded-delimiter-oas30) | accepted | accepted | `{"p":["blue%2Cblack"]}` |
-| [`query-form-object-canonical-explode-oas30`](../matrix.oas30.md#query-form-object-canonical-explode-oas30) | accepted | rejected | `{}` |
-| [`query-form-scalar-nullable-empty-oas30`](../matrix.oas30.md#query-form-scalar-nullable-empty-oas30) | accepted | rejected | `{}` |
+| [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-content-json-object-canonical-oas30`](../matrix.oas30.md#path-content-json-object-canonical-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-array-canonical-oas30`](../matrix.oas30.md#path-label-array-canonical-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-array-explode-oas30`](../matrix.oas30.md#path-label-array-explode-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-object-canonical-oas30`](../matrix.oas30.md#path-label-object-canonical-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-object-explode-oas30`](../matrix.oas30.md#path-label-object-explode-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-scalar-canonical-oas30`](../matrix.oas30.md#path-label-scalar-canonical-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-scalar-explode-oas30`](../matrix.oas30.md#path-label-scalar-explode-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-array-canonical-oas30`](../matrix.oas30.md#path-matrix-array-canonical-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-array-no-explode-oas30`](../matrix.oas30.md#path-matrix-array-no-explode-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-object-canonical-oas30`](../matrix.oas30.md#path-matrix-object-canonical-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-object-explode-oas30`](../matrix.oas30.md#path-matrix-object-explode-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-scalar-canonical-oas30`](../matrix.oas30.md#path-matrix-scalar-canonical-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-scalar-explode-oas30`](../matrix.oas30.md#path-matrix-scalar-explode-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-simple-array-encoded-delimiter-oas30`](../matrix.oas30.md#path-simple-array-encoded-delimiter-oas30) | accepted | accepted | `{"p":["blue%2Cblack"]}` (validated only, so an absent name failed its schema) |
+| [`query-form-object-canonical-explode-oas30`](../matrix.oas30.md#query-form-object-canonical-explode-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`query-form-scalar-nullable-empty-oas30`](../matrix.oas30.md#query-form-scalar-nullable-empty-oas30) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
@@ -104,34 +109,34 @@ nothing is attributed to it.
 
 | case | verdict | values |
 | --- | --- | --- |
-| [`cookie-form-array-canonical-no-explode-oas30`](../matrix.oas30.md#cookie-form-array-canonical-no-explode-oas30) | accepted | `{"p":["blue","black"]}` |
-| [`cookie-form-array-explode-oas30`](../matrix.oas30.md#cookie-form-array-explode-oas30) | accepted | `{"p":["blue","black"]}` |
-| [`cookie-form-object-canonical-oas30`](../matrix.oas30.md#cookie-form-object-canonical-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` |
+| [`cookie-form-array-canonical-no-explode-oas30`](../matrix.oas30.md#cookie-form-array-canonical-no-explode-oas30) | accepted | `{"p":["blue","black"]}` (validated only, so an absent name failed its schema) |
+| [`cookie-form-array-explode-oas30`](../matrix.oas30.md#cookie-form-array-explode-oas30) | accepted | `{"p":["blue","black"]}` (validated only, so an absent name failed its schema) |
+| [`cookie-form-object-canonical-oas30`](../matrix.oas30.md#cookie-form-object-canonical-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` (validated only, so an absent name failed its schema) |
 | [`cookie-form-object-explode-oas30`](../matrix.oas30.md#cookie-form-object-explode-oas30) | not asked (stageNotOwned) | - |
-| [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | accepted | `{"p":"blue"}` |
-| [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | accepted | `{"p":"blue"}` |
-| [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | `{"entity":"t"}` |
-| [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | accepted | `{"p":"blue"}` |
+| [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
+| [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
+| [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | `{"entity":"t"}` (validated only, so an absent name failed its schema) |
+| [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
 | [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | not asked (libraryInitUnsupported) | - |
 | [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | not asked (stageNotOwned) | - |
 | [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | not asked (stageNotOwned) | - |
 | [`query-deep-object-no-explode-oas30`](../matrix.oas30.md#query-deep-object-no-explode-oas30) | not asked (harnessInputUnavailable) | - |
 | [`query-form-array-duplicate-name-oas30`](../matrix.oas30.md#query-form-array-duplicate-name-oas30) | not asked (stageNotOwned) | - |
-| [`query-form-array-empty-value-oas30`](../matrix.oas30.md#query-form-array-empty-value-oas30) | accepted | `{"p":[""]}` |
-| [`query-form-array-integer-items-oas30`](../matrix.oas30.md#query-form-array-integer-items-oas30) | accepted | `{"p":[1,2]}` |
-| [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | accepted | `{"p":true}` |
-| [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | `{}` |
-| [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | accepted | `{"p":{"R":100,"G":200}}` |
-| [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | `{"p":""}` |
+| [`query-form-array-empty-value-oas30`](../matrix.oas30.md#query-form-array-empty-value-oas30) | accepted | `{"p":[""]}` (validated only, so an absent name failed its schema) |
+| [`query-form-array-integer-items-oas30`](../matrix.oas30.md#query-form-array-integer-items-oas30) | accepted | `{"p":[1,2]}` (validated only, so an absent name failed its schema) |
+| [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | accepted | `{"p":true}` (validated only, so an absent name failed its schema) |
+| [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | accepted | `{"p":{"R":100,"G":200}}` (validated only, so an absent name failed its schema) |
+| [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | `{"p":""}` (validated only, so an absent name failed its schema) |
 | [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | not asked (harnessInputUnavailable) | - |
-| [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | accepted | `{"p":"a/b:c"}` |
-| [`query-form-scalar-integer-fractional-oas30`](../matrix.oas30.md#query-form-scalar-integer-fractional-oas30) | rejected | `{}` |
-| [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | `{"p":100}` |
+| [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | accepted | `{"p":"a/b:c"}` (validated only, so an absent name failed its schema) |
+| [`query-form-scalar-integer-fractional-oas30`](../matrix.oas30.md#query-form-scalar-integer-fractional-oas30) | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`query-form-scalar-integer-oas30`](../matrix.oas30.md#query-form-scalar-integer-oas30) | accepted | `{"p":100}` (validated only, so an absent name failed its schema) |
 | [`query-form-scalar-name-without-value-oas30`](../matrix.oas30.md#query-form-scalar-name-without-value-oas30) | not asked (cannotRepresentCase) | - |
-| [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | `{}` |
+| [`query-form-scalar-nullable-absent-oas30`](../matrix.oas30.md#query-form-scalar-nullable-absent-oas30) | rejected | `{}` (validated only, so an absent name failed its schema) |
 | [`query-form-scalar-type-array-oas30`](../matrix.oas30.md#query-form-scalar-type-array-oas30) | not asked (libraryInitUnsupported) | - |
 | [`query-form-scalar-unencoded-plus-oas30`](../matrix.oas30.md#query-form-scalar-unencoded-plus-oas30) | not asked (harnessInputUnavailable) | - |
-| [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | rejected | `{}` |
+| [`query-space-delimited-array-explode-oas30`](../matrix.oas30.md#query-space-delimited-array-explode-oas30) | rejected | `{}` (validated only, so an absent name failed its schema) |
 
 ## OpenAPI 3.1
 
@@ -149,31 +154,37 @@ the page with the numbers.
 | pass | 42 |
 | FAIL (verdict) | 16 |
 | FAIL (value) | 1 |
-| raised instead of answering | 2 |
-| not asked | 9 |
+| RAISED | 2 |
+| n/a | 9 |
 | every conformance case | 70 |
+
+- `pass`: The verdict the specification settles, and its values where the specification settles those too.
+- `FAIL (verdict)`: It reached the opposite verdict.
+- `FAIL (value)`: It reached the settled verdict and handed back values the specification settles differently.
+- `RAISED`: It threw instead of answering, which is attributable to it. An application would have seen an exception rather than a refusal.
+- `n/a`: No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
-| [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | `{}` |
-| [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | `{}` |
-| [`path-content-json-object-canonical-oas31`](../matrix.oas31.md#path-content-json-object-canonical-oas31) | accepted | rejected | `{}` |
-| [`path-label-array-canonical-oas31`](../matrix.oas31.md#path-label-array-canonical-oas31) | accepted | rejected | `{}` |
-| [`path-label-array-explode-oas31`](../matrix.oas31.md#path-label-array-explode-oas31) | accepted | rejected | `{}` |
-| [`path-label-object-canonical-oas31`](../matrix.oas31.md#path-label-object-canonical-oas31) | accepted | rejected | `{}` |
-| [`path-label-object-explode-oas31`](../matrix.oas31.md#path-label-object-explode-oas31) | accepted | rejected | `{}` |
-| [`path-label-scalar-canonical-oas31`](../matrix.oas31.md#path-label-scalar-canonical-oas31) | accepted | rejected | `{}` |
-| [`path-label-scalar-explode-oas31`](../matrix.oas31.md#path-label-scalar-explode-oas31) | accepted | rejected | `{}` |
-| [`path-matrix-array-canonical-oas31`](../matrix.oas31.md#path-matrix-array-canonical-oas31) | accepted | rejected | `{}` |
-| [`path-matrix-array-no-explode-oas31`](../matrix.oas31.md#path-matrix-array-no-explode-oas31) | accepted | rejected | `{}` |
-| [`path-matrix-object-canonical-oas31`](../matrix.oas31.md#path-matrix-object-canonical-oas31) | accepted | rejected | `{}` |
-| [`path-matrix-object-explode-oas31`](../matrix.oas31.md#path-matrix-object-explode-oas31) | accepted | rejected | `{}` |
-| [`path-matrix-scalar-canonical-oas31`](../matrix.oas31.md#path-matrix-scalar-canonical-oas31) | accepted | rejected | `{}` |
-| [`path-matrix-scalar-explode-oas31`](../matrix.oas31.md#path-matrix-scalar-explode-oas31) | accepted | rejected | `{}` |
-| [`path-simple-array-encoded-delimiter-oas31`](../matrix.oas31.md#path-simple-array-encoded-delimiter-oas31) | accepted | accepted | `{"p":["blue%2Cblack"]}` |
-| [`query-form-object-canonical-explode-oas31`](../matrix.oas31.md#query-form-object-canonical-explode-oas31) | accepted | rejected | `{}` |
+| [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-content-json-object-canonical-oas31`](../matrix.oas31.md#path-content-json-object-canonical-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-array-canonical-oas31`](../matrix.oas31.md#path-label-array-canonical-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-array-explode-oas31`](../matrix.oas31.md#path-label-array-explode-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-object-canonical-oas31`](../matrix.oas31.md#path-label-object-canonical-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-object-explode-oas31`](../matrix.oas31.md#path-label-object-explode-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-scalar-canonical-oas31`](../matrix.oas31.md#path-label-scalar-canonical-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-label-scalar-explode-oas31`](../matrix.oas31.md#path-label-scalar-explode-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-array-canonical-oas31`](../matrix.oas31.md#path-matrix-array-canonical-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-array-no-explode-oas31`](../matrix.oas31.md#path-matrix-array-no-explode-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-object-canonical-oas31`](../matrix.oas31.md#path-matrix-object-canonical-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-object-explode-oas31`](../matrix.oas31.md#path-matrix-object-explode-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-scalar-canonical-oas31`](../matrix.oas31.md#path-matrix-scalar-canonical-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-scalar-explode-oas31`](../matrix.oas31.md#path-matrix-scalar-explode-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`path-simple-array-encoded-delimiter-oas31`](../matrix.oas31.md#path-simple-array-encoded-delimiter-oas31) | accepted | accepted | `{"p":["blue%2Cblack"]}` (validated only, so an absent name failed its schema) |
+| [`query-form-object-canonical-explode-oas31`](../matrix.oas31.md#query-form-object-canonical-explode-oas31) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
@@ -204,33 +215,33 @@ nothing is attributed to it.
 
 | case | verdict | values |
 | --- | --- | --- |
-| [`cookie-form-array-canonical-no-explode-oas31`](../matrix.oas31.md#cookie-form-array-canonical-no-explode-oas31) | accepted | `{"p":["blue","black"]}` |
-| [`cookie-form-array-explode-oas31`](../matrix.oas31.md#cookie-form-array-explode-oas31) | accepted | `{"p":["blue","black"]}` |
-| [`cookie-form-object-canonical-oas31`](../matrix.oas31.md#cookie-form-object-canonical-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` |
+| [`cookie-form-array-canonical-no-explode-oas31`](../matrix.oas31.md#cookie-form-array-canonical-no-explode-oas31) | accepted | `{"p":["blue","black"]}` (validated only, so an absent name failed its schema) |
+| [`cookie-form-array-explode-oas31`](../matrix.oas31.md#cookie-form-array-explode-oas31) | accepted | `{"p":["blue","black"]}` (validated only, so an absent name failed its schema) |
+| [`cookie-form-object-canonical-oas31`](../matrix.oas31.md#cookie-form-object-canonical-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` (validated only, so an absent name failed its schema) |
 | [`cookie-form-object-explode-oas31`](../matrix.oas31.md#cookie-form-object-explode-oas31) | not asked (stageNotOwned) | - |
-| [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | accepted | `{"p":"blue"}` |
-| [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | accepted | `{"p":"blue"}` |
-| [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | `{"entity":"t"}` |
-| [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | accepted | `{"p":"blue"}` |
+| [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
+| [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
+| [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | `{"entity":"t"}` (validated only, so an absent name failed its schema) |
+| [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
 | [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | not asked (libraryInitUnsupported) | - |
 | [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | not asked (stageNotOwned) | - |
 | [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | not asked (stageNotOwned) | - |
 | [`query-deep-object-no-explode-oas31`](../matrix.oas31.md#query-deep-object-no-explode-oas31) | not asked (harnessInputUnavailable) | - |
 | [`query-form-array-duplicate-name-oas31`](../matrix.oas31.md#query-form-array-duplicate-name-oas31) | not asked (stageNotOwned) | - |
-| [`query-form-array-empty-value-oas31`](../matrix.oas31.md#query-form-array-empty-value-oas31) | accepted | `{"p":[""]}` |
-| [`query-form-array-integer-items-oas31`](../matrix.oas31.md#query-form-array-integer-items-oas31) | accepted | `{"p":[1,2]}` |
-| [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | accepted | `{"p":true}` |
-| [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | `{}` |
-| [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | accepted | `{"p":{"R":100,"G":200}}` |
-| [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | `{"p":""}` |
+| [`query-form-array-empty-value-oas31`](../matrix.oas31.md#query-form-array-empty-value-oas31) | accepted | `{"p":[""]}` (validated only, so an absent name failed its schema) |
+| [`query-form-array-integer-items-oas31`](../matrix.oas31.md#query-form-array-integer-items-oas31) | accepted | `{"p":[1,2]}` (validated only, so an absent name failed its schema) |
+| [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | accepted | `{"p":true}` (validated only, so an absent name failed its schema) |
+| [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | accepted | `{"p":{"R":100,"G":200}}` (validated only, so an absent name failed its schema) |
+| [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | `{"p":""}` (validated only, so an absent name failed its schema) |
 | [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | not asked (harnessInputUnavailable) | - |
-| [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | accepted | `{"p":"a/b:c"}` |
-| [`query-form-scalar-integer-fractional-oas31`](../matrix.oas31.md#query-form-scalar-integer-fractional-oas31) | rejected | `{}` |
-| [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | `{"p":100}` |
+| [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | accepted | `{"p":"a/b:c"}` (validated only, so an absent name failed its schema) |
+| [`query-form-scalar-integer-fractional-oas31`](../matrix.oas31.md#query-form-scalar-integer-fractional-oas31) | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`query-form-scalar-integer-oas31`](../matrix.oas31.md#query-form-scalar-integer-oas31) | accepted | `{"p":100}` (validated only, so an absent name failed its schema) |
 | [`query-form-scalar-name-without-value-oas31`](../matrix.oas31.md#query-form-scalar-name-without-value-oas31) | not asked (cannotRepresentCase) | - |
 | [`query-form-scalar-nullable-absent-oas31`](../matrix.oas31.md#query-form-scalar-nullable-absent-oas31) | raised, no verdict | - |
 | [`query-form-scalar-unencoded-plus-oas31`](../matrix.oas31.md#query-form-scalar-unencoded-plus-oas31) | not asked (harnessInputUnavailable) | - |
-| [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | rejected | `{}` |
+| [`query-space-delimited-array-explode-oas31`](../matrix.oas31.md#query-space-delimited-array-explode-oas31) | rejected | `{}` (validated only, so an absent name failed its schema) |
 
 ## OpenAPI 3.2
 
@@ -247,18 +258,23 @@ the page with the numbers.
 | --- | --- |
 | pass | 4 |
 | FAIL (verdict) | 4 |
-| raised instead of answering | 3 |
-| not asked | 7 |
+| RAISED | 3 |
+| n/a | 7 |
 | every conformance case | 18 |
+
+- `pass`: The verdict the specification settles, and its values where the specification settles those too.
+- `FAIL (verdict)`: It reached the opposite verdict.
+- `RAISED`: It threw instead of answering, which is attributable to it. An application would have seen an exception rather than a refusal.
+- `n/a`: No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.
 
 #### Cases it did not pass
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
-| [`cookie-cookie-array-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-canonical-explode-oas32) | accepted | rejected | `{}` |
-| [`cookie-cookie-array-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-no-explode-oas32) | accepted | rejected | `{}` |
-| [`cookie-cookie-object-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-canonical-explode-oas32) | accepted | rejected | `{}` |
-| [`cookie-cookie-object-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-no-explode-oas32) | accepted | rejected | `{}` |
+| [`cookie-cookie-array-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-canonical-explode-oas32) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`cookie-cookie-array-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-array-no-explode-oas32) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`cookie-cookie-object-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-canonical-explode-oas32) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
+| [`cookie-cookie-object-no-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-no-explode-oas32) | accepted | rejected | `{}` (validated only, so an absent name failed its schema) |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in
@@ -291,8 +307,8 @@ nothing is attributed to it.
 
 | case | verdict | values |
 | --- | --- | --- |
-| [`cookie-form-array-explode-oas32`](../matrix.oas32.md#cookie-form-array-explode-oas32) | accepted | `{"p":["blue","black"]}` |
-| [`path-simple-scalar-allow-reserved-unset-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-unset-oas32) | accepted | `{"p":"a:b@c"}` |
+| [`cookie-form-array-explode-oas32`](../matrix.oas32.md#cookie-form-array-explode-oas32) | accepted | `{"p":["blue","black"]}` (validated only, so an absent name failed its schema) |
+| [`path-simple-scalar-allow-reserved-unset-oas32`](../matrix.oas32.md#path-simple-scalar-allow-reserved-unset-oas32) | accepted | `{"p":"a:b@c"}` (validated only, so an absent name failed its schema) |
 | [`querystring-beside-query-oas32`](../matrix.oas32.md#querystring-beside-query-oas32) | not asked (libraryInitUnsupported) | - |
 | [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (libraryInitUnsupported) | - |
 | [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (libraryInitUnsupported) | - |

@@ -1,11 +1,14 @@
 import type { Case, ConformanceCase } from "../types/case";
-import { tableCell } from "./markdown";
 import { OAS_VERSIONS } from "../types/openapi";
-import type { AdapterResult } from "../types/result";
 import type { LibraryMeasurement } from "../types/measurement";
-import type { ConformanceOutcome } from "./score";
+import { ownsStage } from "../types/pipeline";
 import { score } from "./score";
-import { CONFORMANCE_OUTCOMES, conformanceTallies, matrixFileName, presentVersions } from "./view";
+import {
+  CONFORMANCE_OUTCOMES,
+  OUTCOME_LABEL,
+  OUTCOME_NOTE,
+  STAGE_SLOTS, valuesCell, verdictCell } from "./cells";
+import { conformanceTallies, matrixFileName, presentVersions } from "./view";
 
 /**
  * Read one library's measurement on its own.
@@ -64,18 +67,12 @@ export function renderLibrary(cases: readonly Case[], measurement: LibraryMeasur
 
   lines.push("## What it does for itself");
   lines.push("");
-  const stages = measurement.capabilities.stages;
   lines.push("| stage | |");
   lines.push("| --- | --- |");
-  lines.push(`| routing | ${stages.routing ? "owned" : "caller"} |`);
-  lines.push(`| split: path | ${stages.splitting.path ? "owned" : "caller"} |`);
-  lines.push(`| split: query | ${stages.splitting.query ? "owned" : "caller"} |`);
-  lines.push(`| split: header | ${stages.splitting.header ? "owned" : "caller"} |`);
-  lines.push(`| split: cookie | ${stages.splitting.cookie ? "owned" : "caller"} |`);
-  lines.push(`| style and explode | ${stages.styleDeserialization ? "owned" : "caller"} |`);
-  lines.push(`| content media type | ${stages.contentDeserialization ? "owned" : "caller"} |`);
-  lines.push(`| schema validation | ${stages.schemaValidation ? "owned" : "caller"} |`);
-  lines.push(`| value exposure | ${stages.valueExposure ? "owned" : "caller"} |`);
+  for (const slot of STAGE_SLOTS) {
+    const owns = ownsStage(measurement.capabilities.stages, slot.stage, slot.location ?? "path");
+    lines.push(`| ${slot.label} | ${owns ? "owned" : "caller"} |`);
+  }
   lines.push("");
   const declaredVersions = OAS_VERSIONS.filter(
     (version) => measurement.capabilities.oasVersions[version],
@@ -123,9 +120,13 @@ export function renderLibrary(cases: readonly Case[], measurement: LibraryMeasur
     lines.push("| --- | --- |");
     for (const outcome of CONFORMANCE_OUTCOMES) {
       const count = tally.counts[outcome];
-      if (count > 0) lines.push(`| ${describeOutcome(outcome)} | ${String(count)} |`);
+      if (count > 0) lines.push(`| ${OUTCOME_LABEL[outcome]} | ${String(count)} |`);
     }
     lines.push(`| every conformance case | ${String(tally.total)} |`);
+    lines.push("");
+    for (const outcome of CONFORMANCE_OUTCOMES) {
+      if (tally.counts[outcome] > 0) lines.push(`- \`${OUTCOME_LABEL[outcome]}\`: ${OUTCOME_NOTE[outcome]}`);
+    }
     lines.push("");
 
     const failures = scored.filter(
@@ -139,7 +140,7 @@ export function renderLibrary(cases: readonly Case[], measurement: LibraryMeasur
       for (const entry of failures) {
         lines.push(
           `| ${caseLink(entry.testCase.id)} | ${entry.testCase.expected} | ` +
-            `${verdictOf(entry.result)} | ${valuesOf(entry.result)} |`,
+            `${verdictCell(entry.result)} | ${valuesCell(entry.result)} |`,
         );
       }
       lines.push("");
@@ -209,54 +210,11 @@ export function renderLibrary(cases: readonly Case[], measurement: LibraryMeasur
     for (const testCase of versionCases.filter((c) => c.tier === "divergence")) {
       const result = byCase.get(testCase.id);
       lines.push(
-        `| ${caseLink(testCase.id)} | ${verdictOf(result)} | ${valuesOf(result)} |`,
+        `| ${caseLink(testCase.id)} | ${verdictCell(result)} | ${valuesCell(result)} |`,
       );
     }
     lines.push("");
   }
 
   return lines.join("\n");
-}
-
-function describeOutcome(outcome: ConformanceOutcome): string {
-  if (outcome === "passVerdictOnly") return "pass (verdict only)";
-  if (outcome === "failVerdict") return "FAIL (verdict)";
-  if (outcome === "failValue") return "FAIL (value)";
-  if (outcome === "notApplicable") return "not asked";
-  if (outcome === "libraryError") return "raised instead of answering";
-  return outcome === "adapterError" ? "harness error" : outcome;
-}
-
-function verdictOf(result: AdapterResult | undefined): string {
-  return tableCell(verdictText(result));
-}
-
-function verdictText(result: AdapterResult | undefined): string {
-  if (result === undefined) return "-";
-  if (result.outcome === "unsupported") return `not asked (${result.reason})`;
-  if (result.outcome === "adapterError") return "harness error";
-  if (result.outcome === "libraryError") return "raised, no verdict";
-  return result.outcome;
-}
-
-function valuesOf(result: AdapterResult | undefined): string {
-  return tableCell(valuesText(result));
-}
-
-function valuesText(result: AdapterResult | undefined): string {
-  if (result === undefined) return "-";
-  if (result.outcome === "unsupported") return "-";
-  if (result.outcome === "adapterError" || result.outcome === "libraryError") return "-";
-  const observation = result.deserialized;
-  if (observation.kind === "unexposed") return "not exposed by this library";
-  if (observation.kind === "notReached") return `none reached (${observation.reason})`;
-  // A parameter this container could not read is absent from `value` exactly as
-  // a parameter the library reported nothing for is, so it is named here rather
-  // than left to look like the second.
-  const unreadable = Object.keys(observation.unreadable ?? {}).sort();
-  const withheld =
-    unreadable.length === 0
-      ? ""
-      : `, and this container could not read ${unreadable.map((name) => `\`${name}\``).join(", ")}`;
-  return `\`${JSON.stringify(observation.value)}\`${withheld}`;
 }
