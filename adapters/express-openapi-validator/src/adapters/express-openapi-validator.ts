@@ -42,6 +42,9 @@ const configuration: Configuration = {
     "express app, exactly as the published usage shows, with a handler that echoes " +
     "the request it received and an error handler that reports the thrown status " +
     "alongside the same request fields. " +
+    "Query and header splitting are the host stack's: express (version in options) " +
+    "parses the query string with its default parser and Node joins repeated header " +
+    "lines with a comma and a space before the middleware reads either. " +
     "Cookies reach it the way the published usage expects, as req.cookies: a " +
     "middleware ahead of the validator installs the harness's cookie pairs there, " +
     "in the place a cookie parser would. A repeated cookie name or a crumb with no " +
@@ -49,7 +52,7 @@ const configuration: Configuration = {
     "Reading its values: on an accepted request they are what the handler was " +
     "handed. On a rejected one they are what the middleware had coerced onto the " +
     "request before it stopped, so they are partial and stop at the first failure.",
-  options: { validateRequests: true },
+  options: { validateRequests: true, express: readVersion("express") },
 };
 
 interface Mounted {
@@ -111,7 +114,10 @@ export function createAdapter(): LibraryAdapter {
         res.status(error.status ?? 500).json({
           message: error.message,
           errors: error.errors ?? null,
-          params: req.params,
+          // Express resets req.params for an error-handling layer, so the path
+          // values the middleware parsed are read from req.openapi, where it
+          // records them, rather than lost on every rejection.
+          params: openapiPathParams(req) ?? req.params,
           query: req.query,
           headers: req.headers,
           cookies: cookiesOf(req),
@@ -123,6 +129,27 @@ export function createAdapter(): LibraryAdapter {
     await new Promise<void>((resolve) => server.once("listening", () => resolve()));
     const address = server.address();
     if (address === null || typeof address === "string") throw new Error("no port bound");
+
+    // The middleware loads the document on the first request rather than when
+    // it is installed, so a document it refuses would otherwise surface as a
+    // 5xx on the case's own request and read as the library raising on that
+    // request. A path no case declares answers 404 once the document loaded;
+    // a 5xx there is the refusal, reported as libraryInitUnsupported like
+    // every container whose library refuses a document at construction.
+    const preflight = await sendRaw(address.port, {
+      method: "GET",
+      target: PREFLIGHT_PATH,
+      headers: [["Host", "harness.invalid"]],
+    });
+    if (preflight.status >= 500) {
+      server.close();
+      const body = parseBody(preflight.body) as { message?: unknown };
+      throw new Error(
+        typeof body === "object" && body !== null && typeof body.message === "string"
+          ? body.message
+          : `the app answered ${String(preflight.status)} before any case request`,
+      );
+    }
     return { server, port: address.port };
   }
 
@@ -344,4 +371,13 @@ function carriesLibraryErrors(body: unknown): boolean {
     body !== null &&
     Array.isArray((body as { errors?: unknown }).errors)
   );
+}
+
+/** A path no case document declares, so a loaded document answers it 404. */
+const PREFLIGHT_PATH = "/openapi-crosscheck-preflight/0/0/0";
+
+/** The path values the middleware recorded on req.openapi, when it got that far. */
+function openapiPathParams(req: express.Request): unknown {
+  const recorded = (req as express.Request & { openapi?: { pathParams?: unknown } }).openapi;
+  return recorded?.pathParams;
 }

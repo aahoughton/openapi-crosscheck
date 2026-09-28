@@ -33,6 +33,14 @@ selects the operation from the incoming HTTP request.
 
 Path, query and header splitting are claimed because the adapter sends the raw
 HTTP request to Express and the middleware validates what the application sees.
+Part of that splitting is the host stack's: Express parses the query string with
+its default parser, and Node joins repeated header lines with a comma and a
+space. The Express version is recorded in the configuration options.
+
+The middleware loads the document on its first request. A preflight request to
+a path no case declares runs before any case, and a 5xx there is reported as
+`libraryInitUnsupported`, the same as a library that refuses a document at
+construction.
 
 Cookie splitting is caller-owned because the middleware reads `req.cookies`,
 which Express leaves empty until something ahead of the validator fills it. A
@@ -51,7 +59,9 @@ their schemas.
 
 Value exposure is claimed because accepted requests reach the handler with
 coerced values, and rejected requests reach the error handler with whatever the
-middleware had already written onto the request.
+middleware had already written onto the request. Express resets `req.params`
+for an error handler, so path values on a rejected row are read from
+`req.openapi.pathParams`, where the middleware records them.
 
 ## Value Channel
 
