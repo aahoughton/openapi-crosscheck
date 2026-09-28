@@ -1,7 +1,8 @@
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import type { LibraryMeasurement } from "../types/measurement";
 import { compare, renderComparison } from "../report/diff";
+import { readMeasurementFile } from "../report/read";
 
 /**
  * Compare two measurements and say what moved.
@@ -65,19 +66,9 @@ function readMeasurement(path: string): LibraryMeasurement {
           files.map((name) => `  ${join(dir, name)}`).join("\n"),
       );
     }
-    return parse(join(dir, only));
+    return readMeasurementFile(join(dir, only));
   }
-  return parse(resolved);
-}
-
-function parse(file: string): LibraryMeasurement {
-  const measurement = JSON.parse(readFileSync(file, "utf8")) as LibraryMeasurement;
-  // Enough of a check to fail on the wrong file rather than on a missing field
-  // three functions later.
-  if (typeof measurement.library !== "string" || !Array.isArray(measurement.answers)) {
-    throw new Error(`${file} is not a measurement: it has no library and no answers`);
-  }
-  return measurement;
+  return readMeasurementFile(resolved);
 }
 
 await main();
