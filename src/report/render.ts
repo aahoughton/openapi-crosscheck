@@ -25,6 +25,7 @@ import { PARAMETER_NAME_RESERVED_HEADERS as RESERVED_HEADERS_OAS31 } from "../co
 import { PARAMETER_NAME_RESERVED_HEADERS as RESERVED_HEADERS_OAS32 } from "../corpus/citations/oas32";
 import type { CoverageView } from "./view";
 import {
+  corpusAgreement,
   coverage,
   disagreements,
   matrixFileName,
@@ -110,6 +111,27 @@ export function renderMarkdown(
     artifacts[`coverage.${versionSlug(version)}.md`] = renderCoverage(version, versionCases);
   }
   artifacts["capabilities.md"] = renderCapabilities(cases, ordered);
+
+  // Reported rather than refused, as the page does: a caller joining
+  // measurements over different corpora is shown the answers with the warning
+  // at the top of every file that reads them. The coverage files read only the
+  // corpus and carry none.
+  const agreement = corpusAgreement(
+    ordered.map((measurement) => ({ label: measurement.library, measurement })),
+  );
+  if (!agreement.agreed) {
+    const warning =
+      `**These measurements answered different corpora.** ` +
+      `${String(agreement.digests.length)} distinct corpus digests are present ` +
+      `(${agreement.digests.map((digest) => `\`${digest.slice(0, 19)}\``).join(", ")}), ` +
+      "so a case id does not necessarily name the same question for every library, and a " +
+      "difference below may be a difference in the questions.";
+    for (const [name, content] of Object.entries(artifacts)) {
+      if (name.startsWith("coverage.")) continue;
+      const [title, ...rest] = content.split("\n");
+      artifacts[name] = [title, "", warning, ...rest].join("\n");
+    }
+  }
   return artifacts;
 }
 

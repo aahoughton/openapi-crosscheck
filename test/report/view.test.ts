@@ -1026,6 +1026,32 @@ describe("fitness claims a split only where the measurements show one", () => {
   });
 });
 
+describe("markdown over measurements of different corpora", () => {
+  const one = measurement("one", "1.0.0", { a: accepted({ p: "blue" }) }, { corpusDigest: "sha256:one" });
+  const two = measurement("two", "1.0.0", { a: accepted({ p: "blue" }) }, { corpusDigest: "sha256:two" });
+
+  it("says so at the top of every file that reads the measurements", () => {
+    const artifacts = renderMarkdown(cases, [one, two]);
+    for (const name of ["README.md", "matrix.oas31.md", "fitness.md", "capabilities.md", "libraries/one.md"]) {
+      const [title, blank, warning] = (artifacts[name] ?? "").split("\n");
+      expect({ name, title: title?.startsWith("# "), blank, warning }).toMatchObject({
+        name,
+        title: true,
+        blank: "",
+        warning: expect.stringContaining("answered different corpora") as unknown,
+      });
+    }
+    expect(artifacts["coverage.oas31.md"]).not.toContain("answered different corpora");
+  });
+
+  it("says nothing when they agree", () => {
+    const artifacts = renderMarkdown(cases, [one, { ...two, corpusDigest: "sha256:one" }]);
+    for (const content of Object.values(artifacts)) {
+      expect(content).not.toContain("answered different corpora");
+    }
+  });
+});
+
 describe("a case withheld and a case with no answer read differently", () => {
   const withheld: AdapterResult = {
     library: "lib",
