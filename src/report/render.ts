@@ -662,10 +662,12 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
     );
   }
   lines.push("");
-  lines.push("A wrong-typed value against `string` cannot be constructed here. Every value on");
-  lines.push("the wire is text, so there is nothing to send that a string schema must refuse,");
-  lines.push("and that cell is empty by definition rather than by omission. Every other empty");
-  lines.push("cell is a case nobody has written.");
+  lines.push("A case is listed against the one type its value is wrong for, which is not");
+  lines.push("every type its document declares. A `schema` parameter's value arrives as");
+  lines.push("text, so nothing sent to one is wrong-typed against `string`. A `content`");
+  lines.push("parameter's media type can carry other types, so a JSON null or number sent");
+  lines.push("where `string` is declared is wrong-typed. An empty cell is a case nobody has");
+  lines.push("written.");
   lines.push("");
   lines.push("## Content representation surface");
   lines.push("");

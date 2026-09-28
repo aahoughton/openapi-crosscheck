@@ -1,3 +1,4 @@
+import type { DeclaredType } from "../surface/surface";
 import type { JsonValue } from "./json";
 import type { OasVersion, OpenApiDocument, ParameterLocation, Style } from "./openapi";
 import type { WireRequest } from "./wire";
@@ -247,6 +248,16 @@ interface CaseBase {
    * rather than printing a row that reads as an answer.
    */
   readonly answeredInValues?: true;
+  /**
+   * The declared type the value is wrong for. Set on every `wrongTypeValue`
+   * case and on no other, and always a type the document declares; both are
+   * held by test/surface/coverage.test.ts.
+   *
+   * Written on the case rather than read off the document, because a document
+   * can declare several types (an object with an integer property and a string
+   * one) and which of them the value violates is a fact about the request.
+   */
+  readonly wrongTypeFor?: DeclaredType;
   /** Dimensions this case moves away from canonical. */
   readonly varies: readonly string[];
   /** Dimensions this case holds fixed. Stated because the constant is the blind spot. */

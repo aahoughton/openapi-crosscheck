@@ -901,9 +901,7 @@ export function coverage(cases: readonly Case[]): CoverageView {
     return {
       type,
       declaredBy: declaredBy.map((c) => c.id),
-      wrongValueBy: declaredBy
-        .filter((c) => c.dimensions.probeAxis === "wrongTypeValue")
-        .map((c) => c.id),
+      wrongValueBy: declaredBy.filter((c) => c.wrongTypeFor === type).map((c) => c.id),
     };
   });
 

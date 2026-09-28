@@ -191,6 +191,7 @@ export const querystringCases32: readonly Case[] = [
       schema: "object",
       probeAxis: "wrongTypeValue",
     },
+    wrongTypeFor: "integer",
     varies: ["a property value has the wrong type"],
     holdsConstant: [
       "the query string is well-formed for the declared media type",

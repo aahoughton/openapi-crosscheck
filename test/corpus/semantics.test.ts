@@ -125,6 +125,15 @@ for (const version of ["30", "31"]) {
           expect(textCase.basis?.anchor).toBe("appendix-b-data-type-conversion");
         }
       }
+      // A wrong-typed value under a `schema` declaration is text, so no such
+      // case is settled; a case whose every reading is valid is off this axis.
+      const textWrongType = cases.filter(
+        (entry) =>
+          entry.id.endsWith(`-oas${version}`) &&
+          entry.dimensions.probeAxis === "wrongTypeValue" &&
+          entry.dimensions.declaration === "schema",
+      );
+      expect(textWrongType.filter((entry) => entry.tier === "conformance")).toEqual([]);
       const valid = conformance(`query-content-json-boolean-canonical-oas${version}`);
       const invalid = conformance(`query-content-json-boolean-wrong-type-oas${version}`);
       expect(valid.document).toEqual(invalid.document);

@@ -61,6 +61,7 @@ export const queryCases31: readonly Case[] = [
       schema: "scalar",
       probeAxis: valid ? "canonical" : "wrongTypeValue",
     },
+    ...(valid ? {} : { wrongTypeFor: "boolean" as const }),
     varies: ["the JSON value's type"],
     holdsConstant: [
       "one required parameter",
@@ -235,6 +236,7 @@ export const queryCases31: readonly Case[] = [
       schema: "scalar",
       probeAxis: "wrongTypeValue",
     },
+    wrongTypeFor: "string",
     varies: ["the schema writes 3.0's nullable keyword, which this version's dialect ignores"],
     holdsConstant: [
       "the identifier is the declared one",
@@ -642,6 +644,7 @@ export const queryCases31: readonly Case[] = [
       schema: "scalar",
       probeAxis: "wrongTypeValue",
     },
+    wrongTypeFor: "boolean",
     varies: ["the declared type is boolean"],
     holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
   },
@@ -833,6 +836,7 @@ export const queryCases31: readonly Case[] = [
       schema: "object",
       probeAxis: "wrongTypeValue",
     },
+    wrongTypeFor: "integer",
     varies: ["a property value is well-formed for a different type"],
     holdsConstant: ["identifier is the declared one", "wire shape matches the declared style"],
   },
@@ -1017,6 +1021,7 @@ export const queryCases31: readonly Case[] = [
       schema: "scalar",
       probeAxis: "wrongTypeValue",
     },
+    wrongTypeFor: "integer",
     varies: ["the value is well-formed for a number and not for the declared integer"],
     holdsConstant: [
       "identifier is the declared one",
@@ -1209,7 +1214,7 @@ export const queryCases31: readonly Case[] = [
       declaredStyle: "unset",
       declaredExplode: "unset",
       schema: "nullableScalar",
-      probeAxis: "wrongTypeValue",
+      probeAxis: "canonical",
     },
     varies: ["the text can represent either allowed type"],
     holdsConstant: ["identifier is the declared one", "the style is the defaulted one"],

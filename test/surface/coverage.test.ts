@@ -158,10 +158,39 @@ describe("the declared type axis shows what is missing", () => {
       (entry) => entry.declaredBy.length > 0 && entry.wrongValueBy.length === 0,
     );
     expect(view.byType.some((entry) => entry.wrongValueBy.length > 0)).toBe(true);
-    // `string` is the one that cannot be probed: every value on the wire is
-    // text, so there is nothing a string schema must refuse.
     for (const entry of declaredButUnprobed) {
       expect(entry.type).not.toBe("boolean");
     }
+  });
+
+  it("names the type a wrong value is wrong for on exactly the wrong-type cases", () => {
+    const mislabelled = cases
+      .filter(
+        (c) => (c.dimensions.probeAxis === "wrongTypeValue") !== (c.wrongTypeFor !== undefined),
+      )
+      .map((c) => c.id);
+    expect(mislabelled).toEqual([]);
+    const undeclared = cases
+      .filter((c) => c.wrongTypeFor !== undefined)
+      .filter((c) => !declaredTypes(c.document).has(c.wrongTypeFor ?? "string"))
+      .map((c) => c.id);
+    expect(undeclared).toEqual([]);
+  });
+
+  it("lists a wrong value against the one type it is wrong for", () => {
+    // The object case declares an integer property and a string one, and its
+    // value is wrong for the integer alone.
+    const view = coverage(cases);
+    const listed = (type: string) => view.byType.find((entry) => entry.type === type);
+    expect(listed("integer")?.wrongValueBy).toContain("query-form-object-wrong-type-oas31");
+    expect(listed("string")?.wrongValueBy).not.toContain("query-form-object-wrong-type-oas31");
+    // Every reading of p=null against a string-or-null schema is valid.
+    for (const entry of view.byType) {
+      expect(entry.wrongValueBy).not.toContain("query-form-scalar-nullable-literal-oas31");
+    }
+    // A content parameter can carry a non-string value against a string schema.
+    expect(listed("string")?.wrongValueBy).toContain(
+      "query-content-json-scalar-nullable-literal-oas31",
+    );
   });
 });
