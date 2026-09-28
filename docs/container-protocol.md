@@ -328,6 +328,15 @@ managed it, and it is a fact about the container. Reaching for the second where
 the first is true charges the harness for a library's shape, which is the
 direction a container's author has every incentive to get wrong.
 
+`libraryInitUnsupported` is the library refusing the case's document before
+any request was judged: a constructor or loader that throws, or a load the
+library defers to the first request and fails there. Report it the same way
+whichever of those your library does. A library that loads lazily otherwise
+turns the refusal into a `libraryError` on the case's request, and the same
+event would be charged to one library and excused for another. The document's
+own validity is recorded on the case, so a reader can tell a refusal of an
+invalid document from a refusal of a valid one.
+
 ### `deserialized`
 
 Three constructors, because "this library never exposes values", "it could have

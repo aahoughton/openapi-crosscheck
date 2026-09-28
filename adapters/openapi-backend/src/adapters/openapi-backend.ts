@@ -36,11 +36,14 @@ const capabilities: AdapterCapabilities = {
 const configuration: Configuration = {
   id: "coerce-types-on",
   description:
-    "new OpenAPIBackend({ definition, quick: false, coerceTypes: true }) then init(), " +
-    "driven through validateRequest with the raw path and raw query string. " +
-    "coerceTypes is enabled because leaving it off rejects every typed parameter; " +
-    "both settings were measured and the results were identical for path parameters.",
-  options: { quick: false, coerceTypes: true },
+    "new OpenAPIBackend({ definition, quick: false, coerceTypes: true, strict: true }) " +
+    "then init(), driven through validateRequest with the raw path and raw query string " +
+    "and headers split by the harness. " +
+    "coerceTypes is enabled because leaving it off rejects every typed parameter. " +
+    "strict is enabled so a document the library refuses fails init() and is reported " +
+    "as libraryInitUnsupported; without it init() logs the refusal and every request " +
+    "then fails with an unrelated 'Unknown operation'.",
+  options: { quick: false, coerceTypes: true, strict: true },
 };
 
 export function createAdapter(): LibraryAdapter {
@@ -55,6 +58,7 @@ export function createAdapter(): LibraryAdapter {
           definition: testCase.document as never,
           quick: false,
           coerceTypes: true,
+          strict: true,
         });
         await api.init();
         return api;
