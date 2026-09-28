@@ -449,6 +449,9 @@ export function definedContentSurface(version: OasVersion): readonly ContentCell
   return cells;
 }
 
+// Nullable shapes fold into their base cell here too, for the reason `cellKey`
+// gives: the surface has no nullable row, and a nullable case covers the
+// representation its base shape does.
 export function contentCellKey(cell: ContentCell): string {
-  return `${cell.location}|${cell.mediaType}|${cell.schema}|${cell.condition}`;
+  return `${cell.location}|${cell.mediaType}|${baseShape(cell.schema)}|${cell.condition}`;
 }

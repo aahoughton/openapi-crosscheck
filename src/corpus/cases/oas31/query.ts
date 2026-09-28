@@ -244,6 +244,48 @@ export const queryCases31: readonly Case[] = [
     ],
   },
   {
+    id: "query-content-json-scalar-type-array-literal-oas31",
+    title: "query, content application/json, type array admitting null, a literal null",
+    inShort:
+      "Sends JSON null for {type: [string, null]}. The type array admits null, so the value is valid.",
+    tier: "conformance",
+    oasVersion: "3.1",
+    citations: [
+      cite.PARAMETER_CONTENT,
+      cite.MEDIA_TYPE_OBJECT,
+      cite.SCHEMA_OBJECT,
+      cite.JSON_SCHEMA_TYPE,
+    ],
+    expected: "accepted",
+    expectedValues: { p: null },
+    rationale:
+      "JSON parsing yields null, and a type array validates an instance matching any of its members, one of which is null. This is the 3.1 spelling of the schema the nullable-literal case writes the 3.0 way.",
+    document: document(
+      [
+        {
+          name: "p",
+          in: "query",
+          required: true,
+          content: { "application/json": { schema: NULLABLE_STRING } },
+        },
+      ],
+      "/t",
+    ),
+    request: request("/t?p=null"),
+    dimensions: {
+      declaration: "content",
+      location: "query",
+      mediaType: "application/json",
+      schema: "nullableScalar",
+      probeAxis: "canonical",
+    },
+    varies: ["the value is null, which only the type array's null member admits"],
+    holdsConstant: [
+      "the identifier is the declared one",
+      "the value is a well-formed representation of the declared media type",
+    ],
+  },
+  {
     id: "query-content-two-media-types-oas31",
     title: "query, content declaring two media types",
     inShort:

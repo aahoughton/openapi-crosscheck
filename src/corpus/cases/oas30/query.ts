@@ -200,6 +200,43 @@ export const queryCases30: readonly Case[] = [
     holdsConstant: ["one media type is declared", "the identifier is the declared one"],
   },
   {
+    id: "query-content-json-scalar-nullable-literal-oas30",
+    title: "query, content application/json, nullable keyword, a literal null",
+    inShort:
+      "Sends JSON null for {type: string, nullable: true}. The nullable keyword admits null, so the value is valid.",
+    tier: "conformance",
+    oasVersion: "3.0",
+    citations: [cite.PARAMETER_CONTENT, cite.MEDIA_TYPE_OBJECT, cite.SCHEMA_OBJECT, cite.NULLABLE],
+    expected: "accepted",
+    expectedValues: { p: null },
+    rationale:
+      "JSON parsing yields null, and nullable true on a string schema allows null values as well as strings. The 3.1 twin sends the same document and value, where nullable has no validation effect.",
+    document: document(
+      [
+        {
+          name: "p",
+          in: "query",
+          required: true,
+          content: { "application/json": { schema: NULLABLE_STRING } },
+        },
+      ],
+      "/t",
+    ),
+    request: request("/t?p=null"),
+    dimensions: {
+      declaration: "content",
+      location: "query",
+      mediaType: "application/json",
+      schema: "nullableScalar",
+      probeAxis: "canonical",
+    },
+    varies: ["the value is null, which only the nullable keyword admits"],
+    holdsConstant: [
+      "the identifier is the declared one",
+      "the value is a well-formed representation of the declared media type",
+    ],
+  },
+  {
     id: "query-content-two-media-types-oas30",
     title: "query, content declaring two media types",
     inShort:
