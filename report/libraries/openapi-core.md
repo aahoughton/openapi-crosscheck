@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/python-openapi/openapi-co
 
 Built from: `adapters/openapi-core/`
 
-Image: `sha256:239e5de1b05d788cce0ded8f6ca36e62c0ceb1029e8668cee2fec560047765c3`
+Image: `sha256:3b25cbe4625e87cdf13a67f08882f987bdd81a60848ae91f757af0bc4004c363`
 
 Configuration `unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. This library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into decoded pairs is the caller's. The harness supplies raw pairs only where their encoding state is equivalent and withholds cases whose query decoding would change them. Style and explode are still applied by the library to those pairs. Header lines go in as werkzeug's case-insensitive Headers, the mapping the library's request type defaults to, with repeated lines combined by a comma. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
 
@@ -46,11 +46,11 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 42 |
+| pass | 40 |
 | FAIL (verdict) | 17 |
 | FAIL (value) | 1 |
 | n/a | 9 |
-| every conformance case | 69 |
+| every conformance case | 67 |
 
 - `pass`: The verdict the specification settles, and its values where the specification settles those too.
 - `FAIL (verdict)`: It reached the opposite verdict.
@@ -115,9 +115,11 @@ nothing is attributed to it.
 | [`cookie-form-object-explode-oas30`](../matrix.oas30.md#cookie-form-object-explode-oas30) | not asked (stageNotOwned) | - |
 | [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
 | [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-scalar-wrong-type-oas30`](../matrix.oas30.md#path-matrix-scalar-wrong-type-oas30) | rejected | `{}` (validated only, so an absent name failed its schema) |
 | [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | `{"entity":"t"}` (validated only, so an absent name failed its schema) |
 | [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
 | [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | not asked (libraryInitUnsupported) | - |
+| [`path-simple-scalar-wrong-type-oas30`](../matrix.oas30.md#path-simple-scalar-wrong-type-oas30) | rejected | `{}` (validated only, so an absent name failed its schema) |
 | [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | not asked (stageNotOwned) | - |
 | [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | not asked (stageNotOwned) | - |
 | [`query-deep-object-no-explode-oas30`](../matrix.oas30.md#query-deep-object-no-explode-oas30) | not asked (harnessInputUnavailable) | - |
@@ -127,6 +129,7 @@ nothing is attributed to it.
 | [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | accepted | `{"p":true}` (validated only, so an absent name failed its schema) |
 | [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | `{}` (validated only, so an absent name failed its schema) |
 | [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | accepted | `{"p":{"R":100,"G":200}}` (validated only, so an absent name failed its schema) |
+| [`query-form-object-wrong-type-oas30`](../matrix.oas30.md#query-form-object-wrong-type-oas30) | rejected | `{}` (validated only, so an absent name failed its schema) |
 | [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | `{"p":""}` (validated only, so an absent name failed its schema) |
 | [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | not asked (harnessInputUnavailable) | - |
 | [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | accepted | `{"p":"a/b:c"}` (validated only, so an absent name failed its schema) |
@@ -151,12 +154,12 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 42 |
+| pass | 40 |
 | FAIL (verdict) | 16 |
 | FAIL (value) | 1 |
 | RAISED | 2 |
 | n/a | 9 |
-| every conformance case | 70 |
+| every conformance case | 68 |
 
 - `pass`: The verdict the specification settles, and its values where the specification settles those too.
 - `FAIL (verdict)`: It reached the opposite verdict.
@@ -221,9 +224,11 @@ nothing is attributed to it.
 | [`cookie-form-object-explode-oas31`](../matrix.oas31.md#cookie-form-object-explode-oas31) | not asked (stageNotOwned) | - |
 | [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
 | [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
+| [`path-matrix-scalar-wrong-type-oas31`](../matrix.oas31.md#path-matrix-scalar-wrong-type-oas31) | rejected | `{}` (validated only, so an absent name failed its schema) |
 | [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | `{"entity":"t"}` (validated only, so an absent name failed its schema) |
 | [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | accepted | `{"p":"blue"}` (validated only, so an absent name failed its schema) |
 | [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | not asked (libraryInitUnsupported) | - |
+| [`path-simple-scalar-wrong-type-oas31`](../matrix.oas31.md#path-simple-scalar-wrong-type-oas31) | rejected | `{}` (validated only, so an absent name failed its schema) |
 | [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | not asked (stageNotOwned) | - |
 | [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | not asked (stageNotOwned) | - |
 | [`query-deep-object-no-explode-oas31`](../matrix.oas31.md#query-deep-object-no-explode-oas31) | not asked (harnessInputUnavailable) | - |
@@ -233,6 +238,7 @@ nothing is attributed to it.
 | [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | accepted | `{"p":true}` (validated only, so an absent name failed its schema) |
 | [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | `{}` (validated only, so an absent name failed its schema) |
 | [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | accepted | `{"p":{"R":100,"G":200}}` (validated only, so an absent name failed its schema) |
+| [`query-form-object-wrong-type-oas31`](../matrix.oas31.md#query-form-object-wrong-type-oas31) | rejected | `{}` (validated only, so an absent name failed its schema) |
 | [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | `{"p":""}` (validated only, so an absent name failed its schema) |
 | [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | not asked (harnessInputUnavailable) | - |
 | [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | accepted | `{"p":"a/b:c"}` (validated only, so an absent name failed its schema) |
@@ -258,9 +264,9 @@ the page with the numbers.
 | --- | --- |
 | pass | 4 |
 | FAIL (verdict) | 4 |
-| RAISED | 3 |
-| n/a | 7 |
-| every conformance case | 18 |
+| RAISED | 4 |
+| n/a | 5 |
+| every conformance case | 17 |
 
 - `pass`: The verdict the specification settles, and its values where the specification settles those too.
 - `FAIL (verdict)`: It reached the opposite verdict.
@@ -297,8 +303,6 @@ Another unsupported boundary. The stored reason beside each case identifies
 whether the document version, library input shape, or adapter stopped it.
 
 - [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (cannotRepresentCase)
-- [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (cannotRepresentCase)
-- [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (cannotRepresentCase)
 
 ### Divergence
 
@@ -313,3 +317,4 @@ nothing is attributed to it.
 | [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (libraryInitUnsupported) | - |
 | [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (libraryInitUnsupported) | - |
 | [`querystring-declared-with-schema-oas32`](../matrix.oas32.md#querystring-declared-with-schema-oas32) | not asked (libraryInitUnsupported) | - |
+| [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) | raised, no verdict | - |

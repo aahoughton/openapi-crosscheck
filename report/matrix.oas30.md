@@ -75,16 +75,16 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:7749465637e71323c0c5f59059e1a47d2aaf0dbe177c46d87592d969ff16aff2` |
-| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:e91f010f6f01526465c620dd0b196e84f4a7036fcd7778bae571fa973fed1a42` |
-| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:aa381975bf50534da9e96f5fe019cb352777140dc33c08173865619e49871306` |
-| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:6e13fbf071c33805afd0c2b3d14e5bc45ff31b448f3b88df9aa690f421f0f73b` |
-| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:38fb96db69239acf2f5c947fec663fdd0cf824a81fcc252d4cefc4f1860c5bee` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:1379be6e37fbd0b0b6a6e4a714a154ed389128a483db45c4d5b8cfeb08debf25` |
-| `openapi-backend` | `adapters/openapi-backend/` | `sha256:96f42f30914aa9469462c6b69a04573f0fff627b72a8072a3b1099a3a5cefe1a` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:239e5de1b05d788cce0ded8f6ca36e62c0ceb1029e8668cee2fec560047765c3` |
-| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:5e0592d18565733866973e56ea68e676cc362b25dc96ad40fb72b6dff972f409` |
-| `openapi_first` | `adapters/openapi-first/` | `sha256:463955fb2c2e00c86c3ec05937a016de878eeadf58b365d994dea08c69069265` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:cea53a65eb9fe1a81f42fc6430ab0ef829e245214960a2784d69127700296f23` |
+| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:77cd5eb2afc0429803fd894bbaccb5aac2637175de62562e06b2fe9ae4b5074e` |
+| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:d8ba45396cadecffa3e9e6f6bc0f21ee48260abaf8e66107573f6a5b929fc98e` |
+| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:57f76f4b9d4d10a0cf278f3e47082ebf4461cdd33d47a57650d20aa0149c792f` |
+| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:dd382796084582c13ff7b090b2d399f305382d8860572c7df18d7e552b7901d3` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:a5619fdd2dd996ea13ee535a8ad214ef20f6e9b37da5f33a75a88e09b354681a` |
+| `openapi-backend` | `adapters/openapi-backend/` | `sha256:68606dc0594065ee7a2485c6efaa8ea7569324d31972352f0e94ccc121a8c938` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:3b25cbe4625e87cdf13a67f08882f987bdd81a60848ae91f757af0bc4004c363` |
+| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:f8390427389973090bf88e06bf088c839cc9016bbf27b54c8ea7c0fc30d7eb55` |
+| `openapi_first` | `adapters/openapi-first/` | `sha256:02d3753575156b80f6d495442950aa8f399a67708f4e6a2a40de3368f7375a1d` |
 
 ## Conformance
 
@@ -104,7 +104,7 @@ rules the expected verdict rests on, and the argument for it.
 | [`header-reserved-name-accept-required-absent-oas30`](#header-reserved-name-accept-required-absent-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | FAIL (verdict) | pass |
 | [`header-simple-array-canonical-oas30`](#header-simple-array-canonical-oas30) | accepted | pass (verdict only) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a (stageNotOwned) | pass |
 | [`header-simple-array-case-variant-oas30`](#header-simple-array-case-variant-oas30) | accepted | pass (verdict only) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | n/a (stageNotOwned) | pass | n/a (stageNotOwned) | pass |
-| [`header-simple-array-duplicate-name-oas30`](#header-simple-array-duplicate-name-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | n/a (stageNotOwned) | pass | n/a (stageNotOwned) | FAIL (value) |
+| [`header-simple-array-duplicate-name-oas30`](#header-simple-array-duplicate-name-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | n/a (stageNotOwned) | pass | n/a (stageNotOwned) | pass |
 | [`header-simple-array-explicit-style-oas30`](#header-simple-array-explicit-style-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a (stageNotOwned) | pass |
 | [`header-simple-array-explode-oas30`](#header-simple-array-explode-oas30) | accepted | pass (verdict only) | FAIL (value) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a (stageNotOwned) | pass |
 | [`header-simple-object-canonical-oas30`](#header-simple-object-canonical-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a (stageNotOwned) | pass |
@@ -129,7 +129,6 @@ rules the expected verdict rests on, and the argument for it.
 | [`path-matrix-scalar-canonical-oas30`](#path-matrix-scalar-canonical-oas30) | accepted | pass (verdict only) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (value) | FAIL (verdict) | n/a (stageNotOwned) | FAIL (value) |
 | [`path-matrix-scalar-explode-oas30`](#path-matrix-scalar-explode-oas30) | accepted | pass (verdict only) | FAIL (value) | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | FAIL (value) | FAIL (verdict) | n/a (stageNotOwned) | FAIL (value) |
 | [`path-matrix-scalar-foreign-name-oas30`](#path-matrix-scalar-foreign-name-oas30) | rejected | FAIL (verdict) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a (stageNotOwned) | FAIL (verdict) |
-| [`path-matrix-scalar-wrong-type-oas30`](#path-matrix-scalar-wrong-type-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`path-routing-concrete-before-templated-oas30`](#path-routing-concrete-before-templated-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`path-routing-concrete-before-templated-template-first-oas30`](#path-routing-concrete-before-templated-template-first-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`path-routing-concrete-before-templated-template-first-valid-oas30`](#path-routing-concrete-before-templated-template-first-valid-oas30) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | n/a (stageNotOwned) | pass |
@@ -142,11 +141,11 @@ rules the expected verdict rests on, and the argument for it.
 | [`path-simple-scalar-canonical-oas30`](#path-simple-scalar-canonical-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`path-simple-scalar-explode-oas30`](#path-simple-scalar-explode-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`path-simple-scalar-unset-style-oas30`](#path-simple-scalar-unset-style-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a (stageNotOwned) | pass |
-| [`path-simple-scalar-wrong-type-oas30`](#path-simple-scalar-wrong-type-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-content-json-boolean-canonical-oas30`](#query-content-json-boolean-canonical-oas30) | accepted | n/a (stageNotOwned) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`query-content-json-boolean-wrong-type-oas30`](#query-content-json-boolean-wrong-type-oas30) | rejected | n/a (stageNotOwned) | pass | pass | pass | pass | pass | pass | n/a (harnessInputUnavailable) | n/a (stageNotOwned) | pass |
 | [`query-content-json-object-canonical-oas30`](#query-content-json-object-canonical-oas30) | accepted | n/a (stageNotOwned) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a (harnessInputUnavailable) | n/a (stageNotOwned) | pass |
 | [`query-content-json-object-malformed-oas30`](#query-content-json-object-malformed-oas30) | rejected | n/a (stageNotOwned) | pass | pass | pass | pass | pass | pass | n/a (harnessInputUnavailable) | n/a (stageNotOwned) | pass |
+| [`query-content-json-scalar-nullable-literal-oas30`](#query-content-json-scalar-nullable-literal-oas30) | accepted | n/a (stageNotOwned) | pass | FAIL (verdict) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`query-deep-object-canonical-oas30`](#query-deep-object-canonical-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a (harnessInputUnavailable) | n/a (stageNotOwned) | pass |
 | [`query-form-array-canonical-explode-oas30`](#query-form-array-canonical-explode-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`query-form-array-canonical-no-explode-oas30`](#query-form-array-canonical-no-explode-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a (stageNotOwned) | pass |
@@ -154,12 +153,11 @@ rules the expected verdict rests on, and the argument for it.
 | [`query-form-object-canonical-explode-oas30`](#query-form-object-canonical-explode-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | FAIL (verdict) | n/a (stageNotOwned) | FAIL (verdict) |
 | [`query-form-object-canonical-no-explode-oas30`](#query-form-object-canonical-no-explode-oas30) | accepted | FAIL (verdict) | pass | pass (verdict only) | pass (verdict only) | FAIL (verdict) | pass | FAIL (verdict) | pass | n/a (stageNotOwned) | pass |
 | [`query-form-object-missing-name-oas30`](#query-form-object-missing-name-oas30) | rejected | pass | pass | pass | FAIL (verdict) | pass | pass | pass | pass | pass | pass |
-| [`query-form-object-wrong-type-oas30`](#query-form-object-wrong-type-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`query-form-scalar-allow-reserved-declared-oas30`](#query-form-scalar-allow-reserved-declared-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`query-form-scalar-encoded-plus-oas30`](#query-form-scalar-encoded-plus-oas30) | accepted | pass (verdict only) | pass | pass (verdict only) | pass (verdict only) | pass (verdict only) | pass | pass | n/a (harnessInputUnavailable) | n/a (stageNotOwned) | pass |
 | [`query-form-scalar-missing-name-oas30`](#query-form-scalar-missing-name-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-nullable-empty-oas30`](#query-form-scalar-nullable-empty-oas30) | accepted | FAIL (verdict) | FAIL (verdict) | pass | pass | pass | pass | pass | FAIL (verdict) | n/a (stageNotOwned) | pass |
-| [`query-form-scalar-nullable-literal-oas30`](#query-form-scalar-nullable-literal-oas30) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| [`query-form-scalar-nullable-literal-oas30`](#query-form-scalar-nullable-literal-oas30) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | n/a (stageNotOwned) | pass |
 | [`query-form-scalar-optional-absent-oas30`](#query-form-scalar-optional-absent-oas30) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-optional-default-absent-oas30`](#query-form-scalar-optional-default-absent-oas30) | accepted | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | [`query-form-scalar-pattern-mismatch-oas30`](#query-form-scalar-pattern-mismatch-oas30) | rejected | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
@@ -952,40 +950,6 @@ The segment names q, so the required parameter p has no value.
 
 Varies: the identifier is a foreign one. Holds constant: wire shape matches the declared style; value well-formed; one parameter.
 
-##### `path-matrix-scalar-wrong-type-oas30`
-
-path, matrix, scalar, a value well-formed for a different type. Expected: **rejected**.
-
-Sends ;p=blue for an integer parameter. Matrix parsing yields blue, which fails the type check.
-
-Request: `GET /t/;p=blue`
-
-Every rule the expected verdict rests on, OpenAPI 3.0:
-
-[parameter-style](https://spec.openapis.org/oas/v3.0.4.html#parameter-style)
-
-> Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for "query" - "form"; for "path" - "simple"; for "header" - "simple"; for "cookie" - "form".
-
-[style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
-
-> | matrix | false | ;color | ;color=blue | ;color=blue,black,brown | ;color=R,100,G,200,B,150 |
-
-[parameter-schema](https://spec.openapis.org/oas/v3.0.4.html#parameter-schema)
-
-> The schema defining the type used for the parameter.
-
-[schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
-
-> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
-
-[appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
-
-> Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: "integer" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation.
-
-Matrix parsing yields the alphabetic value blue, which cannot represent an integer. A rejection alone does not establish whether parsing or type validation refused it.
-
-Varies: the value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
-
 ##### `path-routing-concrete-before-templated-oas30`
 
 path, concrete precedence, concrete declared first, query absent. Expected: **rejected**.
@@ -1278,32 +1242,6 @@ The default path style is simple, which reads the bare segment as the scalar val
 
 Varies: style and explode are left to the default. Holds constant: identifier is the declared one; value well-formed.
 
-##### `path-simple-scalar-wrong-type-oas30`
-
-path, simple, scalar, a value well-formed for a different type. Expected: **rejected**.
-
-Sends blue as a path segment for an integer parameter. The text cannot represent an integer.
-
-Request: `GET /t/blue`
-
-Every rule the expected verdict rests on, OpenAPI 3.0:
-
-[parameter-schema](https://spec.openapis.org/oas/v3.0.4.html#parameter-schema)
-
-> The schema defining the type used for the parameter.
-
-[schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
-
-> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
-
-[appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
-
-> Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: "integer" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation.
-
-The parameter requires an integer. The alphabetic value blue cannot represent one.
-
-Varies: the value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
-
 #### Query parameters
 
 ##### `query-content-json-boolean-canonical-oas30`
@@ -1441,6 +1379,36 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 The declared media type is application/json. The malformed value cannot be parsed as JSON for schema validation.
 
 Varies: the value is not a representation of the declared media type. Holds constant: one media type is declared; the identifier is the declared one.
+
+##### `query-content-json-scalar-nullable-literal-oas30`
+
+query, content application/json, nullable keyword, a literal null. Expected: **accepted**.
+
+Sends JSON null for {type: string, nullable: true}. The nullable keyword admits null, so the value is valid.
+
+Request: `GET /t?p=null`
+
+Every rule the expected verdict rests on, OpenAPI 3.0:
+
+[parameter-content](https://spec.openapis.org/oas/v3.0.4.html#parameter-content)
+
+> A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry.
+
+[media-type-object](https://spec.openapis.org/oas/v3.0.4.html#media-type-object)
+
+> Each Media Type Object provides schema and examples for the media type identified by its key.
+
+[schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
+
+> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
+
+[schema-nullable](https://spec.openapis.org/oas/v3.0.4.html#schema-nullable)
+
+> This keyword only takes effect if type is explicitly defined within the same Schema Object. A true value indicates that both null values and values of the type specified by type are allowed. Other Schema Object constraints retain their defined behavior, and therefore may disallow the use of null as a value. A false value leaves the specified or default type unmodified. The default value is false.
+
+JSON parsing yields null, and nullable true on a string schema allows null values as well as strings. The 3.1 twin sends the same document and value, where nullable has no validation effect.
+
+Varies: the value is null, which only the nullable keyword admits. Holds constant: the identifier is the declared one; the value is a well-formed representation of the declared media type.
 
 ##### `query-deep-object-canonical-oas30`
 
@@ -1619,32 +1587,6 @@ Every rule the expected verdict rests on, OpenAPI 3.0:
 An exploded form object is sent as its properties. Neither required property is present. Requiring R and G also rules out an empty object, which RFC 6570 could serialize as no query string.
 
 Varies: the declared parameter is absent entirely. Holds constant: style and explode are stated; no foreign parameter present.
-
-##### `query-form-object-wrong-type-oas30`
-
-query, form, object, explode true, a property well-formed for a different type. Expected: **rejected**.
-
-Sends a correctly formatted object with R=blue, where R requires an integer.
-
-Request: `GET /t?R=blue&G=200`
-
-Every rule the expected verdict rests on, OpenAPI 3.0:
-
-[parameter-style](https://spec.openapis.org/oas/v3.0.4.html#parameter-style)
-
-> Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for "query" - "form"; for "path" - "simple"; for "header" - "simple"; for "cookie" - "form".
-
-[schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
-
-> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00.
-
-[appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
-
-> Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: "integer" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation.
-
-The object format is valid, but R's alphabetic value blue cannot represent an integer. A rejection alone does not establish whether the library checked that property.
-
-Varies: a property value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 ##### `query-form-scalar-allow-reserved-declared-oas30`
 
@@ -2197,6 +2139,35 @@ Varies: explode is written out. Holds constant: identifier is the declared one; 
 
 ### Path parameters
 
+#### `path-matrix-scalar-wrong-type-oas30`
+
+path, matrix, scalar, a value well-formed for a different type.
+
+Sends ;p=blue for an integer parameter. Whether text that spells no number is refused or converted is implementation-defined.
+
+Request: `GET /t/;p=blue`
+
+Open question: Matrix parsing yields the text blue for an integer parameter. Appendix B leaves conversion from text to other primitive types implementation-defined and gives no number grammar, so it does not settle whether blue is refused or converted.
+
+The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
+
+> However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `express-openapi-validator` | rejected | `{"p":";p=blue"}` (parsed before validation) |
+| `github.com/getkin/kin-openapi` | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| `github.com/pb33f/libopenapi-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `@oaverify/core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `openapi-backend` | rejected | `{"p":";p=blue"}` (parsed before validation) |
+| `openapi-core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `openapi-request-validator` | not asked (stageNotOwned) | - |
+| `openapi_first` | rejected | `{"p":";p=blue"}` (parsed before validation) |
+
+Varies: the value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
+
 #### `path-routing-ambiguous-templates-oas30`
 
 path, two templates that both match the request.
@@ -2276,7 +2247,7 @@ The text leaving it open: [parameter-required](https://spec.openapis.org/oas/v3.
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | not asked (libraryInitUnsupported) | - |
-| `express-openapi-validator` | raised, no verdict | - |
+| `express-openapi-validator` | not asked (libraryInitUnsupported) | - |
 | `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
@@ -2287,6 +2258,35 @@ The text leaving it open: [parameter-required](https://spec.openapis.org/oas/v3.
 | `openapi_first` | accepted | `{"p":"blue"}` (parsed before validation) |
 
 Varies: the declaration writes required: false on a path parameter. Holds constant: identifier is the declared one; wire shape matches the declared style; value well-formed for its type.
+
+#### `path-simple-scalar-wrong-type-oas30`
+
+path, simple, scalar, a value well-formed for a different type.
+
+Sends blue as a path segment for an integer parameter. Whether text that spells no number is refused or converted is implementation-defined.
+
+Request: `GET /t/blue`
+
+Open question: The segment is the text blue and the parameter is an integer. Appendix B leaves conversion from text to other primitive types implementation-defined and gives no number grammar, so it does not settle whether blue is refused or converted.
+
+The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
+
+> However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `express-openapi-validator` | rejected | `{"p":"blue"}` (parsed before validation) |
+| `github.com/getkin/kin-openapi` | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| `github.com/pb33f/libopenapi-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `@oaverify/core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `openapi-backend` | rejected | `{"p":"blue"}` (parsed before validation) |
+| `openapi-core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `openapi-request-validator` | rejected | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
+| `openapi_first` | rejected | `{"p":"blue"}` (parsed before validation) |
+
+Varies: the value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 ### Query parameters
 
@@ -2307,7 +2307,7 @@ The text leaving it open: [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | not asked (stageNotOwned) | - |
-| `express-openapi-validator` | raised, no verdict | - |
+| `express-openapi-validator` | not asked (libraryInitUnsupported) | - |
 | `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | raised, no verdict | - |
@@ -2336,7 +2336,7 @@ The text leaving it open: [parameter-content](https://spec.openapis.org/oas/v3.0
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | not asked (stageNotOwned) | - |
-| `express-openapi-validator` | raised, no verdict | - |
+| `express-openapi-validator` | not asked (libraryInitUnsupported) | - |
 | `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | raised, no verdict | - |
@@ -2458,6 +2458,8 @@ The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapi
 | `openapi-request-validator` | not asked (stageNotOwned) | - |
 | `openapi_first` | accepted | `{"p":[1,2]}` (parsed before validation) |
 
+Adjudicated 2026-08-08 by claude-implementer: A copy of the reading recorded for query-form-array-integer-items-oas31, made on 2026-09-27 without a second reading. This case sends the same request against the same schema, and 3.0.4 carries the same Appendix B text. The specification leaves conversion between strings and other primitives implementation-defined, so this stays divergence rather than becoming a conformance case.
+
 Varies: the item type is numeric rather than string. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 #### `query-form-boolean-literal-oas30`
@@ -2546,6 +2548,35 @@ The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapi
 | `openapi_first` | accepted | `{"p":{"R":100,"G":200}}` (parsed before validation) |
 
 Varies: the property type is numeric rather than string. Holds constant: identifier is the declared one; wire shape matches the declared style.
+
+#### `query-form-object-wrong-type-oas30`
+
+query, form, object, explode true, a property well-formed for a different type.
+
+Sends a correctly formatted object with R=blue, where R is an integer. Whether that property value is refused or converted is implementation-defined.
+
+Request: `GET /t?R=blue&G=200`
+
+Open question: The object deserializes cleanly and its property R carries the text blue against an integer schema. Appendix B leaves conversion from text to other primitive types implementation-defined, including values inside objects, so it does not settle whether blue is refused or converted.
+
+The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion)
+
+> However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `express-openapi-validator` | rejected | `{"p":{"R":"blue","G":"200"}}` (parsed before validation) |
+| `github.com/getkin/kin-openapi` | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| `github.com/pb33f/libopenapi-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
+| `@oaverify/core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `openapi-backend` | rejected | `{}` (parsed before validation) |
+| `openapi-core` | rejected | `{}` (validated only, so an absent name failed its schema) |
+| `openapi-request-validator` | not asked (stageNotOwned) | - |
+| `openapi_first` | rejected | `{}` (parsed before validation) |
+
+Varies: a property value is well-formed for a different type. Holds constant: identifier is the declared one; wire shape matches the declared style.
 
 #### `query-form-scalar-allow-empty-value-declared-oas30`
 
@@ -2710,7 +2741,7 @@ The text leaving it open: [style-examples](https://spec.openapis.org/oas/v3.0.4.
 
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | not asked (cannotRepresentCase) | - |
+| `com.atlassian.oai:openapi-request-validator-core` | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
 | `express-openapi-validator` | raised, no verdict | - |
 | `github.com/getkin/kin-openapi` | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
@@ -2769,12 +2800,12 @@ The text leaving it open: [json-schema-keywords](https://spec.openapis.org/oas/v
 | library | verdict | parsed values exposed by the library |
 | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | not asked (libraryInitUnsupported) | - |
-| `express-openapi-validator` | raised, no verdict | - |
+| `express-openapi-validator` | not asked (libraryInitUnsupported) | - |
 | `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
 | `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 | `league/openapi-psr7-validator` | raised, no verdict | - |
 | `@oaverify/core` | raised, no verdict | - |
-| `openapi-backend` | raised, no verdict | - |
+| `openapi-backend` | not asked (libraryInitUnsupported) | - |
 | `openapi-core` | not asked (libraryInitUnsupported) | - |
 | `openapi-request-validator` | accepted | not exposed by this library (reports errors only; no published call returns deserialized values, and the library wrote nothing back onto this input) |
 | `openapi_first` | accepted | `{"p":"blue"}` (parsed before validation) |

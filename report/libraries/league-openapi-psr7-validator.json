@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "*"
   },
-  "corpusDigest": "sha256:1d2d2e4733ecf467b62d195bcd8a417e99a9dc4709a67fdc27f2c3422d010804",
+  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -887,7 +887,7 @@
   "provenance": {
     "kind": "container",
     "slug": "league-openapi-psr7-validator",
-    "imageId": "sha256:38fb96db69239acf2f5c947fec663fdd0cf824a81fcc252d4cefc4f1860c5bee",
+    "imageId": "sha256:dd382796084582c13ff7b090b2d399f305382d8860572c7df18d7e552b7901d3",
     "ecosystem": "packagist"
   },
   "answers": [
@@ -4130,7 +4130,55 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
       "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "league/openapi-psr7-validator",
+        "libraryVersion": "0.24",
+        "configurationId": "request-validator-psr7",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, target and headers of the PSR-7 request handed to validate(), unchanged"
+        },
+        "raw": {
+          "matched": {
+            "path": "/t",
+            "method": "get"
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-scalar-type-array-literal-oas31",
       "result": {
         "library": "league/openapi-psr7-validator",
         "libraryVersion": "0.24",

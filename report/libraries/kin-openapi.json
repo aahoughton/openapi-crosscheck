@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:1d2d2e4733ecf467b62d195bcd8a417e99a9dc4709a67fdc27f2c3422d010804",
+  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -770,13 +770,15 @@
   ],
   "configuration": {
     "id": "validate-request-gorillamux",
-    "description": "openapi3.NewLoader().LoadFromData(document) routed with gorillamux and validated through openapi3filter.ValidateRequest, driven from an http.Request built from the raw target. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the router, so the encoding survives to that point. Values are read from a write-back channel: the function that decodes a styled parameter is unexported and no published call returns decoded values, and ValidateRequest writes values it supplies, such as schema defaults for absent query parameters, back onto the http.Request it was handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.",
-    "options": {}
+    "description": "openapi3.NewLoader().LoadFromData(document), then doc.Validate, routed with gorillamux and validated through openapi3filter.ValidateRequest, driven from an http.Request built from the raw target. doc.Validate is optional in the library's API and is run because its documentation calls for it before use; a document it refuses is reported as libraryInitUnsupported. Headers are added with net/http's Header.Add, which canonicalizes names (p and P become P) and merges names differing only in case. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the router, so the encoding survives to that point. Values are read from a write-back channel: the function that decodes a styled parameter is unexported and no published call returns decoded values, and ValidateRequest writes values it supplies, such as schema defaults for absent query parameters, back onto the http.Request it was handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.",
+    "options": {
+      "validateDocument": true
+    }
   },
   "provenance": {
     "kind": "container",
     "slug": "kin-openapi",
-    "imageId": "sha256:aa381975bf50534da9e96f5fe019cb352777140dc33c08173865619e49871306",
+    "imageId": "sha256:d8ba45396cadecffa3e9e6f6bc0f21ee48260abaf8e66107573f6a5b929fc98e",
     "ecosystem": "go"
   },
   "answers": [
@@ -3757,7 +3759,59 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.149.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: empty value is not allowed",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
       "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "github.com/getkin/kin-openapi",
+        "libraryVersion": "0.149.0",
+        "configurationId": "validate-request-gorillamux",
+        "preparse": null,
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values, and the library wrote nothing back onto this request"
+        },
+        "inputMutation": {
+          "detail": "the method, target, headers and path parameters handed to ValidateRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "error": {
+            "message": "parameter \"p\" in query has an error: empty value is not allowed",
+            "type": "*openapi3filter.RequestError"
+          },
+          "pathParams": {},
+          "stage": "validation"
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-scalar-type-array-literal-oas31",
       "result": {
         "library": "github.com/getkin/kin-openapi",
         "libraryVersion": "0.149.0",

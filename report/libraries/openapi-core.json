@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "openapi-core"
   },
-  "corpusDigest": "sha256:1d2d2e4733ecf467b62d195bcd8a417e99a9dc4709a67fdc27f2c3422d010804",
+  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1138,7 +1138,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-core",
-    "imageId": "sha256:239e5de1b05d788cce0ded8f6ca36e62c0ceb1029e8668cee2fec560047765c3",
+    "imageId": "sha256:3b25cbe4625e87cdf13a67f08882f987bdd81a60848ae91f757af0bc4004c363",
     "ecosystem": "pypi"
   },
   "answers": [
@@ -6383,6 +6383,53 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                "null"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "NoneType"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [],
+          "parameters": {
+            "path": {},
+            "query": {
+              "p": null
+            },
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
       "caseId": "query-content-json-scalar-nullable-literal-oas31",
       "result": {
         "library": "openapi-core",
@@ -6422,6 +6469,53 @@
           "parameters": {
             "path": {},
             "query": {},
+            "header": {},
+            "cookie": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-scalar-type-array-literal-oas31",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "p",
+                "null"
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "validatedOnly",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "NoneType"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the RequestParameters object handed to unmarshal_request, unchanged"
+        },
+        "raw": {
+          "errors": [],
+          "parameters": {
+            "path": {},
+            "query": {
+              "p": null
+            },
             "header": {},
             "cookie": {}
           }
@@ -9488,9 +9582,12 @@
             "cookies": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "a query pair arrived with no `=`, and the Request protocol takes query values as strings, so `?p` cannot be handed over apart from `?p=`"
+        "outcome": "libraryError",
+        "detail": "AttributeError: 'RequestParameters' object has no attribute 'querystring'",
+        "raw": {
+          "type": "AttributeError",
+          "message": "'RequestParameters' object has no attribute 'querystring'"
+        }
       }
     },
     {
@@ -9512,9 +9609,12 @@
             "cookies": []
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "a query pair arrived with no `=`, and the Request protocol takes query values as strings, so `?p` cannot be handed over apart from `?p=`"
+        "outcome": "libraryError",
+        "detail": "AttributeError: 'RequestParameters' object has no attribute 'querystring'",
+        "raw": {
+          "type": "AttributeError",
+          "message": "'RequestParameters' object has no attribute 'querystring'"
+        }
       }
     }
   ]

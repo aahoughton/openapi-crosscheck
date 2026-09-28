@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:1d2d2e4733ecf467b62d195bcd8a417e99a9dc4709a67fdc27f2c3422d010804",
+  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -383,7 +383,7 @@
         "detail": null,
         "observation": "observed",
         "vantage": "parsedBeforeValidation",
-        "exposedProbedName": false,
+        "exposedProbedName": true,
         "raw": {
           "status": 400,
           "body": {
@@ -395,7 +395,9 @@
                 "errorCode": "enum.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "red"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -449,7 +451,7 @@
         "detail": null,
         "observation": "observed",
         "vantage": "parsedBeforeValidation",
-        "exposedProbedName": false,
+        "exposedProbedName": true,
         "raw": {
           "status": 400,
           "body": {
@@ -461,7 +463,9 @@
                 "errorCode": "enum.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "red"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -720,7 +724,7 @@
         "detail": null,
         "observation": "observed",
         "vantage": "parsedBeforeValidation",
-        "exposedProbedName": false,
+        "exposedProbedName": true,
         "raw": {
           "status": 400,
           "body": {
@@ -732,7 +736,12 @@
                 "errorCode": "enum.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": [
+                "blue",
+                "red"
+              ]
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -921,7 +930,7 @@
         "detail": null,
         "observation": "observed",
         "vantage": "parsedBeforeValidation",
-        "exposedProbedName": false,
+        "exposedProbedName": true,
         "raw": {
           "status": 400,
           "body": {
@@ -933,7 +942,9 @@
                 "errorCode": "enum.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "red"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -984,7 +995,7 @@
         "detail": null,
         "observation": "observed",
         "vantage": "parsedBeforeValidation",
-        "exposedProbedName": false,
+        "exposedProbedName": true,
         "raw": {
           "status": 400,
           "body": {
@@ -996,7 +1007,9 @@
                 "errorCode": "enum.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "red"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -1213,64 +1226,35 @@
         }
       },
       "accepted": {
-        "outcome": "libraryError",
-        "detail": "the middleware raised; the app answered 500",
+        "outcome": "unsupported",
+        "detail": "OpenAPI v3.0 or v3.1 specification version is required",
         "observation": null,
         "vantage": null,
         "exposedProbedName": false,
-        "raw": {
-          "status": 500,
-          "body": {
-            "message": "OpenAPI v3.0 or v3.1 specification version is required",
-            "errors": null,
-            "params": {},
-            "query": {
-              "p": "blue"
-            },
-            "headers": {
-              "host": "harness.invalid",
-              "connection": "close"
-            },
-            "cookies": {}
-          }
-        }
+        "raw": null
       },
       "rejected": {
-        "outcome": "libraryError",
-        "detail": "the middleware raised; the app answered 500",
+        "outcome": "unsupported",
+        "detail": "OpenAPI v3.0 or v3.1 specification version is required",
         "observation": null,
         "vantage": null,
         "exposedProbedName": false,
-        "raw": {
-          "status": 500,
-          "body": {
-            "message": "OpenAPI v3.0 or v3.1 specification version is required",
-            "errors": null,
-            "params": {},
-            "query": {
-              "p": "green"
-            },
-            "headers": {
-              "host": "harness.invalid",
-              "connection": "close"
-            },
-            "cookies": {}
-          }
-        }
+        "raw": null
       }
     }
   ],
   "configuration": {
     "id": "middleware-validate-requests",
-    "description": "OpenApiValidator.middleware({ apiSpec, validateRequests: true }) mounted on an express app, exactly as the published usage shows, with a handler that echoes the request it received and an error handler that reports the thrown status alongside the same request fields. Cookies reach it the way the published usage expects, as req.cookies: a middleware ahead of the validator installs the harness's cookie pairs there, in the place a cookie parser would. A repeated cookie name or a crumb with no `=` has no spelling in that record and is answered as a case it cannot carry. Reading its values: on an accepted request they are what the handler was handed. On a rejected one they are what the middleware had coerced onto the request before it stopped, so they are partial and stop at the first failure.",
+    "description": "OpenApiValidator.middleware({ apiSpec, validateRequests: true }) mounted on an express app, exactly as the published usage shows, with a handler that echoes the request it received and an error handler that reports the thrown status alongside the same request fields. Query and header splitting are the host stack's: express (version in options) parses the query string with its default parser and Node joins repeated header lines with a comma and a space before the middleware reads either. Cookies reach it the way the published usage expects, as req.cookies: a middleware ahead of the validator installs the harness's cookie pairs there, in the place a cookie parser would. A repeated cookie name or a crumb with no `=` has no spelling in that record and is answered as a case it cannot carry. Reading its values: on an accepted request they are what the handler was handed. On a rejected one they are what the middleware had coerced onto the request before it stopped, so they are partial and stop at the first failure.",
     "options": {
-      "validateRequests": true
+      "validateRequests": true,
+      "express": "5.2.1"
     }
   },
   "provenance": {
     "kind": "container",
     "slug": "express-openapi-validator",
-    "imageId": "sha256:e91f010f6f01526465c620dd0b196e84f4a7036fcd7778bae571fa973fed1a42",
+    "imageId": "sha256:77cd5eb2afc0429803fd894bbaccb5aac2637175de62562e06b2fe9ae4b5074e",
     "ecosystem": "npm"
   },
   "answers": [
@@ -3057,8 +3041,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": "{\"R\":\"100\",\"G\":\"200\"}"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -3075,7 +3063,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "{\"R\":\"100\",\"G\":\"200\"}"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -3103,8 +3093,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": "{\"R\":\"100\",\"G\":\"200\"}"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -3121,7 +3115,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "{\"R\":\"100\",\"G\":\"200\"}"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -3149,8 +3145,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ".blue,black"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -3166,7 +3166,9 @@
                 "message": "Parameter 'style' has incorrect value 'label' for [p]"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ".blue,black"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -3194,8 +3196,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ".blue,black"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -3211,7 +3217,9 @@
                 "message": "Parameter 'style' has incorrect value 'label' for [p]"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ".blue,black"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -3335,8 +3343,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": "blue,black"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -3352,7 +3364,9 @@
                 "message": "Parameter 'style' has incorrect value 'label' for [p]"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "blue,black"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -3380,8 +3394,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": "blue,black"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -3397,7 +3415,9 @@
                 "message": "Parameter 'style' has incorrect value 'label' for [p]"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "blue,black"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -3425,8 +3445,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ".R,100,G,200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -3443,7 +3467,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ".R,100,G,200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -3471,8 +3497,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ".R,100,G,200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -3489,7 +3519,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ".R,100,G,200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -3517,8 +3549,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ".R=100.G=200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -3535,7 +3571,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ".R=100.G=200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -3563,8 +3601,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ".R=100.G=200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -3581,7 +3623,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ".R=100.G=200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -4073,8 +4117,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ";p=blue,black"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -4090,7 +4138,9 @@
                 "message": "Parameter 'style' has incorrect value 'matrix' for [p]"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ";p=blue,black"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -4118,8 +4168,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ";p=blue,black"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -4135,7 +4189,9 @@
                 "message": "Parameter 'style' has incorrect value 'matrix' for [p]"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ";p=blue,black"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -4257,8 +4313,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ";p=R,100,G,200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -4275,7 +4335,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ";p=R,100,G,200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -4303,8 +4365,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ";p=R,100,G,200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -4321,7 +4387,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ";p=R,100,G,200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -4349,8 +4417,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ";R=100;G=200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -4367,7 +4439,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ";R=100;G=200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -4395,8 +4469,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ";R=100;G=200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -4413,7 +4491,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ";R=100;G=200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -4705,8 +4785,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ";p=blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -4723,7 +4807,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ";p=blue"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -4751,8 +4837,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": ";p=blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -4769,7 +4859,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": ";p=blue"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -5637,8 +5729,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": "R,100,G,200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -5655,7 +5751,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "R,100,G,200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -5683,8 +5781,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": "R,100,G,200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -5701,7 +5803,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "R,100,G,200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -5729,8 +5833,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": "R=100,G=200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -5747,7 +5855,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "R=100,G=200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -5775,8 +5885,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": "R=100,G=200"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -5793,7 +5907,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "R=100,G=200"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -6017,22 +6133,9 @@
             "cookies": []
           }
         },
-        "outcome": "libraryError",
-        "detail": "the middleware raised; the app answered 500",
-        "raw": {
-          "status": 500,
-          "body": {
-            "message": "openapi.validator: args.apiDoc was invalid.  See the output.",
-            "errors": null,
-            "params": {},
-            "query": {},
-            "headers": {
-              "host": "harness.invalid",
-              "connection": "close"
-            },
-            "cookies": {}
-          }
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "openapi.validator: args.apiDoc was invalid.  See the output."
       }
     },
     {
@@ -6048,22 +6151,9 @@
             "cookies": []
           }
         },
-        "outcome": "libraryError",
-        "detail": "the middleware raised; the app answered 500",
-        "raw": {
-          "status": 500,
-          "body": {
-            "message": "openapi.validator: args.apiDoc was invalid.  See the output.",
-            "errors": null,
-            "params": {},
-            "query": {},
-            "headers": {
-              "host": "harness.invalid",
-              "connection": "close"
-            },
-            "cookies": {}
-          }
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "openapi.validator: args.apiDoc was invalid.  See the output."
       }
     },
     {
@@ -6171,8 +6261,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -6189,7 +6283,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "blue"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -6217,8 +6313,12 @@
         "deserialized": {
           "kind": "observed",
           "vantage": "parsedBeforeValidation",
-          "value": {},
-          "nativeTypes": {}
+          "value": {
+            "p": "blue"
+          },
+          "nativeTypes": {
+            "p": "string"
+          }
         },
         "inputMutation": {
           "kind": "notCompared",
@@ -6235,7 +6335,9 @@
                 "errorCode": "type.openapi.validation"
               }
             ],
-            "params": {},
+            "params": {
+              "p": "blue"
+            },
             "query": {},
             "headers": {
               "host": "harness.invalid",
@@ -6259,24 +6361,9 @@
             "cookies": []
           }
         },
-        "outcome": "libraryError",
-        "detail": "the middleware raised; the app answered 500",
-        "raw": {
-          "status": 500,
-          "body": {
-            "message": "openapi.validator: args.apiDoc was invalid.  See the output.",
-            "errors": null,
-            "params": {},
-            "query": {
-              "p": "{\"R\":\"100\",\"G\":\"200\"}"
-            },
-            "headers": {
-              "host": "harness.invalid",
-              "connection": "close"
-            },
-            "cookies": {}
-          }
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "openapi.validator: args.apiDoc was invalid.  See the output."
       }
     },
     {
@@ -6292,24 +6379,9 @@
             "cookies": []
           }
         },
-        "outcome": "libraryError",
-        "detail": "the middleware raised; the app answered 500",
-        "raw": {
-          "status": 500,
-          "body": {
-            "message": "openapi.validator: args.apiDoc was invalid.  See the output.",
-            "errors": null,
-            "params": {},
-            "query": {
-              "p": "{\"R\":\"100\",\"G\":\"200\"}"
-            },
-            "headers": {
-              "host": "harness.invalid",
-              "connection": "close"
-            },
-            "cookies": {}
-          }
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "openapi.validator: args.apiDoc was invalid.  See the output."
       }
     },
     {
@@ -6709,7 +6781,95 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "handedToHandler",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "null"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 200,
+          "body": {
+            "params": {},
+            "query": {
+              "p": null
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            },
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
       "caseId": "query-content-json-scalar-nullable-literal-oas31",
+      "result": {
+        "library": "express-openapi-validator",
+        "libraryVersion": "5.6.2",
+        "configurationId": "middleware-validate-requests",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "cookies": []
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "handedToHandler",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "null"
+          }
+        },
+        "inputMutation": {
+          "kind": "notCompared",
+          "detail": "the library runs as middleware inside an express app this container drives over a socket, so the request object it could write onto is one that server built and this container never holds"
+        },
+        "raw": {
+          "status": 200,
+          "body": {
+            "params": {},
+            "query": {
+              "p": null
+            },
+            "headers": {
+              "host": "harness.invalid",
+              "connection": "close"
+            },
+            "cookies": {}
+          }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-scalar-type-array-literal-oas31",
       "result": {
         "library": "express-openapi-validator",
         "libraryVersion": "5.6.2",
@@ -6765,24 +6925,9 @@
             "cookies": []
           }
         },
-        "outcome": "libraryError",
-        "detail": "the middleware raised; the app answered 500",
-        "raw": {
-          "status": 500,
-          "body": {
-            "message": "openapi.validator: args.apiDoc was invalid.  See the output.",
-            "errors": null,
-            "params": {},
-            "query": {
-              "p": "{\"R\":\"100\",\"G\":\"200\"}"
-            },
-            "headers": {
-              "host": "harness.invalid",
-              "connection": "close"
-            },
-            "cookies": {}
-          }
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "openapi.validator: args.apiDoc was invalid.  See the output."
       }
     },
     {
@@ -6798,24 +6943,9 @@
             "cookies": []
           }
         },
-        "outcome": "libraryError",
-        "detail": "the middleware raised; the app answered 500",
-        "raw": {
-          "status": 500,
-          "body": {
-            "message": "openapi.validator: args.apiDoc was invalid.  See the output.",
-            "errors": null,
-            "params": {},
-            "query": {
-              "p": "{\"R\":\"100\",\"G\":\"200\"}"
-            },
-            "headers": {
-              "host": "harness.invalid",
-              "connection": "close"
-            },
-            "cookies": {}
-          }
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "openapi.validator: args.apiDoc was invalid.  See the output."
       }
     },
     {
@@ -9725,24 +9855,9 @@
             "cookies": []
           }
         },
-        "outcome": "libraryError",
-        "detail": "the middleware raised; the app answered 500",
-        "raw": {
-          "status": 500,
-          "body": {
-            "message": "openapi.validator: args.apiDoc was invalid.  See the output.",
-            "errors": null,
-            "params": {},
-            "query": {
-              "p": "blue"
-            },
-            "headers": {
-              "host": "harness.invalid",
-              "connection": "close"
-            },
-            "cookies": {}
-          }
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "openapi.validator: args.apiDoc was invalid.  See the output."
       }
     },
     {

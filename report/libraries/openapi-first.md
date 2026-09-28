@@ -9,9 +9,9 @@ Source, as its container states it: https://github.com/ahx/openapi_first
 
 Built from: `adapters/openapi-first/`
 
-Image: `sha256:463955fb2c2e00c86c3ec05937a016de878eeadf58b365d994dea08c69069265`
+Image: `sha256:02d3753575156b80f6d495442950aa8f399a67708f4e6a2a40de3368f7375a1d`
 
-Configuration `validate-request-rack`: OpenapiFirst.parse(document) driven through validate_request with a Rack::Request built from the raw target. The path is handed over as PATH_INFO with no decoding of its own, and the query string as QUERY_STRING, so the library splits and deserializes both. Header names are put into the Rack environment under its own convention, which upcases them and joins duplicates with a comma, because that environment is the only request shape this library's public call accepts. Reading its values: parsed parameters are reported whether or not the request was then rejected, so a value cell on a rejected row shows what the library had parsed at the point it refused rather than what it accepted.
+Configuration `validate-request-rack`: OpenapiFirst.parse(document) driven through validate_request with a Rack::Request built from the raw target. The path is handed over as PATH_INFO with no decoding of its own, and the query string as QUERY_STRING, so the library splits and deserializes both. Header names are put into the Rack environment under its own convention, which upcases them, because that environment is the only request shape this library's public call accepts. Repeated lines are joined with a bare comma. Reading its values: parsed parameters are reported whether or not the request was then rejected, so a value cell on a rejected row shows what the library had parsed at the point it refused rather than what it accepted.
 
 ## What it does for itself
 
@@ -46,10 +46,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 52 |
+| pass | 51 |
 | FAIL (verdict) | 8 |
-| FAIL (value) | 9 |
-| every conformance case | 69 |
+| FAIL (value) | 8 |
+| every conformance case | 67 |
 
 - `pass`: The verdict the specification settles, and its values where the specification settles those too.
 - `FAIL (verdict)`: It reached the opposite verdict.
@@ -59,7 +59,6 @@ the page with the numbers.
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
-| [`header-simple-array-duplicate-name-oas30`](../matrix.oas30.md#header-simple-array-duplicate-name-oas30) | accepted | accepted | `{"p":["blue"," black"]}` (parsed before validation) |
 | [`path-content-json-object-canonical-oas30`](../matrix.oas30.md#path-content-json-object-canonical-oas30) | accepted | rejected | `{"p":"%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"}` (parsed before validation) |
 | [`path-label-array-canonical-oas30`](../matrix.oas30.md#path-label-array-canonical-oas30) | accepted | accepted | `{"p":["blue,black"]}` (parsed before validation) |
 | [`path-label-array-foreign-shape-oas30`](../matrix.oas30.md#path-label-array-foreign-shape-oas30) | rejected | accepted | `{"p":["lue,black"]}` (parsed before validation) |
@@ -97,9 +96,11 @@ nothing is attributed to it.
 | [`cookie-form-object-explode-oas30`](../matrix.oas30.md#cookie-form-object-explode-oas30) | rejected | `{}` (parsed before validation) |
 | [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | accepted | `{"p":"blue"}` (parsed before validation) |
 | [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`path-matrix-scalar-wrong-type-oas30`](../matrix.oas30.md#path-matrix-scalar-wrong-type-oas30) | rejected | `{"p":";p=blue"}` (parsed before validation) |
 | [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | `{"entity":"t"}` (parsed before validation) |
 | [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | accepted | `{"p":"blue"}` (parsed before validation) |
 | [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`path-simple-scalar-wrong-type-oas30`](../matrix.oas30.md#path-simple-scalar-wrong-type-oas30) | rejected | `{"p":"blue"}` (parsed before validation) |
 | [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
 | [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
 | [`query-deep-object-no-explode-oas30`](../matrix.oas30.md#query-deep-object-no-explode-oas30) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
@@ -109,6 +110,7 @@ nothing is attributed to it.
 | [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | accepted | `{"p":true}` (parsed before validation) |
 | [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | `{"p":"blue"}` (parsed before validation) |
 | [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | accepted | `{"p":{"R":100,"G":200}}` (parsed before validation) |
+| [`query-form-object-wrong-type-oas30`](../matrix.oas30.md#query-form-object-wrong-type-oas30) | rejected | `{}` (parsed before validation) |
 | [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | `{"p":""}` (parsed before validation) |
 | [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | accepted | `{"p":"a/b"}` (parsed before validation) |
 | [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | accepted | `{"p":"a/b:c"}` (parsed before validation) |
@@ -133,10 +135,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 53 |
+| pass | 52 |
 | FAIL (verdict) | 8 |
-| FAIL (value) | 9 |
-| every conformance case | 70 |
+| FAIL (value) | 8 |
+| every conformance case | 68 |
 
 - `pass`: The verdict the specification settles, and its values where the specification settles those too.
 - `FAIL (verdict)`: It reached the opposite verdict.
@@ -146,7 +148,6 @@ the page with the numbers.
 
 | case | expected | it answered | values |
 | --- | --- | --- | --- |
-| [`header-simple-array-duplicate-name-oas31`](../matrix.oas31.md#header-simple-array-duplicate-name-oas31) | accepted | accepted | `{"p":["blue"," black"]}` (parsed before validation) |
 | [`path-content-json-object-canonical-oas31`](../matrix.oas31.md#path-content-json-object-canonical-oas31) | accepted | rejected | `{"p":"%7B%22R%22%3A%22100%22%2C%22G%22%3A%22200%22%7D"}` (parsed before validation) |
 | [`path-label-array-canonical-oas31`](../matrix.oas31.md#path-label-array-canonical-oas31) | accepted | accepted | `{"p":["blue,black"]}` (parsed before validation) |
 | [`path-label-array-foreign-shape-oas31`](../matrix.oas31.md#path-label-array-foreign-shape-oas31) | rejected | accepted | `{"p":["lue,black"]}` (parsed before validation) |
@@ -184,9 +185,11 @@ nothing is attributed to it.
 | [`cookie-form-object-explode-oas31`](../matrix.oas31.md#cookie-form-object-explode-oas31) | rejected | `{}` (parsed before validation) |
 | [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | accepted | `{"p":"blue"}` (parsed before validation) |
 | [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`path-matrix-scalar-wrong-type-oas31`](../matrix.oas31.md#path-matrix-scalar-wrong-type-oas31) | rejected | `{"p":";p=blue"}` (parsed before validation) |
 | [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | `{"entity":"t"}` (parsed before validation) |
 | [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | accepted | `{"p":"blue"}` (parsed before validation) |
 | [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | accepted | `{"p":"blue"}` (parsed before validation) |
+| [`path-simple-scalar-wrong-type-oas31`](../matrix.oas31.md#path-simple-scalar-wrong-type-oas31) | rejected | `{"p":"blue"}` (parsed before validation) |
 | [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
 | [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
 | [`query-deep-object-no-explode-oas31`](../matrix.oas31.md#query-deep-object-no-explode-oas31) | accepted | `{"p":{"R":"100","G":"200"}}` (parsed before validation) |
@@ -196,6 +199,7 @@ nothing is attributed to it.
 | [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | accepted | `{"p":true}` (parsed before validation) |
 | [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | `{"p":"blue"}` (parsed before validation) |
 | [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | accepted | `{"p":{"R":100,"G":200}}` (parsed before validation) |
+| [`query-form-object-wrong-type-oas31`](../matrix.oas31.md#query-form-object-wrong-type-oas31) | rejected | `{}` (parsed before validation) |
 | [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | `{"p":""}` (parsed before validation) |
 | [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | accepted | `{"p":"a/b"}` (parsed before validation) |
 | [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | accepted | `{"p":"a/b:c"}` (parsed before validation) |
@@ -219,8 +223,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| n/a | 18 |
-| every conformance case | 18 |
+| n/a | 17 |
+| every conformance case | 17 |
 
 - `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
 
@@ -244,7 +248,6 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (oasVersionNotDeclared)
 - [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (oasVersionNotDeclared)
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
-- [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (oasVersionNotDeclared)
 
@@ -261,3 +264,4 @@ nothing is attributed to it.
 | [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (oasVersionNotDeclared) | - |
 | [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (oasVersionNotDeclared) | - |
 | [`querystring-declared-with-schema-oas32`](../matrix.oas32.md#querystring-declared-with-schema-oas32) | not asked (oasVersionNotDeclared) | - |
+| [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) | not asked (oasVersionNotDeclared) | - |

@@ -9,9 +9,9 @@ Source, as its container states it: https://github.com/getkin/kin-openapi
 
 Built from: `adapters/kin-openapi/`
 
-Image: `sha256:aa381975bf50534da9e96f5fe019cb352777140dc33c08173865619e49871306`
+Image: `sha256:d8ba45396cadecffa3e9e6f6bc0f21ee48260abaf8e66107573f6a5b929fc98e`
 
-Configuration `validate-request-gorillamux`: openapi3.NewLoader().LoadFromData(document) routed with gorillamux and validated through openapi3filter.ValidateRequest, driven from an http.Request built from the raw target. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the router, so the encoding survives to that point. Values are read from a write-back channel: the function that decodes a styled parameter is unexported and no published call returns decoded values, and ValidateRequest writes values it supplies, such as schema defaults for absent query parameters, back onto the http.Request it was handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
+Configuration `validate-request-gorillamux`: openapi3.NewLoader().LoadFromData(document), then doc.Validate, routed with gorillamux and validated through openapi3filter.ValidateRequest, driven from an http.Request built from the raw target. doc.Validate is optional in the library's API and is run because its documentation calls for it before use; a document it refuses is reported as libraryInitUnsupported. Headers are added with net/http's Header.Add, which canonicalizes names (p and P become P) and merges names differing only in case. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the router, so the encoding survives to that point. Values are read from a write-back channel: the function that decodes a styled parameter is unexported and no published call returns decoded values, and ValidateRequest writes values it supplies, such as schema defaults for absent query parameters, back onto the http.Request it was handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 
 ## What it does for itself
 
@@ -46,10 +46,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 21 |
+| pass | 18 |
 | pass (verdict only) | 43 |
-| FAIL (verdict) | 5 |
-| every conformance case | 69 |
+| FAIL (verdict) | 6 |
+| every conformance case | 67 |
 
 - `pass`: The verdict the specification settles, and its values where the specification settles those too.
 - `pass (verdict only)`: The settled verdict, from a library that exposes no deserialized values, so the value half of the case could not be asked of it.
@@ -62,6 +62,7 @@ the page with the numbers.
 | [`header-reserved-name-accept-present-wrong-type-oas30`](../matrix.oas30.md#header-reserved-name-accept-present-wrong-type-oas30) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`header-reserved-name-accept-required-absent-oas30`](../matrix.oas30.md#header-reserved-name-accept-required-absent-oas30) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`path-content-json-object-canonical-oas30`](../matrix.oas30.md#path-content-json-object-canonical-oas30) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| [`query-content-json-scalar-nullable-literal-oas30`](../matrix.oas30.md#query-content-json-scalar-nullable-literal-oas30) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-pipe-delimited-object-canonical-oas30`](../matrix.oas30.md#query-pipe-delimited-object-canonical-oas30) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-space-delimited-object-canonical-oas30`](../matrix.oas30.md#query-space-delimited-object-canonical-oas30) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 
@@ -85,9 +86,11 @@ nothing is attributed to it.
 | [`cookie-form-object-explode-oas30`](../matrix.oas30.md#cookie-form-object-explode-oas30) | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`cookie-form-scalar-canonical-oas30`](../matrix.oas30.md#cookie-form-scalar-canonical-oas30) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`cookie-form-scalar-explode-oas30`](../matrix.oas30.md#cookie-form-scalar-explode-oas30) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| [`path-matrix-scalar-wrong-type-oas30`](../matrix.oas30.md#path-matrix-scalar-wrong-type-oas30) | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`path-routing-ambiguous-templates-oas30`](../matrix.oas30.md#path-routing-ambiguous-templates-oas30) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`path-routing-identical-templates-oas30`](../matrix.oas30.md#path-routing-identical-templates-oas30) | not asked (libraryInitUnsupported) | - |
 | [`path-simple-scalar-required-false-oas30`](../matrix.oas30.md#path-simple-scalar-required-false-oas30) | not asked (libraryInitUnsupported) | - |
+| [`path-simple-scalar-wrong-type-oas30`](../matrix.oas30.md#path-simple-scalar-wrong-type-oas30) | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-content-and-schema-declared-oas30`](../matrix.oas30.md#query-content-and-schema-declared-oas30) | not asked (libraryInitUnsupported) | - |
 | [`query-content-two-media-types-oas30`](../matrix.oas30.md#query-content-two-media-types-oas30) | not asked (libraryInitUnsupported) | - |
 | [`query-deep-object-no-explode-oas30`](../matrix.oas30.md#query-deep-object-no-explode-oas30) | not asked (libraryInitUnsupported) | - |
@@ -97,6 +100,7 @@ nothing is attributed to it.
 | [`query-form-boolean-literal-oas30`](../matrix.oas30.md#query-form-boolean-literal-oas30) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-form-boolean-wrong-type-oas30`](../matrix.oas30.md#query-form-boolean-wrong-type-oas30) | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-form-object-integer-properties-oas30`](../matrix.oas30.md#query-form-object-integer-properties-oas30) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| [`query-form-object-wrong-type-oas30`](../matrix.oas30.md#query-form-object-wrong-type-oas30) | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-form-scalar-allow-empty-value-declared-oas30`](../matrix.oas30.md#query-form-scalar-allow-empty-value-declared-oas30) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-form-scalar-allow-reserved-percent-triple-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-percent-triple-oas30) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-form-scalar-allow-reserved-unset-oas30`](../matrix.oas30.md#query-form-scalar-allow-reserved-unset-oas30) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
@@ -121,10 +125,10 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| pass | 22 |
+| pass | 19 |
 | pass (verdict only) | 43 |
-| FAIL (verdict) | 5 |
-| every conformance case | 70 |
+| FAIL (verdict) | 6 |
+| every conformance case | 68 |
 
 - `pass`: The verdict the specification settles, and its values where the specification settles those too.
 - `pass (verdict only)`: The settled verdict, from a library that exposes no deserialized values, so the value half of the case could not be asked of it.
@@ -137,6 +141,7 @@ the page with the numbers.
 | [`header-reserved-name-accept-present-wrong-type-oas31`](../matrix.oas31.md#header-reserved-name-accept-present-wrong-type-oas31) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`header-reserved-name-accept-required-absent-oas31`](../matrix.oas31.md#header-reserved-name-accept-required-absent-oas31) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`path-content-json-object-canonical-oas31`](../matrix.oas31.md#path-content-json-object-canonical-oas31) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| [`query-content-json-scalar-type-array-literal-oas31`](../matrix.oas31.md#query-content-json-scalar-type-array-literal-oas31) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-pipe-delimited-object-canonical-oas31`](../matrix.oas31.md#query-pipe-delimited-object-canonical-oas31) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-space-delimited-object-canonical-oas31`](../matrix.oas31.md#query-space-delimited-object-canonical-oas31) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 
@@ -160,9 +165,11 @@ nothing is attributed to it.
 | [`cookie-form-object-explode-oas31`](../matrix.oas31.md#cookie-form-object-explode-oas31) | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`cookie-form-scalar-canonical-oas31`](../matrix.oas31.md#cookie-form-scalar-canonical-oas31) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`cookie-form-scalar-explode-oas31`](../matrix.oas31.md#cookie-form-scalar-explode-oas31) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| [`path-matrix-scalar-wrong-type-oas31`](../matrix.oas31.md#path-matrix-scalar-wrong-type-oas31) | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`path-routing-ambiguous-templates-oas31`](../matrix.oas31.md#path-routing-ambiguous-templates-oas31) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`path-routing-identical-templates-oas31`](../matrix.oas31.md#path-routing-identical-templates-oas31) | not asked (libraryInitUnsupported) | - |
 | [`path-simple-scalar-required-false-oas31`](../matrix.oas31.md#path-simple-scalar-required-false-oas31) | not asked (libraryInitUnsupported) | - |
+| [`path-simple-scalar-wrong-type-oas31`](../matrix.oas31.md#path-simple-scalar-wrong-type-oas31) | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-content-and-schema-declared-oas31`](../matrix.oas31.md#query-content-and-schema-declared-oas31) | not asked (libraryInitUnsupported) | - |
 | [`query-content-two-media-types-oas31`](../matrix.oas31.md#query-content-two-media-types-oas31) | not asked (libraryInitUnsupported) | - |
 | [`query-deep-object-no-explode-oas31`](../matrix.oas31.md#query-deep-object-no-explode-oas31) | not asked (libraryInitUnsupported) | - |
@@ -172,6 +179,7 @@ nothing is attributed to it.
 | [`query-form-boolean-literal-oas31`](../matrix.oas31.md#query-form-boolean-literal-oas31) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-form-boolean-wrong-type-oas31`](../matrix.oas31.md#query-form-boolean-wrong-type-oas31) | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-form-object-integer-properties-oas31`](../matrix.oas31.md#query-form-object-integer-properties-oas31) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
+| [`query-form-object-wrong-type-oas31`](../matrix.oas31.md#query-form-object-wrong-type-oas31) | rejected | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-form-scalar-allow-empty-value-declared-oas31`](../matrix.oas31.md#query-form-scalar-allow-empty-value-declared-oas31) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-form-scalar-allow-reserved-percent-triple-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-percent-triple-oas31) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
 | [`query-form-scalar-allow-reserved-unset-oas31`](../matrix.oas31.md#query-form-scalar-allow-reserved-unset-oas31) | accepted | not exposed by this library (no published call returns the deserialized parameter values, and the library wrote nothing back onto this request) |
@@ -196,8 +204,8 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass (verdict only) | 4 |
-| n/a | 14 |
-| every conformance case | 18 |
+| n/a | 13 |
+| every conformance case | 17 |
 
 - `pass (verdict only)`: The settled verdict, from a library that exposes no deserialized values, so the value half of the case could not be asked of it.
 - `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
@@ -218,7 +226,6 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-absent-no-question-mark-oas32`](../matrix.oas32.md#querystring-absent-no-question-mark-oas32) (libraryInitUnsupported)
 - [`querystring-empty-after-question-mark-oas32`](../matrix.oas32.md#querystring-empty-after-question-mark-oas32) (libraryInitUnsupported)
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (libraryInitUnsupported)
-- [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) (libraryInitUnsupported)
 - [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (libraryInitUnsupported)
 - [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (libraryInitUnsupported)
 
@@ -235,3 +242,4 @@ nothing is attributed to it.
 | [`querystring-content-with-style-oas32`](../matrix.oas32.md#querystring-content-with-style-oas32) | not asked (libraryInitUnsupported) | - |
 | [`querystring-declared-twice-oas32`](../matrix.oas32.md#querystring-declared-twice-oas32) | not asked (libraryInitUnsupported) | - |
 | [`querystring-declared-with-schema-oas32`](../matrix.oas32.md#querystring-declared-with-schema-oas32) | not asked (libraryInitUnsupported) | - |
+| [`querystring-form-urlencoded-object-wrong-type-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-wrong-type-oas32) | not asked (libraryInitUnsupported) | - |

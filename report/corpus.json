@@ -7369,44 +7369,16 @@
     {
       "id": "path-matrix-scalar-wrong-type-oas30",
       "title": "path, matrix, scalar, a value well-formed for a different type",
-      "inShort": "Sends ;p=blue for an integer parameter. Matrix parsing yields blue, which fails the type check.",
-      "tier": "conformance",
+      "inShort": "Sends ;p=blue for an integer parameter. Whether text that spells no number is refused or converted is implementation-defined.",
+      "tier": "divergence",
       "oasVersion": "3.0",
-      "citations": [
-        {
-          "oasVersion": "3.0",
-          "anchor": "parameter-style",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-style",
-          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
-        },
-        {
-          "oasVersion": "3.0",
-          "anchor": "style-examples",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#style-examples",
-          "quoted": "| matrix | false | ;color | ;color=blue | ;color=blue,black,brown | ;color=R,100,G,200,B,150 |"
-        },
-        {
-          "oasVersion": "3.0",
-          "anchor": "parameter-schema",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-schema",
-          "quoted": "The schema defining the type used for the parameter."
-        },
-        {
-          "oasVersion": "3.0",
-          "anchor": "schema-object",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
-          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
-        },
-        {
-          "oasVersion": "3.0",
-          "anchor": "appendix-b-data-type-conversion",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion",
-          "quoted": "Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: \"integer\" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation."
-        }
-      ],
-      "expected": "rejected",
-      "expectedValues": null,
-      "rationale": "Matrix parsing yields the alphabetic value blue, which cannot represent an integer. A rejection alone does not establish whether parsing or type validation refused it.",
+      "question": "Matrix parsing yields the text blue for an integer parameter. Appendix B leaves conversion from text to other primitive types implementation-defined and gives no number grammar, so it does not settle whether blue is refused or converted.",
+      "basis": {
+        "oasVersion": "3.0",
+        "anchor": "appendix-b-data-type-conversion",
+        "url": "https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion",
+        "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
+      },
       "document": {
         "openapi": "3.0.4",
         "info": {
@@ -7458,6 +7430,7 @@
         "declaredExplode": false,
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "integer",
       "varies": [
         "the value is well-formed for a different type"
       ],
@@ -7469,44 +7442,16 @@
     {
       "id": "path-matrix-scalar-wrong-type-oas31",
       "title": "path, matrix, scalar, a value well-formed for a different type",
-      "inShort": "Sends ;p=blue for an integer parameter. Matrix parsing yields blue, which fails the type check.",
-      "tier": "conformance",
+      "inShort": "Sends ;p=blue for an integer parameter. Whether text that spells no number is refused or converted is implementation-defined.",
+      "tier": "divergence",
       "oasVersion": "3.1",
-      "citations": [
-        {
-          "oasVersion": "3.1",
-          "anchor": "parameter-style",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-style",
-          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
-        },
-        {
-          "oasVersion": "3.1",
-          "anchor": "style-examples",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#style-examples",
-          "quoted": "| matrix | false | ;color | ;color=blue | ;color=blue,black,brown | ;color=R,100,G,200,B,150 |"
-        },
-        {
-          "oasVersion": "3.1",
-          "anchor": "parameter-schema",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-schema",
-          "quoted": "The schema defining the type used for the parameter."
-        },
-        {
-          "oasVersion": "3.1",
-          "anchor": "schema-object",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
-          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
-        },
-        {
-          "oasVersion": "3.1",
-          "anchor": "appendix-b-data-type-conversion",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
-          "quoted": "Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: \"integer\" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation."
-        }
-      ],
-      "expected": "rejected",
-      "expectedValues": null,
-      "rationale": "Matrix parsing yields the alphabetic value blue, which cannot represent an integer. A rejection alone does not establish whether parsing or type validation refused it.",
+      "question": "Matrix parsing yields the text blue for an integer parameter. Appendix B leaves conversion from text to other primitive types implementation-defined and gives no number grammar, so it does not settle whether blue is refused or converted.",
+      "basis": {
+        "oasVersion": "3.1",
+        "anchor": "appendix-b-data-type-conversion",
+        "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
+        "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
+      },
       "document": {
         "openapi": "3.1.1",
         "info": {
@@ -7558,6 +7503,7 @@
         "declaredExplode": false,
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "integer",
       "varies": [
         "the value is well-formed for a different type"
       ],
@@ -10616,32 +10562,16 @@
     {
       "id": "path-simple-scalar-wrong-type-oas30",
       "title": "path, simple, scalar, a value well-formed for a different type",
-      "inShort": "Sends blue as a path segment for an integer parameter. The text cannot represent an integer.",
-      "tier": "conformance",
+      "inShort": "Sends blue as a path segment for an integer parameter. Whether text that spells no number is refused or converted is implementation-defined.",
+      "tier": "divergence",
       "oasVersion": "3.0",
-      "citations": [
-        {
-          "oasVersion": "3.0",
-          "anchor": "parameter-schema",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-schema",
-          "quoted": "The schema defining the type used for the parameter."
-        },
-        {
-          "oasVersion": "3.0",
-          "anchor": "schema-object",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
-          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
-        },
-        {
-          "oasVersion": "3.0",
-          "anchor": "appendix-b-data-type-conversion",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion",
-          "quoted": "Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: \"integer\" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation."
-        }
-      ],
-      "expected": "rejected",
-      "expectedValues": null,
-      "rationale": "The parameter requires an integer. The alphabetic value blue cannot represent one.",
+      "question": "The segment is the text blue and the parameter is an integer. Appendix B leaves conversion from text to other primitive types implementation-defined and gives no number grammar, so it does not settle whether blue is refused or converted.",
+      "basis": {
+        "oasVersion": "3.0",
+        "anchor": "appendix-b-data-type-conversion",
+        "url": "https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion",
+        "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
+      },
       "document": {
         "openapi": "3.0.4",
         "info": {
@@ -10693,6 +10623,7 @@
         "declaredExplode": false,
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "integer",
       "varies": [
         "the value is well-formed for a different type"
       ],
@@ -10704,32 +10635,16 @@
     {
       "id": "path-simple-scalar-wrong-type-oas31",
       "title": "path, simple, scalar, a value well-formed for a different type",
-      "inShort": "Sends blue as a path segment for an integer parameter. The text cannot represent an integer.",
-      "tier": "conformance",
+      "inShort": "Sends blue as a path segment for an integer parameter. Whether text that spells no number is refused or converted is implementation-defined.",
+      "tier": "divergence",
       "oasVersion": "3.1",
-      "citations": [
-        {
-          "oasVersion": "3.1",
-          "anchor": "parameter-schema",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-schema",
-          "quoted": "The schema defining the type used for the parameter."
-        },
-        {
-          "oasVersion": "3.1",
-          "anchor": "schema-object",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
-          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
-        },
-        {
-          "oasVersion": "3.1",
-          "anchor": "appendix-b-data-type-conversion",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
-          "quoted": "Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: \"integer\" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation."
-        }
-      ],
-      "expected": "rejected",
-      "expectedValues": null,
-      "rationale": "The parameter requires an integer. The alphabetic value blue cannot represent one.",
+      "question": "The segment is the text blue and the parameter is an integer. Appendix B leaves conversion from text to other primitive types implementation-defined and gives no number grammar, so it does not settle whether blue is refused or converted.",
+      "basis": {
+        "oasVersion": "3.1",
+        "anchor": "appendix-b-data-type-conversion",
+        "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
+        "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
+      },
       "document": {
         "openapi": "3.1.1",
         "info": {
@@ -10781,6 +10696,7 @@
         "declaredExplode": false,
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "integer",
       "varies": [
         "the value is well-formed for a different type"
       ],
@@ -11272,6 +11188,7 @@
         "schema": "scalar",
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "boolean",
       "varies": [
         "the JSON value's type"
       ],
@@ -11367,6 +11284,7 @@
         "schema": "scalar",
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "boolean",
       "varies": [
         "the JSON value's type"
       ],
@@ -11840,6 +11758,102 @@
       ]
     },
     {
+      "id": "query-content-json-scalar-nullable-literal-oas30",
+      "title": "query, content application/json, nullable keyword, a literal null",
+      "inShort": "Sends JSON null for {type: string, nullable: true}. The nullable keyword admits null, so the value is valid.",
+      "tier": "conformance",
+      "oasVersion": "3.0",
+      "citations": [
+        {
+          "oasVersion": "3.0",
+          "anchor": "parameter-content",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-content",
+          "quoted": "A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "media-type-object",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#media-type-object",
+          "quoted": "Each Media Type Object provides schema and examples for the media type identified by its key."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
+        },
+        {
+          "oasVersion": "3.0",
+          "anchor": "schema-nullable",
+          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-nullable",
+          "quoted": "This keyword only takes effect if type is explicitly defined within the same Schema Object. A true value indicates that both null values and values of the type specified by type are allowed. Other Schema Object constraints retain their defined behavior, and therefore may disallow the use of null as a value. A false value leaves the specified or default type unmodified. The default value is false."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": null
+      },
+      "rationale": "JSON parsing yields null, and nullable true on a string schema allows null values as well as strings. The 3.1 twin sends the same document and value, where nullable has no validation effect.",
+      "document": {
+        "openapi": "3.0.4",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=null",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "query",
+        "mediaType": "application/json",
+        "schema": "nullableScalar",
+        "probeAxis": "canonical"
+      },
+      "varies": [
+        "the value is null, which only the nullable keyword admits"
+      ],
+      "holdsConstant": [
+        "the identifier is the declared one",
+        "the value is a well-formed representation of the declared media type"
+      ]
+    },
+    {
       "id": "query-content-json-scalar-nullable-literal-oas31",
       "title": "query, content application/json, nullable keyword, a literal null",
       "inShort": "Sends JSON null for {type: string, nullable: true}. In 3.1, nullable has no validation effect, so null fails the string type.",
@@ -11919,8 +11933,107 @@
         "schema": "scalar",
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "string",
       "varies": [
         "the schema writes 3.0's nullable keyword, which this version's dialect ignores"
+      ],
+      "holdsConstant": [
+        "the identifier is the declared one",
+        "the value is a well-formed representation of the declared media type"
+      ]
+    },
+    {
+      "id": "query-content-json-scalar-type-array-literal-oas31",
+      "title": "query, content application/json, type array admitting null, a literal null",
+      "inShort": "Sends JSON null for {type: [string, null]}. The type array admits null, so the value is valid.",
+      "tier": "conformance",
+      "oasVersion": "3.1",
+      "citations": [
+        {
+          "oasVersion": "3.1",
+          "anchor": "parameter-content",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-content",
+          "quoted": "A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "media-type-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#media-type-object",
+          "quoted": "Each Media Type Object provides schema and examples for the media type identified by its key."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "section-6.1.1",
+          "url": "https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1.1",
+          "quoted": "String values MUST be one of the six primitive types (\"null\", \"boolean\", \"object\", \"array\", \"number\", or \"string\"), or \"integer\" which matches any number with a zero fractional part. An instance validates if and only if the instance is in any of the sets listed for this keyword."
+        }
+      ],
+      "expected": "accepted",
+      "expectedValues": {
+        "p": null
+      },
+      "rationale": "JSON parsing yields null, and a type array validates an instance matching any of its members, one of which is null. This is the 3.1 spelling of the schema the nullable-literal case writes the 3.0 way.",
+      "document": {
+        "openapi": "3.1.1",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "query",
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?p=null",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "query",
+        "mediaType": "application/json",
+        "schema": "nullableScalar",
+        "probeAxis": "canonical"
+      },
+      "varies": [
+        "the value is null, which only the type array's null member admits"
       ],
       "holdsConstant": [
         "the identifier is the declared one",
@@ -13893,6 +14006,7 @@
         "schema": "scalar",
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "boolean",
       "varies": [
         "the declared type is boolean"
       ],
@@ -13965,6 +14079,7 @@
         "schema": "scalar",
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "boolean",
       "varies": [
         "the declared type is boolean"
       ],
@@ -14732,32 +14847,16 @@
     {
       "id": "query-form-object-wrong-type-oas30",
       "title": "query, form, object, explode true, a property well-formed for a different type",
-      "inShort": "Sends a correctly formatted object with R=blue, where R requires an integer.",
-      "tier": "conformance",
+      "inShort": "Sends a correctly formatted object with R=blue, where R is an integer. Whether that property value is refused or converted is implementation-defined.",
+      "tier": "divergence",
       "oasVersion": "3.0",
-      "citations": [
-        {
-          "oasVersion": "3.0",
-          "anchor": "parameter-style",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#parameter-style",
-          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
-        },
-        {
-          "oasVersion": "3.0",
-          "anchor": "schema-object",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#schema-object",
-          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is an extended subset of the JSON Schema Specification Draft Wright-00."
-        },
-        {
-          "oasVersion": "3.0",
-          "anchor": "appendix-b-data-type-conversion",
-          "url": "https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion",
-          "quoted": "Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: \"integer\" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation."
-        }
-      ],
-      "expected": "rejected",
-      "expectedValues": null,
-      "rationale": "The object format is valid, but R's alphabetic value blue cannot represent an integer. A rejection alone does not establish whether the library checked that property.",
+      "question": "The object deserializes cleanly and its property R carries the text blue against an integer schema. Appendix B leaves conversion from text to other primitive types implementation-defined, including values inside objects, so it does not settle whether blue is refused or converted.",
+      "basis": {
+        "oasVersion": "3.0",
+        "anchor": "appendix-b-data-type-conversion",
+        "url": "https://spec.openapis.org/oas/v3.0.4.html#appendix-b-data-type-conversion",
+        "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
+      },
       "document": {
         "openapi": "3.0.4",
         "info": {
@@ -14817,6 +14916,7 @@
         "schema": "object",
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "integer",
       "varies": [
         "a property value is well-formed for a different type"
       ],
@@ -14828,32 +14928,16 @@
     {
       "id": "query-form-object-wrong-type-oas31",
       "title": "query, form, object, explode true, a property well-formed for a different type",
-      "inShort": "Sends a correctly formatted object with R=blue, where R requires an integer.",
-      "tier": "conformance",
+      "inShort": "Sends a correctly formatted object with R=blue, where R is an integer. Whether that property value is refused or converted is implementation-defined.",
+      "tier": "divergence",
       "oasVersion": "3.1",
-      "citations": [
-        {
-          "oasVersion": "3.1",
-          "anchor": "parameter-style",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#parameter-style",
-          "quoted": "Describes how the parameter value will be serialized depending on the type of the parameter value. Default values (based on value of in): for \"query\" - \"form\"; for \"path\" - \"simple\"; for \"header\" - \"simple\"; for \"cookie\" - \"form\"."
-        },
-        {
-          "oasVersion": "3.1",
-          "anchor": "schema-object",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
-          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
-        },
-        {
-          "oasVersion": "3.1",
-          "anchor": "appendix-b-data-type-conversion",
-          "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
-          "quoted": "Schema Objects validate data based on the JSON Schema data model, which only recognizes four primitive data types: strings (which are only broadly interoperable as UTF-8), numbers, booleans, and null. Notably, integers are not a distinct type from other numbers, with type: \"integer\" being a convenience defined mathematically, rather than based on the presence or absence of a decimal point in any string representation."
-        }
-      ],
-      "expected": "rejected",
-      "expectedValues": null,
-      "rationale": "The object format is valid, but R's alphabetic value blue cannot represent an integer. A rejection alone does not establish whether the library checked that property.",
+      "question": "The object deserializes cleanly and its property R carries the text blue against an integer schema. Appendix B leaves conversion from text to other primitive types implementation-defined, including values inside objects, so it does not settle whether blue is refused or converted.",
+      "basis": {
+        "oasVersion": "3.1",
+        "anchor": "appendix-b-data-type-conversion",
+        "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
+        "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
+      },
       "document": {
         "openapi": "3.1.1",
         "info": {
@@ -14913,6 +14997,7 @@
         "schema": "object",
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "integer",
       "varies": [
         "a property value is well-formed for a different type"
       ],
@@ -15868,6 +15953,7 @@
         "schema": "scalar",
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "integer",
       "varies": [
         "the value is well-formed for a number and not for the declared integer"
       ],
@@ -15941,6 +16027,7 @@
         "schema": "scalar",
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "integer",
       "varies": [
         "the value is well-formed for a number and not for the declared integer"
       ],
@@ -16691,6 +16778,18 @@
           "anchor": "appendix-b-data-type-conversion",
           "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
           "quoted": "[RFC6570] Section 2.3 specifies which values, including but not limited to null, are considered undefined and therefore treated specially in the expansion process when serializing based on that specification"
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "section-6.1.1",
+          "url": "https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1.1",
+          "quoted": "String values MUST be one of the six primitive types (\"null\", \"boolean\", \"object\", \"array\", \"number\", or \"string\"), or \"integer\" which matches any number with a zero fractional part. An instance validates if and only if the instance is in any of the sets listed for this keyword."
         }
       ],
       "expected": "accepted",
@@ -16839,7 +16938,7 @@
         "declaredStyle": "unset",
         "declaredExplode": "unset",
         "schema": "nullableScalar",
-        "probeAxis": "wrongTypeValue"
+        "probeAxis": "canonical"
       },
       "varies": [
         "the text can represent either allowed type"
@@ -16873,6 +16972,18 @@
           "anchor": "appendix-b-data-type-conversion",
           "url": "https://spec.openapis.org/oas/v3.1.1.html#appendix-b-data-type-conversion",
           "quoted": "However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.1.1.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        },
+        {
+          "oasVersion": "3.1",
+          "anchor": "section-6.1.1",
+          "url": "https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1.1",
+          "quoted": "String values MUST be one of the six primitive types (\"null\", \"boolean\", \"object\", \"array\", \"number\", or \"string\"), or \"integer\" which matches any number with a zero fractional part. An instance validates if and only if the instance is in any of the sets listed for this keyword."
         }
       ],
       "expected": "accepted",
@@ -16928,7 +17039,7 @@
         "declaredStyle": "unset",
         "declaredExplode": "unset",
         "schema": "nullableScalar",
-        "probeAxis": "wrongTypeValue"
+        "probeAxis": "canonical"
       },
       "varies": [
         "the text can represent either allowed type"
@@ -19487,38 +19598,16 @@
     {
       "id": "querystring-form-urlencoded-object-wrong-type-oas32",
       "title": "querystring, x-www-form-urlencoded, object, a property well-formed for another type",
-      "inShort": "Sends a correctly formatted query string with R=blue, where R requires an integer.",
-      "tier": "conformance",
+      "inShort": "Sends a correctly formatted query string with R=blue, where R is an integer. Whether that value is refused or converted is implementation-defined.",
+      "tier": "divergence",
       "oasVersion": "3.2",
-      "citations": [
-        {
-          "oasVersion": "3.2",
-          "anchor": "parameter-locations",
-          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-locations",
-          "quoted": "querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: \"query\" parameters."
-        },
-        {
-          "oasVersion": "3.2",
-          "anchor": "fixed-fields-for-use-with-content",
-          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content",
-          "quoted": "For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: \"querystring\" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type."
-        },
-        {
-          "oasVersion": "3.2",
-          "anchor": "parameter-required",
-          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-required",
-          "quoted": "Determines whether this parameter is mandatory. If the parameter location is \"path\", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false."
-        },
-        {
-          "oasVersion": "3.2",
-          "anchor": "schema-object",
-          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
-          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
-        }
-      ],
-      "expected": "rejected",
-      "expectedValues": null,
-      "rationale": "Form-urlencoded parsing yields R=blue, which cannot represent the required integer. A rejection alone does not establish whether the library checked that property.",
+      "question": "Form-urlencoded parsing yields the text blue for the integer property R. Appendix B names the form-urlencoded query string among the places where typing text is implementation- or application-defined, so it does not settle whether blue is refused or converted.",
+      "basis": {
+        "oasVersion": "3.2",
+        "anchor": "appendix-b-data-type-conversion",
+        "url": "https://spec.openapis.org/oas/v3.2.0.html#appendix-b-data-type-conversion",
+        "quoted": "Serializing typed data to plain text, which can occur in text/plain message bodies or multipart parts, as well as in the application/x-www-form-urlencoded format in either URL query strings or message bodies, involves significant implementation- or application-defined behavior. [...] However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions."
+      },
       "document": {
         "openapi": "3.2.0",
         "info": {
@@ -19577,6 +19666,7 @@
         "schema": "object",
         "probeAxis": "wrongTypeValue"
       },
+      "wrongTypeFor": "integer",
       "varies": [
         "a property value has the wrong type"
       ],

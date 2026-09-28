@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:1d2d2e4733ecf467b62d195bcd8a417e99a9dc4709a67fdc27f2c3422d010804",
+  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -776,13 +776,13 @@
   ],
   "configuration": {
     "id": "validate-http-request",
-    "description": "libopenapi.NewDocument(document) handed to validator.NewValidator and driven through ValidateHttpRequest, from an http.Request built on the raw target. Routing is the library's: an unmatched path comes back as a validation error of type path rather than as a separate call. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the validator, so the encoding survives to that point. Values are unexposed: ValidateHttpRequest answers with a boolean and a list of validation errors, and the helpers that decode a styled parameter are internal packages, so no published call hands the deserialized values back.",
+    "description": "libopenapi.NewDocument(document) handed to validator.NewValidator and driven through ValidateHttpRequest, from an http.Request built on the raw target. Headers are added with net/http's Header.Add, which canonicalizes names (p and P become P) and merges names differing only in case. Routing is the library's: an unmatched path comes back as a validation error of type path rather than as a separate call. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the validator, so the encoding survives to that point. Values are unexposed: ValidateHttpRequest answers with a boolean and a list of validation errors, and the helpers that decode a styled parameter are internal packages, so no published call hands the deserialized values back.",
     "options": {}
   },
   "provenance": {
     "kind": "container",
     "slug": "libopenapi-validator",
-    "imageId": "sha256:6e13fbf071c33805afd0c2b3d14e5bc45ff31b448f3b88df9aa690f421f0f73b",
+    "imageId": "sha256:57f76f4b9d4d10a0cf278f3e47082ebf4461cdd33d47a57650d20aa0149c792f",
     "ecosystem": "go"
   },
   "answers": [
@@ -3692,6 +3692,28 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
       "caseId": "query-content-json-scalar-nullable-literal-oas31",
       "result": {
         "library": "github.com/pb33f/libopenapi-validator",
@@ -3717,6 +3739,28 @@
             }
           ],
           "valid": false
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-scalar-type-array-literal-oas31",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
         }
       }
     },

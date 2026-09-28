@@ -64,7 +64,7 @@ expected verdicts rest on.
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 
-14 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas30`, `query-content-json-boolean-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, and 6 more in the matrix files.
+16 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas30`, `query-content-json-boolean-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, and 8 more in the matrix files.
 
 Rules those verdicts rest on:
 
@@ -79,9 +79,11 @@ Rules those verdicts rest on:
 - [parameter-content](https://spec.openapis.org/oas/v3.1.1.html#parameter-content)
 - [parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
 - [parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
+- [schema-nullable](https://spec.openapis.org/oas/v3.0.4.html#schema-nullable)
 - [schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+- [section-6.1.1](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1.1)
 - [url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
 - [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 - [x4-8-12-2-fixed-fields](https://spec.openapis.org/oas/v3.1.1.html#x4-8-12-2-fixed-fields)
@@ -229,7 +231,7 @@ Rules those verdicts rest on:
 
 **Style and explode.** Apply each parameter's `style` and `explode` yourself. It validates the structured value you hand it and performs no deserialization of its own.
 
-104 conformance cases probe it: `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `header-simple-array-canonical-oas30`, and 96 more in the matrix files.
+106 conformance cases probe it: `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `header-simple-array-canonical-oas30`, and 98 more in the matrix files.
 
 Rules those verdicts rest on:
 
@@ -263,6 +265,7 @@ Rules those verdicts rest on:
 - [section-3.2.1](https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.1)
 - [section-3.2.2](https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.2)
 - [section-3.2.2](https://www.rfc-editor.org/rfc/rfc6570.html#section-3.2.2)
+- [section-6.1.1](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1.1)
 - [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.2.0.html#style-examples)
@@ -275,7 +278,7 @@ Rules those verdicts rest on:
 
 **Content media type.** Read a `content` parameter's raw value as a representation of its declared media type yourself, and hand it the result. A value that is not a representation of that media type reaches it as text.
 
-14 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas30`, `query-content-json-boolean-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, and 6 more in the matrix files.
+16 conformance cases probe it: `header-content-json-object-canonical-oas30`, `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas30`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas30`, `query-content-json-boolean-canonical-oas31`, `query-content-json-object-canonical-oas30`, `query-content-json-object-canonical-oas31`, and 8 more in the matrix files.
 
 Rules those verdicts rest on:
 
@@ -290,9 +293,11 @@ Rules those verdicts rest on:
 - [parameter-content](https://spec.openapis.org/oas/v3.1.1.html#parameter-content)
 - [parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
 - [parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
+- [schema-nullable](https://spec.openapis.org/oas/v3.0.4.html#schema-nullable)
 - [schema-object](https://spec.openapis.org/oas/v3.0.4.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.1.1.html#schema-object)
 - [schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
+- [section-6.1.1](https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1.1)
 - [url-percent-encoding](https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding)
 - [x4-7-12-2-fixed-fields](https://spec.openapis.org/oas/v3.0.4.html#x4-7-12-2-fixed-fields)
 - [x4-8-12-2-fixed-fields](https://spec.openapis.org/oas/v3.1.1.html#x4-8-12-2-fixed-fields)

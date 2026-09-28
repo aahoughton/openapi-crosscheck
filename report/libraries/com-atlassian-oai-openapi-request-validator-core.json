@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "LATEST"
   },
-  "corpusDigest": "sha256:1d2d2e4733ecf467b62d195bcd8a417e99a9dc4709a67fdc27f2c3422d010804",
+  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -889,13 +889,15 @@
   ],
   "configuration": {
     "id": "inline-spec-simple-request",
-    "description": "OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Duplicate raw names are grouped into the list shape the builder accepts. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Cookies reach the library as the `Cookie` header, which the builder does take: it has no cookie API, and the library reads cookie parameters out of that header itself, so the split is the library's and is declared as such. Refusing these cases for want of a cookie API, which this container did until the builder's surface was checked against what the library reads, published ten questions as unanswerable that the library answers.",
-    "options": {}
+    "description": "OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Each pair is added in wire order, and a pair with no `=` is added with a null value list, the builder's documented spelling of a name with no value. The two-argument Builder constructor is used, whose default matches query parameter names case-insensitively. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Cookies reach the library as the `Cookie` header, which the builder does take: it has no cookie API, and the library reads cookie parameters out of that header itself, so the split is the library's and is declared as such.",
+    "options": {
+      "queryParametersCaseSensitive": false
+    }
   },
   "provenance": {
     "kind": "container",
     "slug": "com-atlassian-oai-openapi-request-validator-core",
-    "imageId": "sha256:7749465637e71323c0c5f59059e1a47d2aaf0dbe177c46d87592d969ff16aff2",
+    "imageId": "sha256:cea53a65eb9fe1a81f42fc6430ab0ef829e245214960a2784d69127700296f23",
     "ecosystem": "maven"
   },
   "answers": [
@@ -4344,6 +4346,18 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes contentDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
       "caseId": "query-content-json-scalar-nullable-literal-oas31",
       "result": {
         "library": "com.atlassian.oai:openapi-request-validator-core",
@@ -4353,6 +4367,18 @@
         "outcome": "unsupported",
         "reason": "stageNotOwned",
         "detail": "this case probes schemaValidation for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
+      }
+    },
+    {
+      "caseId": "query-content-json-scalar-type-array-literal-oas31",
+      "result": {
+        "library": "com.atlassian.oai:openapi-request-validator-core",
+        "libraryVersion": "3.0.0",
+        "configurationId": "inline-spec-simple-request",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "stageNotOwned",
+        "detail": "this case probes contentDeserialization for a query parameter; reaching a verdict needs every stage the case travels through from there, and for a content parameter also the media type parsing upstream of it, and this library leaves at least one of those to its caller, so an answer would measure the harness"
       }
     },
     {
@@ -6139,9 +6165,25 @@
             ]
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "a query pair arrived with no `=`, and withQueryParam takes a list of string values, so `?p` cannot be handed over apart from `?p=`; answering either way would report a verdict on the other request"
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.query.missing",
+              "level": "ERROR",
+              "message": "Query parameter 'p' is required on path '/t' but not found in request."
+            }
+          ]
+        }
       }
     },
     {
@@ -6162,9 +6204,25 @@
             ]
           }
         },
-        "outcome": "unsupported",
-        "reason": "cannotRepresentCase",
-        "detail": "a query pair arrived with no `=`, and withQueryParam takes a list of string values, so `?p` cannot be handed over apart from `?p=`; answering either way would report a verdict on the other request"
+        "outcome": "rejected",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query parameters and headers of the SimpleRequest handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "hasErrors": true,
+          "messages": [
+            {
+              "key": "validation.request.parameter.query.missing",
+              "level": "ERROR",
+              "message": "Query parameter 'p' is required on path '/t' but not found in request."
+            }
+          ]
+        }
       }
     },
     {

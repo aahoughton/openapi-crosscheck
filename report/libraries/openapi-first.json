@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "gem \"openapi_first\""
   },
-  "corpusDigest": "sha256:1d2d2e4733ecf467b62d195bcd8a417e99a9dc4709a67fdc27f2c3422d010804",
+  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -714,13 +714,13 @@
   ],
   "configuration": {
     "id": "validate-request-rack",
-    "description": "OpenapiFirst.parse(document) driven through validate_request with a Rack::Request built from the raw target. The path is handed over as PATH_INFO with no decoding of its own, and the query string as QUERY_STRING, so the library splits and deserializes both. Header names are put into the Rack environment under its own convention, which upcases them and joins duplicates with a comma, because that environment is the only request shape this library's public call accepts. Reading its values: parsed parameters are reported whether or not the request was then rejected, so a value cell on a rejected row shows what the library had parsed at the point it refused rather than what it accepted.",
+    "description": "OpenapiFirst.parse(document) driven through validate_request with a Rack::Request built from the raw target. The path is handed over as PATH_INFO with no decoding of its own, and the query string as QUERY_STRING, so the library splits and deserializes both. Header names are put into the Rack environment under its own convention, which upcases them, because that environment is the only request shape this library's public call accepts. Repeated lines are joined with a bare comma. Reading its values: parsed parameters are reported whether or not the request was then rejected, so a value cell on a rejected row shows what the library had parsed at the point it refused rather than what it accepted.",
     "options": {}
   },
   "provenance": {
     "kind": "container",
     "slug": "openapi-first",
-    "imageId": "sha256:463955fb2c2e00c86c3ec05937a016de878eeadf58b365d994dea08c69069265",
+    "imageId": "sha256:02d3753575156b80f6d495442950aa8f399a67708f4e6a2a40de3368f7375a1d",
     "ecosystem": "rubygems"
   },
   "answers": [
@@ -1466,7 +1466,7 @@
           "value": {
             "p": [
               "blue",
-              " black"
+              "black"
             ]
           },
           "nativeTypes": {
@@ -1497,7 +1497,7 @@
           "value": {
             "p": [
               "blue",
-              " black"
+              "black"
             ]
           },
           "nativeTypes": {
@@ -4255,6 +4255,34 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "4.0.0",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "NilClass"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
+        }
+      }
+    },
+    {
       "caseId": "query-content-json-scalar-nullable-literal-oas31",
       "result": {
         "library": "openapi_first",
@@ -4282,6 +4310,34 @@
             "type": "invalid_query",
             "message": "Query parameter is invalid: value at `/p` is not a string"
           }
+        }
+      }
+    },
+    {
+      "caseId": "query-content-json-scalar-type-array-literal-oas31",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "4.0.0",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "NilClass"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the Rack environment handed to validate_request, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "error": null
         }
       }
     },

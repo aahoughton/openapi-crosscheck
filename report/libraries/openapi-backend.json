@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "latest"
   },
-  "corpusDigest": "sha256:1d2d2e4733ecf467b62d195bcd8a417e99a9dc4709a67fdc27f2c3422d010804",
+  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1373,16 +1373,17 @@
   ],
   "configuration": {
     "id": "coerce-types-on",
-    "description": "new OpenAPIBackend({ definition, quick: false, coerceTypes: true }) then init(), driven through validateRequest with the raw path and raw query string. coerceTypes is enabled because leaving it off rejects every typed parameter; both settings were measured and the results were identical for path parameters.",
+    "description": "new OpenAPIBackend({ definition, quick: false, coerceTypes: true, strict: true }) then init(), driven through validateRequest with the raw path and raw query string and headers split by the harness. coerceTypes is enabled because leaving it off rejects every typed parameter. strict is enabled so a document the library refuses fails init() and is reported as libraryInitUnsupported; without it init() logs the refusal and every request then fails with an unrelated 'Unknown operation'.",
     "options": {
       "quick": false,
-      "coerceTypes": true
+      "coerceTypes": true,
+      "strict": true
     }
   },
   "provenance": {
     "kind": "container",
     "slug": "openapi-backend",
-    "imageId": "sha256:96f42f30914aa9469462c6b69a04573f0fff627b72a8072a3b1099a3a5cefe1a",
+    "imageId": "sha256:68606dc0594065ee7a2485c6efaa8ea7569324d31972352f0e94ccc121a8c938",
     "ecosystem": "npm"
   },
   "answers": [
@@ -7365,6 +7366,53 @@
       }
     },
     {
+      "caseId": "query-content-json-scalar-nullable-literal-oas30",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.21.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "observed",
+          "vantage": "parsedBeforeValidation",
+          "value": {
+            "p": null
+          },
+          "nativeTypes": {
+            "p": "null"
+          }
+        },
+        "inputMutation": {
+          "kind": "none",
+          "detail": "the method, path, query and headers object handed to validateRequest, unchanged"
+        },
+        "raw": {
+          "valid": true,
+          "coerced": {
+            "method": "GET",
+            "path": "/t",
+            "query": {
+              "p": null
+            },
+            "headers": {
+              "host": "harness.invalid"
+            },
+            "params": {}
+          },
+          "errors": null
+        }
+      }
+    },
+    {
       "caseId": "query-content-json-scalar-nullable-literal-oas31",
       "result": {
         "library": "openapi-backend",
@@ -7409,6 +7457,26 @@
           },
           "errors": null
         }
+      }
+    },
+    {
+      "caseId": "query-content-json-scalar-type-array-literal-oas31",
+      "result": {
+        "library": "openapi-backend",
+        "libraryVersion": "5.21.1",
+        "configurationId": "coerce-types-on",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "header names folded and duplicates collected. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "headers": {
+              "host": "harness.invalid"
+            }
+          }
+        },
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "Document is not valid OpenAPI. 10 validation errors:\n[\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/content/application~1json/schema/type\",\n    \"schemaPath\": \"#/properties/type/type\",\n    \"keyword\": \"type\",\n    \"params\": {\n      \"type\": \"string\"\n    },\n    \"message\": \"must be string\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/content/application~1json/schema\",\n    \"schemaPath\": \"#/required\",\n    \"keyword\": \"required\",\n    \"params\": {\n      \"missingProperty\": \"$ref\"\n    },\n    \"message\": \"must have required property '$ref'\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/content/application~1json/schema\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"type\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/content/application~1json/schema\",\n    \"schemaPath\": \"#/oneOf\",\n    \"keyword\": \"oneOf\",\n    \"params\": {\n      \"passingSchemas\": null\n    },\n    \"message\": \"must match exactly one schema in oneOf\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/required\",\n    \"keyword\": \"required\",\n    \"params\": {\n      \"missingProperty\": \"$ref\"\n    },\n    \"message\": \"must have required property '$ref'\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"name\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"in\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"required\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"content\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/oneOf\",\n    \"keyword\": \"oneOf\",\n    \"params\": {\n      \"passingSchemas\": null\n    },\n    \"message\": \"must match exactly one schema in oneOf\"\n  }\n]"
       }
     },
     {
@@ -10106,13 +10174,9 @@
             }
           }
         },
-        "outcome": "libraryError",
-        "detail": "Unknown operation",
-        "raw": {
-          "name": "Error",
-          "message": "Unknown operation",
-          "stackOmitted": true
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "Document is not valid OpenAPI. 10 validation errors:\n[\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema/type\",\n    \"schemaPath\": \"#/properties/type/type\",\n    \"keyword\": \"type\",\n    \"params\": {\n      \"type\": \"string\"\n    },\n    \"message\": \"must be string\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/required\",\n    \"keyword\": \"required\",\n    \"params\": {\n      \"missingProperty\": \"$ref\"\n    },\n    \"message\": \"must have required property '$ref'\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"type\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/oneOf\",\n    \"keyword\": \"oneOf\",\n    \"params\": {\n      \"passingSchemas\": null\n    },\n    \"message\": \"must match exactly one schema in oneOf\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/required\",\n    \"keyword\": \"required\",\n    \"params\": {\n      \"missingProperty\": \"$ref\"\n    },\n    \"message\": \"must have required property '$ref'\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"name\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"in\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"required\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"schema\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/oneOf\",\n    \"keyword\": \"oneOf\",\n    \"params\": {\n      \"passingSchemas\": null\n    },\n    \"message\": \"must match exactly one schema in oneOf\"\n  }\n]"
       }
     },
     {
@@ -10177,13 +10241,9 @@
             }
           }
         },
-        "outcome": "libraryError",
-        "detail": "Unknown operation",
-        "raw": {
-          "name": "Error",
-          "message": "Unknown operation",
-          "stackOmitted": true
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "Document is not valid OpenAPI. 10 validation errors:\n[\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema/type\",\n    \"schemaPath\": \"#/properties/type/type\",\n    \"keyword\": \"type\",\n    \"params\": {\n      \"type\": \"string\"\n    },\n    \"message\": \"must be string\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/required\",\n    \"keyword\": \"required\",\n    \"params\": {\n      \"missingProperty\": \"$ref\"\n    },\n    \"message\": \"must have required property '$ref'\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"type\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/oneOf\",\n    \"keyword\": \"oneOf\",\n    \"params\": {\n      \"passingSchemas\": null\n    },\n    \"message\": \"must match exactly one schema in oneOf\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/required\",\n    \"keyword\": \"required\",\n    \"params\": {\n      \"missingProperty\": \"$ref\"\n    },\n    \"message\": \"must have required property '$ref'\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"name\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"in\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"required\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"schema\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/oneOf\",\n    \"keyword\": \"oneOf\",\n    \"params\": {\n      \"passingSchemas\": null\n    },\n    \"message\": \"must match exactly one schema in oneOf\"\n  }\n]"
       }
     },
     {
@@ -10248,13 +10308,9 @@
             }
           }
         },
-        "outcome": "libraryError",
-        "detail": "Unknown operation",
-        "raw": {
-          "name": "Error",
-          "message": "Unknown operation",
-          "stackOmitted": true
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "Document is not valid OpenAPI. 10 validation errors:\n[\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema/type\",\n    \"schemaPath\": \"#/properties/type/type\",\n    \"keyword\": \"type\",\n    \"params\": {\n      \"type\": \"string\"\n    },\n    \"message\": \"must be string\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/required\",\n    \"keyword\": \"required\",\n    \"params\": {\n      \"missingProperty\": \"$ref\"\n    },\n    \"message\": \"must have required property '$ref'\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"type\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/oneOf\",\n    \"keyword\": \"oneOf\",\n    \"params\": {\n      \"passingSchemas\": null\n    },\n    \"message\": \"must match exactly one schema in oneOf\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/required\",\n    \"keyword\": \"required\",\n    \"params\": {\n      \"missingProperty\": \"$ref\"\n    },\n    \"message\": \"must have required property '$ref'\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"name\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"in\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"required\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"schema\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/oneOf\",\n    \"keyword\": \"oneOf\",\n    \"params\": {\n      \"passingSchemas\": null\n    },\n    \"message\": \"must match exactly one schema in oneOf\"\n  }\n]"
       }
     },
     {
@@ -10548,13 +10604,9 @@
             }
           }
         },
-        "outcome": "libraryError",
-        "detail": "Unknown operation",
-        "raw": {
-          "name": "Error",
-          "message": "Unknown operation",
-          "stackOmitted": true
-        }
+        "outcome": "unsupported",
+        "reason": "libraryInitUnsupported",
+        "detail": "Document is not valid OpenAPI. 12 validation errors:\n[\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema/type\",\n    \"schemaPath\": \"#/properties/type/type\",\n    \"keyword\": \"type\",\n    \"params\": {\n      \"type\": \"string\"\n    },\n    \"message\": \"must be string\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/required\",\n    \"keyword\": \"required\",\n    \"params\": {\n      \"missingProperty\": \"$ref\"\n    },\n    \"message\": \"must have required property '$ref'\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"type\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0/schema\",\n    \"schemaPath\": \"#/oneOf\",\n    \"keyword\": \"oneOf\",\n    \"params\": {\n      \"passingSchemas\": null\n    },\n    \"message\": \"must match exactly one schema in oneOf\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/required\",\n    \"keyword\": \"required\",\n    \"params\": {\n      \"missingProperty\": \"$ref\"\n    },\n    \"message\": \"must have required property '$ref'\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"name\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"in\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"required\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"style\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"explode\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/additionalProperties\",\n    \"keyword\": \"additionalProperties\",\n    \"params\": {\n      \"additionalProperty\": \"schema\"\n    },\n    \"message\": \"must NOT have additional properties\"\n  },\n  {\n    \"instancePath\": \"/paths/~1t/get/parameters/0\",\n    \"schemaPath\": \"#/oneOf\",\n    \"keyword\": \"oneOf\",\n    \"params\": {\n      \"passingSchemas\": null\n    },\n    \"message\": \"must match exactly one schema in oneOf\"\n  }\n]"
       }
     },
     {

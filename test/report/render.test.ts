@@ -165,7 +165,7 @@ describe("the constraint keyword map is per dialect", () => {
     // strictly unsupported, so a `const` row would be a cell nobody can fill.
     // A list shared across dialects would publish exactly that unfillable cell.
     const page = artifacts["coverage.oas30.md"] ?? "";
-    expect(page).toContain("| nullable | 3 |");
+    expect(page).toContain("| nullable | 4 |");
     expect(page).not.toContain("| const |");
   });
 

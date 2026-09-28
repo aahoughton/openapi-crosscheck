@@ -83,14 +83,16 @@ shows whether the type was checked at all.
 | --- | --- | --- |
 | `boolean` | 4 | `query-content-json-boolean-wrong-type-oas31`, `query-form-boolean-wrong-type-oas31` |
 | `integer` | 8 | `path-matrix-scalar-wrong-type-oas31`, `path-simple-scalar-wrong-type-oas31`, `query-form-object-wrong-type-oas31`, `query-form-scalar-integer-fractional-oas31` |
-| `null` | 3 | `query-form-scalar-nullable-literal-oas31` |
+| `null` | 4 |  |
 | `number` | 0 |  |
-| `string` | 86 | `query-content-json-scalar-nullable-literal-oas31`, `query-form-object-wrong-type-oas31`, `query-form-scalar-nullable-literal-oas31` |
+| `string` | 87 | `query-content-json-scalar-nullable-literal-oas31` |
 
-A wrong-typed value against `string` cannot be constructed here. Every value on
-the wire is text, so there is nothing to send that a string schema must refuse,
-and that cell is empty by definition rather than by omission. Every other empty
-cell is a case nobody has written.
+A case is listed against the one type its value is wrong for, which is not
+every type its document declares. A `schema` parameter's value arrives as
+text, so nothing sent to one is wrong-typed against `string`. A `content`
+parameter's media type can carry other types, so a JSON null or number sent
+where `string` is declared is wrong-typed. An empty cell is a case nobody has
+written.
 
 ## Content representation surface
 
@@ -100,7 +102,7 @@ cases.
 
 Defined combinations: 48. Covered: 5. Empty: 43.
 
-Mostly empty, and published that way. The corpus has 9 content cases and this
+Mostly empty, and published that way. The corpus has 10 content cases and this
 surface has room for far more, so this table keeps the empty cells visible.
 Filling it to look full would make the coverage number less informative.
 
@@ -198,24 +200,24 @@ resting on it, and can see which cited sections carry only one.
 | appendix-d-serializing-headers-and-cookies | `cookie-form-array-canonical-no-explode-oas31`, `cookie-form-object-canonical-oas31`, `cookie-form-scalar-canonical-oas31`, `cookie-form-scalar-explode-oas31` |
 | decoding-uris-and-form-urlencoded-strings | `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas31`, `query-content-json-boolean-wrong-type-oas31`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas31`, `query-form-scalar-encoded-plus-oas31`, `query-form-scalar-encoded-plus-oas31`, `query-form-scalar-unencoded-plus-oas31` |
 | fixed-fields-for-use-with-content | `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas31`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas31` |
-| media-type-object | `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas31`, `query-content-json-boolean-wrong-type-oas31`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas31`, `query-content-json-scalar-nullable-literal-oas31` |
+| media-type-object | `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas31`, `query-content-json-boolean-wrong-type-oas31`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas31`, `query-content-json-scalar-nullable-literal-oas31`, `query-content-json-scalar-type-array-literal-oas31` |
 | parameter-allow-empty-value | `query-form-scalar-allow-empty-value-declared-oas31` |
 | parameter-allow-reserved | `query-form-scalar-allow-reserved-declared-oas31`, `query-form-scalar-allow-reserved-percent-triple-oas31`, `query-form-scalar-allow-reserved-unset-oas31` |
-| parameter-content | `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas31`, `query-content-json-boolean-wrong-type-oas31`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas31`, `query-content-json-scalar-nullable-literal-oas31`, `query-content-two-media-types-oas31` |
+| parameter-content | `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas31`, `query-content-json-boolean-wrong-type-oas31`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas31`, `query-content-json-scalar-nullable-literal-oas31`, `query-content-json-scalar-type-array-literal-oas31`, `query-content-two-media-types-oas31` |
 | parameter-explode | `query-deep-object-no-explode-oas31`, `query-form-array-canonical-explode-oas31`, `query-form-array-canonical-no-explode-oas31`, `query-form-array-unset-style-oas31`, `query-form-object-canonical-explode-oas31`, `query-form-object-canonical-no-explode-oas31`, `query-form-object-missing-name-oas31` |
 | parameter-locations | `header-simple-array-case-variant-oas31`, `header-simple-array-duplicate-name-oas31` |
 | parameter-name | `header-reserved-name-accept-present-wrong-type-oas31`, `header-reserved-name-accept-required-absent-oas31`, `path-matrix-array-empty-after-parse-oas31`, `path-matrix-competing-parameters-oas31`, `path-matrix-scalar-foreign-name-oas31`, `query-form-scalar-missing-name-oas31` |
 | parameter-required | `header-reserved-name-accept-required-absent-oas31`, `path-label-array-foreign-shape-oas31`, `path-matrix-array-empty-after-parse-oas31`, `path-matrix-array-foreign-shape-oas31`, `path-matrix-competing-parameters-oas31`, `path-matrix-scalar-foreign-name-oas31`, `path-routing-concrete-before-templated-oas31`, `path-routing-concrete-before-templated-template-first-oas31`, `path-routing-concrete-before-templated-template-first-valid-oas31`, `path-routing-concrete-before-templated-valid-oas31`, `path-simple-scalar-required-false-oas31`, `query-form-object-missing-name-oas31`, `query-form-scalar-missing-name-oas31`, `query-form-scalar-optional-absent-oas31`, `query-form-scalar-optional-default-absent-oas31` |
-| parameter-schema | `path-matrix-scalar-wrong-type-oas31`, `path-simple-scalar-wrong-type-oas31` |
-| parameter-style | `header-simple-array-canonical-oas31`, `header-simple-array-case-variant-oas31`, `header-simple-array-duplicate-name-oas31`, `header-simple-array-explicit-style-oas31`, `header-simple-array-explode-oas31`, `header-simple-object-canonical-oas31`, `header-simple-object-explode-oas31`, `header-simple-scalar-canonical-oas31`, `header-simple-scalar-explode-oas31`, `path-label-array-canonical-oas31`, `path-label-array-explode-oas31`, `path-label-array-foreign-shape-oas31`, `path-label-object-canonical-oas31`, `path-label-object-explode-oas31`, `path-label-scalar-canonical-oas31`, `path-label-scalar-explode-oas31`, `path-matrix-array-canonical-oas31`, `path-matrix-array-empty-after-parse-oas31`, `path-matrix-array-foreign-shape-oas31`, `path-matrix-array-no-explode-oas31`, `path-matrix-competing-parameters-oas31`, `path-matrix-object-canonical-oas31`, `path-matrix-object-explode-oas31`, `path-matrix-scalar-canonical-oas31`, `path-matrix-scalar-explode-oas31`, `path-matrix-scalar-foreign-name-oas31`, `path-matrix-scalar-wrong-type-oas31`, `path-simple-array-canonical-oas31`, `path-simple-array-encoded-delimiter-oas31`, `path-simple-array-explode-oas31`, `path-simple-object-canonical-oas31`, `path-simple-object-explode-oas31`, `path-simple-scalar-canonical-oas31`, `path-simple-scalar-explode-oas31`, `path-simple-scalar-unset-style-oas31`, `query-deep-object-canonical-oas31`, `query-form-array-canonical-explode-oas31`, `query-form-array-canonical-no-explode-oas31`, `query-form-array-unset-style-oas31`, `query-form-object-canonical-explode-oas31`, `query-form-object-canonical-no-explode-oas31`, `query-form-object-missing-name-oas31`, `query-form-object-wrong-type-oas31`, `query-form-scalar-allow-reserved-declared-oas31`, `query-form-scalar-encoded-plus-oas31`, `query-form-scalar-missing-name-oas31`, `query-form-scalar-nullable-empty-oas31`, `query-form-scalar-nullable-literal-oas31`, `query-form-scalar-optional-absent-oas31`, `query-form-scalar-optional-default-absent-oas31`, `query-form-scalar-pattern-mismatch-oas31`, `query-form-scalar-unset-style-oas31`, `query-pipe-delimited-array-canonical-oas31`, `query-pipe-delimited-object-canonical-oas31`, `query-space-delimited-array-canonical-oas31`, `query-space-delimited-object-canonical-oas31` |
+| parameter-style | `header-simple-array-canonical-oas31`, `header-simple-array-case-variant-oas31`, `header-simple-array-duplicate-name-oas31`, `header-simple-array-explicit-style-oas31`, `header-simple-array-explode-oas31`, `header-simple-object-canonical-oas31`, `header-simple-object-explode-oas31`, `header-simple-scalar-canonical-oas31`, `header-simple-scalar-explode-oas31`, `path-label-array-canonical-oas31`, `path-label-array-explode-oas31`, `path-label-array-foreign-shape-oas31`, `path-label-object-canonical-oas31`, `path-label-object-explode-oas31`, `path-label-scalar-canonical-oas31`, `path-label-scalar-explode-oas31`, `path-matrix-array-canonical-oas31`, `path-matrix-array-empty-after-parse-oas31`, `path-matrix-array-foreign-shape-oas31`, `path-matrix-array-no-explode-oas31`, `path-matrix-competing-parameters-oas31`, `path-matrix-object-canonical-oas31`, `path-matrix-object-explode-oas31`, `path-matrix-scalar-canonical-oas31`, `path-matrix-scalar-explode-oas31`, `path-matrix-scalar-foreign-name-oas31`, `path-simple-array-canonical-oas31`, `path-simple-array-encoded-delimiter-oas31`, `path-simple-array-explode-oas31`, `path-simple-object-canonical-oas31`, `path-simple-object-explode-oas31`, `path-simple-scalar-canonical-oas31`, `path-simple-scalar-explode-oas31`, `path-simple-scalar-unset-style-oas31`, `query-deep-object-canonical-oas31`, `query-form-array-canonical-explode-oas31`, `query-form-array-canonical-no-explode-oas31`, `query-form-array-unset-style-oas31`, `query-form-object-canonical-explode-oas31`, `query-form-object-canonical-no-explode-oas31`, `query-form-object-missing-name-oas31`, `query-form-scalar-allow-reserved-declared-oas31`, `query-form-scalar-encoded-plus-oas31`, `query-form-scalar-missing-name-oas31`, `query-form-scalar-nullable-empty-oas31`, `query-form-scalar-nullable-literal-oas31`, `query-form-scalar-optional-absent-oas31`, `query-form-scalar-optional-default-absent-oas31`, `query-form-scalar-pattern-mismatch-oas31`, `query-form-scalar-unset-style-oas31`, `query-pipe-delimited-array-canonical-oas31`, `query-pipe-delimited-object-canonical-oas31`, `query-space-delimited-array-canonical-oas31`, `query-space-delimited-object-canonical-oas31` |
 | path-templating | `path-matrix-competing-parameters-oas31` |
 | path-templating-matching | `path-routing-concrete-before-templated-oas31`, `path-routing-concrete-before-templated-template-first-oas31`, `path-routing-concrete-before-templated-template-first-valid-oas31`, `path-routing-concrete-before-templated-valid-oas31`, `path-routing-identical-templates-oas31` |
 | paths-path | `path-routing-ambiguous-templates-oas31`, `path-routing-concrete-before-templated-oas31`, `path-routing-concrete-before-templated-template-first-oas31`, `path-routing-concrete-before-templated-template-first-valid-oas31`, `path-routing-concrete-before-templated-valid-oas31` |
-| schema-object | `header-content-json-object-canonical-oas31`, `header-reserved-name-accept-present-wrong-type-oas31`, `path-content-json-object-canonical-oas31`, `path-matrix-scalar-wrong-type-oas31`, `path-simple-scalar-wrong-type-oas31`, `query-content-json-boolean-canonical-oas31`, `query-content-json-boolean-wrong-type-oas31`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas31`, `query-content-json-scalar-nullable-literal-oas31`, `query-form-object-wrong-type-oas31`, `query-form-scalar-allow-reserved-declared-oas31`, `query-form-scalar-encoded-plus-oas31`, `query-form-scalar-optional-default-absent-oas31`, `query-form-scalar-pattern-mismatch-oas31` |
+| schema-object | `header-content-json-object-canonical-oas31`, `header-reserved-name-accept-present-wrong-type-oas31`, `path-content-json-object-canonical-oas31`, `query-content-json-boolean-canonical-oas31`, `query-content-json-boolean-wrong-type-oas31`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas31`, `query-content-json-scalar-nullable-literal-oas31`, `query-content-json-scalar-type-array-literal-oas31`, `query-form-scalar-allow-reserved-declared-oas31`, `query-form-scalar-encoded-plus-oas31`, `query-form-scalar-nullable-empty-oas31`, `query-form-scalar-nullable-literal-oas31`, `query-form-scalar-optional-default-absent-oas31`, `query-form-scalar-pattern-mismatch-oas31` |
 | section-2.4 | `path-simple-array-encoded-delimiter-oas31` |
 | section-3.2.1 | `path-simple-array-encoded-delimiter-oas31` |
 | section-3.2.2 | `header-simple-array-duplicate-name-oas31`, `path-simple-array-encoded-delimiter-oas31` |
-| style-examples | `cookie-form-array-explode-oas31`, `cookie-form-object-explode-oas31`, `header-simple-array-canonical-oas31`, `header-simple-array-case-variant-oas31`, `header-simple-array-duplicate-name-oas31`, `header-simple-array-explicit-style-oas31`, `header-simple-array-explode-oas31`, `header-simple-object-canonical-oas31`, `header-simple-object-explode-oas31`, `header-simple-scalar-canonical-oas31`, `header-simple-scalar-explode-oas31`, `path-label-array-canonical-oas31`, `path-label-array-explode-oas31`, `path-label-array-foreign-shape-oas31`, `path-label-object-canonical-oas31`, `path-label-object-explode-oas31`, `path-label-scalar-canonical-oas31`, `path-label-scalar-explode-oas31`, `path-matrix-array-canonical-oas31`, `path-matrix-array-empty-after-parse-oas31`, `path-matrix-array-foreign-shape-oas31`, `path-matrix-array-no-explode-oas31`, `path-matrix-competing-parameters-oas31`, `path-matrix-object-canonical-oas31`, `path-matrix-object-explode-oas31`, `path-matrix-scalar-canonical-oas31`, `path-matrix-scalar-explode-oas31`, `path-matrix-scalar-foreign-name-oas31`, `path-matrix-scalar-wrong-type-oas31`, `path-simple-array-canonical-oas31`, `path-simple-array-explode-oas31`, `path-simple-object-canonical-oas31`, `path-simple-object-explode-oas31`, `path-simple-scalar-canonical-oas31`, `path-simple-scalar-explode-oas31`, `path-simple-scalar-unset-style-oas31`, `query-deep-object-canonical-oas31`, `query-form-array-canonical-explode-oas31`, `query-form-array-canonical-no-explode-oas31`, `query-form-array-empty-value-oas31`, `query-form-array-unset-style-oas31`, `query-form-object-canonical-explode-oas31`, `query-form-object-canonical-no-explode-oas31`, `query-form-scalar-name-without-value-oas31`, `query-form-scalar-nullable-empty-oas31`, `query-form-scalar-nullable-empty-oas31`, `query-form-scalar-nullable-literal-oas31`, `query-form-scalar-unset-style-oas31`, `query-pipe-delimited-array-canonical-oas31`, `query-pipe-delimited-object-canonical-oas31`, `query-space-delimited-array-canonical-oas31`, `query-space-delimited-array-explode-oas31`, `query-space-delimited-object-canonical-oas31` |
+| section-6.1.1 | `query-content-json-scalar-type-array-literal-oas31`, `query-form-scalar-nullable-empty-oas31`, `query-form-scalar-nullable-literal-oas31` |
+| style-examples | `cookie-form-array-explode-oas31`, `cookie-form-object-explode-oas31`, `header-simple-array-canonical-oas31`, `header-simple-array-case-variant-oas31`, `header-simple-array-duplicate-name-oas31`, `header-simple-array-explicit-style-oas31`, `header-simple-array-explode-oas31`, `header-simple-object-canonical-oas31`, `header-simple-object-explode-oas31`, `header-simple-scalar-canonical-oas31`, `header-simple-scalar-explode-oas31`, `path-label-array-canonical-oas31`, `path-label-array-explode-oas31`, `path-label-array-foreign-shape-oas31`, `path-label-object-canonical-oas31`, `path-label-object-explode-oas31`, `path-label-scalar-canonical-oas31`, `path-label-scalar-explode-oas31`, `path-matrix-array-canonical-oas31`, `path-matrix-array-empty-after-parse-oas31`, `path-matrix-array-foreign-shape-oas31`, `path-matrix-array-no-explode-oas31`, `path-matrix-competing-parameters-oas31`, `path-matrix-object-canonical-oas31`, `path-matrix-object-explode-oas31`, `path-matrix-scalar-canonical-oas31`, `path-matrix-scalar-explode-oas31`, `path-matrix-scalar-foreign-name-oas31`, `path-simple-array-canonical-oas31`, `path-simple-array-explode-oas31`, `path-simple-object-canonical-oas31`, `path-simple-object-explode-oas31`, `path-simple-scalar-canonical-oas31`, `path-simple-scalar-explode-oas31`, `path-simple-scalar-unset-style-oas31`, `query-deep-object-canonical-oas31`, `query-form-array-canonical-explode-oas31`, `query-form-array-canonical-no-explode-oas31`, `query-form-array-empty-value-oas31`, `query-form-array-unset-style-oas31`, `query-form-object-canonical-explode-oas31`, `query-form-object-canonical-no-explode-oas31`, `query-form-scalar-name-without-value-oas31`, `query-form-scalar-nullable-empty-oas31`, `query-form-scalar-nullable-empty-oas31`, `query-form-scalar-nullable-literal-oas31`, `query-form-scalar-unset-style-oas31`, `query-pipe-delimited-array-canonical-oas31`, `query-pipe-delimited-object-canonical-oas31`, `query-space-delimited-array-canonical-oas31`, `query-space-delimited-array-explode-oas31`, `query-space-delimited-object-canonical-oas31` |
 | style-values | `path-simple-array-encoded-delimiter-oas31` |
 | x4-8-12-2-fixed-fields | `header-content-json-object-canonical-oas31`, `path-content-json-object-canonical-oas31`, `query-content-and-schema-declared-oas31`, `query-content-json-object-canonical-oas31`, `query-content-json-object-malformed-oas31` |
 
@@ -273,7 +275,7 @@ cannot show.
 
 | probe axis | cases |
 | --- | --- |
-| canonical | 49 |
+| canonical | 51 |
 | caseVariant | 1 |
 | competingParameter | 4 |
 | competingPath | 6 |
@@ -290,7 +292,7 @@ cannot show.
 | nameWithoutValue | 1 |
 | optionalAbsent | 2 |
 | reservedName | 2 |
-| wrongTypeValue | 8 |
+| wrongTypeValue | 7 |
 
 ## Cases by the stage they probe
 
@@ -307,9 +309,9 @@ would be filled by a canonical case, and canonical probes style.
 | --- | --- | --- |
 | routing | 4 | 2 |
 | splitting | 2 | 4 |
-| styleDeserialization | 46 | 17 |
-| contentDeserialization | 5 | 0 |
-| schemaValidation | 13 | 4 |
+| styleDeserialization | 47 | 17 |
+| contentDeserialization | 6 | 0 |
+| schemaValidation | 9 | 7 |
 
 `valueExposure` is a pipeline stage and has no row here. A row reading `0` and
 `0` would read as a gap someone could fill by writing cases, and no case can
@@ -387,7 +389,7 @@ rows are that surface, unfilled.
 | propertyNames | 0 |
 | required | 1 |
 | then | 0 |
-| type | 97 |
+| type | 98 |
 | uniqueItems | 0 |
 | unevaluatedItems | 0 |
 | unevaluatedProperties | 0 |
@@ -395,9 +397,7 @@ rows are that surface, unfilled.
 ## Held constant across every case
 
 A constant is a blind spot, so the deliberate ones are published here rather
-than left invisible. Each is a decision a future case can overturn, and one
-already was: every declaration was required until the optional-absent axis
-existed.
+than left invisible. Each is a decision a future case can overturn.
 
 - Request method: GET only. Method matching is routing
   surface nothing here varies.
@@ -417,6 +417,26 @@ existed.
   Everything a schema position writes, keyword by keyword. Which of the
   dialect's constraint keywords these do and do not reach is the table under
   Schema constraint keywords above.
+- Wire bytes: every request target and header value is printable ASCII. No
+  percent triple is malformed or lowercase, and none encodes an octet above
+  0x7F, so no value carries UTF-8.
+- Parameter names: `p` in 95 of 105 declarations, and every name
+  (`Accept`, `entity`, `id`, `p`, `q`) is plain ASCII letters,
+  so none needs encoding. No target carries a raw `[` or `]`: a deepObject
+  name is always sent as `%5B` and `%5D`.
+- Every array a conformance case expects has 2 members, apart from the
+  single member expected where the comma between two is percent-encoded.
+  No case asks what a library does with an array sent as one member.
+- Objects are flat and carry the properties `R` then `G`, with no extra,
+  missing or reordered property.
+- Header parameter values carry no whitespace after a comma, which RFC 9110
+  section 5.3 allows as OWS when field lines are combined, and no percent
+  triple, so no header case varies encoding.
+- The Cookie header, where sent, is one line carrying only the probed
+  parameter, and the casing of names in it is never varied.
+- No path case sends an empty segment, a trailing slash, or `%2F` inside a
+  value.
+- spaceDelimited values are sent with `%20` between members, never `+`.
 - Header parameter names held constant: `Authorization`, `Content-Type`.
   This version reserves each of these ([parameter-name](https://spec.openapis.org/oas/v3.1.1.html#parameter-name)):
 

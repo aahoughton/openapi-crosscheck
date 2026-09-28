@@ -75,16 +75,16 @@ answered.
 
 | library | built from | image |
 | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:7749465637e71323c0c5f59059e1a47d2aaf0dbe177c46d87592d969ff16aff2` |
-| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:e91f010f6f01526465c620dd0b196e84f4a7036fcd7778bae571fa973fed1a42` |
-| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:aa381975bf50534da9e96f5fe019cb352777140dc33c08173865619e49871306` |
-| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:6e13fbf071c33805afd0c2b3d14e5bc45ff31b448f3b88df9aa690f421f0f73b` |
-| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:38fb96db69239acf2f5c947fec663fdd0cf824a81fcc252d4cefc4f1860c5bee` |
-| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:1379be6e37fbd0b0b6a6e4a714a154ed389128a483db45c4d5b8cfeb08debf25` |
-| `openapi-backend` | `adapters/openapi-backend/` | `sha256:96f42f30914aa9469462c6b69a04573f0fff627b72a8072a3b1099a3a5cefe1a` |
-| `openapi-core` | `adapters/openapi-core/` | `sha256:239e5de1b05d788cce0ded8f6ca36e62c0ceb1029e8668cee2fec560047765c3` |
-| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:5e0592d18565733866973e56ea68e676cc362b25dc96ad40fb72b6dff972f409` |
-| `openapi_first` | `adapters/openapi-first/` | `sha256:463955fb2c2e00c86c3ec05937a016de878eeadf58b365d994dea08c69069265` |
+| `com.atlassian.oai:openapi-request-validator-core` | `adapters/com-atlassian-oai-openapi-request-validator-core/` | `sha256:cea53a65eb9fe1a81f42fc6430ab0ef829e245214960a2784d69127700296f23` |
+| `express-openapi-validator` | `adapters/express-openapi-validator/` | `sha256:77cd5eb2afc0429803fd894bbaccb5aac2637175de62562e06b2fe9ae4b5074e` |
+| `github.com/getkin/kin-openapi` | `adapters/kin-openapi/` | `sha256:d8ba45396cadecffa3e9e6f6bc0f21ee48260abaf8e66107573f6a5b929fc98e` |
+| `github.com/pb33f/libopenapi-validator` | `adapters/libopenapi-validator/` | `sha256:57f76f4b9d4d10a0cf278f3e47082ebf4461cdd33d47a57650d20aa0149c792f` |
+| `league/openapi-psr7-validator` | `adapters/league-openapi-psr7-validator/` | `sha256:dd382796084582c13ff7b090b2d399f305382d8860572c7df18d7e552b7901d3` |
+| `@oaverify/core` | `adapters/oaverify-core/` | `sha256:a5619fdd2dd996ea13ee535a8ad214ef20f6e9b37da5f33a75a88e09b354681a` |
+| `openapi-backend` | `adapters/openapi-backend/` | `sha256:68606dc0594065ee7a2485c6efaa8ea7569324d31972352f0e94ccc121a8c938` |
+| `openapi-core` | `adapters/openapi-core/` | `sha256:3b25cbe4625e87cdf13a67f08882f987bdd81a60848ae91f757af0bc4004c363` |
+| `openapi-request-validator` | `adapters/openapi-request-validator/` | `sha256:f8390427389973090bf88e06bf088c839cc9016bbf27b54c8ea7c0fc30d7eb55` |
+| `openapi_first` | `adapters/openapi-first/` | `sha256:02d3753575156b80f6d495442950aa8f399a67708f4e6a2a40de3368f7375a1d` |
 
 ## Conformance
 
@@ -114,9 +114,8 @@ rules the expected verdict rests on, and the argument for it.
 | [`querystring-absent-no-question-mark-oas32`](#querystring-absent-no-question-mark-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | n/a (cannotRepresentCase) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
 | [`querystring-empty-after-question-mark-oas32`](#querystring-empty-after-question-mark-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | RAISED | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
 | [`querystring-form-urlencoded-object-canonical-oas32`](#querystring-form-urlencoded-object-canonical-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | RAISED | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
-| [`querystring-form-urlencoded-object-wrong-type-oas32`](#querystring-form-urlencoded-object-wrong-type-oas32) | rejected | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | FAIL (verdict) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | RAISED | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
-| [`querystring-json-object-canonical-oas32`](#querystring-json-object-canonical-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | n/a (cannotRepresentCase) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
-| [`querystring-json-object-malformed-oas32`](#querystring-json-object-malformed-oas32) | rejected | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | FAIL (verdict) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | n/a (cannotRepresentCase) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`querystring-json-object-canonical-oas32`](#querystring-json-object-canonical-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | RAISED | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`querystring-json-object-malformed-oas32`](#querystring-json-object-malformed-oas32) | rejected | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | FAIL (verdict) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | RAISED | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
 
 What a cell reads, and what it means:
 
@@ -622,36 +621,6 @@ The querystring parameter uses the entire query string as its value. Form-urlenc
 
 Varies: nothing. Holds constant: the media type is the one the specification pairs with this location; the query string is well-formed for it; exactly one parameter is declared; canonical encoding.
 
-##### `querystring-form-urlencoded-object-wrong-type-oas32`
-
-querystring, x-www-form-urlencoded, object, a property well-formed for another type. Expected: **rejected**.
-
-Sends a correctly formatted query string with R=blue, where R requires an integer.
-
-Request: `GET /t?R=blue&G=200`
-
-Every rule the expected verdict rests on, OpenAPI 3.2:
-
-[parameter-locations](https://spec.openapis.org/oas/v3.2.0.html#parameter-locations)
-
-> querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: "query" parameters.
-
-[fixed-fields-for-use-with-content](https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content)
-
-> For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: "querystring" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type.
-
-[parameter-required](https://spec.openapis.org/oas/v3.2.0.html#parameter-required)
-
-> Determines whether this parameter is mandatory. If the parameter location is "path", this field is REQUIRED and its value MUST be true. Otherwise, the field MAY be included and its default value is false.
-
-[schema-object](https://spec.openapis.org/oas/v3.2.0.html#schema-object)
-
-> The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12.
-
-Form-urlencoded parsing yields R=blue, which cannot represent the required integer. A rejection alone does not establish whether the library checked that property.
-
-Varies: a property value has the wrong type. Holds constant: the query string is well-formed for the declared media type; exactly one parameter is declared; canonical encoding.
-
 ##### `querystring-json-object-canonical-oas32`
 
 querystring, application/json, object, percent-encoded. Expected: **accepted**.
@@ -914,3 +883,32 @@ Open question: Querystring parameters must use content to specify their represen
 | `openapi_first` | not asked (oasVersionNotDeclared) | - |
 
 Varies: the parameter is declared with schema rather than content. Holds constant: the request is the canonical one; exactly one parameter is declared.
+
+#### `querystring-form-urlencoded-object-wrong-type-oas32`
+
+querystring, x-www-form-urlencoded, object, a property well-formed for another type.
+
+Sends a correctly formatted query string with R=blue, where R is an integer. Whether that value is refused or converted is implementation-defined.
+
+Request: `GET /t?R=blue&G=200`
+
+Open question: Form-urlencoded parsing yields the text blue for the integer property R. Appendix B names the form-urlencoded query string among the places where typing text is implementation- or application-defined, so it does not settle whether blue is refused or converted.
+
+The text leaving it open: [appendix-b-data-type-conversion](https://spec.openapis.org/oas/v3.2.0.html#appendix-b-data-type-conversion)
+
+> Serializing typed data to plain text, which can occur in text/plain message bodies or multipart parts, as well as in the application/x-www-form-urlencoded format in either URL query strings or message bodies, involves significant implementation- or application-defined behavior. [...] However, there is no general-purpose specification for converting schema-validated non-UTF-8 primitive data types (or entire arrays or objects) to strings. [...] This is one reason for the OpenAPI Specification to leave these conversions as implementation-defined: It allows using RFC6570 implementations regardless of how they choose to perform the conversions.
+
+| library | verdict | parsed values exposed by the library |
+| --- | --- | --- |
+| `com.atlassian.oai:openapi-request-validator-core` | not asked (oasVersionNotDeclared) | - |
+| `express-openapi-validator` | not asked (oasVersionNotDeclared) | - |
+| `github.com/getkin/kin-openapi` | not asked (libraryInitUnsupported) | - |
+| `github.com/pb33f/libopenapi-validator` | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| `league/openapi-psr7-validator` | not asked (oasVersionNotDeclared) | - |
+| `@oaverify/core` | not asked (libraryInitUnsupported) | - |
+| `openapi-backend` | not asked (oasVersionNotDeclared) | - |
+| `openapi-core` | raised, no verdict | - |
+| `openapi-request-validator` | not asked (oasVersionNotDeclared) | - |
+| `openapi_first` | not asked (oasVersionNotDeclared) | - |
+
+Varies: a property value has the wrong type. Holds constant: the query string is well-formed for the declared media type; exactly one parameter is declared; canonical encoding.

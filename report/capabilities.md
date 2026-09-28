@@ -65,16 +65,16 @@ it.
 
 | library | reached a verdict | observed | of those, one withheld | unexposed | not reached | never asked | raised | harness error |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | 170 | 0 | 0 | 170 | 0 | 48 | 0 | 0 |
-| `express-openapi-validator` | 181 | 181 | 0 | 0 | 0 | 28 | 9 | 0 |
-| `github.com/getkin/kin-openapi` | 189 | 2 | 0 | 187 | 0 | 29 | 0 | 0 |
-| `github.com/pb33f/libopenapi-validator` | 218 | 0 | 0 | 218 | 0 | 0 | 0 | 0 |
-| `league/openapi-psr7-validator` | 185 | 0 | 0 | 185 | 0 | 24 | 9 | 0 |
-| `@oaverify/core` | 199 | 199 | 0 | 0 | 0 | 18 | 1 | 0 |
-| `openapi-backend` | 186 | 186 | 0 | 0 | 0 | 28 | 4 | 0 |
-| `openapi-core` | 164 | 164 | 0 | 0 | 0 | 48 | 6 | 0 |
-| `openapi-request-validator` | 27 | 2 | 0 | 25 | 0 | 191 | 0 | 0 |
-| `openapi_first` | 194 | 194 | 0 | 0 | 0 | 24 | 0 | 0 |
+| `com.atlassian.oai:openapi-request-validator-core` | 172 | 0 | 0 | 172 | 0 | 48 | 0 | 0 |
+| `express-openapi-validator` | 183 | 183 | 0 | 0 | 0 | 35 | 2 | 0 |
+| `github.com/getkin/kin-openapi` | 191 | 2 | 0 | 189 | 0 | 29 | 0 | 0 |
+| `github.com/pb33f/libopenapi-validator` | 220 | 0 | 0 | 220 | 0 | 0 | 0 | 0 |
+| `league/openapi-psr7-validator` | 187 | 0 | 0 | 187 | 0 | 24 | 9 | 0 |
+| `@oaverify/core` | 201 | 201 | 0 | 0 | 0 | 18 | 1 | 0 |
+| `openapi-backend` | 187 | 187 | 0 | 0 | 0 | 33 | 0 | 0 |
+| `openapi-core` | 166 | 166 | 0 | 0 | 0 | 46 | 8 | 0 |
+| `openapi-request-validator` | 25 | 2 | 0 | 23 | 0 | 195 | 0 | 0 |
+| `openapi_first` | 196 | 196 | 0 | 0 | 0 | 24 | 0 | 0 |
 
 Split by the verdict the values were reported alongside, because a library that
 exposes what it parsed even for a request it rejected is stating something a
@@ -84,24 +84,24 @@ a failure.
 | library | verdict | observed | of those, one withheld | unexposed | not reached | vantages |
 | --- | --- | --- | --- | --- | --- | --- |
 | `com.atlassian.oai:openapi-request-validator-core` | accepted | 0 | 0 | 86 | 0 | none |
-| `com.atlassian.oai:openapi-request-validator-core` | rejected | 0 | 0 | 84 | 0 | none |
-| `express-openapi-validator` | accepted | 105 | 0 | 0 | 0 | handed to the handler |
+| `com.atlassian.oai:openapi-request-validator-core` | rejected | 0 | 0 | 86 | 0 | none |
+| `express-openapi-validator` | accepted | 107 | 0 | 0 | 0 | handed to the handler |
 | `express-openapi-validator` | rejected | 76 | 0 | 0 | 0 | parsed before validation |
 | `github.com/getkin/kin-openapi` | accepted | 2 | 0 | 133 | 0 | parsed before validation |
-| `github.com/getkin/kin-openapi` | rejected | 0 | 0 | 54 | 0 | none |
-| `github.com/pb33f/libopenapi-validator` | accepted | 0 | 0 | 186 | 0 | none |
+| `github.com/getkin/kin-openapi` | rejected | 0 | 0 | 56 | 0 | none |
+| `github.com/pb33f/libopenapi-validator` | accepted | 0 | 0 | 188 | 0 | none |
 | `github.com/pb33f/libopenapi-validator` | rejected | 0 | 0 | 32 | 0 | none |
-| `league/openapi-psr7-validator` | accepted | 0 | 0 | 99 | 0 | none |
+| `league/openapi-psr7-validator` | accepted | 0 | 0 | 101 | 0 | none |
 | `league/openapi-psr7-validator` | rejected | 0 | 0 | 86 | 0 | none |
-| `@oaverify/core` | accepted | 158 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `@oaverify/core` | accepted | 160 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
 | `@oaverify/core` | rejected | 41 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
-| `openapi-backend` | accepted | 89 | 0 | 0 | 0 | parsed before validation |
+| `openapi-backend` | accepted | 90 | 0 | 0 | 0 | parsed before validation |
 | `openapi-backend` | rejected | 97 | 0 | 0 | 0 | parsed before validation |
-| `openapi-core` | accepted | 93 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
+| `openapi-core` | accepted | 95 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
 | `openapi-core` | rejected | 71 | 0 | 0 | 0 | validated only, so an absent name failed its schema |
-| `openapi-request-validator` | accepted | 2 | 0 | 7 | 0 | parsed before validation |
+| `openapi-request-validator` | accepted | 2 | 0 | 5 | 0 | parsed before validation |
 | `openapi-request-validator` | rejected | 0 | 0 | 18 | 0 | none |
-| `openapi_first` | accepted | 157 | 0 | 0 | 0 | parsed before validation |
+| `openapi_first` | accepted | 159 | 0 | 0 | 0 | parsed before validation |
 | `openapi_first` | rejected | 37 | 0 | 0 | 0 | parsed before validation |
 
 ## Values written back onto the caller's input
@@ -124,16 +124,16 @@ failure.
 
 | library | declares exposure | wrote back | unchanged | not compared |
 | --- | --- | --- | --- | --- |
-| `com.atlassian.oai:openapi-request-validator-core` | no | 0 | 170 | 0 |
-| `express-openapi-validator` | yes | 0 | 0 | 181 |
-| `github.com/getkin/kin-openapi` | yes | 2 | 187 | 0 |
-| `github.com/pb33f/libopenapi-validator` | no | 0 | 218 | 0 |
-| `league/openapi-psr7-validator` | no | 0 | 185 | 0 |
-| `@oaverify/core` | yes | 0 | 199 | 0 |
-| `openapi-backend` | yes | 0 | 186 | 0 |
-| `openapi-core` | yes | 62 | 102 | 0 |
-| `openapi-request-validator` | yes | 2 | 25 | 0 |
-| `openapi_first` | yes | 0 | 194 | 0 |
+| `com.atlassian.oai:openapi-request-validator-core` | no | 0 | 172 | 0 |
+| `express-openapi-validator` | yes | 0 | 0 | 183 |
+| `github.com/getkin/kin-openapi` | yes | 2 | 189 | 0 |
+| `github.com/pb33f/libopenapi-validator` | no | 0 | 220 | 0 |
+| `league/openapi-psr7-validator` | no | 0 | 187 | 0 |
+| `@oaverify/core` | yes | 0 | 201 | 0 |
+| `openapi-backend` | yes | 0 | 187 | 0 |
+| `openapi-core` | yes | 62 | 104 | 0 |
+| `openapi-request-validator` | yes | 2 | 23 | 0 |
+| `openapi_first` | yes | 0 | 196 | 0 |
 
 What was compared, and what changed where something did, is on every answer in
 `libraries/<name>.json` under `inputMutation`. A count here with no scope
@@ -340,16 +340,16 @@ support, and printing only the support would turn that into a checkbox.
 | `splitting-cookie-withProbedLocation` | whether a declared cookie parameter's value is recovered, with the harness supplying the cookie split itself | caller | accepted, value exposed | rejected, value exposed | control only; the harness supplied this location, so this row is not evidence |
 | `splitting-header-withoutProbedLocation` | whether a declared header parameter's value is recovered, with the harness supplying its usual split for every location except header | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `splitting-header-withProbedLocation` | whether a declared header parameter's value is recovered, with the harness supplying the header split itself | owned | accepted, value exposed | rejected, value exposed | control only; the harness supplied this location, so this row is not evidence |
-| `splitting-path-withoutProbedLocation` | whether a declared path parameter's value is recovered, with the harness supplying its usual split for every location except path | owned | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
-| `splitting-path-withProbedLocation` | whether a declared path parameter's value is recovered, with the harness supplying the path split itself | owned | accepted, value exposed | rejected, values exposed without the probed name | control only; the harness supplied this location, so this row is not evidence |
+| `splitting-path-withoutProbedLocation` | whether a declared path parameter's value is recovered, with the harness supplying its usual split for every location except path | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
+| `splitting-path-withProbedLocation` | whether a declared path parameter's value is recovered, with the harness supplying the path split itself | owned | accepted, value exposed | rejected, value exposed | control only; the harness supplied this location, so this row is not evidence |
 | `splitting-query-withoutProbedLocation` | whether a declared query parameter's value is recovered, with the harness supplying its usual split for every location except query | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `splitting-query-withProbedLocation` | whether a declared query parameter's value is recovered, with the harness supplying the query split itself | owned | accepted, value exposed | rejected, value exposed | control only; the harness supplied this location, so this row is not evidence |
 | `style-deserialization-array-header` | whether a comma-joined header array is split before its members are judged | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
-| `style-deserialization-array-path` | whether a comma-joined path array is split before its members are judged | owned | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
+| `style-deserialization-array-path` | whether a comma-joined path array is split before its members are judged | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `style-deserialization-array-query` | whether a comma-joined query array is split before its members are judged | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `content-deserialization-json-object` | whether a content parameter's value is read as its declared media type | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
-| `schema-validation-enum` | whether a recovered value is judged against its schema | owned | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the pair of verdicts |
-| `value-exposure-accepted` | whether the deserialized value of an accepted parameter is handed back | owned | accepted, value exposed | rejected, values exposed without the probed name | demonstrated by the value it exposed |
+| `schema-validation-enum` | whether a recovered value is judged against its schema | owned | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
+| `value-exposure-accepted` | whether the deserialized value of an accepted parameter is handed back | owned | accepted, value exposed | rejected, value exposed | demonstrated by the value it exposed |
 | `value-exposure-write-back` | whether a value the library supplied for an absent optional parameter reaches the caller | owned | accepted, value exposed | rejected, value exposed | demonstrated by the value it exposed |
 
 ### `github.com/getkin/kin-openapi`
@@ -550,7 +550,7 @@ an unbacked claim rather than treated as false.
 	- attribute paths.'/t'(get).[p].type is missing) | disclaimed, and not shown |
 | `express-openapi-validator` | 3.0 | yes | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
 | `express-openapi-validator` | 3.1 | yes | accepted, value exposed | rejected, value exposed | demonstrated by the pair of verdicts |
-| `express-openapi-validator` | 3.2 | no | raised, no verdict | raised, no verdict | disclaimed, and not shown |
+| `express-openapi-validator` | 3.2 | no | not asked (OpenAPI v3.0 or v3.1 specification version is required) | not asked (OpenAPI v3.0 or v3.1 specification version is required) | disclaimed, and not shown |
 | `github.com/getkin/kin-openapi` | 3.0 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `github.com/getkin/kin-openapi` | 3.1 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
 | `github.com/getkin/kin-openapi` | 3.2 | yes | accepted, no values exposed | rejected, no values exposed | demonstrated by the pair of verdicts |
@@ -580,19 +580,19 @@ an unbacked claim rather than treated as false.
 
 ### `com.atlassian.oai:openapi-request-validator-core`
 
-`inline-spec-simple-request`: OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Duplicate raw names are grouped into the list shape the builder accepts. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Cookies reach the library as the `Cookie` header, which the builder does take: it has no cookie API, and the library reads cookie parameters out of that header itself, so the split is the library's and is declared as such. Refusing these cases for want of a cookie API, which this container did until the builder's surface was checked against what the library reads, published ten questions as unanswerable that the library answers.
+`inline-spec-simple-request`: OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Each pair is added in wire order, and a pair with no `=` is added with a null value list, the builder's documented spelling of a name with no value. The two-argument Builder constructor is used, whose default matches query parameter names case-insensitively. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Cookies reach the library as the `Cookie` header, which the builder does take: it has no cookie API, and the library reads cookie parameters out of that header itself, so the split is the library's and is declared as such.
 
 ### `express-openapi-validator`
 
-`middleware-validate-requests`: OpenApiValidator.middleware({ apiSpec, validateRequests: true }) mounted on an express app, exactly as the published usage shows, with a handler that echoes the request it received and an error handler that reports the thrown status alongside the same request fields. Cookies reach it the way the published usage expects, as req.cookies: a middleware ahead of the validator installs the harness's cookie pairs there, in the place a cookie parser would. A repeated cookie name or a crumb with no `=` has no spelling in that record and is answered as a case it cannot carry. Reading its values: on an accepted request they are what the handler was handed. On a rejected one they are what the middleware had coerced onto the request before it stopped, so they are partial and stop at the first failure.
+`middleware-validate-requests`: OpenApiValidator.middleware({ apiSpec, validateRequests: true }) mounted on an express app, exactly as the published usage shows, with a handler that echoes the request it received and an error handler that reports the thrown status alongside the same request fields. Query and header splitting are the host stack's: express (version in options) parses the query string with its default parser and Node joins repeated header lines with a comma and a space before the middleware reads either. Cookies reach it the way the published usage expects, as req.cookies: a middleware ahead of the validator installs the harness's cookie pairs there, in the place a cookie parser would. A repeated cookie name or a crumb with no `=` has no spelling in that record and is answered as a case it cannot carry. Reading its values: on an accepted request they are what the handler was handed. On a rejected one they are what the middleware had coerced onto the request before it stopped, so they are partial and stop at the first failure.
 
 ### `github.com/getkin/kin-openapi`
 
-`validate-request-gorillamux`: openapi3.NewLoader().LoadFromData(document) routed with gorillamux and validated through openapi3filter.ValidateRequest, driven from an http.Request built from the raw target. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the router, so the encoding survives to that point. Values are read from a write-back channel: the function that decodes a styled parameter is unexported and no published call returns decoded values, and ValidateRequest writes values it supplies, such as schema defaults for absent query parameters, back onto the http.Request it was handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
+`validate-request-gorillamux`: openapi3.NewLoader().LoadFromData(document), then doc.Validate, routed with gorillamux and validated through openapi3filter.ValidateRequest, driven from an http.Request built from the raw target. doc.Validate is optional in the library's API and is run because its documentation calls for it before use; a document it refuses is reported as libraryInitUnsupported. Headers are added with net/http's Header.Add, which canonicalizes names (p and P become P) and merges names differing only in case. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the router, so the encoding survives to that point. Values are read from a write-back channel: the function that decodes a styled parameter is unexported and no published call returns decoded values, and ValidateRequest writes values it supplies, such as schema defaults for absent query parameters, back onto the http.Request it was handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 
 ### `github.com/pb33f/libopenapi-validator`
 
-`validate-http-request`: libopenapi.NewDocument(document) handed to validator.NewValidator and driven through ValidateHttpRequest, from an http.Request built on the raw target. Routing is the library's: an unmatched path comes back as a validation error of type path rather than as a separate call. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the validator, so the encoding survives to that point. Values are unexposed: ValidateHttpRequest answers with a boolean and a list of validation errors, and the helpers that decode a styled parameter are internal packages, so no published call hands the deserialized values back.
+`validate-http-request`: libopenapi.NewDocument(document) handed to validator.NewValidator and driven through ValidateHttpRequest, from an http.Request built on the raw target. Headers are added with net/http's Header.Add, which canonicalizes names (p and P become P) and merges names differing only in case. Routing is the library's: an unmatched path comes back as a validation error of type path rather than as a separate call. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the validator, so the encoding survives to that point. Values are unexposed: ValidateHttpRequest answers with a boolean and a list of validation errors, and the helpers that decode a styled parameter are internal packages, so no published call hands the deserialized values back.
 
 ### `league/openapi-psr7-validator`
 
@@ -604,7 +604,7 @@ an unbacked claim rather than treated as false.
 
 ### `openapi-backend`
 
-`coerce-types-on`: new OpenAPIBackend({ definition, quick: false, coerceTypes: true }) then init(), driven through validateRequest with the raw path and raw query string. coerceTypes is enabled because leaving it off rejects every typed parameter; both settings were measured and the results were identical for path parameters.
+`coerce-types-on`: new OpenAPIBackend({ definition, quick: false, coerceTypes: true, strict: true }) then init(), driven through validateRequest with the raw path and raw query string and headers split by the harness. coerceTypes is enabled because leaving it off rejects every typed parameter. strict is enabled so a document the library refuses fails init() and is reported as libraryInitUnsupported; without it init() logs the refusal and every request then fails with an unrelated 'Unknown operation'.
 
 ### `openapi-core`
 
@@ -616,4 +616,4 @@ an unbacked claim rather than treated as false.
 
 ### `openapi_first`
 
-`validate-request-rack`: OpenapiFirst.parse(document) driven through validate_request with a Rack::Request built from the raw target. The path is handed over as PATH_INFO with no decoding of its own, and the query string as QUERY_STRING, so the library splits and deserializes both. Header names are put into the Rack environment under its own convention, which upcases them and joins duplicates with a comma, because that environment is the only request shape this library's public call accepts. Reading its values: parsed parameters are reported whether or not the request was then rejected, so a value cell on a rejected row shows what the library had parsed at the point it refused rather than what it accepted.
+`validate-request-rack`: OpenapiFirst.parse(document) driven through validate_request with a Rack::Request built from the raw target. The path is handed over as PATH_INFO with no decoding of its own, and the query string as QUERY_STRING, so the library splits and deserializes both. Header names are put into the Rack environment under its own convention, which upcases them, because that environment is the only request shape this library's public call accepts. Repeated lines are joined with a bare comma. Reading its values: parsed parameters are reported whether or not the request was then rejected, so a value cell on a rejected row shows what the library had parsed at the point it refused rather than what it accepted.
