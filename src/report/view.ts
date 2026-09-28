@@ -17,6 +17,7 @@ import {
   definedSurface,
 } from "../surface/surface";
 import type { ContentCell, ContentCondition } from "../surface/surface";
+import { deepEqual } from "./score";
 import {
   CONFORMANCE_OUTCOMES,
   STAGE_SLOTS,
@@ -903,13 +904,13 @@ export function disagreements(
 
     const verdicts = new Set(answered.map((entry) => entry.result.outcome));
     const exposed = answered.flatMap((entry) =>
-      entry.result.outcome === "accepted" || entry.result.outcome === "rejected"
-        ? entry.result.deserialized.kind === "observed"
-          ? [JSON.stringify(entry.result.deserialized.value)]
-          : []
+      entry.result.deserialized.kind === "observed"
+        ? [{ verdict: entry.result.outcome, observation: entry.result.deserialized }]
         : [],
     );
-    const valuesSplit = new Set(exposed).size > 1;
+    const valuesSplit = exposed.some((one, index) =>
+      exposed.slice(index + 1).some((other) => valuesDiffer(one, other)),
+    );
     if (verdicts.size < 2 && !valuesSplit) continue;
 
     found.push({
@@ -925,6 +926,54 @@ export function disagreements(
     });
   }
   return found;
+}
+
+type Observed = Extract<
+  Extract<AdapterResult, { outcome: "accepted" }>["deserialized"],
+  { kind: "observed" }
+>;
+
+/**
+ * Whether two answers that both handed back values disagree about them.
+ *
+ * Compared name by name with `deepEqual`, so the order a library wrote an
+ * object's keys in is not a disagreement. A name either container could not
+ * read is left out: its absence is the container's reach, and counting it
+ * would make a split out of the harness.
+ *
+ * A name one answer reports and the other omits is a split unless the other
+ * answer's vantage accounts for the omission, which it can only do on a
+ * rejected request: from `handedToHandler` no handler ran, and from
+ * `validatedOnly` an absent name failed its schema. Both say something about
+ * the verdict, which the verdict column already compares, and nothing about the
+ * value. On an accepted request nothing failed and a handler ran, so an absent
+ * name there is the library handing its caller nothing, and that is a split.
+ */
+function valuesDiffer(
+  one: { readonly verdict: "accepted" | "rejected"; readonly observation: Observed },
+  other: { readonly verdict: "accepted" | "rejected"; readonly observation: Observed },
+): boolean {
+  const unreadable = new Set([
+    ...Object.keys(one.observation.unreadable ?? {}),
+    ...Object.keys(other.observation.unreadable ?? {}),
+  ]);
+  const absenceExplained = (side: typeof one): boolean =>
+    side.verdict === "rejected" && side.observation.vantage !== "parsedBeforeValidation";
+  const names = new Set([
+    ...Object.keys(one.observation.value),
+    ...Object.keys(other.observation.value),
+  ]);
+  for (const name of names) {
+    if (unreadable.has(name)) continue;
+    const left = one.observation.value[name];
+    const right = other.observation.value[name];
+    if (left !== undefined && right !== undefined) {
+      if (!deepEqual(left, right)) return true;
+    } else if (left !== undefined ? !absenceExplained(other) : !absenceExplained(one)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**

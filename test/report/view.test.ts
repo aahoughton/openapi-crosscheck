@@ -381,6 +381,92 @@ describe("disagreement", () => {
     expect(found).toEqual([]);
   });
 
+  function observedFrom(
+    verdict: "accepted" | "rejected",
+    vantage: "handedToHandler" | "parsedBeforeValidation" | "validatedOnly",
+    value: DeserializedValues,
+    unreadable?: Record<string, string>,
+  ): AdapterResult {
+    return {
+      library: "lib",
+      libraryVersion: "1.0.0",
+      configurationId: "fixture",
+      preparse: null,
+      outcome: verdict,
+      deserialized: {
+        kind: "observed",
+        vantage,
+        value,
+        nativeTypes: {},
+        ...(unreadable === undefined ? {} : { unreadable }),
+      },
+      inputMutation: { kind: "none", detail: "fixture" },
+      raw: null,
+    };
+  }
+
+  it("does not read a different key order as a different value", () => {
+    const found = disagreements(
+      cases,
+      two(accepted({ p: { r: 100, g: 200 } }), accepted({ p: { g: 200, r: 100 } })),
+    );
+    expect(found).toEqual([]);
+  });
+
+  it("does not read a parameter one container could not read as a split", () => {
+    const found = disagreements(
+      cases,
+      two(
+        accepted({ p: "blue", q: "x" }),
+        acceptedWithUnreadable({ p: "blue" }, { q: "no slot in this request shape" }),
+      ),
+    );
+    expect(found).toEqual([]);
+  });
+
+  it("does not read an absence the vantage accounts for as a split", () => {
+    // No handler runs on a rejected request, so a handler vantage reports
+    // nothing there, and a validated-only vantage omits a name that failed.
+    const parsed = observedFrom("rejected", "parsedBeforeValidation", { p: "x" });
+    expect(disagreements(cases, two(parsed, observedFrom("rejected", "handedToHandler", {})))).toEqual(
+      [],
+    );
+    expect(disagreements(cases, two(parsed, observedFrom("rejected", "validatedOnly", {})))).toEqual(
+      [],
+    );
+  });
+
+  it("reads an absence the vantage does not account for as a split", () => {
+    const found = disagreements(
+      cases,
+      two(
+        observedFrom("rejected", "parsedBeforeValidation", { p: "x" }),
+        observedFrom("rejected", "parsedBeforeValidation", {}),
+      ),
+    );
+    expect(found.map((entry) => entry.kind)).toEqual(["value"]);
+  });
+
+  it("reads a name omitted on an accepted request as a split, whatever the vantage", () => {
+    // Nothing failed and a handler ran, so the omission is what the caller got.
+    const found = disagreements(
+      cases,
+      two(
+        observedFrom("accepted", "parsedBeforeValidation", { p: "" }),
+        observedFrom("accepted", "validatedOnly", {}),
+      ),
+    );
+    expect(found.map((entry) => entry.kind)).toEqual(["value"]);
+  });
+
+  it("names the vantage beside each answer's values", () => {
+    const found = disagreements(cases, two(accepted({ p: "blue" }), accepted({ p: "BLUE" })));
+    expect(found[0]?.answers.map((answer) => answer.values)).toEqual([
+      '{"p":"blue"} (handed to the handler)',
+      '{"p":"BLUE"} (handed to the handler)',
+    ]);
+  });
+
   it("does not read an unexposed value channel as a different value", () => {
     // "Exposes nothing, ever" and "exposed something else" are different facts,
     // and only the second is a disagreement.
