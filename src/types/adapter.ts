@@ -7,18 +7,6 @@ import type { PreparsedRequest } from "../wire/preparse";
 import type { WireRequest } from "./wire";
 
 /**
- * What a library can be asked, as distinct from what it answers.
- *
- * Every field here is a claim, and every claim is falsifiable: each capability
- * an adapter declares is backed by a test in that adapter's own test file
- * demonstrating it. A declaration nobody can check is not a measurement.
- *
- * These are declared rather than discovered on purpose. A probe that discovers
- * whether a library exposes values is itself a measurement, carrying the same
- * misattribution risk as any other, and it would need either library-specific
- * probe code or code above the adapter layer that knows about libraries.
- */
-/**
  * How the library under test got into the image.
  *
  * `libraryVersion` is read from the installed package, and an unreleased tree
@@ -44,6 +32,13 @@ export interface LibraryResolution {
   readonly specifier: string | null;
 }
 
+/**
+ * What a library can be asked, as distinct from what it answers.
+ *
+ * Declared by the container, then probed two-sidedly by the harness
+ * (`src/capability/`) with the evidence published beside the declaration. The
+ * probes are generic, so no library-specific code sits above the adapter layer.
+ */
 export interface AdapterCapabilities {
   /**
    * What the library does for itself, stage by stage.

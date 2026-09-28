@@ -1,12 +1,6 @@
 import type { JsonValue } from "./json";
 
 /**
- * Three-valued, because "this library never exposes deserialized values" and
- * "this library exposed no values here" are different facts about the world.
- * A report that renders both as a blank cell loses that distinction, so the
- * renderer has to handle three constructors.
- */
-/**
  * From what point in a library's own processing the values were read.
  *
  * Closed set, and load-bearing: without it an absent parameter name means three
@@ -40,6 +34,12 @@ export type ValueVantage =
  */
 export type NativeTypes = Record<string, string>;
 
+/**
+ * Three-valued, because "this library never exposes deserialized values" and
+ * "this library exposed no values here" are different facts about the world.
+ * A report that renders both as a blank cell loses that distinction, so the
+ * renderer has to handle three constructors.
+ */
 export type Observation<T> =
   | {
       readonly kind: "observed";

@@ -190,8 +190,7 @@ export interface StageReading {
  * Whether a probe contradicts a claim of ownership, as opposed to failing to
  * support it.
  *
- * The distinction the gate turns on, and one an earlier version of this file
- * collapsed. Ownership is about who does the work: a library owns a
+ * The distinction the gate turns on. Ownership is about who does the work: a library owns a
  * deserialization stage when it turns a raw wire value into a structured one
  * itself rather than requiring its caller to have done it. Whether it does that
  * correctly is a different question, and it is the one the corpus asks.

@@ -5,7 +5,6 @@ export function toColonTemplate(template: string): string {
   return template.replace(/\{([^}]+)\}/g, ":$1");
 }
 
-/** The single templated path a case declares. Cases declare exactly one. */
 /**
  * Every parameter the document declares, across every path and operation.
  *

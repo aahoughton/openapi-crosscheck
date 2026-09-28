@@ -91,9 +91,7 @@ export type ProbeAxis =
    *
    * Distinct from `emptyContainer`, which sends `?p=`: there the delimiter is
    * present and the value is zero-length. Here there is no delimiter, which is
-   * a wire form no expansion in the Style Examples table produces. Until this
-   * axis existed every value in the corpus arrived behind its delimiter, and
-   * the harness itself could not tell the two apart.
+   * a wire form no expansion in the Style Examples table produces.
    */
   | "nameWithoutValue"
   /**
@@ -103,8 +101,7 @@ export type ProbeAxis =
    * settled verdict is rejection. Here the settled verdict is acceptance, and
    * the open question lives in the value channel: an absent key, a null, and
    * a value the library supplied are all defensible things for a caller to
-   * receive. Until this axis existed every declaration in the corpus was
-   * required, a constant nothing published.
+   * receive.
    */
   | "optionalAbsent"
   /**
@@ -114,9 +111,7 @@ export type ProbeAxis =
    * Distinct from `foreignName`, where the wire carries a name the document did
    * not declare. Here the document is what varies, and the rule is about the
    * declaration rather than the request: a library reading it correctly behaves
-   * as though the parameter were not there. Until this axis existed every
-   * declared name in the corpus was one a document may freely claim, a constant
-   * no wire-shaped axis could reach.
+   * as though the parameter were not there.
    */
   | "reservedName"
   | "wrongTypeValue";

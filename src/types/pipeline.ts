@@ -41,10 +41,6 @@ const NAME_CARRYING_STYLES: ReadonlySet<Style> = new Set<Style>(["label", "matri
  * recorded and identical for every library that needs it. The second is a
  * question about coverage, and every stage a library delegates is a stage its
  * caller implements, where the resulting bugs belong to the caller.
- *
- * An earlier model sampled three points on this pipeline and assumed the rest
- * was universal. The assumption held only because every library measured then
- * happened to be all-or-nothing about taking a request.
  */
 export type PipelineStage =
   /** Match method and target to an operation. */
@@ -80,14 +76,10 @@ export const PIPELINE_STAGES: readonly PipelineStage[] = [
  * request never passes through both for the same parameter, and a library
  * owning one has said nothing about the other.
  *
- * Modelling them as one stage was measurably wrong rather than merely untidy.
- * `content: application/json` has no `style` and no `explode`, so a library
- * that applies styles and never parses a media type had to either answer
- * questions its declaration did not cover, or disclaim style deserialization it
- * demonstrably performs. Two libraries in the roster accept `p=%7Bnot-json`
- * against `content: application/json`, which is what never parsing the
- * representation looks like, and under one stage that is indistinguishable from
- * parsing it and being lenient.
+ * One stage could not describe a library that applies styles and never parses
+ * a media type: `content: application/json` has no `style` and no `explode`,
+ * so such a library would have to either claim parsing it does not do or
+ * disclaim style deserialization it demonstrably performs.
  */
 export type DeserializationStage = "contentDeserialization" | "styleDeserialization";
 
@@ -99,22 +91,17 @@ export function deserializationStage(declaration: "content" | "schema"): Deseria
 /**
  * Which locations splitting is a question for.
  *
- * Headers are included, which an earlier version of this got wrong. A header
- * does arrive as a name and a value, but matching a declared name against the
- * ones received is still work, and a library whose published input is a record
- * keyed by lowercased name never does it: whoever built that record folded the
- * casing and collected the duplicates. Both are probe dimensions, so the
- * folding has to be attributed to whoever performed it.
+ * Headers are included. A header arrives as a name and a value, but matching a
+ * declared name against the ones received is still work, and a library whose
+ * published input is a record keyed by lowercased name never does it: whoever
+ * built that record folded the casing and collected the duplicates. Both are
+ * probe dimensions, so the folding is attributed to whoever performed it.
  *
- * Written out rather than aliased to `ParameterLocation`, which is what it was.
- * Splitting ownership is a claim every container makes and the harness acts on,
- * so a location joins this set by a decision rather than by arriving in the
- * parameter union. The alias made the two the same edit, and silently: nothing
- * derives the keys from the union, so a widened union produced a
- * `Record<SplittableLocation, boolean>` missing a key rather than a type error,
- * and a missing key is the protocol's default-to-owned case. A location added
- * here now has to be added to `SPLITTABLE_LOCATIONS`, to `delegatedSplits()`
- * and to every container's declaration, and the compiler says so at each one.
+ * Written out rather than aliased to `ParameterLocation`, so a location joins
+ * this set by a decision rather than by arriving in the parameter union
+ * (`querystring` is a parameter location with nothing to split). A location
+ * added here has to be added to `SPLITTABLE_LOCATIONS`, `delegatedSplits()`
+ * and every container's declaration, and the compiler says so at each one.
  */
 export type SplittableLocation = "cookie" | "header" | "path" | "query";
 
@@ -128,14 +115,11 @@ export const SPLITTABLE_LOCATIONS: readonly SplittableLocation[] = [
 /**
  * What a library does for itself, stage by stage.
  *
- * `splitting` is per location because that is where the model broke: a library
- * can extract path parameters from a raw target and still refuse to split a
- * query string, and calling that "takes a request" or "does not" is wrong in
- * both directions.
+ * `splitting` is per location: a library can extract path parameters from a
+ * raw target and still leave the query string to its caller.
  *
- * Every field is a claim, and every claim is falsifiable. Each is backed by a
- * test demonstrating it, because a declaration nobody can check is not a
- * measurement.
+ * Every field is a claim, probed two-sidedly by `src/capability/probes.ts` and
+ * published with what the probe saw.
  */
 export interface StageOwnership {
   readonly routing: boolean;
@@ -258,46 +242,23 @@ function ownsCaseChain(ownership: StageOwnership, dimensions: Dimensions): boole
   if (from === -1) return ownsStage(ownership, probed, location);
   const required = order.slice(from);
 
-  // A `content` parameter needs its representation parsed whatever the case
-  // probes, including a case probing the schema.
+  // The deserialization stage is required, whatever the case probes, in the
+  // three situations where the raw text preparse hands over is not the value
+  // the schema sees:
   //
-  // The asymmetry is in what the harness supplies. Preparse splits, and hands
-  // over raw text; it never deserializes, because deserializing downstream of
-  // the probe would grade the harness's own work. For a `schema` parameter that
-  // raw text is often already the value the schema sees, so a library owning
-  // schema validation alone can answer a wrong-typed scalar and does. For a
-  // `content` parameter it never is: the schema is written against the parsed
-  // representation, and the parsed representation of `{"R":"100"}` is not the
-  // eleven characters of it. So a schema-only library handed that string is not
-  // answering the question the case asks.
-  //
-  // Applied to every content case, including one probing a missing name, where
-  // no value needs parsing and the conservatism costs an answer a schema-only
-  // library could give. No such case exists yet. Writing one is the moment to
-  // narrow this, and narrowing it means saying what the harness hands over for
-  // an absent parameter, rather than assuming.
-  //
-  // A structured `schema` parameter probed on the value it carries has the same
-  // gap in the other declaration form. `R=blue&G=200` is two query pairs, and
-  // assembling the one object `p` out of them is style deserialization. A
-  // library that does none of it never sees the property the case varies, so
-  // its verdict is about something else: it rejects because `p` is missing,
-  // which scores as a pass on a case expecting a rejection, and reads as
-  // evidence that schema validation runs through to an object's properties.
-  //
-  // Only the value probe. A structured parameter probed on absence asks whether
-  // an empty query is noticed at all, and a library that never assembles `p`
-  // answers that for the reason the case is about.
-  //
-  // A style that writes the name into the wire form is the third way the raw
-  // text is not the value, and the one that holds for a scalar. `;p=42` is what
-  // preparse hands over for a matrix path parameter, and a library reading only
-  // the schema rejects those five characters as a non-integer whatever the case
-  // varies: it rejected the style syntax, and the cell would read as a
-  // wrong-typed value caught. So the style stage is required for every case in
-  // one of those styles, whichever stage the case probes. Every such case
-  // already probes style deserialization today, so this bounds a case nobody
-  // has written rather than moving a cell.
+  // - A `content` parameter. The schema is written against the parsed
+  //   representation, so a schema-only library handed `{"R":"100"}` as eleven
+  //   characters is not answering the case's question. This also withholds a
+  //   content case probing absence, where no value needs parsing; no such case
+  //   exists, and writing one means stating what the harness hands over for
+  //   an absent parameter.
+  // - A structured `schema` parameter probed on a wrong-typed value.
+  //   `R=blue&G=200` is two pairs, and a library that never assembles `p`
+  //   rejects because `p` is missing, which would score as catching the wrong
+  //   type. Probed on absence it is still askable: an empty query is noticed
+  //   or not for the reason the case is about.
+  // - A style that writes the name into the wire form (`label`, `matrix`).
+  //   `;p=42` rejected as a non-integer is the style syntax being rejected.
   const deserialization = deserializationStage(dimensions.declaration);
   const needsDeserialization =
     dimensions.declaration === "content" ||
@@ -375,10 +336,8 @@ function queryCarriesConvertedEncoding(target: string): boolean {
  * Which stage a case probes, from the axis it varies and the location it varies
  * it in.
  *
- * A rule rather than a hand-written label on each case. A label is a judgement
- * per case, and forty-five judgements drift; a rule can be stated, argued with,
- * and applied the same way to a case written next year. It also cannot disagree
- * with itself, which a field sitting next to `probeAxis` eventually would.
+ * A rule rather than a hand-written label on each case, so it is applied the
+ * same way to every case and cannot drift from `probeAxis`.
  *
  * The axis alone is not enough, because the same variation lands on different
  * stages in different locations. In a query, splitting on `&` and `=` produces

@@ -91,11 +91,9 @@ export interface LibraryMeasurement {
 /**
  * What one library did with one case.
  *
- * `AdapterResult` already carries the library name and version on every result,
- * which was right when results were grouped by case and is redundant now that
- * they are grouped by library. It stays because it is what the adapter produced,
- * and trimming a field out of a recorded answer to tidy the shape is how a
- * record stops being a record.
+ * `AdapterResult` carries the library name and version on every result, which
+ * repeats the measurement's own. It stays because it is what the adapter
+ * produced, and a recorded answer is kept as produced.
  */
 export interface CaseAnswer {
   readonly caseId: string;
