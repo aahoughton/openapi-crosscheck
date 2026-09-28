@@ -124,6 +124,23 @@ export const URL_PERCENT_ENCODING = cite(
     "an escaped space character.",
 );
 
+/**
+ * Appendix B on converting text to typed values, with its opening sentence,
+ * which names the form-urlencoded query string. The 3.0 and 3.1 constants of
+ * the same name quote the second half alone.
+ */
+export const DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED = cite(
+  "appendix-b-data-type-conversion",
+  "Serializing typed data to plain text, which can occur in text/plain message bodies or " +
+    "multipart parts, as well as in the application/x-www-form-urlencoded format in either " +
+    "URL query strings or message bodies, involves significant implementation- or " +
+    "application-defined behavior. [...] However, there is no general-purpose " +
+    "specification for converting schema-validated non-UTF-8 primitive data types (or " +
+    "entire arrays or objects) to strings. [...] This is one reason for the OpenAPI " +
+    "Specification to leave these conversions as implementation-defined: It allows using " +
+    "RFC6570 implementations regardless of how they choose to perform the conversions.",
+);
+
 export const SCHEMA_OBJECT = cite(
   "schema-object",
   "The Schema Object allows the definition of input and output data types. These types " +

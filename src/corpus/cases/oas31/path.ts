@@ -643,20 +643,12 @@ export const pathCases31: readonly Case[] = [
     id: "path-matrix-scalar-wrong-type-oas31",
     title: "path, matrix, scalar, a value well-formed for a different type",
     inShort:
-      "Sends ;p=blue for an integer parameter. Matrix parsing yields blue, which fails the type check.",
-    tier: "conformance",
+      "Sends ;p=blue for an integer parameter. Whether text that spells no number is refused or converted is implementation-defined.",
+    tier: "divergence",
     oasVersion: "3.1",
-    citations: [
-      cite.PARAMETER_STYLE,
-      cite.STYLE_EXAMPLE_MATRIX_NO_EXPLODE,
-      cite.PARAMETER_SCHEMA,
-      cite.SCHEMA_OBJECT,
-      cite.JSON_SCHEMA_DATA_MODEL,
-    ],
-    expected: "rejected",
-    expectedValues: null,
-    rationale:
-      "Matrix parsing yields the alphabetic value blue, which cannot represent an integer. A rejection alone does not establish whether parsing or type validation refused it.",
+    question:
+      "Matrix parsing yields the text blue for an integer parameter. Appendix B leaves conversion from text to other primitive types implementation-defined and gives no number grammar, so it does not settle whether blue is refused or converted.",
+    basis: cite.DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED,
     document: document([
       { name: "p", in: "path", required: true, style: "matrix", explode: false, schema: INTEGER },
     ]),
@@ -1115,13 +1107,12 @@ export const pathCases31: readonly Case[] = [
     id: "path-simple-scalar-wrong-type-oas31",
     title: "path, simple, scalar, a value well-formed for a different type",
     inShort:
-      "Sends blue as a path segment for an integer parameter. The text cannot represent an integer.",
-    tier: "conformance",
+      "Sends blue as a path segment for an integer parameter. Whether text that spells no number is refused or converted is implementation-defined.",
+    tier: "divergence",
     oasVersion: "3.1",
-    citations: [cite.PARAMETER_SCHEMA, cite.SCHEMA_OBJECT, cite.JSON_SCHEMA_DATA_MODEL],
-    expected: "rejected",
-    expectedValues: null,
-    rationale: "The parameter requires an integer. The alphabetic value blue cannot represent one.",
+    question:
+      "The segment is the text blue and the parameter is an integer. Appendix B leaves conversion from text to other primitive types implementation-defined and gives no number grammar, so it does not settle whether blue is refused or converted.",
+    basis: cite.DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED,
     document: document([
       { name: "p", in: "path", required: true, style: "simple", explode: false, schema: INTEGER },
     ]),

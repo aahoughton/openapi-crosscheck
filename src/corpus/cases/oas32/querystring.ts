@@ -10,10 +10,11 @@ import * as cite from "../../citations/oas32";
  * `content` declaration. Four cases use invalid documents, whose handling is
  * unspecified, and therefore record divergence.
  *
- * Negative requests exercise both malformed JSON and a form-urlencoded value
- * outside its schema. The JSON pair shares one document, so rejecting both
- * sides shows no evidence of distinguishing a valid representation from an
- * invalid one. A verdict alone does not identify the cause of rejection.
+ * The settled negative request is malformed JSON. The JSON pair shares one
+ * document, so rejecting both sides shows no evidence of distinguishing a
+ * valid representation from an invalid one. A form-urlencoded property whose
+ * text spells no integer is recorded as divergence, because Appendix B leaves
+ * typing form text implementation-defined.
  */
 
 const SPEC = "https://spec.openapis.org/oas/v3.2.0.html";
@@ -164,19 +165,13 @@ export const querystringCases32: readonly Case[] = [
   {
     id: "querystring-form-urlencoded-object-wrong-type-oas32",
     title: "querystring, x-www-form-urlencoded, object, a property well-formed for another type",
-    inShort: "Sends a correctly formatted query string with R=blue, where R requires an integer.",
-    tier: "conformance",
+    inShort:
+      "Sends a correctly formatted query string with R=blue, where R is an integer. Whether that value is refused or converted is implementation-defined.",
+    tier: "divergence",
     oasVersion: "3.2",
-    citations: [
-      PARAMETER_LOCATIONS_QUERYSTRING,
-      FIXED_FIELDS_FOR_USE_WITH_CONTENT,
-      cite.PARAMETER_REQUIRED,
-      cite.SCHEMA_OBJECT,
-    ],
-    expected: "rejected",
-    expectedValues: null,
-    rationale:
-      "Form-urlencoded parsing yields R=blue, which cannot represent the required integer. A rejection alone does not establish whether the library checked that property.",
+    question:
+      "Form-urlencoded parsing yields the text blue for the integer property R. Appendix B names the form-urlencoded query string among the places where typing text is implementation- or application-defined, so it does not settle whether blue is refused or converted.",
+    basis: cite.DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED,
     document: document(
       [
         {

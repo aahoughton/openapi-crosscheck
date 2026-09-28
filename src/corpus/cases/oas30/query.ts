@@ -759,14 +759,13 @@ export const queryCases30: readonly Case[] = [
   {
     id: "query-form-object-wrong-type-oas30",
     title: "query, form, object, explode true, a property well-formed for a different type",
-    inShort: "Sends a correctly formatted object with R=blue, where R requires an integer.",
-    tier: "conformance",
+    inShort:
+      "Sends a correctly formatted object with R=blue, where R is an integer. Whether that property value is refused or converted is implementation-defined.",
+    tier: "divergence",
     oasVersion: "3.0",
-    citations: [cite.PARAMETER_STYLE, cite.SCHEMA_OBJECT, cite.JSON_SCHEMA_DATA_MODEL],
-    expected: "rejected",
-    expectedValues: null,
-    rationale:
-      "The object format is valid, but R's alphabetic value blue cannot represent an integer. A rejection alone does not establish whether the library checked that property.",
+    question:
+      "The object deserializes cleanly and its property R carries the text blue against an integer schema. Appendix B leaves conversion from text to other primitive types implementation-defined, including values inside objects, so it does not settle whether blue is refused or converted.",
+    basis: cite.DATA_TYPE_CONVERSION_IMPLEMENTATION_DEFINED,
     document: document(
       [
         {

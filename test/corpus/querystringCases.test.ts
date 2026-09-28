@@ -202,15 +202,21 @@ describe("the querystring cases", () => {
     }
   });
 
-  it("include negative requests for malformed content and schema validation", () => {
+  it("include a settled negative request for malformed content", () => {
     const rejecting = querystringCases32.filter(
       (c) =>
         c.tier === "conformance" && c.expected === "rejected" && c.breaksDocumentRule === undefined,
     );
-    expect(rejecting.map((c) => c.id).sort()).toEqual([
-      "querystring-form-urlencoded-object-wrong-type-oas32",
-      "querystring-json-object-malformed-oas32",
-    ]);
+    expect(rejecting.map((c) => c.id).sort()).toEqual(["querystring-json-object-malformed-oas32"]);
+  });
+
+  it("leave a form-urlencoded property's typing open, citing Appendix B", () => {
+    const wrongType = querystringCases32.find(
+      (c) => c.id === "querystring-form-urlencoded-object-wrong-type-oas32",
+    );
+    if (wrongType?.tier !== "divergence") throw new Error("expected a divergence case");
+    expect(wrongType.basis?.anchor).toBe("appendix-b-data-type-conversion");
+    expect(wrongType.basis?.quoted).toContain("application/x-www-form-urlencoded");
   });
 
   it("pair valid and malformed JSON under exactly the same document", () => {

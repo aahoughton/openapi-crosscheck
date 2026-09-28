@@ -108,11 +108,22 @@ for (const version of ["30", "31"]) {
     });
 
     it("uses typed JSON controls beside the open text-conversion cases", () => {
-      for (const name of ["literal", "wrong-type"]) {
-        const textCase = cases.find(
-          (entry) => entry.id === `query-form-boolean-${name}-oas${version}`,
-        );
-        expect(textCase?.tier).toBe("divergence");
+      // Text sent against a non-string schema asks for a conversion Appendix B
+      // leaves implementation-defined, whatever the declared type and wherever
+      // the value sits. Only a media type carrying its own types settles it.
+      const textCases = [
+        "query-form-boolean-literal",
+        "query-form-boolean-wrong-type",
+        "query-form-object-wrong-type",
+        "path-matrix-scalar-wrong-type",
+        "path-simple-scalar-wrong-type",
+      ];
+      for (const name of textCases) {
+        const textCase = cases.find((entry) => entry.id === `${name}-oas${version}`);
+        expect({ name, tier: textCase?.tier }).toEqual({ name, tier: "divergence" });
+        if (textCase?.tier === "divergence") {
+          expect(textCase.basis?.anchor).toBe("appendix-b-data-type-conversion");
+        }
       }
       const valid = conformance(`query-content-json-boolean-canonical-oas${version}`);
       const invalid = conformance(`query-content-json-boolean-wrong-type-oas${version}`);
