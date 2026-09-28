@@ -10,9 +10,10 @@ The container installs `openapi_first` with Bundler. It parses the document with
 
 The Rack environment is built from the raw target: the path goes in as
 `PATH_INFO` undecoded, and everything after the first `?` as `QUERY_STRING`.
-Header names are put in under Rack's own convention, which upcases them and
-joins duplicates with a comma, because that environment is the only request
-shape the public call accepts.
+Header names are put in under Rack's own convention, which upcases them,
+because that environment is the only request shape the public call accepts.
+Repeated lines are joined with a bare comma, the form every container that
+combines lines itself uses; Rack servers commonly join with a comma and a space.
 
 ## Stage Claims
 

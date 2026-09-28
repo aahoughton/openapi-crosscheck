@@ -34,8 +34,8 @@ CONFIGURATION = {
     "from the raw target. The path is handed over as PATH_INFO with no decoding of its own, " \
     "and the query string as QUERY_STRING, so the library splits and deserializes both. " \
     "Header names are put into the Rack environment under its own convention, which upcases " \
-    "them and joins duplicates with a comma, because that environment is the only request " \
-    "shape this library's public call accepts. " \
+    "them, because that environment is the only request shape this library's public call " \
+    "accepts. Repeated lines are joined with a bare comma. " \
     "Reading its values: parsed parameters are reported whether or not the request was then " \
     "rejected, so a value cell on a rejected row shows what the library had parsed at the " \
     "point it refused rather than what it accepted.",
@@ -141,7 +141,11 @@ def build_request(message)
 
     key = rack_header_key(pair[0].to_s)
     existing = env[key]
-    env[key] = existing.nil? ? pair[1].to_s : "#{existing}, #{pair[1]}"
+    # Joined with a bare comma, the same as every container that combines
+    # repeated lines itself, so a duplicate-name case measures how the library
+    # reads the list rather than whether it trims whitespace this container
+    # added.
+    env[key] = existing.nil? ? pair[1].to_s : "#{existing},#{pair[1]}"
   end
 
   Rack::Request.new(env)
