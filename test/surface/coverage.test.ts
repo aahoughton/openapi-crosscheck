@@ -149,6 +149,17 @@ describe("the declared type axis shows what is missing", () => {
     expect([...declaredTypes(objectCase.document)].sort()).toEqual(["integer", "string"]);
   });
 
+  it("counts nullable as declaring null in 3.0 only", () => {
+    // 3.1 dropped the keyword, and a 3.1 case exists to show it being ignored.
+    const of = (id: string): string[] => {
+      const found = cases.find((c) => c.id === id);
+      expect(found).toBeDefined();
+      return found === undefined ? [] : [...declaredTypes(found.document)].sort();
+    };
+    expect(of("query-content-json-scalar-nullable-literal-oas30")).toEqual(["null", "string"]);
+    expect(of("query-content-json-scalar-nullable-literal-oas31")).toEqual(["string"]);
+  });
+
   it("separates declaring a type from probing a value against it", () => {
     // Declaring a type shows a library the shape to accept. Only a wrong value
     // shows whether it checked. The two columns are different questions and the

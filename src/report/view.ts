@@ -698,9 +698,13 @@ export interface CoverageView {
  */
 export function declaredTypes(document: OpenApiDocument): ReadonlySet<DeclaredType> {
   const found = new Set<DeclaredType>();
+  // `nullable: true` admits null in a 3.0 document and is not a keyword in 3.1,
+  // where a corpus case exists to show it being ignored.
+  const nullableDeclaresNull = document.openapi.startsWith("3.0.");
   const walk = (schema: JsonValue | undefined): void => {
     if (schema === null || typeof schema !== "object" || Array.isArray(schema)) return;
     const shape = schema as Record<string, JsonValue>;
+    if (nullableDeclaresNull && shape["nullable"] === true) found.add("null");
     const declared = shape["type"];
     for (const one of Array.isArray(declared) ? declared : [declared]) {
       if (typeof one === "string" && (DECLARED_TYPES as readonly string[]).includes(one)) {
