@@ -22,13 +22,16 @@ import { buildImage, ecosystemOf, startContainer, stopContainer } from "../conta
  * that started is stopped before the error is raised, so a failed run does not
  * leave containers behind.
  */
-export async function createAdapters(dirs: readonly string[]): Promise<readonly Adapter[]> {
+export async function createAdapters(
+  dirs: readonly string[],
+  options: { readonly rebuild?: boolean } = {},
+): Promise<readonly Adapter[]> {
   const directories = resolveAdapterDirs(dirs);
   const started: string[] = [];
 
   const results = await Promise.allSettled(
     directories.map(async (dir) => {
-      const imageId = await buildImage(dir);
+      const imageId = await buildImage(dir, options.rebuild ?? false);
       const container = await startContainer(dir, imageId);
       started.push(container.containerId);
       return connect(
@@ -70,7 +73,19 @@ export async function createAdapters(dirs: readonly string[]): Promise<readonly 
  * retry too, with a message about the directory rather than about the typo.
  */
 export function resolveAdapterDirs(dirs: readonly string[]): readonly string[] {
-  return dirs.map(adapterDirectory);
+  const resolved = dirs.map(adapterDirectory);
+  // The slug names the measurement file and the image tag, so two directories
+  // sharing a base name would overwrite each other's answers.
+  const seen = new Map<string, string>();
+  for (const path of resolved) {
+    const slug = basename(path);
+    const other = seen.get(slug);
+    if (other !== undefined && other !== path) {
+      throw new Error(`${other} and ${path} share the slug ${slug}; rename one directory`);
+    }
+    seen.set(slug, path);
+  }
+  return [...new Set(resolved)];
 }
 
 /**

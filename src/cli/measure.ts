@@ -31,7 +31,9 @@ import type { LibraryMeasurement } from "../types/measurement";
  * one run, so no directory can ever hold answers from two, and a stale file from
  * an earlier roster cannot sit alongside a newer one describing something else.
  * `--force` empties an existing directory first and exists for one caller:
- * `pnpm regenerate`, which rebuilds the committed `report/`.
+ * `pnpm regenerate`, which rebuilds the committed `report/`. `--rebuild` builds
+ * every image without Docker's layer cache, so each library resolves its
+ * current release; `pnpm regenerate` passes it too.
  *
  * `corpus.json` goes in first and `run.json` last, so the directory says what it
  * is at every point. Questions and no sidecar is a run that died partway, and
@@ -68,7 +70,7 @@ async function main(): Promise<void> {
   // says what it was asking.
   writeFileSync(join(outDir, "corpus.json"), renderCorpus(cases), "utf8");
 
-  const adapters = await createAdapters(directories);
+  const adapters = await createAdapters(directories, { rebuild: flags.has("--rebuild") });
   try {
     mkdirSync(join(outDir, "libraries"), { recursive: true });
     for (const adapter of adapters) {
@@ -200,7 +202,7 @@ function parse(argv: readonly string[]): {
       positional.push(argument);
       continue;
     }
-    if (argument === "--force") {
+    if (argument === "--force" || argument === "--rebuild") {
       flags.set(argument, "");
       continue;
     }

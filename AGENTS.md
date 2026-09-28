@@ -159,7 +159,7 @@ TypeScript, vitest, pnpm.
 pnpm install
 pnpm check            # the fast gate: typecheck, lint, harness tests. Seconds.
 pnpm check:containers # the slow gate: builds and starts a container per library.
-pnpm regenerate       # rebuild the committed report, containers and all
+pnpm regenerate       # rebuild the committed report; images built without cache
 ```
 
 Measuring and rendering are separate programs, and a run directory is what

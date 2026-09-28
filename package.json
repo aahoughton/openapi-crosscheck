@@ -15,7 +15,7 @@
     "measure": "tsx src/cli/measure.ts",
     "render-md": "tsx src/cli/render-md.ts",
     "render-html": "tsx src/cli/render-html.ts",
-    "regenerate": "tsx src/cli/measure.ts adapters/* --out report --force && tsx src/cli/render-md.ts report",
+    "regenerate": "tsx src/cli/measure.ts adapters/* --out report --force --rebuild && tsx src/cli/render-md.ts report",
     "diff-runs": "tsx src/cli/diff-runs.ts"
   },
   "devDependencies": {

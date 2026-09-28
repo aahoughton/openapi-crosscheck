@@ -39,13 +39,17 @@ export interface RunningContainer {
  * Build context is the container's own directory, which is what makes the
  * containers comparable: none of them can copy anything from the harness, so a
  * container written here has no advantage over one written by a library owner
- * who only read docs/container-protocol.md. The library resolves its current
- * release at build time, so the resolved version answers what was measured and
- * the image id identifies the built environment that answered.
+ * who only read docs/container-protocol.md. The resolved version answers what
+ * was measured and the image id identifies the built environment that answered.
  */
-export async function buildImage(dir: string): Promise<string> {
+export async function buildImage(dir: string, rebuild = false): Promise<string> {
   const tag = `openapi-crosscheck/${basename(dir)}:latest`;
-  await run("docker", ["build", "-t", tag, "."], {
+  // Docker reuses a cached install layer whose inputs did not change, so an
+  // ordinary build keeps whatever release that layer resolved. A rebuild pulls
+  // the base images and runs every layer again, which is what makes "the
+  // current release at build time" true.
+  const flags = rebuild ? ["--pull", "--no-cache"] : [];
+  await run("docker", ["build", ...flags, "-t", tag, "."], {
     cwd: dir,
     maxBuffer: 64 * 1024 * 1024,
   });
