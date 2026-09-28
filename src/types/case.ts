@@ -3,13 +3,12 @@ import type { OasVersion, OpenApiDocument, ParameterLocation, Style } from "./op
 import type { WireRequest } from "./wire";
 
 /**
- * Which boundary of a library a case measures.
+ * Whether the specification settles a case.
  *
- * Some libraries accept a raw wire request; others accept an already-split
- * `{ params, query, headers }` and never see the target string. For the second
- * kind, the split is done by the harness, so a `wireDeserialization` verdict
- * from them would measure the harness rather than the library. The runner
- * refuses that pairing instead of expecting adapters to decline it.
+ * `conformance`: the specification settles the verdict, the case quotes the
+ * text that settles it, and a library's answer passes or fails. `divergence`:
+ * the specification leaves the question open, the case records what each
+ * library returned, and no answer is attributed as a failure.
  */
 export type Tier = "conformance" | "divergence";
 
@@ -23,7 +22,7 @@ export type SchemaShape =
   | "scalar";
 
 /**
- * The 3f axis: what this case varies away from canonical. `canonical` is the
+ * The probe axis: what this case varies away from canonical. `canonical` is the
  * case that holds everything constant, and is the blind spot every other axis
  * exists to cover.
  */
@@ -323,10 +322,8 @@ export interface ConformanceCase extends CaseBase {
  * The specification does not settle this one. Implementations may differ, and
  * the difference is the finding.
  *
- * There is deliberately no `expected` field on this type. The brief says to
- * resist the pull toward storing an oracle for divergence cases, and the way to
- * resist a pull is to remove the place it would go rather than to write a rule
- * against filling it in.
+ * There is deliberately no `expected` field on this type. A divergence case
+ * stores no oracle, and the type enforces that by having no place to put one.
  */
 export interface DivergenceCase extends CaseBase {
   readonly tier: "divergence";
