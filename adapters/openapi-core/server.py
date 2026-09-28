@@ -186,19 +186,28 @@ def build_request(message: Mapping[str, Any]) -> ProtocolRequest:
 
     preparsed = message.get("preparsed") or {}
     # A pair whose value is null carried no `=` on the wire. Every value in a
-    # MultiDict is a string, so `?p` cannot be spelled apart from `?p=` here and
-    # the case is refused rather than answered on the other request.
+    # MultiDict is a string, so `?p` cannot be spelled apart from `?p=` here.
+    # That matters only when a declared `in: "query"` parameter reads the pairs,
+    # and then the case is refused rather than answered on the other request. A
+    # document declaring none, such as one whose parameter is the whole query
+    # string, reads no pair, so the pair goes in with an empty value and the
+    # case reaches the library like its siblings.
     raw_query = [
         pair
         for pair in preparsed.get("query") or []
         if isinstance(pair, list) and len(pair) == 2
     ]
-    if any(pair[1] is None for pair in raw_query):
+    reads_pairs = any(
+        parameter.get("in") == "query" for parameter in declared_parameters(message["document"])
+    )
+    if reads_pairs and any(pair[1] is None for pair in raw_query):
         raise UnspellableInputError(
             "a query pair arrived with no `=`, and the Request protocol takes query "
             "values as strings, so `?p` cannot be handed over apart from `?p=`"
         )
-    query_pairs: list[tuple[str, str]] = [(str(pair[0]), str(pair[1])) for pair in raw_query]
+    query_pairs: list[tuple[str, str]] = [
+        (str(pair[0]), "" if pair[1] is None else str(pair[1])) for pair in raw_query
+    ]
 
     # werkzeug's Headers, the case-insensitive mapping RequestParameters
     # defaults to and the library's own integrations build. A plain dict makes
