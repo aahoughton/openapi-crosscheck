@@ -1,7 +1,7 @@
 import type { Case, Citation, ConformanceCase } from "../types/case";
 import type { JsonValue } from "../types/json";
 import type { OasVersion, ParameterLocation } from "../types/openapi";
-import type { PipelineStage } from "../types/pipeline";
+import type { PipelineStage, SplittableLocation } from "../types/pipeline";
 import { PIPELINE_STAGES, ownsStage, probedStage } from "../types/pipeline";
 import type { AdapterResult, ValueVantage } from "../types/result";
 import {
@@ -1391,92 +1391,72 @@ interface Delegated {
   readonly location: ParameterLocation | null;
 }
 
+/** A stage slot, spelled as one key: the stage, and for splitting its location. */
+type SlotKey = Exclude<PipelineStage, "splitting"> | `splitting:${SplittableLocation}`;
+
+/**
+ * What a caller does for a library that leaves a slot to it.
+ *
+ * Keyed by every slot, so a stage or location added to the pipeline is a type
+ * error here until someone writes what the caller has to do for it.
+ */
+const CALLER_WORK: Readonly<Record<SlotKey, { readonly title: string; readonly detail: string }>> = {
+  routing: {
+    title: "Routing",
+    detail: "Match the request to an operation and tell it which one applies.",
+  },
+  "splitting:cookie": {
+    title: "Cookie splitting",
+    detail: "Split the `Cookie` header into name and value pairs.",
+  },
+  "splitting:header": {
+    title: "Header name matching",
+    detail:
+      "Its input is keyed by header name, so fold the casing and collect same-named " +
+      "headers yourself before calling it.",
+  },
+  "splitting:path": {
+    title: "Path splitting",
+    detail: "Recover each path parameter's raw value from the target.",
+  },
+  "splitting:query": {
+    title: "Query splitting",
+    detail: "Split the query string into name and value pairs.",
+  },
+  styleDeserialization: {
+    title: "Style and explode",
+    detail:
+      "Apply each parameter's `style` and `explode` yourself. It validates the structured " +
+      "value you hand it and performs no deserialization of its own.",
+  },
+  contentDeserialization: {
+    title: "Content media type",
+    detail:
+      "Read a `content` parameter's raw value as a representation of its declared media " +
+      "type yourself, and hand it the result. A value that is not a representation of " +
+      "that media type reaches it as text.",
+  },
+  schemaValidation: {
+    title: "Schema validation",
+    detail: "Validate the values yourself.",
+  },
+  valueExposure: {
+    title: "Value exposure",
+    detail:
+      "It returns a verdict and no values, so a caller needing the deserialized values " +
+      "computes them again from the request.",
+  },
+};
+
 /** What a caller has to do for this library, in pipeline order. */
 function delegatedStages(adapter: LibraryMeasurement): readonly Delegated[] {
-  const s = adapter.capabilities.stages;
-  const delegated: Delegated[] = [];
-  if (!s.routing) {
-    delegated.push({
-      title: "Routing",
-      detail: "Match the request to an operation and tell it which one applies.",
-      stage: "routing",
-      location: null,
-    });
-  }
-  if (!s.splitting.path) {
-    delegated.push({
-      title: "Path splitting",
-      detail: "Recover each path parameter's raw value from the target.",
-      stage: "splitting",
-      location: "path",
-    });
-  }
-  if (!s.splitting.header) {
-    delegated.push({
-      title: "Header name matching",
-      detail:
-        "Its input is keyed by header name, so fold the casing and collect same-named " +
-        "headers yourself before calling it.",
-      stage: "splitting",
-      location: "header",
-    });
-  }
-  if (!s.splitting.query) {
-    delegated.push({
-      title: "Query splitting",
-      detail: "Split the query string into name and value pairs.",
-      stage: "splitting",
-      location: "query",
-    });
-  }
-  if (!s.splitting.cookie) {
-    delegated.push({
-      title: "Cookie splitting",
-      detail: "Split the `Cookie` header into name and value pairs.",
-      stage: "splitting",
-      location: "cookie",
-    });
-  }
-  if (!s.styleDeserialization) {
-    delegated.push({
-      title: "Style and explode",
-      detail:
-        "Apply each parameter's `style` and `explode` yourself. It validates the structured " +
-        "value you hand it and performs no deserialization of its own.",
-      stage: "styleDeserialization",
-      location: null,
-    });
-  }
-  if (!s.contentDeserialization) {
-    delegated.push({
-      title: "Content media type",
-      detail:
-        "Read a `content` parameter's raw value as a representation of its declared media " +
-        "type yourself, and hand it the result. A value that is not a representation of " +
-        "that media type reaches it as text.",
-      stage: "contentDeserialization",
-      location: null,
-    });
-  }
-  if (!s.schemaValidation) {
-    delegated.push({
-      title: "Schema validation",
-      detail: "Validate the values yourself.",
-      stage: "schemaValidation",
-      location: null,
-    });
-  }
-  if (!s.valueExposure) {
-    delegated.push({
-      title: "Value exposure",
-      detail:
-        "It returns a verdict and no values, so a caller needing the deserialized values " +
-        "computes them again from the request.",
-      stage: "valueExposure",
-      location: null,
-    });
-  }
-  return delegated;
+  return STAGE_SLOTS.filter(
+    ({ stage, location }) => !ownsStage(adapter.capabilities.stages, stage, location ?? "path"),
+  ).map(({ stage, location }) => {
+    const key: SlotKey =
+      stage === "splitting" && location !== null ? `splitting:${location}` : (stage as SlotKey);
+    return { ...CALLER_WORK[key], stage, location };
+  });
 }
 
 /**

@@ -171,13 +171,13 @@ Supply these yourself before it can answer. Under each is what the corpus
 already knows about that stage: the cases probing it, and the rules their
 expected verdicts rest on.
 
-**Query splitting.** Split the query string into name and value pairs.
-
-6 divergence cases also probe it: `query-content-and-schema-declared-oas30`, `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas30`, `query-content-two-media-types-oas31`, `query-form-array-duplicate-name-oas30`, `query-form-array-duplicate-name-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
-
 **Cookie splitting.** Split the `Cookie` header into name and value pairs.
 
 2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
+
+**Query splitting.** Split the query string into name and value pairs.
+
+6 divergence cases also probe it: `query-content-and-schema-declared-oas30`, `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas30`, `query-content-two-media-types-oas31`, `query-form-array-duplicate-name-oas30`, `query-form-array-duplicate-name-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 ### `openapi-request-validator`
 
@@ -200,11 +200,9 @@ Rules those verdicts rest on:
 
 4 divergence cases also probe it: `path-routing-ambiguous-templates-oas30`, `path-routing-ambiguous-templates-oas31`, `path-routing-identical-templates-oas30`, `path-routing-identical-templates-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries split on `path-routing-ambiguous-templates-oas30`, `path-routing-ambiguous-templates-oas31`.
 
-**Path splitting.** Recover each path parameter's raw value from the target.
+**Cookie splitting.** Split the `Cookie` header into name and value pairs.
 
-No case in this corpus probes that stage yet, so the corpus has nothing to
-hand you here. That is a gap in the corpus rather than a sign the stage is
-simple.
+2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 **Header name matching.** Its input is keyed by header name, so fold the casing and collect same-named headers yourself before calling it.
 
@@ -221,13 +219,15 @@ Rules those verdicts rest on:
 - [style-examples](https://spec.openapis.org/oas/v3.0.4.html#style-examples)
 - [style-examples](https://spec.openapis.org/oas/v3.1.1.html#style-examples)
 
+**Path splitting.** Recover each path parameter's raw value from the target.
+
+No case in this corpus probes that stage yet, so the corpus has nothing to
+hand you here. That is a gap in the corpus rather than a sign the stage is
+simple.
+
 **Query splitting.** Split the query string into name and value pairs.
 
 6 divergence cases also probe it: `query-content-and-schema-declared-oas30`, `query-content-and-schema-declared-oas31`, `query-content-two-media-types-oas30`, `query-content-two-media-types-oas31`, `query-form-array-duplicate-name-oas30`, `query-form-array-duplicate-name-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
-
-**Cookie splitting.** Split the `Cookie` header into name and value pairs.
-
-2 divergence cases also probe it: `cookie-form-object-explode-oas30`, `cookie-form-object-explode-oas31`. The specification does not settle those, so implementing this stage means choosing a side rather than following a rule. The measured libraries that answered did not split on them.
 
 **Style and explode.** Apply each parameter's `style` and `explode` yourself. It validates the structured value you hand it and performs no deserialization of its own.
 
