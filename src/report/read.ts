@@ -53,9 +53,9 @@ export type RunSidecarState =
  * null when there is nothing to say.
  *
  * Shared by both renderers because they print the same note for the same
- * reason, and the copy of it that drifted is how a note claiming the run had
- * not finished came to be printed for every render of this repository's own
- * committed report.
+ * reason, and one copy keeps them from disagreeing. This repository does not
+ * commit its own sidecar, so the absent note is printed by every ordinary
+ * render here and has to stay true of a run that finished.
  */
 export function sidecarNote(dir: string, state: RunSidecarState): string | null {
   if (state.kind === "read") return null;
@@ -219,14 +219,14 @@ function readMeasurements(
  * The sidecar, if the directory has one this can be read as a sidecar.
  *
  * The existence check comes first so that a missing file and an unusable one
- * stay separable: catching both in one `try` is what made the renderers report
- * a corrupt sidecar as a run that never wrote one.
+ * stay separable: one `try` around both would report a corrupt sidecar as a
+ * run that never wrote one.
  *
  * Anything that is not a JSON object is `unreadable` rather than a sidecar with
- * nothing in it. `null` parses, and reading fields off it threw a `TypeError`
- * that reached the command line as a stack trace; an array and a string parse
- * and quietly produced a run block with every field unrecorded, which reads as
- * a harness that recorded nothing rather than a file that is not a sidecar.
+ * nothing in it. `null`, an array and a string all parse; read field by field
+ * they would either throw or produce a run block with every field unrecorded,
+ * which reads as a harness that recorded nothing rather than a file that is
+ * not a sidecar.
  */
 function readSidecar(dir: string): RunSidecarState {
   const path = join(dir, "run.json");

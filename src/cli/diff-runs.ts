@@ -14,9 +14,9 @@ import { readMeasurementFile } from "../report/read";
  * ```
  *
  * The question this answers is the one a library author asks after a fix: did
- * this move only what I meant it to. The harness could answer it before only
- * through a text diff over rendered markdown, which hides the group that
- * matters most, the cases that entered or left `unsupported`.
+ * this move only what I meant it to. A text diff over rendered markdown hides
+ * the group that matters most, the cases that entered or left `unsupported`,
+ * so this compares the measurements themselves.
  *
  * Either side is a measurement file or a run directory holding exactly one. A
  * directory holding several is an error naming them, because picking one would

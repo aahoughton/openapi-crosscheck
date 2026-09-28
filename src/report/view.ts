@@ -231,7 +231,7 @@ export function resolveLabels(sources: readonly EntrySource[]): readonly Entry[]
 
   // Grouped by position rather than by object, because two inputs can be the
   // same measurement read twice, or literally the same object, and keying on
-  // identity silently merged them into one column.
+  // identity would merge them into one column.
   const groups = new Map<string, number[]>();
   sources.forEach((source, index) => {
     const name = base(source);
@@ -300,9 +300,9 @@ export function matrixFileName(version: OasVersion): string {
  *
  * Ordered for someone scanning. The plain sentence and the request come first,
  * because "what is this one doing" is the question a reader hovering a row has,
- * and the argument for the verdict is the question they have after that. An
- * earlier version led with the argument and ran past a thousand characters,
- * which answered the second question well and the first one not at all.
+ * and the argument for the verdict is the question they have after that. Led
+ * by the argument, a note runs past a thousand characters and answers the
+ * second question well and the first one not at all.
  *
  * The citations are named and not quoted. A quote is what makes a conformance
  * failure attributable, and it was more than a third of everything hovering

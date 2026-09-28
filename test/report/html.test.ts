@@ -18,10 +18,9 @@ import {
  *
  * The markdown is checked by rebuilding it and comparing bytes, which works
  * because it is committed. The page is not committed, so there is nothing to
- * compare it against, and it went unchecked entirely: it rendered 13 of 20
- * divergence cases and 45 of 56 conformance cases for as long as it existed,
- * because a section that looked like the divergence tier was a filter across
- * both tiers. `pnpm check` had nothing to say about that.
+ * compare it against, and a page missing part of a tier would look complete:
+ * a section that looks like the divergence tier and filters across both tiers
+ * draws some cases of each and none of the gap.
  *
  * So the assertions here are the ones a count can make and prose cannot. Every
  * case in the corpus reaches the tier it belongs to, and the outcomes the page
@@ -31,8 +30,6 @@ import {
  *
  * What they cannot say is whether the page reads well, whether its prose is
  * true, or whether a cell is in the right column. Those stay a person's job.
- * The bug this file exists for was none of those: it was a whole tier absent
- * from a page that looked complete.
  */
 
 const reportDir = fileURLToPath(new URL("../../report", import.meta.url));
@@ -119,9 +116,8 @@ describe("the outcomes drawn are the outcomes scored", () => {
   });
 
   it("explains every chip it can draw, one line each", () => {
-    // Generated from the outcome list rather than written as prose, because the
-    // paragraph it replaced explained four of the seven and a reader met the
-    // other three with no key at all.
+    // Generated from the outcome list rather than written as prose, so an
+    // outcome added to the scorer cannot reach a cell without a line here.
     const key = section("Conformance").split("</table>")[1] ?? "";
     for (const label of new Set(Object.values(LABELS))) {
       expect(key).toContain(`>${label}</span></dt>`);
@@ -403,8 +399,8 @@ function escapeForAttribute(value: string): string {
 
 describe("what the page says is beside it", () => {
   // Rendering markdown is a separate command over the same directory, so a
-  // directory can hold this page and no `matrix.md` at all. The page used to
-  // name that file either way.
+  // directory can hold this page and no `matrix.md` at all, and the page names
+  // that file only as something to generate when it is absent.
   it("names matrix.md as something to generate when it is not there", () => {
     const alone = renderHtml(run.cases, entries, run.sidecar, { markdown: false });
     expect(alone).toContain("pnpm render-md");

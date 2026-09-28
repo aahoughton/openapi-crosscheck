@@ -689,8 +689,8 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("## Content representation surface");
   lines.push("");
   lines.push("The table above enumerates style serialization, and a parameter declaring");
-  lines.push("`content` has no style and no explode to place in it. Those cases were in the");
-  lines.push("corpus and in no coverage map. This is their map.");
+  lines.push("`content` has no style and no explode to place in it. This is the map for those");
+  lines.push("cases.");
   lines.push("");
   const contentCases = cases.filter((testCase) => testCase.dimensions.declaration === "content");
   const excludedContent = contentCases
@@ -911,12 +911,12 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
     lines.push("version's corpus.");
     lines.push("");
   }
-  lines.push("`valueExposure` is a pipeline stage and has no row here, which is deliberate and");
-  lines.push("is a correction. It had one, reading `0` and `0`, and that read as a gap someone");
-  lines.push("could fill by writing cases. No case can fill it. A case probes a stage by");
+  lines.push("`valueExposure` is a pipeline stage and has no row here. A row reading `0` and");
+  lines.push("`0` would read as a gap someone could fill by writing cases, and no case can");
+  lines.push("fill it. A case probes a stage by");
   lines.push("varying something and seeing whether the verdict moves, and exposure changes no");
   lines.push("verdict: a library hands back the values it parsed or it does not, whatever the");
-  lines.push("request was. Removing the row keeps the table from advertising work that would");
+  lines.push("request was. Leaving the row out keeps the table from advertising work that would");
   lines.push("not change the coverage.");
   lines.push("");
   lines.push("Exposure is asked of every case that carries expected values, as the second half");
@@ -1085,27 +1085,14 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
 }
 
 /**
- * What each library does for itself, and what you would be writing yourself.
- *
- * A separate artifact from the matrix because it answers a separate question.
- * The matrix asks whether a library reads the specification correctly when fed
- * at the boundary it accepts. This asks whether it can be handed an HTTP request
- * and produce a verdict, which is about coverage rather than
- * correctness. Every delegated stage is a stage its caller implements, and the
- * bugs there belong to the caller.
- *
- * Nothing here is scored, ranked or totalled. A library owning fewer stages has
- * a different shape, and a caller who already has a framework doing the
- * splitting may want exactly that shape.
- */
-/**
  * The way into a run directory, for someone who has not read anything else.
  *
  * Every other file here opens in the middle of its own argument, which is right
  * for the file and unhelpful for a reader who has just arrived and does not yet know
  * what a case is, what an adapter is, or why a library can be missing from a row
  * without a library failure. The page renders that orientation too, and the
- * page is not committed, so a directory browsed on a forge had nothing.
+ * page is not committed, so this file is what a directory browsed on a forge
+ * shows.
  *
  * Named README.md because that is the file a directory listing shows first,
  * which is the whole job.
@@ -1251,6 +1238,20 @@ function renderReadme(
   return `${lines.join("\n")}\n`;
 }
 
+/**
+ * What each library does for itself, and what you would be writing yourself.
+ *
+ * A separate artifact from the matrix because it answers a separate question.
+ * The matrix asks whether a library reads the specification correctly when fed
+ * at the boundary it accepts. This asks whether it can be handed an HTTP request
+ * and produce a verdict, which is about coverage rather than
+ * correctness. Every delegated stage is a stage its caller implements, and the
+ * bugs there belong to the caller.
+ *
+ * Nothing here is scored, ranked or totalled. A library owning fewer stages has
+ * a different shape, and a caller who already has a framework doing the
+ * splitting may want exactly that shape.
+ */
 function renderFitness(
   cases: readonly Case[],
   measurements: readonly LibraryMeasurement[],
@@ -1381,7 +1382,6 @@ function owned(value: boolean): string {
   return value ? "owned" : "caller";
 }
 
-/** What a caller has to do for this library, in pipeline order. */
 /** One stage a library leaves to its caller, and where in the corpus it bites. */
 interface Delegated {
   readonly title: string;
@@ -1391,6 +1391,7 @@ interface Delegated {
   readonly location: ParameterLocation | null;
 }
 
+/** What a caller has to do for this library, in pipeline order. */
 function delegatedStages(adapter: LibraryMeasurement): readonly Delegated[] {
   const s = adapter.capabilities.stages;
   const delegated: Delegated[] = [];
@@ -1510,11 +1511,10 @@ function rulesBehind(
   const settled = matching.filter((c): c is ConformanceCase => c.tier === "conformance");
 
   // Keyed by version and anchor, because an anchor names a section of one
-  // document and the same section name exists in three. Keyed by anchor alone,
-  // the corpus's id order decided which document's URL survived: `schema-object`
-  // and `fixed-fields-for-use-with-content` exist in all three, so the 3.1 links
-  // were being overwritten by whichever version sorted last, and a reader
-  // following a rule behind a 3.0 case landed in the 3.2 document.
+  // document and the same section name exists in three: `schema-object` and
+  // `fixed-fields-for-use-with-content` exist in all three, and keyed by anchor
+  // alone a rule behind a 3.0 case would link into whichever version's
+  // document the corpus order put last.
   const seen = new Map<string, Citation>();
   for (const testCase of settled) {
     for (const citation of testCase.citations) {

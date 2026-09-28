@@ -623,20 +623,6 @@ ${provenance(sidecar)}
 }
 
 /**
- * What the segments of a roster strip mean.
- *
- * Ahead of the libraries rather than under them, because the strip is unreadable
- * until it is read once: a reader who does not know what `split: cookie` is
- * cannot tell a library that leaves the stage to its caller from one that
- * performs it badly, and those are opposite facts. The stages come from
- * `STAGE_SLOTS`, the same list the strips are drawn from, so a stage added to
- * the pipeline appears here without anyone remembering to add it.
- *
- * The two swatches are the legend for the strip itself. A filled segment and an
- * empty one are the only marks on it, and nothing else on the page says which
- * is which.
- */
-/**
  * The specification version(s) the rendered corpus cites, from the cases
  * rather than from anyone's assumption. Every case names the OAS version its
  * question is asked of, and a corpus mixing versions is legal, so the heading
@@ -685,6 +671,20 @@ function versionFilterCss(versions: readonly OasVersion[]): string {
   return `\n${rules.join("\n")}\n`;
 }
 
+/**
+ * What the segments of a roster strip mean.
+ *
+ * Ahead of the libraries rather than under them, because the strip is unreadable
+ * until it is read once: a reader who does not know what `split: cookie` is
+ * cannot tell a library that leaves the stage to its caller from one that
+ * performs it badly, and those are opposite facts. The stages come from
+ * `STAGE_SLOTS`, the same list the strips are drawn from, so a stage added to
+ * the pipeline appears here without anyone remembering to add it.
+ *
+ * The two swatches are the legend for the strip itself. A filled segment and an
+ * empty one are the only marks on it, and nothing else on the page says which
+ * is which.
+ */
 function stageLegend(): string {
   return `  <div class="callout legend">
     <h3>What the segments mean</h3>

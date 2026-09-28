@@ -102,8 +102,8 @@ cell is a case nobody has written.
 ## Content representation surface
 
 The table above enumerates style serialization, and a parameter declaring
-`content` has no style and no explode to place in it. Those cases were in the
-corpus and in no coverage map. This is their map.
+`content` has no style and no explode to place in it. This is the map for those
+cases.
 
 Defined combinations: 60. Covered: 3. Empty: 57.
 
@@ -322,12 +322,12 @@ No case in this version probes `routing` or `splitting`. Nothing measured under 
 version says how a library performs those stages. The zero exposes a gap in this
 version's corpus.
 
-`valueExposure` is a pipeline stage and has no row here, which is deliberate and
-is a correction. It had one, reading `0` and `0`, and that read as a gap someone
-could fill by writing cases. No case can fill it. A case probes a stage by
+`valueExposure` is a pipeline stage and has no row here. A row reading `0` and
+`0` would read as a gap someone could fill by writing cases, and no case can
+fill it. A case probes a stage by
 varying something and seeing whether the verdict moves, and exposure changes no
 verdict: a library hands back the values it parsed or it does not, whatever the
-request was. Removing the row keeps the table from advertising work that would
+request was. Leaving the row out keeps the table from advertising work that would
 not change the coverage.
 
 Exposure is asked of every case that carries expected values, as the second half

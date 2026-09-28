@@ -7,22 +7,12 @@ import {
   OUTCOME_LABEL,
   OUTCOME_NOTE,
   STAGE_SLOTS,
-  conformanceCell, valuesCell, verdictCell } from "./cells";
+  conformanceCell,
+  valuesCell,
+  verdictCell,
+} from "./cells";
 import { conformanceTallies, matrixFileName, presentVersions } from "./view";
 
-/**
- * Read one library's measurement on its own.
- *
- * The single-library view is the ordinary one rather than a reduced form of the
- * comparison. Nothing here mentions another library or needs one to have been
- * measured, so running the harness against one library produces a report that
- * is complete rather than a matrix with a single column.
- *
- * Scoring happens here rather than in the measurement. The corpus holds the
- * expected verdict and the expected values, adapters are forbidden from seeing
- * them, and a score written into the artifact would put the judgement beyond
- * the reach of anyone re-reading the answer it was derived from.
- */
 /**
  * What to say beside a version that may not be the code that answered.
  *
@@ -41,6 +31,19 @@ function resolutionNote(measurement: LibraryMeasurement): string {
   );
 }
 
+/**
+ * Read one library's measurement on its own.
+ *
+ * The single-library view is the ordinary one rather than a reduced form of the
+ * comparison. Nothing here mentions another library or needs one to have been
+ * measured, so running the harness against one library produces a report that
+ * is complete rather than a matrix with a single column.
+ *
+ * Scoring happens here rather than in the measurement. The corpus holds the
+ * expected verdict and the expected values, adapters are forbidden from seeing
+ * them, and a score written into the artifact would put the judgement beyond
+ * the reach of anyone re-reading the answer it was derived from.
+ */
 export function renderLibrary(cases: readonly Case[], measurement: LibraryMeasurement): string {
   const lines: string[] = [];
   const byCase = new Map(measurement.answers.map((answer) => [answer.caseId, answer.result]));

@@ -23,10 +23,10 @@ import { readMeasurementFile, readRun, sidecarNote } from "../../src/report/read
  * throw, because a report that refuses to render tells a reader less than one
  * that says which field it does not have.
  *
- * Absent and unreadable are separate states rather than one. Collapsing them is
- * what let both renderers print "the run did not finish" over a directory whose
- * run finished and whose sidecar is deliberately not committed, and it left a
- * `run.json` holding `null` to throw a TypeError out of the renderer.
+ * Absent and unreadable are separate states. An absent sidecar is ordinary,
+ * since this repository does not commit its own, and a note saying the run did
+ * not finish would be false for every render of it; a `run.json` holding `null`
+ * has to come back as unreadable rather than throw out of the renderer.
  */
 
 const made: string[] = [];
