@@ -55,6 +55,23 @@ export const SCHEMA_OBJECT = cite(
     "JSON Schema Specification Draft 2020-12.",
 );
 
+/**
+ * JSON Schema 2020-12's `type` keyword, which the Schema Object takes from the
+ * draft it is a superset of. A type array admits an instance matching any of
+ * its members, which is how a 3.1 schema admits null beside another type.
+ * Quoted from the validation draft the 3.1.1 Data Types section links.
+ */
+export const JSON_SCHEMA_TYPE: Citation = {
+  oasVersion: "3.1",
+  anchor: "section-6.1.1",
+  url: "https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-6.1.1",
+  quoted:
+    'String values MUST be one of the six primitive types ("null", "boolean", "object", ' +
+    '"array", "number", or "string"), or "integer" which matches any number with a zero ' +
+    "fractional part. An instance validates if and only if the instance is in any of the " +
+    "sets listed for this keyword.",
+};
+
 export const JSON_SCHEMA_DATA_MODEL = cite(
   "appendix-b-data-type-conversion",
   "Schema Objects validate data based on the JSON Schema data model, which only " +
