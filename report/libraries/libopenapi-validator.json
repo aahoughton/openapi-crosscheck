@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": null
   },
-  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
+  "corpusDigest": "sha256:da18b8875065536208dd8894f9bfc8debcb4b928eb913004e06cd91766d2dfd2",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -782,7 +782,7 @@
   "provenance": {
     "kind": "container",
     "slug": "libopenapi-validator",
-    "imageId": "sha256:57f76f4b9d4d10a0cf278f3e47082ebf4461cdd33d47a57650d20aa0149c792f",
+    "imageId": "sha256:00600c70af6660cff0b50e3c0c69a21d49449a98874eb5a9513b3e1aed228748",
     "ecosystem": "go"
   },
   "answers": [
@@ -5830,6 +5830,28 @@
     },
     {
       "caseId": "querystring-json-object-malformed-oas32",
+      "result": {
+        "library": "github.com/pb33f/libopenapi-validator",
+        "libraryVersion": "0.14.0",
+        "configurationId": "validate-http-request",
+        "preparse": null,
+        "outcome": "accepted",
+        "deserialized": {
+          "kind": "unexposed",
+          "reason": "no published call returns the deserialized parameter values"
+        },
+        "inputMutation": {
+          "detail": "the method, target and headers of the http.Request handed to ValidateHttpRequest, unchanged",
+          "kind": "none"
+        },
+        "raw": {
+          "errors": [],
+          "valid": true
+        }
+      }
+    },
+    {
+      "caseId": "querystring-json-object-wrong-type-oas32",
       "result": {
         "library": "github.com/pb33f/libopenapi-validator",
         "libraryVersion": "0.14.0",

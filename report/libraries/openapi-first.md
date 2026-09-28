@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/ahx/openapi_first
 
 Built from: `adapters/openapi-first/`
 
-Image: `sha256:02d3753575156b80f6d495442950aa8f399a67708f4e6a2a40de3368f7375a1d`
+Image: `sha256:ebdbed6952936f97de4ed90271e2ca5cb7e177f96b5383c6761154f27b61a167`
 
 Configuration `validate-request-rack`: OpenapiFirst.parse(document) driven through validate_request with a Rack::Request built from the raw target. The path is handed over as PATH_INFO with no decoding of its own, and the query string as QUERY_STRING, so the library splits and deserializes both. Header names are put into the Rack environment under its own convention, which upcases them, because that environment is the only request shape this library's public call accepts. Repeated lines are joined with a bare comma. Reading its values: parsed parameters are reported whether or not the request was then rejected, so a value cell on a rejected row shows what the library had parsed at the point it refused rather than what it accepted.
 
@@ -223,8 +223,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| n/a | 17 |
-| every conformance case | 17 |
+| n/a | 18 |
+| every conformance case | 18 |
 
 - `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
 
@@ -250,6 +250,7 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (oasVersionNotDeclared)
+- [`querystring-json-object-wrong-type-oas32`](../matrix.oas32.md#querystring-json-object-wrong-type-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 

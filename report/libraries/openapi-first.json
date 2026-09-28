@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "gem \"openapi_first\""
   },
-  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
+  "corpusDigest": "sha256:da18b8875065536208dd8894f9bfc8debcb4b928eb913004e06cd91766d2dfd2",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -720,7 +720,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-first",
-    "imageId": "sha256:02d3753575156b80f6d495442950aa8f399a67708f4e6a2a40de3368f7375a1d",
+    "imageId": "sha256:ebdbed6952936f97de4ed90271e2ca5cb7e177f96b5383c6761154f27b61a167",
     "ecosystem": "rubygems"
   },
   "answers": [
@@ -6751,6 +6751,18 @@
     },
     {
       "caseId": "querystring-json-object-malformed-oas32",
+      "result": {
+        "library": "openapi_first",
+        "libraryVersion": "4.0.0",
+        "configurationId": "validate-request-rack",
+        "preparse": null,
+        "outcome": "unsupported",
+        "reason": "oasVersionNotDeclared",
+        "detail": "this case's document is OpenAPI 3.2, which this container does not declare its library accepts, so no request was made and nothing here says how the library would have answered"
+      }
+    },
+    {
+      "caseId": "querystring-json-object-wrong-type-oas32",
       "result": {
         "library": "openapi_first",
         "libraryVersion": "4.0.0",

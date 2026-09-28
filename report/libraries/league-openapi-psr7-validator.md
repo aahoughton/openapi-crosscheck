@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/thephpleague/openapi-psr7
 
 Built from: `adapters/league-openapi-psr7-validator/`
 
-Image: `sha256:dd382796084582c13ff7b090b2d399f305382d8860572c7df18d7e552b7901d3`
+Image: `sha256:f5a9dc69e2f79803278eac505eb9f1299dd81fc8445f8f476c1af927d8883988`
 
 Configuration `request-validator-psr7`: ValidatorBuilder::fromJson(document) driven through getRequestValidator()->validate(), with a PSR-7 RequestInterface built from the raw target. The plain request validator is used rather than the server request one, because the plain one reads the Cookie header itself where the server one takes a cookie array from its caller, so every location stays the library's. Known limitation: the PSR-7 URI type parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. Existing percent-encoded sequences reach the validator unchanged. Values are unexposed: validate() answers with an OperationAddress or raises, and the deserializer that converts a styled parameter is not reachable from the published validation call.
 
@@ -246,8 +246,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| n/a | 17 |
-| every conformance case | 17 |
+| n/a | 18 |
+| every conformance case | 18 |
 
 - `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
 
@@ -273,6 +273,7 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (oasVersionNotDeclared)
+- [`querystring-json-object-wrong-type-oas32`](../matrix.oas32.md#querystring-json-object-wrong-type-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 

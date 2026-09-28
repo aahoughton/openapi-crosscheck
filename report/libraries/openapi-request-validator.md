@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/kogosoftwarellc/open-api/
 
 Built from: `adapters/openapi-request-validator/`
 
-Image: `sha256:f8390427389973090bf88e06bf088c839cc9016bbf27b54c8ea7c0fc30d7eb55`
+Image: `sha256:d0cc55e18094086bf3bffbeec210ba3055cb7d2e12f74c9138ddf11d5384cad2`
 
 Configuration `parameters-only`: new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. That shape holds a string per name, so a query pair that arrived with no `=` is answered as a case this shape cannot represent, rather than as an empty value. It is told which operation applies, because it has no routing of its own. A case declaring a cookie parameter is answered as one this shape cannot represent, because validateRequest has no cookie input. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 
@@ -328,8 +328,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| n/a | 17 |
-| every conformance case | 17 |
+| n/a | 18 |
+| every conformance case | 18 |
 
 - `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
 
@@ -355,6 +355,7 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (oasVersionNotDeclared)
+- [`querystring-json-object-wrong-type-oas32`](../matrix.oas32.md#querystring-json-object-wrong-type-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 

@@ -92,7 +92,7 @@ shows whether the type was checked at all.
 | `integer` | 1 | `querystring-form-urlencoded-object-wrong-type-oas32` |
 | `null` | 0 |  |
 | `number` | 0 |  |
-| `string` | 24 |  |
+| `string` | 25 | `querystring-json-object-wrong-type-oas32` |
 
 A case is listed against the one type its value is wrong for, which is not
 every type its document declares. A `schema` parameter's value arrives as
@@ -109,7 +109,7 @@ cases.
 
 Defined combinations: 60. Covered: 3. Empty: 57.
 
-Mostly empty, and published that way. The corpus has 10 content cases and this
+Mostly empty, and published that way. The corpus has 11 content cases and this
 surface has room for far more, so this table keeps the empty cells visible.
 Filling it to look full would make the coverage number less informative.
 
@@ -216,18 +216,18 @@ resting on it, and can see which cited sections carry only one.
 | section | cases |
 | --- | --- |
 | appendix-b-data-type-conversion | `querystring-form-urlencoded-object-wrong-type-oas32` |
-| fixed-fields-for-use-with-content | `querystring-absent-no-question-mark-oas32`, `querystring-empty-after-question-mark-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-json-object-canonical-oas32`, `querystring-json-object-malformed-oas32` |
+| fixed-fields-for-use-with-content | `querystring-absent-no-question-mark-oas32`, `querystring-empty-after-question-mark-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-json-object-canonical-oas32`, `querystring-json-object-malformed-oas32`, `querystring-json-object-wrong-type-oas32` |
 | fixed-fields-for-use-with-schema | `cookie-cookie-scalar-percent-triple-oas32` |
 | parameter-allow-reserved | `path-simple-scalar-allow-reserved-declared-oas32`, `path-simple-scalar-allow-reserved-unset-oas32` |
 | parameter-explode | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `query-deep-object-no-explode-oas32` |
-| parameter-locations | `querystring-absent-no-question-mark-oas32`, `querystring-empty-after-question-mark-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-json-object-canonical-oas32`, `querystring-json-object-malformed-oas32` |
+| parameter-locations | `querystring-absent-no-question-mark-oas32`, `querystring-empty-after-question-mark-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-json-object-canonical-oas32`, `querystring-json-object-malformed-oas32`, `querystring-json-object-wrong-type-oas32` |
 | parameter-required | `querystring-absent-no-question-mark-oas32`, `querystring-empty-after-question-mark-oas32`, `querystring-form-urlencoded-object-canonical-oas32` |
 | parameter-style | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32`, `query-form-scalar-encoded-plus-oas32`, `query-form-scalar-unencoded-plus-oas32` |
 | percent-encoding-and-cookies | `cookie-form-array-explode-oas32` |
-| schema-object | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32`, `query-form-scalar-encoded-plus-oas32`, `query-form-scalar-unencoded-plus-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-json-object-canonical-oas32`, `querystring-json-object-malformed-oas32` |
+| schema-object | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32`, `query-form-scalar-encoded-plus-oas32`, `query-form-scalar-unencoded-plus-oas32`, `querystring-form-urlencoded-object-canonical-oas32`, `querystring-json-object-canonical-oas32`, `querystring-json-object-malformed-oas32`, `querystring-json-object-wrong-type-oas32` |
 | style-examples | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `path-simple-scalar-allow-reserved-declared-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32` |
 | style-values | `cookie-cookie-array-canonical-explode-oas32`, `cookie-cookie-array-no-explode-oas32`, `cookie-cookie-object-canonical-explode-oas32`, `cookie-cookie-object-no-explode-oas32`, `cookie-cookie-scalar-canonical-oas32`, `cookie-cookie-scalar-no-explode-oas32`, `cookie-cookie-scalar-percent-triple-oas32`, `query-deep-object-canonical-oas32`, `query-deep-object-no-explode-oas32` |
-| url-percent-encoding | `query-form-scalar-encoded-plus-oas32`, `query-form-scalar-unencoded-plus-oas32`, `querystring-json-object-canonical-oas32`, `querystring-json-object-malformed-oas32` |
+| url-percent-encoding | `query-form-scalar-encoded-plus-oas32`, `query-form-scalar-unencoded-plus-oas32`, `querystring-json-object-canonical-oas32`, `querystring-json-object-malformed-oas32`, `querystring-json-object-wrong-type-oas32` |
 
 Cases resting on no cited section, because the specification is silent: `querystring-beside-query-oas32`, `querystring-content-with-style-oas32`, `querystring-declared-twice-oas32`, `querystring-declared-with-schema-oas32`.
 
@@ -300,7 +300,7 @@ cannot show.
 | nameWithoutValue | 0 |
 | optionalAbsent | 1 |
 | reservedName | 0 |
-| wrongTypeValue | 1 |
+| wrongTypeValue | 2 |
 
 ## Cases by the stage they probe
 
@@ -319,7 +319,7 @@ would be filled by a canonical case, and canonical probes style.
 | splitting | 0 | 0 |
 | styleDeserialization | 12 | 2 |
 | contentDeserialization | 4 | 4 |
-| schemaValidation | 1 | 1 |
+| schemaValidation | 2 | 1 |
 
 No case in this version probes `routing` or `splitting`. Nothing measured under this
 version says how a library performs those stages. The zero exposes a gap in this
@@ -397,11 +397,11 @@ rows are that surface, unfilled.
 | pattern | 0 |
 | patternProperties | 0 |
 | prefixItems | 0 |
-| properties | 14 |
+| properties | 15 |
 | propertyNames | 0 |
-| required | 4 |
+| required | 5 |
 | then | 0 |
-| type | 24 |
+| type | 25 |
 | uniqueItems | 0 |
 | unevaluatedItems | 0 |
 | unevaluatedProperties | 0 |
@@ -432,7 +432,7 @@ than left invisible. Each is a decision a future case can overturn.
 - Wire bytes: every request target and header value is printable ASCII. No
   percent triple is malformed or lowercase, and none encodes an octet above
   0x7F, so no value carries UTF-8.
-- Parameter names: `p` in 24 of 26 declarations, and every name
+- Parameter names: `p` in 25 of 27 declarations, and every name
   (`R`, `p`, `q`) is plain ASCII letters,
   so none needs encoding. No target carries a raw `[` or `]`: a deepObject
   name is always sent as `%5B` and `%5D`.

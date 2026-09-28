@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/getkin/kin-openapi
 
 Built from: `adapters/kin-openapi/`
 
-Image: `sha256:d8ba45396cadecffa3e9e6f6bc0f21ee48260abaf8e66107573f6a5b929fc98e`
+Image: `sha256:660c7ad9a453721059517a374a3fdce78f218983db07ae4cb09aeb45628ed320`
 
 Configuration `validate-request-gorillamux`: openapi3.NewLoader().LoadFromData(document), then doc.Validate, routed with gorillamux and validated through openapi3filter.ValidateRequest, driven from an http.Request built from the raw target. doc.Validate is optional in the library's API and is run because its documentation calls for it before use; a document it refuses is reported as libraryInitUnsupported. Headers are added with net/http's Header.Add, which canonicalizes names (p and P become P) and merges names differing only in case. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the router, so the encoding survives to that point. Values are read from a write-back channel: the function that decodes a styled parameter is unexported and no published call returns decoded values, and ValidateRequest writes values it supplies, such as schema defaults for absent query parameters, back onto the http.Request it was handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 
@@ -204,8 +204,8 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass (verdict only) | 4 |
-| n/a | 13 |
-| every conformance case | 17 |
+| n/a | 14 |
+| every conformance case | 18 |
 
 - `pass (verdict only)`: The settled verdict, from a library that exposes no deserialized values, so the value half of the case could not be asked of it.
 - `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
@@ -228,6 +228,7 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (libraryInitUnsupported)
 - [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (libraryInitUnsupported)
 - [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (libraryInitUnsupported)
+- [`querystring-json-object-wrong-type-oas32`](../matrix.oas32.md#querystring-json-object-wrong-type-oas32) (libraryInitUnsupported)
 
 ### Divergence
 

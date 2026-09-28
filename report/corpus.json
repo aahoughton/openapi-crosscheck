@@ -19894,6 +19894,114 @@
         "URI percent-encoding",
         "exactly one parameter is declared"
       ]
+    },
+    {
+      "id": "querystring-json-object-wrong-type-oas32",
+      "title": "querystring, application/json, object, a property of another JSON type",
+      "inShort": "The whole query string decodes to JSON whose R is the number 100, where the schema requires a string.",
+      "tier": "conformance",
+      "oasVersion": "3.2",
+      "citations": [
+        {
+          "oasVersion": "3.2",
+          "anchor": "parameter-locations",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#parameter-locations",
+          "quoted": "querystring - A parameter that treats the entire URL query string as a value which MUST be specified using the content field, most often with media type application/x-www-form-urlencoded using Encoding Objects in the same way as with request bodies of that media type; MUST NOT appear more than once, and MUST NOT appear in the same operation (or in the operation’s path-item) as any in: \"query\" parameters."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "fixed-fields-for-use-with-content",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#fixed-fields-for-use-with-content",
+          "quoted": "For more complex scenarios, the content field can define the media type and schema of the parameter, as well as give examples of its use. For use with in: \"querystring\" and application/x-www-form-urlencoded, see Encoding the x-www-form-urlencoded Media Type."
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "url-percent-encoding",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#url-percent-encoding",
+          "quoted": "All API URLs MUST successfully parse and percent-decode using [RFC3986] rules. ... Percent-encoding is performed in several places: ... By the Parameter or Encoding Objects when incorporating a value serialized with a Media Type Object for a media type that does not already incorporate URI percent-encoding"
+        },
+        {
+          "oasVersion": "3.2",
+          "anchor": "schema-object",
+          "url": "https://spec.openapis.org/oas/v3.2.0.html#schema-object",
+          "quoted": "The Schema Object allows the definition of input and output data types. These types can be objects, but also primitives and arrays. This object is a superset of the JSON Schema Specification Draft 2020-12."
+        }
+      ],
+      "expected": "rejected",
+      "expectedValues": null,
+      "rationale": "Section 4.12.4 requires percent-decoding before JSON parsing. The decoded JSON is well-formed and gives R an explicit type: 100 is a number, and the schema requires a string. No text-to-type conversion is involved, so Appendix B does not apply and the schema rejects it. The document is the one the canonical and malformed JSON requests use.",
+      "document": {
+        "openapi": "3.2.0",
+        "info": {
+          "title": "crosscheck",
+          "version": "1"
+        },
+        "paths": {
+          "/t": {
+            "get": {
+              "operationId": "probe",
+              "parameters": [
+                {
+                  "name": "p",
+                  "in": "querystring",
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "R": {
+                            "type": "string"
+                          },
+                          "G": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "R",
+                          "G"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "ok"
+                }
+              }
+            }
+          }
+        }
+      },
+      "request": {
+        "method": "GET",
+        "target": "/t?%7B%22R%22%3A100%2C%22G%22%3A%22200%22%7D",
+        "headers": [
+          [
+            "Host",
+            "harness.invalid"
+          ]
+        ]
+      },
+      "dimensions": {
+        "declaration": "content",
+        "location": "querystring",
+        "mediaType": "application/json",
+        "schema": "object",
+        "probeAxis": "wrongTypeValue"
+      },
+      "wrongTypeFor": "string",
+      "varies": [
+        "a property is a JSON number where the schema requires a string"
+      ],
+      "holdsConstant": [
+        "the application/json media type",
+        "the decoded query string is well-formed JSON",
+        "exactly one parameter is declared",
+        "canonical encoding"
+      ]
     }
   ]
 }

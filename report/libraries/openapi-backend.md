@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/openapistack/openapi-back
 
 Built from: `adapters/openapi-backend/`
 
-Image: `sha256:68606dc0594065ee7a2485c6efaa8ea7569324d31972352f0e94ccc121a8c938`
+Image: `sha256:67c49db26dce4966b2697929d72293fd3c1e453d653f7c01c7bcc42084e17d19`
 
 Configuration `coerce-types-on`: new OpenAPIBackend({ definition, quick: false, coerceTypes: true, strict: true }) then init(), driven through validateRequest with the raw path and raw query string and headers split by the harness. coerceTypes is enabled because leaving it off rejects every typed parameter. strict is enabled so a document the library refuses fails init() and is reported as libraryInitUnsupported; without it init() logs the refusal and every request then fails with an unrelated 'Unknown operation'.
 
@@ -283,8 +283,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| n/a | 17 |
-| every conformance case | 17 |
+| n/a | 18 |
+| every conformance case | 18 |
 
 - `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
 
@@ -310,6 +310,7 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (oasVersionNotDeclared)
+- [`querystring-json-object-wrong-type-oas32`](../matrix.oas32.md#querystring-json-object-wrong-type-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 

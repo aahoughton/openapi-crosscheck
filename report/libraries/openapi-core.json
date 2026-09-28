@@ -7,7 +7,7 @@
     "kind": "registry",
     "specifier": "openapi-core"
   },
-  "corpusDigest": "sha256:005072e4e8a9431a0ccef11d381b6b1849f1c6c4e53a64aa1603ea963b1fa0a0",
+  "corpusDigest": "sha256:da18b8875065536208dd8894f9bfc8debcb4b928eb913004e06cd91766d2dfd2",
   "capabilities": {
     "stages": {
       "routing": true,
@@ -1138,7 +1138,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-core",
-    "imageId": "sha256:3b25cbe4625e87cdf13a67f08882f987bdd81a60848ae91f757af0bc4004c363",
+    "imageId": "sha256:4c60089d03a07e4c21429af64556cc702f08b8bbb7975cf441628e441b42c74c",
     "ecosystem": "pypi"
   },
   "answers": [
@@ -9603,6 +9603,33 @@
             "query": [
               [
                 "%7Bnot-json",
+                null
+              ]
+            ],
+            "cookies": []
+          }
+        },
+        "outcome": "libraryError",
+        "detail": "AttributeError: 'RequestParameters' object has no attribute 'querystring'",
+        "raw": {
+          "type": "AttributeError",
+          "message": "'RequestParameters' object has no attribute 'querystring'"
+        }
+      }
+    },
+    {
+      "caseId": "querystring-json-object-wrong-type-oas32",
+      "result": {
+        "library": "openapi-core",
+        "libraryVersion": "0.23.1",
+        "configurationId": "unmarshal-request-protocol",
+        "preparse": {
+          "performedBy": "harness",
+          "description": "raw query pairs; raw cookie pairs. Split on /, the first ?, &, = and ; with no style interpretation or percent decoding; values passed through raw.",
+          "result": {
+            "query": [
+              [
+                "%7B%22R%22%3A100%2C%22G%22%3A%22200%22%7D",
                 null
               ]
             ],

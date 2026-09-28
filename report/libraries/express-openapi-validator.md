@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/cdimascio/express-openapi
 
 Built from: `adapters/express-openapi-validator/`
 
-Image: `sha256:77cd5eb2afc0429803fd894bbaccb5aac2637175de62562e06b2fe9ae4b5074e`
+Image: `sha256:625d6a2de73e803e8de95ce211dd4614e13c3accfec59ad2134f95058a07de20`
 
 Configuration `middleware-validate-requests`: OpenApiValidator.middleware({ apiSpec, validateRequests: true }) mounted on an express app, exactly as the published usage shows, with a handler that echoes the request it received and an error handler that reports the thrown status alongside the same request fields. Query and header splitting are the host stack's: express (version in options) parses the query string with its default parser and Node joins repeated header lines with a comma and a space before the middleware reads either. Cookies reach it the way the published usage expects, as req.cookies: a middleware ahead of the validator installs the harness's cookie pairs there, in the place a cookie parser would. A repeated cookie name or a crumb with no `=` has no spelling in that record and is answered as a case it cannot carry. Reading its values: on an accepted request they are what the handler was handed. On a rejected one they are what the middleware had coerced onto the request before it stopped, so they are partial and stop at the first failure.
 
@@ -258,8 +258,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| n/a | 17 |
-| every conformance case | 17 |
+| n/a | 18 |
+| every conformance case | 18 |
 
 - `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
 
@@ -285,6 +285,7 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (oasVersionNotDeclared)
+- [`querystring-json-object-wrong-type-oas32`](../matrix.oas32.md#querystring-json-object-wrong-type-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 

@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/oaverify/oaverify
 
 Built from: `adapters/oaverify-core/`
 
-Image: `sha256:a5619fdd2dd996ea13ee535a8ad214ef20f6e9b37da5f33a75a88e09b354681a`
+Image: `sha256:8c9c38d660ca2f83d013f307f2eb302fe08abfd5120083e27bc1a6ecfb2b1469`
 
 Configuration `request-return-values`: createValidator(document, { returnValues: true }), driven through validateRequest, which the library documents as its per-call HTTP entry point and validateFetchRequest as a convenience wrapper over. The path is handed over with its query string still in it, because the library documents that it reads the query out of the path when the query field is unset, so splitting the query stays its work. Headers are handed over as its request shape spells them, one entry per name with repeats collected, and with their case as the wire carried it, so matching a header name to the declaration stays its work too. Cookies are the harness's split, which this configuration declares, and the request shape holds one string per cookie name, so a case sending a name twice or a crumb with no `=` is answered as a case this shape cannot represent, rather than on what survived. Reading its values: the library documents that a parameter appears in the value channel when this call reached it, deserialized it, and its schema accepted the result. So an empty value cell on a rejected row means the parameter did not pass, which is a different fact from a library that reports a coerced value alongside its own rejection.
 
@@ -198,8 +198,8 @@ the page with the numbers.
 | result | cases |
 | --- | --- |
 | pass | 11 |
-| n/a | 6 |
-| every conformance case | 17 |
+| n/a | 7 |
+| every conformance case | 18 |
 
 - `pass`: The verdict the specification settles, and its values where the specification settles those too.
 - `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
@@ -215,6 +215,7 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (libraryInitUnsupported)
 - [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (libraryInitUnsupported)
 - [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (libraryInitUnsupported)
+- [`querystring-json-object-wrong-type-oas32`](../matrix.oas32.md#querystring-json-object-wrong-type-oas32) (libraryInitUnsupported)
 
 ### Divergence
 

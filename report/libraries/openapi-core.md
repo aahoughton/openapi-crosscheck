@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/python-openapi/openapi-co
 
 Built from: `adapters/openapi-core/`
 
-Image: `sha256:3b25cbe4625e87cdf13a67f08882f987bdd81a60848ae91f757af0bc4004c363`
+Image: `sha256:4c60089d03a07e4c21429af64556cc702f08b8bbb7975cf441628e441b42c74c`
 
 Configuration `unmarshal-request-protocol`: OpenAPI.from_dict(document) driven through unmarshal_request, with a request object implementing the library's published Request protocol rather than its testing helper. The raw path is handed over unparsed, so routing and path parameter extraction are the library's. This library takes a query mapping and raises PathNotFound if a query string is left in the path, so the split into decoded pairs is the caller's. The harness supplies raw pairs only where their encoding state is equivalent and withholds cases whose query decoding would change them. Style and explode are still applied by the library to those pairs. Header lines go in as werkzeug's case-insensitive Headers, the mapping the library's request type defaults to, with repeated lines combined by a comma. Cookie pairs go in as the MultiDict this library documents for that field, so a repeated cookie name reaches it rather than being collapsed on the way in. Every value in both mappings is a string, so a query pair or a cookie crumb that arrived with no `=` at all is answered as a case this shape cannot represent rather than handed over as an empty value. Reading its values: a parameter appears once it was reached, deserialized and accepted by its schema, so an empty value cell on a rejected row means that parameter did not pass rather than that it deserialized to nothing.
 
@@ -264,9 +264,9 @@ the page with the numbers.
 | --- | --- |
 | pass | 4 |
 | FAIL (verdict) | 4 |
-| RAISED | 4 |
+| RAISED | 5 |
 | n/a | 5 |
-| every conformance case | 17 |
+| every conformance case | 18 |
 
 - `pass`: The verdict the specification settles, and its values where the specification settles those too.
 - `FAIL (verdict)`: It reached the opposite verdict.

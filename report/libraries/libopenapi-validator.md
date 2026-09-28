@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/pb33f/libopenapi-validato
 
 Built from: `adapters/libopenapi-validator/`
 
-Image: `sha256:57f76f4b9d4d10a0cf278f3e47082ebf4461cdd33d47a57650d20aa0149c792f`
+Image: `sha256:00600c70af6660cff0b50e3c0c69a21d49449a98874eb5a9513b3e1aed228748`
 
 Configuration `validate-http-request`: libopenapi.NewDocument(document) handed to validator.NewValidator and driven through ValidateHttpRequest, from an http.Request built on the raw target. Headers are added with net/http's Header.Add, which canonicalizes names (p and P become P) and merges names differing only in case. Routing is the library's: an unmatched path comes back as a validation error of type path rather than as a separate call. Known limitation: Go's net/url parses the target before the library sees it, so percent-encoding probes measure that parser as well as the library. The escaped path is what reaches the validator, so the encoding survives to that point. Values are unexposed: ValidateHttpRequest answers with a boolean and a list of validation errors, and the helpers that decode a styled parameter are internal packages, so no published call hands the deserialized values back.
 
@@ -209,8 +209,8 @@ the page with the numbers.
 | --- | --- |
 | pass | 2 |
 | pass (verdict only) | 13 |
-| FAIL (verdict) | 2 |
-| every conformance case | 17 |
+| FAIL (verdict) | 3 |
+| every conformance case | 18 |
 
 - `pass`: The verdict the specification settles, and its values where the specification settles those too.
 - `pass (verdict only)`: The settled verdict, from a library that exposes no deserialized values, so the value half of the case could not be asked of it.
@@ -222,6 +222,7 @@ the page with the numbers.
 | --- | --- | --- | --- |
 | [`cookie-cookie-object-canonical-explode-oas32`](../matrix.oas32.md#cookie-cookie-object-canonical-explode-oas32) | accepted | rejected | not exposed by this library (no published call returns the deserialized parameter values) |
 | [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) | rejected | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
+| [`querystring-json-object-wrong-type-oas32`](../matrix.oas32.md#querystring-json-object-wrong-type-oas32) | rejected | accepted | not exposed by this library (no published call returns the deserialized parameter values) |
 
 Each case id links to the case in full, with the rule the expected verdict
 rests on quoted beside it. Each row traces to the stored raw output in

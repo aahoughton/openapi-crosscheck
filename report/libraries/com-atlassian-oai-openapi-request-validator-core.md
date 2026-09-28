@@ -9,7 +9,7 @@ Source, as its container states it: https://bitbucket.org/atlassian/swagger-requ
 
 Built from: `adapters/com-atlassian-oai-openapi-request-validator-core/`
 
-Image: `sha256:cea53a65eb9fe1a81f42fc6430ab0ef829e245214960a2784d69127700296f23`
+Image: `sha256:8c27756cc267b33bebb457988f385ca21c1fc87021ba253be5a7ecb462f2c5c4`
 
 Configuration `inline-spec-simple-request`: OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Each pair is added in wire order, and a pair with no `=` is added with a null value list, the builder's documented spelling of a name with no value. The two-argument Builder constructor is used, whose default matches query parameter names case-insensitively. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Cookies reach the library as the `Cookie` header, which the builder does take: it has no cookie API, and the library reads cookie parameters out of that header itself, so the split is the library's and is declared as such.
 
@@ -275,8 +275,8 @@ the page with the numbers.
 
 | result | cases |
 | --- | --- |
-| n/a | 17 |
-| every conformance case | 17 |
+| n/a | 18 |
+| every conformance case | 18 |
 
 - `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
 
@@ -302,6 +302,7 @@ whether the document version, library input shape, or adapter stopped it.
 - [`querystring-form-urlencoded-object-canonical-oas32`](../matrix.oas32.md#querystring-form-urlencoded-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-canonical-oas32`](../matrix.oas32.md#querystring-json-object-canonical-oas32) (oasVersionNotDeclared)
 - [`querystring-json-object-malformed-oas32`](../matrix.oas32.md#querystring-json-object-malformed-oas32) (oasVersionNotDeclared)
+- [`querystring-json-object-wrong-type-oas32`](../matrix.oas32.md#querystring-json-object-wrong-type-oas32) (oasVersionNotDeclared)
 
 ### Divergence
 
