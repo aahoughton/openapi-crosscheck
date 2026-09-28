@@ -1179,9 +1179,9 @@ function renderReadme(
       "sharing one were asked the same questions, which is the precondition for comparing " +
       "them. The digest covers every field of every case, so a case that was reworded " +
       "moves it as surely as one that was rewritten, and two runs either side of a typo " +
-      "fix no longer compare. It is written when a run is measured and never rechecked, " +
-      "so it names the corpus the harness held at the time rather than proving the " +
-      "`corpus.json` here is still that one.",
+      "fix no longer compare. `pnpm render-md` recomputes the digest of the " +
+      "`corpus.json` here and refuses a measurement carrying another, so every " +
+      "measurement these files read answered that `corpus.json`.",
   );
   lines.push("");
 

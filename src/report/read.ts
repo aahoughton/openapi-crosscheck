@@ -3,6 +3,7 @@ import { join } from "node:path";
 import type { Case } from "../types/case";
 import type { CorpusDocument, LibraryMeasurement } from "../types/measurement";
 import { MEASUREMENT_SCHEMA_VERSION } from "../types/measurement";
+import { corpusDigest } from "../corpus/digest";
 import { compareMeasurements } from "./view";
 
 /**
@@ -115,15 +116,66 @@ export function readRun(path: string): RunDirectory {
     );
   }
 
-  const document = JSON.parse(readFileSync(corpusPath, "utf8")) as CorpusDocument;
-  if (!Array.isArray(document.cases)) throw new Error(`${corpusPath} holds no cases`);
+  const document = readJsonFile(corpusPath) as Partial<CorpusDocument> | null;
+  if (typeof document !== "object" || document === null || !Array.isArray(document.cases)) {
+    throw new Error(`${corpusPath} holds no cases`);
+  }
+  checkSchemaVersion(corpusPath, document.schemaVersion);
 
   return {
     path,
     cases: document.cases,
-    measurements: readMeasurements(join(path, "libraries")),
+    measurements: readMeasurements(join(path, "libraries"), corpusPath, document.cases),
     sidecar: readSidecar(path),
   };
+}
+
+/**
+ * One measurement file, read and checked, or an error naming the file.
+ *
+ * Shared by every command that reads a measurement, so a file one of them
+ * refuses is refused by all of them for the same reason.
+ */
+export function readMeasurementFile(path: string): LibraryMeasurement {
+  const measurement = readJsonFile(path) as Partial<LibraryMeasurement> | null;
+  if (
+    typeof measurement !== "object" ||
+    measurement === null ||
+    typeof measurement.library !== "string" ||
+    !Array.isArray(measurement.answers)
+  ) {
+    throw new Error(`${path} is not a library measurement: it has no library and no answers`);
+  }
+  checkSchemaVersion(path, measurement.schemaVersion);
+  return measurement as LibraryMeasurement;
+}
+
+/**
+ * Refuse a document written under another schema version, rather than read it
+ * under the wrong assumptions. The version travels inside every document so
+ * that a field which changed meaning is caught here; a reader that carried on
+ * would report a missing field as a missing answer, or fail further in with
+ * nothing naming the file.
+ */
+function checkSchemaVersion(path: string, version: unknown): void {
+  if (version !== MEASUREMENT_SCHEMA_VERSION) {
+    throw new Error(
+      `${path} was written under measurement schema ${String(version)} ` +
+        `and this checkout reads ${String(MEASUREMENT_SCHEMA_VERSION)}. ` +
+        `Measure it again with this harness, or read it with the harness that wrote it.`,
+    );
+  }
+}
+
+/** A JSON file, parsed, or an error naming the file and what is wrong with it. */
+function readJsonFile(path: string): unknown {
+  const text = readFileSync(path, "utf8");
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    throw new Error(`${path} is not valid JSON: ${detail}`);
+  }
 }
 
 /**
@@ -135,27 +187,27 @@ export function readRun(path: string): RunDirectory {
  * key, shared with both renderers: three sorts spelled out three times is three
  * chances for one of them to say something different about which library comes
  * first.
+ *
+ * Every measurement is scored against the corpus beside it, so one that
+ * answered a different corpus would be scored against questions it was never
+ * asked. Its digest says which corpus it answered, and a mismatch is refused.
  */
-function readMeasurements(dir: string): readonly LibraryMeasurement[] {
+function readMeasurements(
+  dir: string,
+  corpusPath: string,
+  cases: readonly Case[],
+): readonly LibraryMeasurement[] {
   if (!isDirectory(dir)) return [];
+  const digest = corpusDigest(cases);
   const measurements = readdirSync(dir)
     .filter((name) => name.endsWith(".json"))
     .map((name) => {
       const path = join(dir, name);
-      const measurement = JSON.parse(readFileSync(path, "utf8")) as LibraryMeasurement;
-      if (typeof measurement.library !== "string" || !Array.isArray(measurement.answers)) {
-        throw new Error(`${path} is not a library measurement`);
-      }
-      // Refused rather than read under the wrong assumptions. The version
-      // travels inside every document so that a field which changed meaning is
-      // caught here, and a reader that carried on would report a missing field
-      // as a missing answer, or crash somewhere further in with nothing on
-      // screen naming the file.
-      if (measurement.schemaVersion !== MEASUREMENT_SCHEMA_VERSION) {
+      const measurement = readMeasurementFile(path);
+      if (measurement.corpusDigest !== digest) {
         throw new Error(
-          `${path} was written under measurement schema ${String(measurement.schemaVersion)} ` +
-            `and this checkout reads ${String(MEASUREMENT_SCHEMA_VERSION)}. ` +
-            `Measure it again with this harness, or read it with the harness that wrote it.`,
+          `${path} answered corpus ${measurement.corpusDigest} and ${corpusPath} is ` +
+            `${digest}, so its answers would be scored against questions it was not asked`,
         );
       }
       return measurement;

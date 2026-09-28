@@ -1,8 +1,17 @@
-import { mkdtempSync, rmSync, writeFileSync, mkdirSync } from "node:fs";
+import {
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+  mkdirSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
-import { readRun, sidecarNote } from "../../src/report/read";
+import { MEASUREMENT_SCHEMA_VERSION } from "../../src/types/measurement";
+import { readMeasurementFile, readRun, sidecarNote } from "../../src/report/read";
 
 /**
  * Reading a run directory, and in particular reading its sidecar.
@@ -38,11 +47,91 @@ afterEach(() => {
 function runDirectory(sidecar: string | null): string {
   const dir = mkdtempSync(join(tmpdir(), "oxc-run-"));
   made.push(dir);
-  writeFileSync(join(dir, "corpus.json"), JSON.stringify({ cases: [] }), "utf8");
+  writeFileSync(
+    join(dir, "corpus.json"),
+    JSON.stringify({ schemaVersion: MEASUREMENT_SCHEMA_VERSION, cases: [] }),
+    "utf8",
+  );
   mkdirSync(join(dir, "libraries"));
   if (sidecar !== null) writeFileSync(join(dir, "run.json"), sidecar, "utf8");
   return dir;
 }
+
+const reportDir = fileURLToPath(new URL("../../report", import.meta.url));
+
+/**
+ * A copy of the committed corpus and one committed measurement, with either
+ * file replaced by the text given.
+ */
+function copiedRun(replace: { corpus?: string; measurement?: string } = {}): {
+  dir: string;
+  measurementPath: string;
+} {
+  const dir = mkdtempSync(join(tmpdir(), "oxc-run-"));
+  made.push(dir);
+  mkdirSync(join(dir, "libraries"));
+  const name = readdirSync(join(reportDir, "libraries")).find((file) => file.endsWith(".json"));
+  if (name === undefined) throw new Error("the committed report holds no measurement");
+  const measurementPath = join(dir, "libraries", name);
+  writeFileSync(
+    join(dir, "corpus.json"),
+    replace.corpus ?? readFileSync(join(reportDir, "corpus.json"), "utf8"),
+  );
+  writeFileSync(
+    measurementPath,
+    replace.measurement ?? readFileSync(join(reportDir, "libraries", name), "utf8"),
+  );
+  return { dir, measurementPath };
+}
+
+function committedMeasurement(): Record<string, unknown> {
+  const { measurementPath } = copiedRun();
+  return JSON.parse(readFileSync(measurementPath, "utf8")) as Record<string, unknown>;
+}
+
+describe("a run directory that cannot be read", () => {
+  it("reads a copy of the committed report", () => {
+    expect(readRun(copiedRun().dir).measurements).toHaveLength(1);
+  });
+
+  it("names a corpus.json that is not JSON", () => {
+    const { dir } = copiedRun({ corpus: '{"schemaVersion": 2, "cases": [' });
+    expect(() => readRun(dir)).toThrow(`${join(dir, "corpus.json")} is not valid JSON`);
+  });
+
+  it("names a measurement that is not JSON", () => {
+    const { dir, measurementPath } = copiedRun({ measurement: '{"library": "x", "answ' });
+    expect(() => readRun(dir)).toThrow(`${measurementPath} is not valid JSON`);
+  });
+
+  it("refuses a corpus.json written under another schema version", () => {
+    const { dir } = copiedRun({ corpus: JSON.stringify({ schemaVersion: 0, cases: [] }) });
+    expect(() => readRun(dir)).toThrow(`${join(dir, "corpus.json")} was written under measurement schema 0`);
+  });
+
+  it("refuses a measurement written under another schema version", () => {
+    const { dir, measurementPath } = copiedRun({
+      measurement: JSON.stringify({ ...committedMeasurement(), schemaVersion: 0 }),
+    });
+    expect(() => readRun(dir)).toThrow(`${measurementPath} was written under measurement schema 0`);
+  });
+
+  it("refuses a measurement that answered a different corpus", () => {
+    const { dir, measurementPath } = copiedRun({
+      measurement: JSON.stringify({ ...committedMeasurement(), corpusDigest: "sha256:other" }),
+    });
+    expect(() => readRun(dir)).toThrow(`${measurementPath} answered corpus sha256:other`);
+  });
+});
+
+describe("one measurement file", () => {
+  it("is refused under another schema version, naming the file", () => {
+    const { measurementPath } = copiedRun({
+      measurement: JSON.stringify({ ...committedMeasurement(), schemaVersion: 0 }),
+    });
+    expect(() => readMeasurementFile(measurementPath)).toThrow(measurementPath);
+  });
+});
 
 describe("the run sidecar", () => {
   it("is absent when the directory holds no run.json", () => {
