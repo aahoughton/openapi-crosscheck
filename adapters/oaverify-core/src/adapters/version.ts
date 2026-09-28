@@ -21,9 +21,10 @@ export function readVersion(packageName: string): string {
  * How this container was told to install the library, read from its own
  * manifest.
  *
- * npm's local spellings are `file:`, `link:` and `portal:`, and a bare path is
- * also accepted by npm for a directory. Anything else is a registry range,
- * including `latest`.
+ * Everything npm can install from outside the registry counts as local: the
+ * `file:`, `link:`, `portal:` and `workspace:` protocols, a bare path, a git or
+ * GitHub specifier, and a tarball URL. What remains is a registry range,
+ * including `latest` and an `npm:` alias.
  */
 export function readResolution(packageName: string): LibraryResolution {
   const manifest = require("/app/package.json") as { dependencies?: Record<string, string> };
@@ -34,10 +35,14 @@ export function readResolution(packageName: string): LibraryResolution {
 function isLocal(specifier: string | null): boolean {
   if (specifier === null) return false;
   return (
-    specifier.startsWith("file:") ||
-    specifier.startsWith("link:") ||
-    specifier.startsWith("portal:") ||
+    /^(file|link|portal|workspace|git|git\+[a-z]+|github|gitlab|bitbucket|gist|https?):/.test(
+      specifier,
+    ) ||
     specifier.startsWith(".") ||
-    specifier.startsWith("/")
+    specifier.startsWith("/") ||
+    specifier.startsWith("~") ||
+    // A GitHub shorthand, `owner/repo` with an optional `#ref`. A scoped
+    // registry name starts with `@`, so it never matches.
+    /^[^@./][^/]*\/[^/]+$/.test(specifier.split("#")[0] ?? "")
   );
 }
