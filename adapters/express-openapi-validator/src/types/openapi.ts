@@ -21,6 +21,7 @@ export type OasVersion = "3.0" | "3.1" | "3.2";
 export type ParameterLocation = "cookie" | "header" | "path" | "query" | "querystring";
 
 export type Style =
+  | "cookie"
   | "deepObject"
   | "form"
   | "label"

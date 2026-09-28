@@ -94,6 +94,8 @@ export type ObservationMessage =
       readonly vantage: ValueVantage;
       readonly value: DeserializedValues;
       readonly nativeTypes: Record<string, string>;
+      /** Declared parameters the container could not read, each with the reason. */
+      readonly unreadable?: Record<string, string>;
     }
   | { readonly kind: "unexposed"; readonly reason: string }
   | { readonly kind: "notReached"; readonly reason: string };
