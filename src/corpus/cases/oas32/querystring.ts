@@ -10,11 +10,11 @@ import * as cite from "../../citations/oas32";
  * `content` declaration. Four cases use invalid documents, whose handling is
  * unspecified, and therefore record divergence.
  *
- * The settled negative request is malformed JSON. The JSON pair shares one
- * document, so rejecting both sides shows no evidence of distinguishing a
- * valid representation from an invalid one. A form-urlencoded property whose
- * text spells no integer is recorded as divergence, because Appendix B leaves
- * typing form text implementation-defined.
+ * The settled negative requests are malformed JSON and well-formed JSON whose
+ * property has the wrong JSON type. The JSON cases share one document, so a
+ * library rejecting every side shows no evidence of distinguishing them. A
+ * form-urlencoded property whose text spells no integer is recorded as
+ * divergence, because Appendix B leaves typing form text implementation-defined.
  */
 
 const SPEC = "https://spec.openapis.org/oas/v3.2.0.html";
@@ -162,6 +162,51 @@ export const querystringCases32: readonly Case[] = [
       "exactly one parameter is declared",
     ],
   })),
+  {
+    id: "querystring-json-object-wrong-type-oas32",
+    title: "querystring, application/json, object, a property of another JSON type",
+    inShort:
+      "The whole query string decodes to JSON whose R is the number 100, where the schema requires a string.",
+    tier: "conformance",
+    oasVersion: "3.2",
+    citations: [
+      PARAMETER_LOCATIONS_QUERYSTRING,
+      FIXED_FIELDS_FOR_USE_WITH_CONTENT,
+      cite.CONTENT_URI_PERCENT_ENCODING,
+      cite.SCHEMA_OBJECT,
+    ],
+    expected: "rejected",
+    expectedValues: null,
+    rationale:
+      "Section 4.12.4 requires percent-decoding before JSON parsing. The decoded JSON is well-formed and gives R an explicit type: 100 is a number, and the schema requires a string. No text-to-type conversion is involved, so Appendix B does not apply and the schema rejects it. The document is the one the canonical and malformed JSON requests use.",
+    document: document(
+      [
+        {
+          name: "p",
+          in: "querystring",
+          required: true,
+          content: { "application/json": { schema: REQUIRED_STRING_OBJECT } },
+        },
+      ],
+      "/t",
+    ),
+    request: request("/t?%7B%22R%22%3A100%2C%22G%22%3A%22200%22%7D"),
+    dimensions: {
+      declaration: "content",
+      location: "querystring",
+      mediaType: "application/json",
+      schema: "object",
+      probeAxis: "wrongTypeValue",
+    },
+    wrongTypeFor: "string",
+    varies: ["a property is a JSON number where the schema requires a string"],
+    holdsConstant: [
+      "the application/json media type",
+      "the decoded query string is well-formed JSON",
+      "exactly one parameter is declared",
+      "canonical encoding",
+    ],
+  },
   {
     id: "querystring-form-urlencoded-object-wrong-type-oas32",
     title: "querystring, x-www-form-urlencoded, object, a property well-formed for another type",

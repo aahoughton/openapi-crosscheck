@@ -202,12 +202,15 @@ describe("the querystring cases", () => {
     }
   });
 
-  it("include a settled negative request for malformed content", () => {
+  it("include settled negative requests for malformed and wrong-typed JSON", () => {
     const rejecting = querystringCases32.filter(
       (c) =>
         c.tier === "conformance" && c.expected === "rejected" && c.breaksDocumentRule === undefined,
     );
-    expect(rejecting.map((c) => c.id).sort()).toEqual(["querystring-json-object-malformed-oas32"]);
+    expect(rejecting.map((c) => c.id).sort()).toEqual([
+      "querystring-json-object-malformed-oas32",
+      "querystring-json-object-wrong-type-oas32",
+    ]);
   });
 
   it("leave a form-urlencoded property's typing open, citing Appendix B", () => {
@@ -238,6 +241,25 @@ describe("the querystring cases", () => {
     );
     expect(() => JSON.parse(representation(invalid.request.target))).toThrow();
     expect([valid.expected, invalid.expected]).toEqual(["accepted", "rejected"]);
+  });
+
+  it("send the wrong-typed JSON under the same document, well-formed and typed", () => {
+    const valid = querystringCases32.find(
+      (entry) => entry.id === "querystring-json-object-canonical-oas32",
+    );
+    const wrong = querystringCases32.find(
+      (entry) => entry.id === "querystring-json-object-wrong-type-oas32",
+    );
+    if (valid?.tier !== "conformance" || wrong?.tier !== "conformance") {
+      throw new Error("the JSON cases must carry conformance expectations");
+    }
+    expect(wrong.document).toEqual(valid.document);
+    const decoded = JSON.parse(
+      decodeURIComponent(wrong.request.target.slice(wrong.request.target.indexOf("?") + 1)),
+    ) as Record<string, JsonValue>;
+    // Only R changes, and only in JSON type: a number where a string is required.
+    expect(decoded).toEqual({ R: 100, G: "200" });
+    expect(wrong.expected).toBe("rejected");
   });
 
   it("exercise both media types on the same location", () => {
