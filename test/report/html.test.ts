@@ -417,6 +417,50 @@ describe("what the page says is beside it", () => {
   });
 });
 
+describe("text a container supplies stays text", () => {
+  // A label, a returned value and a stated source URL all come from outside
+  // this repository, and none of them may decide what the page contains or
+  // what a click on it does.
+  const hostile = "</code><script>alert(1)</script><img src=x onerror=alert(2)>";
+  const first = entries[0] as Entry;
+  const measurement: LibraryMeasurement = {
+    ...first.measurement,
+    librarySource: "javascript:alert(document.cookie)",
+    configuration: { ...first.measurement.configuration, id: hostile },
+    answers: first.measurement.answers.map((answer) =>
+      (answer.result.outcome === "accepted" || answer.result.outcome === "rejected") &&
+      answer.result.deserialized.kind === "observed"
+        ? {
+            ...answer,
+            result: {
+              ...answer.result,
+              deserialized: { ...answer.result.deserialized, value: { p: hostile } },
+            },
+          }
+        : answer,
+    ),
+  };
+  const page = renderHtml(run.cases, [{ label: hostile, measurement }]);
+
+  it("escapes every markup character a container supplies", () => {
+    expect(page).not.toContain("<script");
+    expect(page).not.toContain("<img");
+    expect(page).toContain("&lt;script&gt;alert(1)&lt;/script&gt;");
+  });
+
+  it("links a stated source only when it is http or https", () => {
+    expect(page).not.toMatch(/href="\s*javascript:/i);
+    expect(page).toContain('<p class="lib-src">javascript:alert(document.cookie)</p>');
+  });
+
+  it("still links an https source", () => {
+    const linked = renderHtml(run.cases, [
+      { label: "x", measurement: { ...measurement, librarySource: "https://example.org/x" } },
+    ]);
+    expect(linked).toContain('<a href="https://example.org/x" rel="noreferrer noopener">');
+  });
+});
+
 describe("the page stands alone", () => {
   // A view that fetches anything is a view that renders differently depending
   // on where it is opened, and the same rule is why it is one file.

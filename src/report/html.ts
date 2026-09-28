@@ -129,6 +129,17 @@ function sourceLabel(url: string): string {
   return url.replace(/^https:\/\//, "");
 }
 
+/**
+ * The source a container states, as a link only when it is an http or https
+ * URL. The string comes from the container, and any other scheme in an href
+ * (`javascript:` among them) would let a measured library decide what a click
+ * on this page does, so anything else is printed as text.
+ */
+function sourceLink(url: string): string {
+  if (!/^https?:\/\//i.test(url)) return escape(url);
+  return `<a href="${escape(url)}" rel="noreferrer noopener">${escape(sourceLabel(url))}</a>`;
+}
+
 
 export function renderHtml(
   cases: readonly Case[],
@@ -406,7 +417,7 @@ ${STAGE_SLOTS.map(
       ${
         row.librarySource === null
           ? ""
-          : `<p class="lib-src"><a href="${escape(row.librarySource)}" rel="noreferrer noopener">${escape(sourceLabel(row.librarySource))}</a></p>`
+          : `<p class="lib-src">${sourceLink(row.librarySource)}</p>`
       }
     </article>`,
   )
