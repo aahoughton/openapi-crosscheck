@@ -69,13 +69,6 @@ export function request(
 }
 
 export const STRING: JsonValue = { type: "string" };
-/**
- * A schema admitting a string or null, written the 3.1 way.
- *
- * OpenAPI 3.1 is a superset of JSON Schema 2020-12, where nullability is a type
- * union rather than the separate `nullable` keyword 3.0 used.
- */
-export const NULLABLE_STRING: JsonValue = { type: ["string", "null"] };
 export const INTEGER: JsonValue = { type: "integer" };
 export const BOOLEAN: JsonValue = { type: "boolean" };
 export const STRING_ARRAY: JsonValue = { type: "array", items: { type: "string" } };
