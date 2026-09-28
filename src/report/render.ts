@@ -32,6 +32,7 @@ import {
   orderMeasurements,
   placeContentCases,
   presentVersions,
+  resolveLabels,
   versionSlug,
 } from "./view";
 import { adjudications } from "../corpus/adjudications";
@@ -98,19 +99,21 @@ export function renderMarkdown(
   measurements: readonly LibraryMeasurement[],
 ): Artifacts {
   const ordered = orderMeasurements(measurements);
+  refuseDuplicateSlugs(ordered);
+  const labelOf = labeller(ordered);
   const view = coverage(cases);
   const artifacts: Artifacts = {};
   for (const measurement of ordered) {
     artifacts[`libraries/${measurement.provenance.slug}.md`] = renderLibrary(cases, measurement);
   }
   artifacts["README.md"] = renderReadme(cases, ordered, view);
-  artifacts["fitness.md"] = renderFitness(cases, ordered);
+  artifacts["fitness.md"] = renderFitness(cases, ordered, labelOf);
   for (const version of presentVersions(cases)) {
     const versionCases = cases.filter((c) => c.oasVersion === version);
-    artifacts[matrixFileName(version)] = renderMatrix(version, versionCases, ordered);
+    artifacts[matrixFileName(version)] = renderMatrix(version, versionCases, ordered, labelOf);
     artifacts[`coverage.${versionSlug(version)}.md`] = renderCoverage(version, versionCases);
   }
-  artifacts["capabilities.md"] = renderCapabilities(cases, ordered);
+  artifacts["capabilities.md"] = renderCapabilities(cases, ordered, labelOf);
 
   // Reported rather than refused, as the page does: a caller joining
   // measurements over different corpora is shown the answers with the warning
@@ -136,23 +139,63 @@ export function renderMarkdown(
 }
 
 
-/** Join measurements back into a per-case view. Comparison is a reader. */
-function resultsFor(
+/**
+ * Refuse two measurements that would write the same `libraries/<slug>.md`.
+ *
+ * One would overwrite the other, and every link to that file would then name
+ * a measurement it no longer describes. One run directory cannot hold two,
+ * because the measurement files are named by slug; this reaches a caller that
+ * joins measurements from more than one.
+ */
+function refuseDuplicateSlugs(measurements: readonly LibraryMeasurement[]): void {
+  const seen = new Set<string>();
+  for (const measurement of measurements) {
+    const slug = measurement.provenance.slug;
+    if (seen.has(slug)) {
+      throw new Error(
+        `two measurements share the slug ${slug}, so both would be written to ` +
+          `libraries/${slug}.md; render them from separate directories`,
+      );
+    }
+    seen.add(slug);
+  }
+}
+
+/**
+ * What each measurement is called in a table: its package name, qualified by
+ * whatever separates two measurements of one package.
+ *
+ * Every table below is keyed by measurement, and a name two columns share
+ * says nothing about which is which, so the qualifier is the one `resolveLabels`
+ * chooses for the page.
+ */
+function labeller(
   measurements: readonly LibraryMeasurement[],
-  caseId: string,
-): readonly AdapterResult[] {
-  return measurements.flatMap((measurement) => {
-    const answer = measurement.answers.find((entry) => entry.caseId === caseId);
-    return answer === undefined ? [] : [answer.result];
-  });
+): (measurement: LibraryMeasurement) => string {
+  const entries = resolveLabels(
+    measurements.map((measurement) => ({
+      measurement,
+      explicitLabel: null,
+      runStartedAt: null,
+      source: measurement.provenance.slug,
+    })),
+  );
+  const labels = new Map(entries.map((entry) => [entry.measurement, entry.label]));
+  return (measurement) => labels.get(measurement) ?? measurement.library;
+}
+
+/** One measurement's answer to one case, or `undefined` where it holds none. */
+function answerFor(measurement: LibraryMeasurement, caseId: string): AdapterResult | undefined {
+  return measurement.answers.find((entry) => entry.caseId === caseId)?.result;
 }
 
 function renderMatrix(
   version: OasVersion,
   cases: readonly Case[],
   measurements: readonly LibraryMeasurement[],
+  labelOf: (measurement: LibraryMeasurement) => string,
 ): string {
-  const columns = measurements.map((measurement) => measurement.library);
+  const columns = measurements.map(labelOf);
   const lines: string[] = [];
 
   lines.push(`# Cross-library request validation matrix, OpenAPI ${version}`);
@@ -212,7 +255,7 @@ function renderMatrix(
   lines.push("| --- | --- | --- |");
   for (const adapter of measurements) {
     lines.push(
-      `| [\`${adapter.library}\`](libraries/${adapter.provenance.slug}.md) | ` +
+      `| [\`${labelOf(adapter)}\`](libraries/${adapter.provenance.slug}.md) | ` +
         `${adapter.libraryVersion} | \`${adapter.configuration.id}\` |`,
     );
   }
@@ -231,7 +274,7 @@ function renderMatrix(
   lines.push("| --- | --- | --- |");
   for (const entry of measurements) {
     lines.push(
-      `| \`${entry.library}\` | \`adapters/${entry.provenance.slug}/\` | ` +
+      `| \`${labelOf(entry)}\` | \`adapters/${entry.provenance.slug}/\` | ` +
         `\`${entry.provenance.imageId}\` |`,
     );
   }
@@ -252,11 +295,9 @@ function renderMatrix(
   lines.push(`| --- | --- | ${columns.map(() => "---").join(" | ")} |`);
   const conformance = cases.filter((c): c is ConformanceCase => c.tier === "conformance");
   for (const testCase of conformance) {
-    const results = resultsFor(measurements, testCase.id);
-    const cells = measurements.map((adapter) => {
-      const result = results.find((r) => r.library === adapter.library);
-      return tableCell(outcomeText(conformanceCell(testCase, result)));
-    });
+    const cells = measurements.map((measurement) =>
+      tableCell(outcomeText(conformanceCell(testCase, answerFor(measurement, testCase.id)))),
+    );
     lines.push(`| [\`${testCase.id}\`](#${testCase.id}) | ${testCase.expected} | ${cells.join(" | ")} |`);
   }
   lines.push("");
@@ -412,9 +453,9 @@ function renderMatrix(
     lines.push("| library | verdict | parsed values exposed by the library |");
     lines.push("| --- | --- | --- |");
     for (const adapter of measurements) {
-      const result = resultsFor(measurements, testCase.id).find((r) => r.library === adapter.library);
+      const result = answerFor(adapter, testCase.id);
       lines.push(
-        `| \`${adapter.library}\` | ${verdictCell(result)} | ${valuesCell(result)} |`,
+        `| \`${labelOf(adapter)}\` | ${verdictCell(result)} | ${valuesCell(result)} |`,
       );
     }
     lines.push("");
@@ -1210,7 +1251,11 @@ function renderReadme(
   return `${lines.join("\n")}\n`;
 }
 
-function renderFitness(cases: readonly Case[], measurements: readonly LibraryMeasurement[]): string {
+function renderFitness(
+  cases: readonly Case[],
+  measurements: readonly LibraryMeasurement[],
+  labelOf: (measurement: LibraryMeasurement) => string,
+): string {
   const lines: string[] = [];
   lines.push("# Fitness as a request validator");
   lines.push("");
@@ -1244,7 +1289,7 @@ function renderFitness(cases: readonly Case[], measurements: readonly LibraryMea
       const cell = owned(ownsStage(adapter.capabilities.stages, slot.stage, slot.location ?? "path"));
       return slot.location === "query" ? [cell, adapter.capabilities.queryPairInput] : [cell];
     });
-    lines.push(`| \`${adapter.library}\` | ${cells.join(" | ")} |`);
+    lines.push(`| \`${labelOf(adapter)}\` | ${cells.join(" | ")} |`);
   }
   lines.push("");
   lines.push("`style and explode` and `content media type` are the two ways a parameter's");
@@ -1269,7 +1314,7 @@ function renderFitness(cases: readonly Case[], measurements: readonly LibraryMea
   lines.push("## What each library leaves to its caller");
   lines.push("");
   for (const adapter of measurements) {
-    lines.push(`### \`${adapter.library}\``);
+    lines.push(`### \`${labelOf(adapter)}\``);
     lines.push("");
     const delegated = delegatedStages(adapter);
     if (delegated.length === 0) {
@@ -1312,7 +1357,7 @@ function renderFitness(cases: readonly Case[], measurements: readonly LibraryMea
         const split = new Set(
           disagreements(
             cases.filter((testCase) => behind.unsettled.includes(testCase.id)),
-            measurements.map((measurement) => ({ label: measurement.library, measurement })),
+            measurements.map((measurement) => ({ label: labelOf(measurement), measurement })),
           ).map((found) => found.caseId),
         );
         const disagreed = behind.unsettled.filter((id) => split.has(id));
@@ -1506,6 +1551,7 @@ function listCases(ids: readonly string[]): string {
 function renderCapabilities(
   cases: readonly Case[],
   measurements: readonly LibraryMeasurement[],
+  labelOf: (measurement: LibraryMeasurement) => string,
 ): string {
   const lines: string[] = [];
   lines.push("# Capabilities");
@@ -1525,8 +1571,8 @@ function renderCapabilities(
   for (const adapter of measurements) {
     const c = adapter.capabilities;
     lines.push(
-      `| \`${adapter.library}\` | ${yesNo(splitsWholeTarget(c))} | ` +
-        `${observedVantages(measurements, adapter.library)} | ${yesNo(c.stages.routing)} |`,
+      `| \`${labelOf(adapter)}\` | ${yesNo(splitsWholeTarget(c))} | ` +
+        `${observedVantages(adapter)} | ${yesNo(c.stages.routing)} |`,
     );
   }
   lines.push("");
@@ -1579,7 +1625,7 @@ function renderCapabilities(
   for (const adapter of measurements) {
     const tally = exposureTally(adapter);
     lines.push(
-      `| \`${adapter.library}\` | ${String(tally.decided)} | ${String(tally.observed)} | ` +
+      `| \`${labelOf(adapter)}\` | ${String(tally.decided)} | ${String(tally.observed)} | ` +
         `${String(tally.partlyObserved)} | ${String(tally.unexposed)} | ` +
         `${String(tally.notReached)} | ${String(tally.neverAsked)} | ${String(tally.raised)} | ` +
         `${String(tally.harnessErrors)} |`,
@@ -1599,7 +1645,7 @@ function renderCapabilities(
     for (const verdict of ["accepted", "rejected"] as const) {
       const tally = exposureTally(adapter, verdict);
       lines.push(
-        `| \`${adapter.library}\` | ${verdict} | ${String(tally.observed)} | ` +
+        `| \`${labelOf(adapter)}\` | ${verdict} | ${String(tally.observed)} | ` +
           `${String(tally.partlyObserved)} | ${String(tally.unexposed)} | ` +
           `${String(tally.notReached)} | ${tally.vantages} |`,
       );
@@ -1634,7 +1680,7 @@ function renderCapabilities(
     const counted = (kind: string): number =>
       decided.filter((result) => result.inputMutation.kind === kind).length;
     lines.push(
-      `| \`${measurement.library}\` | ` +
+      `| \`${labelOf(measurement)}\` | ` +
         `${measurement.capabilities.stages.valueExposure ? "yes" : "no"} | ` +
         `${String(counted("observed"))} | ${String(counted("none"))} | ` +
         `${String(counted("notCompared"))} |`,
@@ -1751,13 +1797,13 @@ function renderCapabilities(
           ? `none${unreached}`
           : `${listCases(reading.notShownBy)}${declared ? "" : " (consistent with the disclaim)"}${unreached}`;
       lines.push(
-        `| \`${adapter.library}\` | ${name} | ${owned(declared)} | ${rests} | ${unshown} |`,
+        `| \`${labelOf(adapter)}\` | ${name} | ${owned(declared)} | ${rests} | ${unshown} |`,
       );
     }
   }
   lines.push("");
   for (const adapter of measurements) {
-    lines.push(`### \`${adapter.library}\``);
+    lines.push(`### \`${labelOf(adapter)}\``);
     lines.push("");
     lines.push("| probe | asks | declared | accepted side | rejected side | reading |");
     lines.push("| --- | --- | --- | --- | --- | --- |");
@@ -1811,7 +1857,7 @@ function renderCapabilities(
           ? "disclaimed, and not shown"
           : `disclaimed, and ${shown}`;
       lines.push(
-        `| \`${adapter.library}\` | ${entry.oasVersion} | ${yesNo(entry.declared)} | ` +
+        `| \`${labelOf(adapter)}\` | ${entry.oasVersion} | ${yesNo(entry.declared)} | ` +
           `${sideOf(entry.accepted)} | ${sideOf(entry.rejected)} | ${reading} |`,
       );
     }
@@ -1821,7 +1867,7 @@ function renderCapabilities(
   lines.push("## Configuration");
   lines.push("");
   for (const adapter of measurements) {
-    lines.push(`### \`${adapter.library}\``);
+    lines.push(`### \`${labelOf(adapter)}\``);
     lines.push("");
     lines.push(`\`${adapter.configuration.id}\`: ${adapter.configuration.description}`);
     lines.push("");
@@ -1960,14 +2006,11 @@ function readingOf(entry: CapabilityEvidence): string {
  * one on a rejected request, and "yes" is the least useful true thing to say
  * about it.
  */
-function observedVantages(measurements: readonly LibraryMeasurement[], library: string): string {
+function observedVantages(measurement: LibraryMeasurement): string {
   const seen = new Set<ValueVantage>();
-  for (const measurement of measurements) {
-    for (const { result } of measurement.answers) {
-      if (result.library !== library) continue;
-      if (result.outcome !== "accepted" && result.outcome !== "rejected") continue;
-      if (result.deserialized.kind === "observed") seen.add(result.deserialized.vantage);
-    }
+  for (const { result } of measurement.answers) {
+    if (result.outcome !== "accepted" && result.outcome !== "rejected") continue;
+    if (result.deserialized.kind === "observed") seen.add(result.deserialized.vantage);
   }
   if (seen.size === 0) return "none";
   // Ordered by the type's own declaration order, so the column does not reorder

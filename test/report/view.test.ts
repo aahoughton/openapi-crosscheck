@@ -1049,6 +1049,67 @@ describe("the reasons the prose names are reasons a result can carry", () => {
   });
 });
 
+describe("markdown over two measurements of one library", () => {
+  // Two versions of one package, from two containers. Every column is one
+  // measurement, so nothing may be looked up by the package name they share.
+  const withSlug = (base: LibraryMeasurement, slug: string): LibraryMeasurement => ({
+    ...base,
+    provenance: { ...base.provenance, slug },
+  });
+  const older = withSlug(
+    measurement("same", "1.0.0", { a: accepted({ p: "blue" }), b: rejected() }),
+    "same-old",
+  );
+  const newer = withSlug(
+    measurement("same", "2.0.0", {
+      a: rejected(),
+      b: {
+        library: "same",
+        libraryVersion: "2.0.0",
+        configurationId: "fixture",
+        preparse: null,
+        outcome: "accepted",
+        deserialized: {
+          kind: "observed",
+          vantage: "parsedBeforeValidation",
+          value: { p: "blue" },
+          nativeTypes: {},
+        },
+        inputMutation: { kind: "none", detail: "fixture" },
+        raw: null,
+      },
+    }),
+    "same-new",
+  );
+
+  it("draws each measurement's own answer in its own column", () => {
+    const matrix = renderMarkdown(cases, [newer, older])["matrix.oas31.md"] ?? "";
+    expect(matrix).toContain("| case | expected | `same 1.0.0` | `same 2.0.0` |");
+    const row = (id: string): string =>
+      matrix.split("\n").find((line) => line.startsWith(`| [\`${id}\`]`)) ?? "";
+    expect(row("a")).toContain("| accepted | pass | FAIL (verdict) |");
+    expect(row("b")).toContain("| accepted | FAIL (verdict) | pass |");
+  });
+
+  it("writes one page per measurement", () => {
+    const artifacts = renderMarkdown(cases, [older, newer]);
+    expect(artifacts["libraries/same-old.md"]).toContain("Version measured: 1.0.0");
+    expect(artifacts["libraries/same-new.md"]).toContain("Version measured: 2.0.0");
+  });
+
+  it("reads each measurement's vantages from its own answers", () => {
+    const capabilities = renderMarkdown(cases, [older, newer])["capabilities.md"] ?? "";
+    expect(capabilities).toContain("| `same 1.0.0` | yes | `handed to the handler` | yes |");
+    expect(capabilities).toContain("| `same 2.0.0` | yes | `parsed before validation` | yes |");
+  });
+
+  it("refuses two measurements that would write the same page", () => {
+    expect(() => renderMarkdown(cases, [older, withSlug(newer, "same-old")])).toThrow(
+      "two measurements share the slug same-old",
+    );
+  });
+});
+
 describe("markdown over measurements of different corpora", () => {
   const one = measurement("one", "1.0.0", { a: accepted({ p: "blue" }) }, { corpusDigest: "sha256:one" });
   const two = measurement("two", "1.0.0", { a: accepted({ p: "blue" }) }, { corpusDigest: "sha256:two" });
