@@ -99,36 +99,39 @@ rules the expected verdict rests on, and the argument for it.
 
 | case | expected | `com.atlassian.oai:openapi-request-validator-core` | `express-openapi-validator` | `github.com/getkin/kin-openapi` | `github.com/pb33f/libopenapi-validator` | `league/openapi-psr7-validator` | `@oaverify/core` | `openapi-backend` | `openapi-core` | `openapi-request-validator` | `openapi_first` |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [`cookie-cookie-array-canonical-explode-oas32`](#cookie-cookie-array-canonical-explode-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | n/a | n/a | FAIL (verdict) | n/a | n/a |
-| [`cookie-cookie-array-no-explode-oas32`](#cookie-cookie-array-no-explode-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | FAIL (verdict) | n/a | n/a |
-| [`cookie-cookie-object-canonical-explode-oas32`](#cookie-cookie-object-canonical-explode-oas32) | accepted | n/a | n/a | n/a | FAIL (verdict) | n/a | pass | n/a | FAIL (verdict) | n/a | n/a |
-| [`cookie-cookie-object-no-explode-oas32`](#cookie-cookie-object-no-explode-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | FAIL (verdict) | n/a | n/a |
-| [`cookie-cookie-scalar-canonical-oas32`](#cookie-cookie-scalar-canonical-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | pass | n/a | n/a |
-| [`cookie-cookie-scalar-no-explode-oas32`](#cookie-cookie-scalar-no-explode-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | pass | n/a | n/a |
-| [`cookie-cookie-scalar-percent-triple-oas32`](#cookie-cookie-scalar-percent-triple-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | pass | n/a | n/a |
-| [`path-simple-scalar-allow-reserved-declared-oas32`](#path-simple-scalar-allow-reserved-declared-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | pass | n/a | n/a |
-| [`query-deep-object-canonical-oas32`](#query-deep-object-canonical-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | n/a | n/a | n/a |
-| [`query-deep-object-no-explode-oas32`](#query-deep-object-no-explode-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | pass | n/a | n/a | n/a | n/a |
-| [`query-form-scalar-encoded-plus-oas32`](#query-form-scalar-encoded-plus-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | n/a | n/a | n/a |
-| [`query-form-scalar-unencoded-plus-oas32`](#query-form-scalar-unencoded-plus-oas32) | accepted | n/a | n/a | pass (verdict only) | pass (verdict only) | n/a | pass | n/a | n/a | n/a | n/a |
-| [`querystring-absent-no-question-mark-oas32`](#querystring-absent-no-question-mark-oas32) | accepted | n/a | n/a | n/a | pass | n/a | n/a | n/a | n/a | n/a | n/a |
-| [`querystring-empty-after-question-mark-oas32`](#querystring-empty-after-question-mark-oas32) | accepted | n/a | n/a | n/a | pass | n/a | n/a | n/a | RAISED | n/a | n/a |
-| [`querystring-form-urlencoded-object-canonical-oas32`](#querystring-form-urlencoded-object-canonical-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | n/a | n/a | RAISED | n/a | n/a |
-| [`querystring-form-urlencoded-object-wrong-type-oas32`](#querystring-form-urlencoded-object-wrong-type-oas32) | rejected | n/a | n/a | n/a | FAIL (verdict) | n/a | n/a | n/a | RAISED | n/a | n/a |
-| [`querystring-json-object-canonical-oas32`](#querystring-json-object-canonical-oas32) | accepted | n/a | n/a | n/a | pass (verdict only) | n/a | n/a | n/a | n/a | n/a | n/a |
-| [`querystring-json-object-malformed-oas32`](#querystring-json-object-malformed-oas32) | rejected | n/a | n/a | n/a | FAIL (verdict) | n/a | n/a | n/a | n/a | n/a | n/a |
+| [`cookie-cookie-array-canonical-explode-oas32`](#cookie-cookie-array-canonical-explode-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | n/a (cannotRepresentCase) | n/a (oasVersionNotDeclared) | FAIL (verdict) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`cookie-cookie-array-no-explode-oas32`](#cookie-cookie-array-no-explode-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | FAIL (verdict) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`cookie-cookie-object-canonical-explode-oas32`](#cookie-cookie-object-canonical-explode-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | FAIL (verdict) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | FAIL (verdict) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`cookie-cookie-object-no-explode-oas32`](#cookie-cookie-object-no-explode-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | FAIL (verdict) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`cookie-cookie-scalar-canonical-oas32`](#cookie-cookie-scalar-canonical-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`cookie-cookie-scalar-no-explode-oas32`](#cookie-cookie-scalar-no-explode-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`cookie-cookie-scalar-percent-triple-oas32`](#cookie-cookie-scalar-percent-triple-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`path-simple-scalar-allow-reserved-declared-oas32`](#path-simple-scalar-allow-reserved-declared-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | pass (verdict only) | pass (verdict only) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`query-deep-object-canonical-oas32`](#query-deep-object-canonical-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | pass (verdict only) | pass (verdict only) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | n/a (harnessInputUnavailable) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`query-deep-object-no-explode-oas32`](#query-deep-object-no-explode-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | n/a (harnessInputUnavailable) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`query-form-scalar-encoded-plus-oas32`](#query-form-scalar-encoded-plus-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | pass (verdict only) | pass (verdict only) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | n/a (harnessInputUnavailable) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`query-form-scalar-unencoded-plus-oas32`](#query-form-scalar-unencoded-plus-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | pass (verdict only) | pass (verdict only) | n/a (oasVersionNotDeclared) | pass | n/a (oasVersionNotDeclared) | n/a (harnessInputUnavailable) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`querystring-absent-no-question-mark-oas32`](#querystring-absent-no-question-mark-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | n/a (cannotRepresentCase) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`querystring-empty-after-question-mark-oas32`](#querystring-empty-after-question-mark-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | RAISED | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`querystring-form-urlencoded-object-canonical-oas32`](#querystring-form-urlencoded-object-canonical-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | RAISED | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`querystring-form-urlencoded-object-wrong-type-oas32`](#querystring-form-urlencoded-object-wrong-type-oas32) | rejected | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | FAIL (verdict) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | RAISED | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`querystring-json-object-canonical-oas32`](#querystring-json-object-canonical-oas32) | accepted | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | pass (verdict only) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | n/a (cannotRepresentCase) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
+| [`querystring-json-object-malformed-oas32`](#querystring-json-object-malformed-oas32) | rejected | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | FAIL (verdict) | n/a (oasVersionNotDeclared) | n/a (libraryInitUnsupported) | n/a (oasVersionNotDeclared) | n/a (cannotRepresentCase) | n/a (oasVersionNotDeclared) | n/a (oasVersionNotDeclared) |
 
-Legend: `pass (verdict only)` means the library reached the right verdict and
-exposes no deserialized values, so the value half of the case could not be
-asked of it. `pass (values not reached)` means it reached the right verdict,
-exposes values, and reported reaching none on this request.
-`pass (value unreadable here)` means it reached the right verdict and every
-expected value the container could read matched, while at least one expected
-parameter had no slot in the library's request shape. `n/a` means the library was never asked, and why is in
-`capabilities.md`. `RAISED` means the library threw instead of answering, which is
-attributable to it and is not a rejection: an application would have seen an
-exception rather than a refusal. `harness error` is an error in the adapter or
-the harness, not an answer from the library.
+What a cell reads, and what it means:
+
+| cell | meaning |
+| --- | --- |
+| `pass` | The verdict the specification settles, and its values where the specification settles those too. |
+| `pass (verdict only)` | The settled verdict, from a library that exposes no deserialized values, so the value half of the case could not be asked of it. |
+| `pass (values not reached)` | The settled verdict, from a library that exposes values and reported reaching none on this request, so the value half has nothing to compare. |
+| `pass (value unreadable here)` | The settled verdict, and every expected value this container could read matched. At least one expected parameter has no slot in the request shape this library takes, so its value was never put to the library. |
+| `FAIL (verdict)` | It reached the opposite verdict. |
+| `FAIL (value)` | It reached the settled verdict and handed back values the specification settles differently. |
+| `RAISED` | It threw instead of answering, which is attributable to it. An application would have seen an exception rather than a refusal. |
+| `harness error` | An error in the adapter or the harness rather than an answer from the library. |
+| `n/a (<reason>)` | The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation. |
+| `no answer` | The measurement holds no answer for this case at all. Nothing withheld it: the measurement file has no entry for the case id, so it and the corpus it is read with do not line up. |
 
 ### Conformance cases in full
 
@@ -727,6 +730,7 @@ Each row holds two separate results, and the key for both is:
 | `raised, no verdict` | it threw instead of answering, which is attributable to it and is not a rejection: an application would have seen an exception |
 | `not asked (<reason>)` | no request verdict was measured; the reason names the version, stage, public input, library input shape, or adapter boundary that stopped it |
 | `harness error` | an error in the adapter or the harness rather than an answer from the library |
+| `no answer` | The measurement holds no answer for this case at all. Nothing withheld it: the measurement file has no entry for the case id, so it and the corpus it is read with do not line up. |
 | `` `{"p":"blue"}` `` | the values it handed back, as it returned them, with the vantage they were read from |
 | `not exposed by this library` | it reached a verdict and publishes no call that returns deserialized values, which is a fact about the library rather than about this request |
 | `none reached` | it does expose values, and produced none here |

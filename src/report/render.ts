@@ -5,14 +5,19 @@ import type { PipelineStage } from "../types/pipeline";
 import { PIPELINE_STAGES, ownsStage, probedStage } from "../types/pipeline";
 import type { AdapterResult, ValueVantage } from "../types/result";
 import {
+  CONFORMANCE_OUTCOMES,
   OUTCOME_LABEL,
+  OUTCOME_NOTE,
   STAGE_SLOTS,
+  conformanceCell,
+  outcomeText,
   VANTAGES,
   valuesCell,
   vantageText,
   verdictCell,
 } from "./cells";
 import type { LibraryMeasurement } from "../types/measurement";
+import { tableCell } from "./markdown";
 import { MEASUREMENT_SCHEMA_VERSION } from "../types/measurement";
 import { renderLibrary } from "./display";
 import { PARAMETER_NAME_RESERVED_HEADERS as RESERVED_HEADERS_OAS30 } from "../corpus/citations/oas30";
@@ -41,7 +46,6 @@ import {
 } from "../surface/surface";
 import type { CapabilityEvidence, ProbeSide } from "../capability/evidence";
 import { demonstratedBy, demonstrates, stageReading, versionDemonstratedBy } from "../capability/evidence";
-import { score } from "./score";
 
 /**
  * Everything written to `report/`, keyed by path.
@@ -229,22 +233,19 @@ function renderMatrix(
     const results = resultsFor(measurements, testCase.id);
     const cells = measurements.map((adapter) => {
       const result = results.find((r) => r.library === adapter.library);
-      return result === undefined ? "-" : OUTCOME_LABEL[score(testCase, result)];
+      return tableCell(outcomeText(conformanceCell(testCase, result)));
     });
     lines.push(`| [\`${testCase.id}\`](#${testCase.id}) | ${testCase.expected} | ${cells.join(" | ")} |`);
   }
   lines.push("");
-  lines.push("Legend: `pass (verdict only)` means the library reached the right verdict and");
-  lines.push("exposes no deserialized values, so the value half of the case could not be");
-  lines.push("asked of it. `pass (values not reached)` means it reached the right verdict,");
-  lines.push("exposes values, and reported reaching none on this request.");
-  lines.push("`pass (value unreadable here)` means it reached the right verdict and every");
-  lines.push("expected value the container could read matched, while at least one expected");
-  lines.push("parameter had no slot in the library's request shape. `n/a` means the library was never asked, and why is in");
-  lines.push("`capabilities.md`. `RAISED` means the library threw instead of answering, which is");
-  lines.push("attributable to it and is not a rejection: an application would have seen an");
-  lines.push("exception rather than a refusal. `harness error` is an error in the adapter or");
-  lines.push("the harness, not an answer from the library.");
+  lines.push("What a cell reads, and what it means:");
+  lines.push("");
+  lines.push("| cell | meaning |");
+  lines.push("| --- | --- |");
+  for (const outcome of CONFORMANCE_OUTCOMES) {
+    const shown = outcome === "notApplicable" ? `${OUTCOME_LABEL[outcome]} (<reason>)` : OUTCOME_LABEL[outcome];
+    lines.push(`| \`${shown}\` | ${tableCell(OUTCOME_NOTE[outcome])} |`);
+  }
   lines.push("");
 
   lines.push("### Conformance cases in full");
@@ -323,6 +324,7 @@ function renderMatrix(
     "| `harness error` | an error in the adapter or the harness rather than an answer " +
       "from the library |",
   );
+  lines.push(`| \`${OUTCOME_LABEL.unanswered}\` | ${tableCell(OUTCOME_NOTE.unanswered)} |`);
   lines.push(
     "| `` `{\"p\":\"blue\"}` `` | the values it handed back, as it returned them, with the " +
       "vantage they were read from |",

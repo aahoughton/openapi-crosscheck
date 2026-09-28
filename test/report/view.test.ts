@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { Case, ConformanceCase, DivergenceCase, ProbeAxis } from "../../src/types/case";
 import type { LibraryMeasurement } from "../../src/types/measurement";
 import type { AdapterResult, DeserializedValues } from "../../src/types/result";
+import { renderHtml } from "../../src/report/html";
 import { renderMarkdown } from "../../src/report/render";
 import { score } from "../../src/report/score";
 import { valuesText } from "../../src/report/cells";
@@ -319,7 +320,7 @@ describe("the roster", () => {
 });
 
 describe("conformance tallies", () => {
-  it("counts a case the measurement never answered as unasked", () => {
+  it("counts a case the measurement holds no answer for as unanswered, apart from unasked", () => {
     // The row has to sum to the corpus size whatever the measurement contains,
     // or a reader comparing two rows is comparing different denominators.
     const tallies = conformanceTallies(cases, [
@@ -328,10 +329,16 @@ describe("conformance tallies", () => {
     const tally = tallies[0];
     if (tally === undefined) throw new Error("no tally");
     const summed = Object.values(tally.counts).reduce((total, count) => total + count, 0);
-    expect({ summed, total: tally.total, unasked: tally.counts.notApplicable }).toEqual({
+    expect({
+      summed,
+      total: tally.total,
+      unanswered: tally.counts.unanswered,
+      unasked: tally.counts.notApplicable,
+    }).toEqual({
       summed: 2,
       total: 2,
-      unasked: 1,
+      unanswered: 1,
+      unasked: 0,
     });
   });
 
@@ -402,7 +409,36 @@ describe("version deltas", () => {
         library: "same",
         from: "5.0.0",
         to: "5.1.0",
-        moved: [{ caseId: "b", before: "failVerdict", after: "pass" }],
+        moved: [
+          {
+            caseId: "b",
+            before: { outcome: "failVerdict", reason: null },
+            after: { outcome: "pass", reason: null },
+          },
+        ],
+      },
+    ]);
+  });
+
+  it("reports a case that moved between two reasons for not being asked", () => {
+    const withheld = (reason: "stageNotOwned" | "cannotRepresentCase"): AdapterResult => ({
+      library: "lib",
+      libraryVersion: "1.0.0",
+      configurationId: "fixture",
+      preparse: null,
+      outcome: "unsupported",
+      reason,
+      detail: "fixture",
+    });
+    const deltas = versionDeltas(cases, [
+      { label: "1", measurement: measurement("same", "1.0.0", { a: withheld("stageNotOwned") }) },
+      { label: "2", measurement: measurement("same", "2.0.0", { a: withheld("cannotRepresentCase") }) },
+    ]);
+    expect(deltas[0]?.moved.filter((move) => move.caseId === "a")).toEqual([
+      {
+        caseId: "a",
+        before: { outcome: "notApplicable", reason: "stageNotOwned" },
+        after: { outcome: "notApplicable", reason: "cannotRepresentCase" },
       },
     ]);
   });
@@ -901,5 +937,41 @@ describe("fitness claims a split only where the measurements show one", () => {
       renderMarkdown([testCase], [disclaiming("one"), disclaiming("two")])["fitness.md"] ?? "";
     expect(fitness).not.toContain("measured implementations disagree");
     expect(fitness).toContain("did not split on them");
+  });
+});
+
+describe("a case withheld and a case with no answer read differently", () => {
+  const withheld: AdapterResult = {
+    library: "lib",
+    libraryVersion: "1.0.0",
+    configurationId: "fixture",
+    preparse: null,
+    outcome: "unsupported",
+    reason: "stageNotOwned",
+    detail: "fixture",
+  };
+  // `a` withheld by the runner, `b` absent from the measurement altogether.
+  const measured = measurement("lib", "1.0.0", { a: withheld });
+
+  it("says so in the markdown matrix, and defines both", () => {
+    const matrix = renderMarkdown(cases, [measured])["matrix.oas31.md"] ?? "";
+    const row = (id: string): string =>
+      matrix.split("\n").find((line) => line.startsWith(`| [\`${id}\`]`)) ?? "";
+    expect(row("a")).toContain("| n/a (stageNotOwned) |");
+    expect(row("b")).toContain("| no answer |");
+    expect(matrix).toContain("| `n/a (<reason>)` |");
+    expect(matrix).toContain("| `no answer` |");
+  });
+
+  it("says so on the library's own page", () => {
+    const page = renderMarkdown(cases, [measured])["libraries/lib.md"] ?? "";
+    expect(page).toContain("#### Cases it was not asked");
+    expect(page).toContain("#### Cases this measurement holds no answer for");
+  });
+
+  it("says so on the page, reason and all", () => {
+    const html = renderHtml(cases, [{ label: "lib", measurement: measured }]);
+    expect(html).toContain('>n/a</span><span class="why">stageNotOwned</span>');
+    expect(html).toContain(">no answer</span>");
   });
 });

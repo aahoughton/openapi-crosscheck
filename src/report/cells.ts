@@ -1,8 +1,9 @@
 import type { PipelineStage, SplittableLocation } from "../types/pipeline";
 import { PIPELINE_STAGES, SPLITTABLE_LOCATIONS } from "../types/pipeline";
-import type { AdapterResult, ValueVantage } from "../types/result";
+import type { ConformanceCase } from "../types/case";
+import type { AdapterResult, UnsupportedReason, ValueVantage } from "../types/result";
 import { tableCell } from "./markdown";
-import type { ConformanceOutcome } from "./score";
+import { score, type ConformanceOutcome } from "./score";
 
 /**
  * The words every reading of a measurement puts in a cell.
@@ -14,9 +15,48 @@ import type { ConformanceOutcome } from "./score";
  */
 
 /**
+ * What a conformance cell can hold: a scored outcome, or `unanswered` for a
+ * case the measurement holds no answer to.
+ *
+ * `unanswered` is kept apart from `notApplicable`. A case withheld by the
+ * runner or refused by a container has a recorded answer with a reason; a case
+ * missing from the measurement has none, which says the measurement file and
+ * the corpus beside it do not line up.
+ */
+export type CellOutcome = ConformanceOutcome | "unanswered";
+
+/** One conformance cell: the outcome, and the recorded reason when it was not asked. */
+export interface ConformanceCell {
+  readonly outcome: CellOutcome;
+  readonly reason: UnsupportedReason | null;
+}
+
+export function conformanceCell(
+  testCase: ConformanceCase,
+  result: AdapterResult | undefined,
+): ConformanceCell {
+  if (result === undefined) return { outcome: "unanswered", reason: null };
+  return {
+    outcome: score(testCase, result),
+    reason: result.outcome === "unsupported" ? result.reason : null,
+  };
+}
+
+/** Whether two cells say the same thing, reason included. */
+export function sameCell(one: ConformanceCell, other: ConformanceCell): boolean {
+  return one.outcome === other.outcome && one.reason === other.reason;
+}
+
+/** A cell as text: the label, and the reason where there is one. */
+export function outcomeText(cell: ConformanceCell): string {
+  const label = OUTCOME_LABEL[cell.outcome];
+  return cell.reason === null ? label : `${label} (${cell.reason})`;
+}
+
+/**
  * Every outcome a conformance cell can hold, in the order a tally lists them.
  */
-export const CONFORMANCE_OUTCOMES: readonly ConformanceOutcome[] = [
+export const CONFORMANCE_OUTCOMES: readonly CellOutcome[] = [
   "pass",
   "passVerdictOnly",
   "passValuesNotReached",
@@ -26,10 +66,11 @@ export const CONFORMANCE_OUTCOMES: readonly ConformanceOutcome[] = [
   "libraryError",
   "adapterError",
   "notApplicable",
+  "unanswered",
 ];
 
 /** What a conformance cell reads, in every rendering. */
-export const OUTCOME_LABEL: Readonly<Record<ConformanceOutcome, string>> = {
+export const OUTCOME_LABEL: Readonly<Record<CellOutcome, string>> = {
   pass: "pass",
   passVerdictOnly: "pass (verdict only)",
   passValuesNotReached: "pass (values not reached)",
@@ -39,10 +80,11 @@ export const OUTCOME_LABEL: Readonly<Record<ConformanceOutcome, string>> = {
   libraryError: "RAISED",
   adapterError: "harness error",
   notApplicable: "n/a",
+  unanswered: "no answer",
 };
 
 /** What each outcome means, one sentence or two each. */
-export const OUTCOME_NOTE: Readonly<Record<ConformanceOutcome, string>> = {
+export const OUTCOME_NOTE: Readonly<Record<CellOutcome, string>> = {
   pass: "The verdict the specification settles, and its values where the specification settles those too.",
   passVerdictOnly:
     "The settled verdict, from a library that exposes no deserialized values, so the value half of the case could not be asked of it.",
@@ -57,7 +99,9 @@ export const OUTCOME_NOTE: Readonly<Record<ConformanceOutcome, string>> = {
     "It threw instead of answering, which is attributable to it. An application would have seen an exception rather than a refusal.",
   adapterError: "An error in the adapter or the harness rather than an answer from the library.",
   notApplicable:
-    "No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.",
+    "The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.",
+  unanswered:
+    "The measurement holds no answer for this case at all. Nothing withheld it: the measurement file has no entry for the case id, so it and the corpus it is read with do not line up.",
 };
 
 /**
@@ -65,7 +109,7 @@ export const OUTCOME_NOTE: Readonly<Record<ConformanceOutcome, string>> = {
  * harness fault apart from a verdict.
  */
 export function verdictText(result: AdapterResult | undefined): string {
-  if (result === undefined) return "-";
+  if (result === undefined) return OUTCOME_LABEL.unanswered;
   if (result.outcome === "unsupported") return `not asked (${result.reason})`;
   if (result.outcome === "adapterError") return "harness error";
   if (result.outcome === "libraryError") return "raised, no verdict";

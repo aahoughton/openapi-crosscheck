@@ -1,9 +1,15 @@
 import type { Case } from "../types/case";
 import type { OasVersion } from "../types/openapi";
 import type { RunSidecarState } from "./read";
-import type { ConformanceOutcome } from "./score";
 import type { CoverageView, Disagreement } from "./view";
-import { CONFORMANCE_OUTCOMES, OUTCOME_LABEL, OUTCOME_NOTE, STAGE_SLOTS } from "./cells";
+import {
+  CONFORMANCE_OUTCOMES,
+  OUTCOME_LABEL,
+  OUTCOME_NOTE,
+  STAGE_SLOTS,
+  type CellOutcome,
+  type ConformanceCell,
+} from "./cells";
 import {
   caseNotes,
   conformanceGrid,
@@ -41,7 +47,7 @@ import {
  * which outcome and leaves the arithmetic undone.
  */
 
-const OUTCOME_CLASS: Record<ConformanceOutcome, string> = {
+const OUTCOME_CLASS: Readonly<Record<CellOutcome, string>> = {
   pass: "pass",
   passVerdictOnly: "pass",
   passValuesNotReached: "pass",
@@ -51,7 +57,19 @@ const OUTCOME_CLASS: Record<ConformanceOutcome, string> = {
   libraryError: "raise",
   adapterError: "raise",
   notApplicable: "held",
+  unanswered: "held",
 };
+
+/**
+ * One conformance cell as a chip, with the recorded reason under it where the
+ * library was not asked. The reason is what separates a stage the library
+ * leaves to its caller from a case its container could not express, and a chip
+ * reading `n/a` alone says neither.
+ */
+function chip(cell: ConformanceCell): string {
+  const reason = cell.reason === null ? "" : `<span class="why">${escape(cell.reason)}</span>`;
+  return `<span class="chip ${OUTCOME_CLASS[cell.outcome]}">${escape(OUTCOME_LABEL[cell.outcome])}</span>${reason}`;
+}
 
 /**
  * Which other readings of the same run directory are on disk beside this one.
@@ -423,11 +441,8 @@ ${STAGE_SLOTS.map(
 ${grid
   .map(
     (line, index) =>
-      `${bandFor(line.caseId, grid[index - 1]?.caseId)}        <tr${rowClass(line.caseId)}>${caseCell(line.caseId)}${line.outcomes
-        .map(
-          (outcome) =>
-            `<td class="chip-cell"><span class="chip ${OUTCOME_CLASS[outcome]}">${escape(OUTCOME_LABEL[outcome])}</span></td>`,
-        )
+      `${bandFor(line.caseId, grid[index - 1]?.caseId)}        <tr${rowClass(line.caseId)}>${caseCell(line.caseId)}${line.cells
+        .map((cell) => `<td class="chip-cell">${chip(cell)}</td>`)
         .join("")}</tr>`,
   )
   .join("\n")}
@@ -476,7 +491,8 @@ ${divergence
     <dl class="stages">
       <dt>accepted / rejected</dt><dd>The verdict the library reached on the request.</dd>
       <dt>raised, no verdict</dt><dd>It threw instead of answering, so an application would have seen an exception. Attributable to the library, and a different thing from a rejection.</dd>
-      <dt>not asked</dt><dd>No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.</dd>
+      <dt>not asked</dt><dd>No request verdict was measured. The reason in brackets is the one recorded with the answer, and names the version, stage, public input, library input shape, or adapter boundary that stopped it.</dd>
+      <dt>no answer</dt><dd>The measurement holds no answer for this case at all. Nothing withheld it: the measurement file has no entry for the case id, so it and the corpus it is read with do not line up.</dd>
       <dt>harness error</dt><dd>An error in the adapter or the harness rather than an answer from the library.</dd>
       <dt><code>{"p":"blue"}</code></dt><dd>The values the library handed back, as it returned them. The vantage they were read from is recorded with every answer in <code>libraries/&lt;slug&gt;.json</code>, because a value handed to a handler and a value read from a validator are different observations.</dd>
       <dt>not exposed by this library</dt><dd>It reached a verdict, and publishes no call that returns deserialized values. That's a fact about the library rather than about this request.</dd>
@@ -504,7 +520,7 @@ ${
 ${delta.moved
   .map(
     (move) =>
-      `        <tr${rowClass(move.caseId)}>${caseCell(move.caseId)}<td><span class="chip ${OUTCOME_CLASS[move.before]}">${escape(OUTCOME_LABEL[move.before])}</span></td><td><span class="chip ${OUTCOME_CLASS[move.after]}">${escape(OUTCOME_LABEL[move.after])}</span></td></tr>`,
+      `        <tr${rowClass(move.caseId)}>${caseCell(move.caseId)}<td>${chip(move.before)}</td><td>${chip(move.after)}</td></tr>`,
   )
   .join("\n")}
       </tbody>
@@ -886,6 +902,7 @@ td.w{white-space:normal;color:var(--muted);font-size:.85rem}
 .chip.fail{background:var(--fail-soft);color:var(--fail)}
 .chip.held{background:var(--held-soft);color:var(--held)}
 .chip.raise{background:var(--raise-soft);color:var(--raise)}
+.why{display:block;font-family:var(--mono);font-size:.64rem;color:var(--faint);margin-top:.15rem}
 .vswitch{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0)}
 .vfilter{display:flex;align-items:baseline;gap:.45rem;margin:.6rem 0 0;font-size:.8rem;color:var(--faint)}
 .vfilter label{font-family:var(--mono);font-size:.72rem;padding:.12rem .55rem;border:1px solid var(--rule);border-radius:2px;background:var(--surface);color:var(--muted);cursor:pointer}

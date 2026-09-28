@@ -2,12 +2,12 @@ import type { Case, ConformanceCase } from "../types/case";
 import { OAS_VERSIONS } from "../types/openapi";
 import type { LibraryMeasurement } from "../types/measurement";
 import { ownsStage } from "../types/pipeline";
-import { score } from "./score";
 import {
   CONFORMANCE_OUTCOMES,
   OUTCOME_LABEL,
   OUTCOME_NOTE,
-  STAGE_SLOTS, valuesCell, verdictCell } from "./cells";
+  STAGE_SLOTS,
+  conformanceCell, valuesCell, verdictCell } from "./cells";
 import { conformanceTallies, matrixFileName, presentVersions } from "./view";
 
 /**
@@ -95,11 +95,8 @@ export function renderLibrary(cases: readonly Case[], measurement: LibraryMeasur
     const conformance = versionCases.filter((c): c is ConformanceCase => c.tier === "conformance");
     const scored = conformance.map((testCase) => {
       const result = byCase.get(testCase.id);
-      return {
-        testCase,
-        result,
-        outcome: result === undefined ? "notApplicable" : score(testCase, result),
-      };
+      const cell = conformanceCell(testCase, result);
+      return { testCase, result, outcome: cell.outcome, reason: cell.reason };
     });
 
     lines.push(`## OpenAPI ${version}`);
@@ -157,10 +154,7 @@ export function renderLibrary(cases: readonly Case[], measurement: LibraryMeasur
     if (notAsked.length > 0) {
       lines.push("#### Cases it was not asked");
       lines.push("");
-      const reasonOf = (entry: (typeof notAsked)[number]): string =>
-        entry.result !== undefined && entry.result.outcome === "unsupported"
-          ? entry.result.reason
-          : "not answered";
+      const reasonOf = (entry: (typeof notAsked)[number]): string => entry.reason ?? "";
       const stageNotOwned = notAsked.filter((entry) => reasonOf(entry) === "stageNotOwned");
       const inputUnavailable = notAsked.filter(
         (entry) => reasonOf(entry) === "harnessInputUnavailable",
@@ -198,6 +192,16 @@ export function renderLibrary(cases: readonly Case[], measurement: LibraryMeasur
         }
         lines.push("");
       }
+    }
+
+    const unanswered = scored.filter((entry) => entry.outcome === "unanswered");
+    if (unanswered.length > 0) {
+      lines.push("#### Cases this measurement holds no answer for");
+      lines.push("");
+      lines.push(OUTCOME_NOTE.unanswered);
+      lines.push("");
+      for (const entry of unanswered) lines.push(`- ${caseLink(entry.testCase.id)}`);
+      lines.push("");
     }
 
     lines.push("### Divergence");

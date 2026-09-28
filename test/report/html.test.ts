@@ -4,8 +4,7 @@ import type { Case, ConformanceCase } from "../../src/types/case";
 import type { LibraryMeasurement } from "../../src/types/measurement";
 import { readRun } from "../../src/report/read";
 import { renderHtml } from "../../src/report/html";
-import { score } from "../../src/report/score";
-import { OUTCOME_LABEL as LABELS, STAGE_SLOTS } from "../../src/report/cells";
+import { OUTCOME_LABEL as LABELS, STAGE_SLOTS, conformanceCell } from "../../src/report/cells";
 import {
   caseNote,
   compareLibraryNames,
@@ -101,8 +100,7 @@ describe("the outcomes drawn are the outcomes scored", () => {
     const conformance = run.cases.filter((c): c is ConformanceCase => c.tier === "conformance");
     for (const testCase of conformance) {
       for (const { measurement } of entries) {
-        const outcome = answerFor(measurement, testCase.id);
-        const label = LABELS[outcome === undefined ? "notApplicable" : score(testCase, outcome)];
+        const label = LABELS[conformanceCell(testCase, answerFor(measurement, testCase.id)).outcome];
         tally.set(label, (tally.get(label) ?? 0) + 1);
       }
     }
@@ -128,6 +126,23 @@ describe("the outcomes drawn are the outcomes scored", () => {
     for (const label of new Set(Object.values(LABELS))) {
       expect(key).toContain(`>${label}</span></dt>`);
     }
+  });
+
+  it("puts the recorded reason under every chip for a case the library was not asked", () => {
+    const table = section("Conformance").split("</table>")[0] ?? "";
+    const expected: string[] = [];
+    for (const testCase of run.cases) {
+      if (testCase.tier !== "conformance") continue;
+      for (const { measurement } of entries) {
+        const cell = conformanceCell(testCase, answerFor(measurement, testCase.id));
+        if (cell.reason !== null) expected.push(cell.reason);
+      }
+    }
+    const drawn = [...table.matchAll(/>n\/a<\/span><span class="why">([^<]*)<\/span>/g)].map(
+      ([, reason]) => reason ?? "",
+    );
+    expect(expected.length).toBeGreaterThan(0);
+    expect(drawn.sort()).toEqual(expected.sort());
   });
 
   it("draws a cell for every pair, so no measurement is quietly short a case", () => {

@@ -222,7 +222,7 @@ the page with the numbers.
 | n/a | 18 |
 | every conformance case | 18 |
 
-- `n/a`: No request verdict was measured. The cell reason names the version, stage, public input, library input shape, or adapter boundary that stopped it.
+- `n/a`: The library was not asked, and the reason beside it is the one recorded with the answer. The runner issues stageNotOwned, harnessInputUnavailable and oasVersionNotDeclared; the container issues cannotRepresentCase, libraryInitUnsupported and adapterLimitation.
 
 #### Cases it was not asked
 

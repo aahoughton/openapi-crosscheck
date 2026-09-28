@@ -17,8 +17,16 @@ import {
   definedSurface,
 } from "../surface/surface";
 import type { ContentCell, ContentCondition } from "../surface/surface";
-import { score, type ConformanceOutcome } from "./score";
-import { CONFORMANCE_OUTCOMES, STAGE_SLOTS, valuesText, verdictText } from "./cells";
+import {
+  CONFORMANCE_OUTCOMES,
+  STAGE_SLOTS,
+  conformanceCell,
+  sameCell,
+  valuesText,
+  verdictText,
+  type CellOutcome,
+  type ConformanceCell,
+} from "./cells";
 
 /**
  * The numbers a results report is made of, computed once and rendered by
@@ -554,7 +562,7 @@ export function roster(entries: readonly Entry[]): readonly RosterRow[] {
  */
 export interface ConformanceTally {
   readonly label: string;
-  readonly counts: Readonly<Record<ConformanceOutcome, number>>;
+  readonly counts: Readonly<Record<CellOutcome, number>>;
   readonly total: number;
 }
 
@@ -565,15 +573,14 @@ export function conformanceTallies(
   const conformance = cases.filter((c): c is ConformanceCase => c.tier === "conformance");
   return entries.map(({ label, measurement }) => {
     const counts = Object.fromEntries(CONFORMANCE_OUTCOMES.map((outcome) => [outcome, 0])) as Record<
-      ConformanceOutcome,
+      CellOutcome,
       number
     >;
     for (const testCase of conformance) {
-      const result = answerFor(measurement, testCase.id);
-      // A case the measurement has no answer for is counted as unasked rather
-      // than skipped, so every row sums to the same total and a reader can see
-      // that it does.
-      counts[result === undefined ? "notApplicable" : score(testCase, result)] += 1;
+      // A case the measurement has no answer for is counted as unanswered
+      // rather than skipped, so every row sums to the same total and a reader
+      // can see that it does.
+      counts[cellOf(testCase, measurement).outcome] += 1;
     }
     return { label, counts, total: conformance.length };
   });
@@ -590,7 +597,7 @@ export function conformanceTallies(
 export interface ConformanceRow {
   readonly caseId: string;
   /** In `entries` order, so a column is one measurement throughout. */
-  readonly outcomes: readonly ConformanceOutcome[];
+  readonly cells: readonly ConformanceCell[];
 }
 
 /**
@@ -609,7 +616,7 @@ export function conformanceGrid(
     .filter((c): c is ConformanceCase => c.tier === "conformance")
     .map((testCase) => ({
       caseId: testCase.id,
-      outcomes: entries.map((entry) => outcomeOf(testCase, entry.measurement)),
+      cells: entries.map((entry) => cellOf(testCase, entry.measurement)),
     }));
 }
 
@@ -993,8 +1000,8 @@ export interface VersionDelta {
   readonly to: string;
   readonly moved: readonly {
     caseId: string;
-    before: ConformanceOutcome;
-    after: ConformanceOutcome;
+    before: ConformanceCell;
+    after: ConformanceCell;
   }[];
 }
 
@@ -1021,9 +1028,9 @@ export function versionDeltas(
       const after = group[index];
       if (before === undefined || after === undefined) continue;
       const moved = conformance.flatMap((testCase) => {
-        const one = outcomeOf(testCase, before.measurement);
-        const two = outcomeOf(testCase, after.measurement);
-        return one === two ? [] : [{ caseId: testCase.id, before: one, after: two }];
+        const one = cellOf(testCase, before.measurement);
+        const two = cellOf(testCase, after.measurement);
+        return sameCell(one, two) ? [] : [{ caseId: testCase.id, before: one, after: two }];
       });
       deltas.push({ library, from: before.label, to: after.label, moved });
     }
@@ -1031,9 +1038,8 @@ export function versionDeltas(
   return deltas;
 }
 
-function outcomeOf(testCase: ConformanceCase, measurement: LibraryMeasurement): ConformanceOutcome {
-  const result = answerFor(measurement, testCase.id);
-  return result === undefined ? "notApplicable" : score(testCase, result);
+function cellOf(testCase: ConformanceCase, measurement: LibraryMeasurement): ConformanceCell {
+  return conformanceCell(testCase, answerFor(measurement, testCase.id));
 }
 
 function answerFor(measurement: LibraryMeasurement, caseId: string): AdapterResult | undefined {
