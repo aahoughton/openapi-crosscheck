@@ -1,4 +1,6 @@
+import type { JsonValue } from "../types/json";
 import type { AdapterResult } from "../types/result";
+import { valuesText, verdictText } from "./cells";
 import { tableCell } from "./markdown";
 import type { LibraryMeasurement } from "../types/measurement";
 
@@ -78,7 +80,9 @@ export function compare(
   }
 
   const left = byCase(a);
+  if ("duplicate" in left) return answeredTwice("A", left.duplicate);
   const right = byCase(b);
+  if ("duplicate" in right) return answeredTwice("B", right.duplicate);
   const changes: CaseChange[] = [];
   let unchanged = 0;
 
@@ -111,8 +115,10 @@ export function compare(
     }
     // Only where the verdict held, because a verdict change already explains
     // its own values and listing both would report one movement twice.
-    if (values(from) !== values(to)) {
-      changes.push({ kind: "values", caseId, from: values(from), to: values(to) });
+    const before = values(from);
+    const after = values(to);
+    if (before.key !== after.key) {
+      changes.push({ kind: "values", caseId, from: before.text, to: after.text });
       continue;
     }
     unchanged += 1;
@@ -121,42 +127,86 @@ export function compare(
   return { changes, unchanged };
 }
 
-function byCase(measurement: LibraryMeasurement): Map<string, AdapterResult> {
-  return new Map(measurement.answers.map((answer) => [answer.caseId, answer.result]));
+function answeredTwice(side: "A" | "B", caseId: string): Refusal {
+  return {
+    reason:
+      `side ${side} answers case ${caseId} more than once, ` +
+      `so there is no one answer to compare`,
+  };
+}
+
+/**
+ * Answers keyed by case id, or the first id the measurement answers twice.
+ *
+ * A measurement holds one answer per case. Two answers under one id cannot
+ * both be compared, and keeping whichever a map kept last would report the
+ * comparison of an answer chosen by file order.
+ */
+function byCase(measurement: LibraryMeasurement): Map<string, AdapterResult> | { duplicate: string } {
+  const answers = new Map<string, AdapterResult>();
+  for (const answer of measurement.answers) {
+    if (answers.has(answer.caseId)) return { duplicate: answer.caseId };
+    answers.set(answer.caseId, answer.result);
+  }
+  return answers;
 }
 
 /**
  * The verdict as a reader would say it, with the reason where there is one.
  *
- * `unsupported` alone hides the distinction the report exists to keep: a case
- * withheld because a library does not own the stage is a different fact from
- * one its container could not put to it.
+ * The same words every other reading uses. The detail carried by a raise or a
+ * harness error is left out of the comparison: it is an exception message,
+ * and exception messages carry stack frames, addresses and timings that move
+ * between two runs of the same code, so comparing them would bury the cases
+ * that moved under ones that did not. The raw answer beside it in each
+ * measurement file keeps the detail for a reader who wants it.
  */
 function verdict(result: AdapterResult): string {
-  return result.outcome === "unsupported" ? `unsupported (${result.reason})` : result.outcome;
+  return verdictText(result);
 }
 
 /**
- * The value channel as stored, keeping the three answers apart.
+ * The value channel as stored, as text to show and a key to compare.
  *
- * A library with no API that exposes values, one that had an API and never
- * reached it, and one that returned values are three different facts, and a
- * comparison that rendered them alike would report a real movement between them
- * as no change at all.
+ * Everything a decided answer says beside its verdict takes part: which of the
+ * three observations it is, the vantage, the values, the parameters the
+ * container could not read, the native types, and whether the library wrote
+ * back onto its input, detail included, since the detail says what changed.
+ * A movement in any of them is a real movement between two runs. The key reads
+ * objects with their keys sorted, so a library writing the same object in a
+ * different key order is no change.
  */
-function values(result: AdapterResult): string {
-  if (result.outcome !== "accepted" && result.outcome !== "rejected") return "-";
-  const deserialized = result.deserialized;
-  if (deserialized.kind === "unexposed") return `unexposed: ${deserialized.reason}`;
-  if (deserialized.kind === "notReached") return `not reached: ${deserialized.reason}`;
-  // Part of the comparison, for the same reason the three kinds are: a
-  // parameter moving into or out of `unreadable` is a real movement between two
-  // runs, and comparing `value` alone reports it as no change at all. Two
-  // answers whose `value` is `{}` differ when one of them says a parameter had
-  // no slot to be read from.
-  const unreadable = Object.keys(deserialized.unreadable ?? {}).sort();
-  const withheld = unreadable.length === 0 ? "" : ` (withheld: ${unreadable.join(", ")})`;
-  return `${JSON.stringify(deserialized.value)}${withheld}`;
+function values(result: AdapterResult): { readonly text: string; readonly key: string } {
+  if (result.outcome !== "accepted" && result.outcome !== "rejected") return { text: "-", key: "-" };
+  const nativeTypes =
+    result.deserialized.kind === "observed" ? result.deserialized.nativeTypes : {};
+  const typed = Object.entries(nativeTypes)
+    .sort(([one], [other]) => (one < other ? -1 : 1))
+    .map(([name, type]) => `${name}: ${type}`);
+  const text =
+    valuesText(result) +
+    (typed.length === 0 ? "" : `; native types ${typed.join(", ")}`) +
+    `; input ${result.inputMutation.kind} (${result.inputMutation.detail})`;
+  return {
+    text,
+    key: canonicalJson({
+      deserialized: result.deserialized,
+      inputMutation: result.inputMutation,
+    } as unknown as JsonValue),
+  };
+}
+
+/** JSON with every object's keys sorted, so key order is not a difference. */
+function canonicalJson(value: JsonValue): string {
+  if (value === null || typeof value !== "object") return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  const entries = Object.keys(value)
+    .sort()
+    .flatMap((key) => {
+      const member = value[key];
+      return member === undefined ? [] : [`${JSON.stringify(key)}:${canonicalJson(member)}`];
+    });
+  return `{${entries.join(",")}}`;
 }
 
 function short(digest: string): string {
@@ -213,7 +263,8 @@ export function renderComparison(
     for (const row of rows) {
       const from = "from" in row ? row.from : "-";
       const to = "to" in row ? row.to : "-";
-      lines.push(`| \`${row.caseId}\` | ${cell(from)} | ${cell(to)} |`);
+      const [shownFrom, shownTo] = cells(from, to);
+      lines.push(`| \`${row.caseId}\` | ${shownFrom} | ${shownTo} |`);
     }
     lines.push("");
   }
@@ -233,8 +284,28 @@ export function renderComparison(
   return lines.join("\n");
 }
 
-/** Values can carry pipes and newlines, and a table cell cannot. */
-function cell(value: string): string {
-  const flat = tableCell(value);
-  return flat.length > 90 ? `${flat.slice(0, 89)}...` : flat;
+const CELL_WIDTH = 89;
+
+/**
+ * Two sides of one row, each short enough for a table cell.
+ *
+ * A long value is cut to a window, and the window starts a little before the
+ * first character where the two sides differ, so two sides that differ never
+ * print the same. Whitespace is collapsed before the cut and pipes escaped
+ * after it, so a cut never separates an escape from the pipe it escapes.
+ */
+export function cells(from: string, to: string): readonly [string, string] {
+  const one = from.replace(/\s+/g, " ");
+  const other = to.replace(/\s+/g, " ");
+  if (one.length <= CELL_WIDTH + 1 && other.length <= CELL_WIDTH + 1) {
+    return [tableCell(one), tableCell(other)];
+  }
+  let differsAt = 0;
+  while (differsAt < one.length && one[differsAt] === other[differsAt]) differsAt += 1;
+  const start = differsAt < CELL_WIDTH - 20 ? 0 : differsAt - 20;
+  const windowed = (text: string): string =>
+    (start > 0 ? "..." : "") +
+    text.slice(start, start + CELL_WIDTH) +
+    (text.length > start + CELL_WIDTH ? "..." : "");
+  return [tableCell(windowed(one)), tableCell(windowed(other))];
 }

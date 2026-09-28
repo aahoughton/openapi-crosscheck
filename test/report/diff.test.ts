@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { AdapterResult } from "../../src/types/result";
 import type { LibraryMeasurement } from "../../src/types/measurement";
-import { compare, renderComparison } from "../../src/report/diff";
+import { cells, compare, renderComparison } from "../../src/report/diff";
 
 /**
  * What a comparison is allowed to say, and what it must refuse to say.
@@ -95,6 +95,18 @@ describe("a comparison refuses what it cannot compare", () => {
     expect("reason" in result && result.reason).toContain("different corpora");
   });
 
+  it("refuses a measurement that answers one case twice", () => {
+    // Either answer could be the one compared, and a map keeps the last, so
+    // the comparison would turn on file order.
+    const twice = measurement("x", { one: accepted({}) });
+    const a: LibraryMeasurement = {
+      ...twice,
+      answers: [...twice.answers, { caseId: "one", result: rejected() }],
+    };
+    const result = compare(a, measurement("x", { one: accepted({}) }));
+    expect("reason" in result && result.reason).toContain("answers case one more than once");
+  });
+
   it("refuses two measurements written under different schema versions", () => {
     const a = measurement("x", { one: accepted({}) }, { schemaVersion: 1 });
     const b = measurement("x", { one: accepted({}) }, { schemaVersion: 2 });
@@ -112,7 +124,12 @@ describe("a comparison sorts what moved", () => {
     if ("reason" in result) throw new Error(result.reason);
     expect(result.changes).toEqual([
       { kind: "verdict", caseId: "one", from: "accepted", to: "rejected" },
-      { kind: "values", caseId: "two", from: '{"p":"blue"}', to: '{"p":"black"}' },
+      {
+        kind: "values",
+        caseId: "two",
+        from: '{"p":"blue"} (validated only, so an absent name failed its schema); input none (fixture)',
+        to: '{"p":"black"} (validated only, so an absent name failed its schema); input none (fixture)',
+      },
     ]);
   });
 
@@ -127,14 +144,14 @@ describe("a comparison sorts what moved", () => {
       {
         kind: "left-unsupported",
         caseId: "one",
-        from: "unsupported (adapterLimitation)",
+        from: "not asked (adapterLimitation)",
         to: "accepted",
       },
       {
         kind: "entered-unsupported",
         caseId: "two",
         from: "accepted",
-        to: "unsupported (adapterLimitation)",
+        to: "not asked (adapterLimitation)",
       },
     ]);
   });
@@ -159,6 +176,40 @@ describe("a comparison sorts what moved", () => {
     );
     if ("reason" in result) throw new Error(result.reason);
     expect(result.changes.map((change) => change.kind)).toEqual(["values"]);
+  });
+
+  it("reports a move in what surrounds the values", () => {
+    // The vantage, the native types and a write-back onto the input are each
+    // part of what the library said, and a run that changes one of them moved.
+    const base = accepted({ p: "1" });
+    if (base.outcome !== "accepted" || base.deserialized.kind !== "observed") throw new Error("fixture");
+    const observed = base.deserialized;
+    const variants: AdapterResult[] = [
+      { ...base, deserialized: { ...observed, vantage: "handedToHandler" } },
+      { ...base, deserialized: { ...observed, nativeTypes: { p: "int" } } },
+      { ...base, inputMutation: { kind: "observed", detail: "wrote p back as a number" } },
+    ];
+    for (const variant of variants) {
+      const result = compare(measurement("x", { one: base }), measurement("x", { one: variant }));
+      if ("reason" in result) throw new Error(result.reason);
+      expect(result.changes.map((change) => change.kind)).toEqual(["values"]);
+    }
+  });
+
+  it("does not report a different key order as a move", () => {
+    const one = accepted({});
+    if (one.outcome !== "accepted" || one.deserialized.kind !== "observed") throw new Error("fixture");
+    const observed = one.deserialized;
+    const ordered = (value: Record<string, string>): AdapterResult => ({
+      ...one,
+      deserialized: { ...observed, value: { p: value } },
+    });
+    const result = compare(
+      measurement("x", { one: ordered({ a: "1", b: "2" }) }),
+      measurement("x", { one: ordered({ b: "2", a: "1" }) }),
+    );
+    if ("reason" in result) throw new Error(result.reason);
+    expect(result.changes).toEqual([]);
   });
 
   it("counts what did not move rather than listing it", () => {
@@ -200,6 +251,20 @@ describe("a comparison compares measurements, not libraries", () => {
     expect(rendered).toContain("`first`");
     expect(rendered).toContain("`second`");
     expect(rendered).toContain("Nothing here is scored");
+  });
+
+  it("never prints two long values that differ as the same cell", () => {
+    const prefix = "x".repeat(120);
+    const [from, to] = cells(`${prefix}blue`, `${prefix}black`);
+    expect(from).not.toBe(to);
+    expect(from).toContain("blue");
+    expect(to).toContain("black");
+    expect(from.length).toBeLessThan(100);
+  });
+
+  it("keeps an escaped pipe whole when a long value is cut", () => {
+    const [from] = cells(`${"|".repeat(200)}a`, `${"|".repeat(200)}b`);
+    expect(from.split(/(?<!\\)\|/)).toHaveLength(1);
   });
 
   it("flattens a value that would break the table it sits in", () => {
