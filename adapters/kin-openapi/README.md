@@ -5,9 +5,11 @@ This adapter measures the Go module `github.com/getkin/kin-openapi`.
 ## Public Entry Point
 
 The container resolves `github.com/getkin/kin-openapi@latest` with Go modules.
-It loads the document with `openapi3.NewLoader().LoadFromData`, routes with
-`gorillamux.NewRouter`, and validates with
-`openapi3filter.ValidateRequest`.
+It loads the document with `openapi3.NewLoader().LoadFromData`, checks it with
+`doc.Validate`, routes with `gorillamux.NewRouter`, and validates with
+`openapi3filter.ValidateRequest`. `doc.Validate` is optional in the library's
+API; the library's own usage runs it before routing, and a document it refuses
+is reported as `libraryInitUnsupported`.
 
 The adapter builds an `http.Request` from the raw target and passes the request
 through the public router and validation APIs.

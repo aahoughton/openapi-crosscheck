@@ -70,6 +70,8 @@ var declaredConfiguration = configuration{
 	ID: "validate-http-request",
 	Description: "libopenapi.NewDocument(document) handed to validator.NewValidator and driven " +
 		"through ValidateHttpRequest, from an http.Request built on the raw target. " +
+		"Headers are added with net/http's Header.Add, which canonicalizes names (p and " +
+		"P become P) and merges names differing only in case. " +
 		"Routing is the library's: an unmatched path comes back as a validation error of " +
 		"type path rather than as a separate call. " +
 		"Known limitation: Go's net/url parses the target before the library sees it, so " +

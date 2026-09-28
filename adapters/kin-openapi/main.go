@@ -70,9 +70,13 @@ var declaredCapabilities = capabilities{
 
 var declaredConfiguration = configuration{
 	ID: "validate-request-gorillamux",
-	Description: "openapi3.NewLoader().LoadFromData(document) routed with gorillamux and " +
-		"validated through openapi3filter.ValidateRequest, driven from an http.Request " +
-		"built from the raw target. " +
+	Description: "openapi3.NewLoader().LoadFromData(document), then doc.Validate, routed " +
+		"with gorillamux and validated through openapi3filter.ValidateRequest, driven from " +
+		"an http.Request built from the raw target. doc.Validate is optional in the " +
+		"library's API and is run because its documentation calls for it before use; a " +
+		"document it refuses is reported as libraryInitUnsupported. " +
+		"Headers are added with net/http's Header.Add, which canonicalizes names (p and " +
+		"P become P) and merges names differing only in case. " +
 		"Known limitation: Go's net/url parses the target before the library sees it, so " +
 		"percent-encoding probes measure that parser as well as the library. The escaped " +
 		"path is what reaches the router, so the encoding survives to that point. " +
@@ -82,7 +86,7 @@ var declaredConfiguration = configuration{
 		"query parameters, back onto the http.Request it was handed. This adapter reports " +
 		"the declared parameters whose values changed across the call, at vantage " +
 		"parsedBeforeValidation. An input the library left unchanged reports no values.",
-	Options: map[string]any{},
+	Options: map[string]any{"validateDocument": true},
 }
 
 type wireMessage struct {
