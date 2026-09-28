@@ -948,9 +948,7 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("## Held constant across every case");
   lines.push("");
   lines.push("A constant is a blind spot, so the deliberate ones are published here rather");
-  lines.push("than left invisible. Each is a decision a future case can overturn, and one");
-  lines.push("already was: every declaration was required until the optional-absent axis");
-  lines.push("existed.");
+  lines.push("than left invisible. Each is a decision a future case can overturn.");
   lines.push("");
   const methods = [...new Set(cases.map((c) => c.request.method))].sort();
   lines.push(`- Request method: ${methods.join(", ")} only. Method matching is routing`);
@@ -972,6 +970,74 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("  Everything a schema position writes, keyword by keyword. Which of the");
   lines.push("  dialect's constraint keywords these do and do not reach is the table under");
   lines.push("  Schema constraint keywords above.");
+  // The bullets below state what test/corpus/heldConstant.test.ts checks over
+  // the corpus; a case that varies one fails there until the text changes.
+  lines.push("- Wire bytes: every request target and header value is printable ASCII. No");
+  lines.push("  percent triple is malformed or lowercase, and none encodes an octet above");
+  lines.push("  0x7F, so no value carries UTF-8.");
+  const declarations = cases.flatMap((testCase) =>
+    Object.values(testCase.document.paths).flatMap((pathItem) =>
+      [pathItem.get, pathItem.post].flatMap((operation) => operation?.parameters ?? []),
+    ),
+  );
+  const names = [...new Set(declarations.map((parameter) => parameter.name))].sort();
+  const namedP = declarations.filter((parameter) => parameter.name === "p").length;
+  lines.push(
+    `- Parameter names: \`p\` in ${String(namedP)} of ${String(declarations.length)} ` +
+      "declarations, and every name",
+  );
+  lines.push(`  (${names.map((name) => `\`${name}\``).join(", ")}) is plain ASCII letters,`);
+  lines.push("  so none needs encoding. No target carries a raw `[` or `]`: a deepObject");
+  lines.push("  name is always sent as `%5B` and `%5D`.");
+  const arraySizes = [
+    ...new Set(
+      cases.flatMap((testCase) =>
+        testCase.tier === "conformance" && testCase.expectedValues !== null
+          ? Object.values(testCase.expectedValues).flatMap((value) =>
+              Array.isArray(value) ? [value.length] : [],
+            )
+          : [],
+      ),
+    ),
+  ].sort((a, b) => a - b);
+  const multiMember = arraySizes.filter((size) => size > 1);
+  if (multiMember.length > 0) {
+    lines.push(
+      `- Every array a conformance case expects has ${multiMember.map(String).join(" or ")} members` +
+        (arraySizes.includes(1) ? ", apart from the" : "."),
+    );
+    if (arraySizes.includes(1)) {
+      lines.push("  single member expected where the comma between two is percent-encoded.");
+    }
+    lines.push("  No case asks what a library does with an array sent as one member.");
+  }
+  lines.push("- Objects are flat and carry the properties `R` then `G`, with no extra,");
+  lines.push("  missing or reordered property.");
+  const headerCases = cases.filter((testCase) => testCase.dimensions.location === "header");
+  if (headerCases.length === 0) {
+    lines.push("- No header parameter case appears in this version.");
+  } else {
+    lines.push("- Header parameter values carry no whitespace after a comma, which RFC 9110");
+    lines.push("  section 5.3 allows as OWS when field lines are combined, and no percent");
+    lines.push("  triple, so no header case varies encoding.");
+  }
+  if (cases.some((testCase) => testCase.dimensions.location === "cookie")) {
+    lines.push("- The Cookie header, where sent, is one line carrying only the probed");
+    lines.push("  parameter, and the casing of names in it is never varied.");
+  }
+  if (cases.some((testCase) => testCase.dimensions.location === "path")) {
+    lines.push("- No path case sends an empty segment, a trailing slash, or `%2F` inside a");
+    lines.push("  value.");
+  }
+  if (
+    cases.some(
+      (testCase) =>
+        testCase.dimensions.declaration === "schema" &&
+        testCase.dimensions.style === "spaceDelimited",
+    )
+  ) {
+    lines.push("- spaceDelimited values are sent with `%20` between members, never `+`.");
+  }
   const unprobedReserved = unprobedReservedHeaderNames(cases);
   if (unprobedReserved.length > 0) {
     lines.push(
