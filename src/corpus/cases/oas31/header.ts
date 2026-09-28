@@ -11,7 +11,7 @@ const rfc = rfcCitations("3.1");
  * The default style is `simple`. HTTP defines case-insensitive names and the
  * meaning of repeated list-valued fields.
  */
-export const headerCases: readonly Case[] = [
+export const headerCases31: readonly Case[] = [
   {
     id: "header-content-json-object-canonical-oas31",
     title: "header, content application/json, object, canonical",

@@ -8,7 +8,7 @@ import { STRING, STRING_ARRAY, STRING_OBJECT, document, request } from "./build"
  * Appendix D calls `form` in cookies ambiguous for a single value and incorrect
  * for multiple values. These cases record divergence.
  */
-export const cookieCases: readonly Case[] = [
+export const cookieCases31: readonly Case[] = [
   {
     id: "cookie-form-array-canonical-no-explode-oas31",
     title: "cookie, form, array, explode false, canonical",

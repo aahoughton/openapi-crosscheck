@@ -22,7 +22,7 @@ import {
  * the only location where `allowReserved`, `allowEmptyValue` and `deepObject`
  * apply at all.
  */
-export const queryCases: readonly Case[] = [
+export const queryCases31: readonly Case[] = [
   // Both requests use the same document; JSON supplies their primitive types.
   ...[true, false].map((valid): Case => ({
     id: `query-content-json-boolean-${valid ? "canonical" : "wrong-type"}-oas31`,

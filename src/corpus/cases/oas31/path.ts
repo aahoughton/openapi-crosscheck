@@ -20,7 +20,7 @@ const rfc = rfcCitations("3.1");
  * also includes parameter or property names. Routing cases test which operation
  * matches before its parameters are validated.
  */
-export const pathCases: readonly Case[] = [
+export const pathCases31: readonly Case[] = [
   {
     id: "path-content-json-object-canonical-oas31",
     title: "path, content application/json, object, canonical",

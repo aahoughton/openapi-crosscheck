@@ -3,10 +3,10 @@ import { cookieCases30 } from "./cases/oas30/cookie";
 import { headerCases30 } from "./cases/oas30/header";
 import { pathCases30 } from "./cases/oas30/path";
 import { queryCases30 } from "./cases/oas30/query";
-import { cookieCases } from "./cases/oas31/cookie";
-import { headerCases } from "./cases/oas31/header";
-import { pathCases } from "./cases/oas31/path";
-import { queryCases } from "./cases/oas31/query";
+import { cookieCases31 } from "./cases/oas31/cookie";
+import { headerCases31 } from "./cases/oas31/header";
+import { pathCases31 } from "./cases/oas31/path";
+import { queryCases31 } from "./cases/oas31/query";
 import { cookieCases32 } from "./cases/oas32/cookie";
 import { pathCases32 } from "./cases/oas32/path";
 import { querystringCases32 } from "./cases/oas32/querystring";
@@ -24,15 +24,15 @@ import { queryCases32 } from "./cases/oas32/query";
  */
 export const cases: readonly Case[] = [
   ...cookieCases30,
-  ...cookieCases,
+  ...cookieCases31,
   ...cookieCases32,
   ...headerCases30,
-  ...headerCases,
+  ...headerCases31,
   ...pathCases30,
-  ...pathCases,
+  ...pathCases31,
   ...pathCases32,
   ...queryCases30,
-  ...queryCases,
+  ...queryCases31,
   ...queryCases32,
   ...querystringCases32,
 ].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
