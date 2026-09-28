@@ -35,9 +35,12 @@ Routing and path extraction are claimed because the validator is given a raw
 path and resolves the operation and path parameter.
 
 Query splitting is caller-owned because the public request builder accepts query
-parameters through `withQueryParam(name, values)`. Those values are strings, so
-a pair the harness supplies with no `=` at all is answered as a case this shape
-cannot represent, rather than handed over as an empty value.
+parameters through `withQueryParam(name, values)`. Each harness pair is added in
+wire order; a pair with no `=` is added with a null value list, which the
+builder documents as a parameter present with no value, so `?p` and `?p=` reach
+the library as different requests. The two-argument `Builder` constructor
+matches query names case-insensitively, the library's default, and the
+configuration records it.
 
 Header splitting is claimed because headers are passed to the builder as wire
 names and values, and the library matches them to declared header parameters.
@@ -47,12 +50,6 @@ Cookie splitting is owned because the library reads cookie parameters out of the
 carries `withAccept`, `withAuthorization`, `withBody`, `withContentType`,
 `withHeader` and `withQueryParam`, and no cookie method, so the header is the
 route in and the split from header to named cookie is the library's own.
-
-This container previously read the absent cookie method as the library being
-unable to take a cookie parameter at all, and refused ten cases as
-`cannotRepresentCase`. The library answers them. A missing API on the builder
-was evidence about the builder, and it was published as a fact about the
-library.
 
 Style and explode are claimed because the builder methods accept string values.
 Any conversion from the wire value to the schema value happens inside the

@@ -14,11 +14,8 @@ import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeSet;
 
 public final class Server {
@@ -78,16 +75,18 @@ public final class Server {
             + "Raw query name/value pairs come from the harness preparse with no percent "
             + "decoding: the builder takes a name and values and there is no API accepting a "
             + "query string, so the split into pairs is the caller's and is recorded on every "
-            + "cell. Duplicate raw names are grouped into the list shape the builder accepts. "
+            + "cell. Each pair is added in wire order, and a pair with no `=` is added with a "
+            + "null value list, the builder's documented spelling of a name with no value. "
+            + "The two-argument Builder constructor is used, whose default matches query "
+            + "parameter names case-insensitively. "
             + "Values are permanently unexposed: ValidationReport carries hasErrors and "
             + "getMessages and no channel for what was deserialized. "
             + "Cookies reach the library as the `Cookie` header, which the builder does take: "
             + "it has no cookie API, and the library reads cookie parameters out of that header "
-            + "itself, so the split is the library's and is declared as such. Refusing these "
-            + "cases for want of a cookie API, which this container did until the builder's "
-            + "surface was checked against what the library reads, published ten questions as "
-            + "unanswerable that the library answers.");
-    configuration.set("options", JSON.createObjectNode());
+            + "itself, so the split is the library's and is declared as such.");
+    ObjectNode options = JSON.createObjectNode();
+    options.put("queryParametersCaseSensitive", false);
+    configuration.set("options", options);
 
     ObjectNode body = JSON.createObjectNode();
     body.put("protocol", PROTOCOL_VERSION);
@@ -178,19 +177,6 @@ public final class Server {
       return body;
     }
 
-    if (hasValuelessQueryPair(message)) {
-      ObjectNode body = JSON.createObjectNode();
-      body.put("protocol", PROTOCOL_VERSION);
-      body.put("outcome", "unsupported");
-      body.put("reason", "cannotRepresentCase");
-      body.put(
-          "detail",
-          "a query pair arrived with no `=`, and withQueryParam takes a list of string "
-              + "values, so `?p` cannot be handed over apart from `?p=`; answering either way "
-              + "would report a verdict on the other request");
-      return body;
-    }
-
     SimpleRequest request = buildRequest(message);
     String scope = "the method, path, query parameters and headers of the SimpleRequest "
         + "handed to validateRequest";
@@ -272,15 +258,6 @@ public final class Server {
    * here at all: handing over an empty value would put the library's verdict on
    * `?p=` where the case sent `?p`.
    */
-  private static boolean hasValuelessQueryPair(JsonNode message) {
-    JsonNode query = message.path("preparsed").path("query");
-    if (!query.isArray()) return false;
-    for (JsonNode pair : query) {
-      if (pair.isArray() && pair.size() == 2 && pair.get(1).isNull()) return true;
-    }
-    return false;
-  }
-
   private static SimpleRequest buildRequest(JsonNode message) {
     JsonNode wire = message.get("request");
     String target = new String(
@@ -290,17 +267,16 @@ public final class Server {
 
     SimpleRequest.Builder builder = new SimpleRequest.Builder(wire.get("method").asText(), path);
 
+    // One call per pair, in wire order: the builder appends repeated names, and
+    // a null value list is its documented spelling of a name with no value, so
+    // `?p` reaches the library apart from `?p=`.
     JsonNode query = message.path("preparsed").path("query");
     if (query.isArray()) {
-      Map<String, List<String>> queryValues = new LinkedHashMap<>();
       for (JsonNode pair : query) {
         if (pair.isArray() && pair.size() == 2) {
-          queryValues.computeIfAbsent(pair.get(0).asText(), _name -> new ArrayList<>())
-              .add(pair.get(1).asText());
+          List<String> values = pair.get(1).isNull() ? null : List.of(pair.get(1).asText());
+          builder = builder.withQueryParam(pair.get(0).asText(), values);
         }
-      }
-      for (Map.Entry<String, List<String>> entry : queryValues.entrySet()) {
-        builder = builder.withQueryParam(entry.getKey(), entry.getValue());
       }
     }
 
@@ -308,27 +284,6 @@ public final class Server {
       builder = builder.withHeader(pair.get(0).asText(), List.of(pair.get(1).asText()));
     }
     return builder.build();
-  }
-
-  private static List<String> valuesOf(JsonNode node) {
-    List<String> values = new ArrayList<>();
-    if (node.isArray()) {
-      for (JsonNode item : node) values.add(item.asText());
-    } else {
-      values.add(node.asText());
-    }
-    return values;
-  }
-
-  private static boolean declaresCookieParameter(JsonNode document) {
-    for (JsonNode pathItem : document.path("paths")) {
-      for (JsonNode operation : pathItem) {
-        for (JsonNode parameter : operation.path("parameters")) {
-          if ("cookie".equals(parameter.path("in").asText())) return true;
-        }
-      }
-    }
-    return false;
   }
 
   private static ObjectNode adapterError(String detail) {
