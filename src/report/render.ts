@@ -1545,10 +1545,11 @@ function renderCapabilities(
   lines.push("library reporting a coerced value alongside its own rejection and a library");
   lines.push("withholding it are stating different facts, and neither is a failure.");
   lines.push("");
-  lines.push("A library that does not accept a request target is never asked a");
-  lines.push("wire-deserialization question. The harness would have to split the target for");
-  lines.push("it, and the verdict would then describe the harness's splitting rather than the");
-  lines.push("library. Those cells read `not asked (noWireInputApi)`.");
+  lines.push("A library that leaves splitting a location to its caller is never asked a case");
+  lines.push("probing that split. The harness would have to split the request for it, and the");
+  lines.push("verdict would then describe the harness's splitting rather than the library.");
+  lines.push("Those cells read `n/a (stageNotOwned)` in the conformance tables and");
+  lines.push("`not asked (stageNotOwned)` in a verdict column.");
   lines.push("");
   lines.push("## Value exposure, case by case");
   lines.push("");

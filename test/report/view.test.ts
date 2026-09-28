@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { Case, ConformanceCase, DivergenceCase, ProbeAxis } from "../../src/types/case";
 import type { LibraryMeasurement } from "../../src/types/measurement";
-import type { AdapterResult, DeserializedValues } from "../../src/types/result";
+import type { AdapterResult, DeserializedValues, UnsupportedReason } from "../../src/types/result";
 import { renderHtml } from "../../src/report/html";
 import { renderMarkdown } from "../../src/report/render";
 import { score } from "../../src/report/score";
@@ -1023,6 +1023,29 @@ describe("fitness claims a split only where the measurements show one", () => {
       renderMarkdown([testCase], [disclaiming("one"), disclaiming("two")])["fitness.md"] ?? "";
     expect(fitness).not.toContain("measured implementations disagree");
     expect(fitness).toContain("did not split on them");
+  });
+});
+
+describe("the reasons the prose names are reasons a result can carry", () => {
+  it("names only unsupported reasons that exist", () => {
+    const reasons: readonly UnsupportedReason[] = [
+      "stageNotOwned",
+      "harnessInputUnavailable",
+      "oasVersionNotDeclared",
+      "cannotRepresentCase",
+      "libraryInitUnsupported",
+      "adapterLimitation",
+    ];
+    const artifacts = renderMarkdown(cases, [measurement("lib", "1.0.0", {})]);
+    for (const [name, content] of Object.entries(artifacts)) {
+      for (const [, reason] of content.matchAll(/(?:not asked|n\/a) \(([A-Za-z]+)\)/g)) {
+        expect({ name, reason, known: reasons.includes(reason as UnsupportedReason) }).toEqual({
+          name,
+          reason,
+          known: true,
+        });
+      }
+    }
   });
 });
 

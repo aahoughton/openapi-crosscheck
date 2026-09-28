@@ -38,10 +38,11 @@ Comparing a value across two libraries means comparing the vantages too. A
 library reporting a coerced value alongside its own rejection and a library
 withholding it are stating different facts, and neither is a failure.
 
-A library that does not accept a request target is never asked a
-wire-deserialization question. The harness would have to split the target for
-it, and the verdict would then describe the harness's splitting rather than the
-library. Those cells read `not asked (noWireInputApi)`.
+A library that leaves splitting a location to its caller is never asked a case
+probing that split. The harness would have to split the request for it, and the
+verdict would then describe the harness's splitting rather than the library.
+Those cells read `n/a (stageNotOwned)` in the conformance tables and
+`not asked (stageNotOwned)` in a verdict column.
 
 ## Value exposure, case by case
 
