@@ -25,3 +25,6 @@ __pycache__/
 # markdown; `index.html` and `run.json` are regenerated when needed.
 /report/run.json
 /report/index.html
+
+# Agent worktrees are full checkouts; the linter and formatter would walk them.
+/.claude/worktrees/
