@@ -18,6 +18,17 @@ export interface Adjudication {
 
 export const adjudications: readonly Adjudication[] = [
   {
+    caseId: "query-form-array-integer-items-oas30",
+    date: "2026-08-08",
+    by: "claude-implementer",
+    conclusion:
+      "A copy of the reading recorded for query-form-array-integer-items-oas31, made on " +
+      "2026-09-27 without a second reading. This case sends the same request against the " +
+      "same schema, and 3.0.4 carries the same Appendix B text. The specification leaves " +
+      "conversion between strings and other primitives implementation-defined, so this " +
+      "stays divergence rather than becoming a conformance case.",
+  },
+  {
     caseId: "query-form-array-integer-items-oas31",
     date: "2026-08-08",
     by: "claude-implementer",
