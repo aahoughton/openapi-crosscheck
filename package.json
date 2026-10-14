@@ -5,6 +5,9 @@
   "type": "module",
   "description": "Cross-library conformance and differential harness for OpenAPI request validation",
   "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "check": "pnpm run typecheck && pnpm run lint && pnpm run test",
     "typecheck": "tsc --noEmit",
@@ -20,7 +23,7 @@
   },
   "devDependencies": {
     "@hyperjump/json-schema": "^1.17.8",
-    "@types/node": "latest",
+    "@types/node": "^24",
     "oxfmt": "latest",
     "oxlint": "latest",
     "tsx": "^4.23.12",
