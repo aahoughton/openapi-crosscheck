@@ -1,6 +1,10 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { connect } from "../../src/container/client";
-import type { DescribeResponse } from "../../src/types/container";
+import type { DescribeResponse, RunResponse } from "../../src/types/container";
+import type { JsonValue } from "../../src/types/json";
+import { InexactNumber } from "../../src/wire/exactJson";
+import { measure } from "../../src/runner/run";
+import { cases } from "../../src/corpus";
 import { PROTOCOL_VERSION } from "../../src/types/container";
 import type { AdapterCase } from "../../src/types/adapter";
 import { delegatedSplits } from "../../src/types/adapter";
@@ -321,6 +325,78 @@ describe("what crosses the boundary is what the harness meant to send", () => {
       // library's, so a harness that handed over `blue,black` here would have
       // performed the deserialization it was measuring.
       expect(sent.preparsed.params).toEqual({ p: "blue%2Cblack" });
+    } finally {
+      await mock.close();
+    }
+  });
+});
+
+describe("an answer carrying a number the harness cannot hold stops the run", () => {
+  // `JSON.rawJSON` writes the literal unchanged, the way a container in a
+  // language with exact integers would. The TypeScript lib does not declare it.
+  const exactly = (literal: string): JsonValue =>
+    (JSON as unknown as { rawJSON(text: string): JsonValue }).rawJSON(literal);
+  const inexact = (): RunResponse => ({
+    ...(accepted() as Extract<RunResponse, { outcome: "accepted" | "rejected" }>),
+    raw: { limit: exactly("9223372036854775807") },
+  });
+
+  it("refuses the /run answer, naming the case and where the number was", async () => {
+    const mock = await startMockContainer({ run: inexact });
+    const connected = await connect(mock.transport, inProcessProvenance("wide"));
+    try {
+      await expect(
+        connected.run(
+          document,
+          request,
+          preparse(document.document, request, delegatedSplits(connected.capabilities)),
+        ),
+      ).rejects.toThrow("wide: /run for client-probe carried 9223372036854775807 at $.raw.limit");
+    } finally {
+      await mock.close();
+    }
+  });
+
+  it("refuses to connect when /describe carries one", async () => {
+    const mock = await startMockContainer({
+      describe: {
+        configuration: {
+          id: "wide",
+          description: "options carry a wide integer",
+          options: { limit: exactly("9007199254740993") },
+        },
+      },
+    });
+    try {
+      await expect(connect(mock.transport, inProcessProvenance("wide"))).rejects.toThrow(
+        InexactNumber,
+      );
+    } finally {
+      await mock.close();
+    }
+  });
+
+  it("fails the measurement at the corpus case, rather than recording a cell", async () => {
+    // Only this case answers inexactly. A runner recording it as adapterError
+    // would carry on, and the run would finish.
+    const caseId = "path-simple-array-encoded-delimiter-oas31";
+    expect(cases.some((testCase) => testCase.id === caseId)).toBe(true);
+    const mock = await startMockContainer({
+      run: (message) => (message.caseId === caseId ? inexact() : accepted()),
+    });
+    const connected = await connect(mock.transport, inProcessProvenance("wide"));
+    try {
+      await expect(measure(cases, connected)).rejects.toThrow(`wide: /run for ${caseId} carried`);
+    } finally {
+      await mock.close();
+    }
+  });
+
+  it("fails the measurement at a capability probe, rather than recording an adapterError", async () => {
+    const mock = await startMockContainer({ run: inexact });
+    const connected = await connect(mock.transport, inProcessProvenance("wide"));
+    try {
+      await expect(measure([], connected)).rejects.toThrow(InexactNumber);
     } finally {
       await mock.close();
     }

@@ -456,6 +456,22 @@ The strings are the container's own naming and are passed through unchanged. A
 Python container saying `list[int]` and a JavaScript one saying `Array<number>`
 are both describing themselves accurately. They are displayed, never compared.
 
+### Numbers the harness cannot hold
+
+The harness reads every answer as JavaScript, where a number is an IEEE 754
+double. A number literal anywhere in an answer, `raw` included, that a double
+does not hold exactly stops the run: `9007199254740993`, which a double rounds
+to `...992`, and `1e400`, which overflows. Spelling is free, so `1.0` and `1e0`
+are both `1`. The error names the case, the literal and its path.
+
+The run stops rather than recording a cell because no cell would be true. The
+answer exists, and storing it rounded would publish a value the library did not
+return. So the corpus cannot measure a case whose answer needs such a number,
+and an int64 boundary value is one of those cases.
+
+Write the number your library produced. Rounding it in the container so the run
+continues publishes the same false value from the other side of the boundary.
+
 ## Protocol version
 
 `protocol` is `5` on every message in both directions. The harness refuses a

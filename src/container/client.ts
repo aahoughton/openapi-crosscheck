@@ -5,6 +5,7 @@ import { PROTOCOL_VERSION } from "../types/container";
 import type { PreparsedRequest } from "../wire/preparse";
 import type { WireRequest } from "../types/wire";
 import { toWireMessage } from "./wireMessage";
+import { InexactNumber, parseExact } from "../wire/exactJson";
 import type { JsonValue } from "../types/json";
 
 /**
@@ -91,8 +92,12 @@ export async function connect(
             raw: null,
           };
         }
-        answer = (await response.json()) as RunResponse;
+        answer = parseExact(
+          await response.text(),
+          `${provenance.slug}: /run for ${testCase.id}`,
+        ) as RunResponse;
       } catch (error) {
+        if (error instanceof InexactNumber) throw error;
         // The container died or was unreachable. Ours, never the library's.
         return {
           ...base,
@@ -149,7 +154,7 @@ async function describe(transport: Transport, slug: string): Promise<DescribeRes
   if (!response.ok) {
     throw new Error(`${slug}: /describe answered ${String(response.status)}`);
   }
-  const described = (await response.json()) as DescribeResponse;
+  const described = parseExact(await response.text(), `${slug}: /describe`) as DescribeResponse;
   if (described.protocol !== PROTOCOL_VERSION) {
     // Refused rather than guessed at. A harness and a container disagreeing
     // about what a field means produce cells that look perfectly fine.
