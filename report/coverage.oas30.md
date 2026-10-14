@@ -408,6 +408,12 @@ than left invisible. Each is a decision a future case can overturn.
 - Wire bytes: every request target and header value is printable ASCII. No
   percent triple is malformed or lowercase, and none encodes an octet above
   0x7F, so no value carries UTF-8.
+- Numbers: every numeral on the wire is one of `1`, `1.5`, `2`, `100`, `200`,
+  and no document or expected value writes a number. Nothing sends a sign, an
+  exponent, a leading zero, a trailing zero after a decimal point, or a value
+  within one of the bounds of a 32- or 64-bit integer, encoded or not. A
+  number a double cannot hold is outside what the harness can measure at all:
+  a container answer carrying one stops the run.
 - Parameter names: `p` in 95 of 105 declarations, and every name
   (`Accept`, `entity`, `id`, `p`, `q`) is plain ASCII letters,
   so none needs encoding. No target carries a raw `[` or `]`: a deepObject

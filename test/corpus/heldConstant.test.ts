@@ -53,6 +53,43 @@ describe("the published held constants hold", () => {
     expect(triples.filter(({ hex }) => parseInt(hex, 16) > 0x7f).map(({ id }) => id)).toEqual([]);
   });
 
+  it("sends plain unsigned numerals and writes no number in a document or expected value", () => {
+    // Decoded, so a sign or digit sent as a percent triple counts too.
+    const decoded = wireTexts.map(({ id, text }) => ({
+      id,
+      text: text.replace(/%([0-9A-Fa-f]{2})/g, (_triple, hex: string) =>
+        String.fromCharCode(parseInt(hex, 16)),
+      ),
+    }));
+    expect(
+      decoded.filter(({ text }) => /(^|[^\w])[-+]\d|\d[eE][-+]?\d/.test(text)).map(({ id }) => id),
+    ).toEqual([]);
+    const numerals = decoded.flatMap(({ id, text }) =>
+      [...text.matchAll(/\d+(?:\.\d+)?/g)].map((match) => ({ id, numeral: match[0] })),
+    );
+    expect(
+      numerals.filter(({ numeral }) => /^0\d|\.\d*0$/.test(numeral)).map(({ id }) => id),
+    ).toEqual([]);
+    // The bounds of int32, uint32, int64 and uint64, signed or not.
+    const bounds = [2n ** 31n, 2n ** 32n, 2n ** 63n, 2n ** 64n];
+    const nearBound = (numeral: string): boolean => {
+      const whole = BigInt(numeral.split(".")[0] ?? "0");
+      return bounds.some((bound) => whole >= bound - 2n && whole <= bound + 1n);
+    };
+    expect(numerals.filter(({ numeral }) => nearBound(numeral)).map(({ id }) => id)).toEqual([]);
+    expect(numerals.filter(({ numeral }) => numeral.length > 15).map(({ id }) => id)).toEqual([]);
+    const written = (value: unknown): boolean =>
+      typeof value === "number" ||
+      (value !== null && typeof value === "object" && Object.values(value).some(written));
+    expect(
+      cases
+        .filter(
+          (c) => written(c.document) || (c.tier === "conformance" && written(c.expectedValues)),
+        )
+        .map((c) => c.id),
+    ).toEqual([]);
+  });
+
   it("declares only plain-letter parameter names, and never sends a raw bracket", () => {
     expect(
       declarations
