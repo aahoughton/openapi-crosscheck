@@ -1138,7 +1138,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-core",
-    "imageId": "sha256:4c60089d03a07e4c21429af64556cc702f08b8bbb7975cf441628e441b42c74c",
+    "imageId": "sha256:dac554c64773816bdae7bcbf16d832c95e8cbfa9c3960521dd5b5b9131b29ac6",
     "ecosystem": "pypi"
   },
   "answers": [

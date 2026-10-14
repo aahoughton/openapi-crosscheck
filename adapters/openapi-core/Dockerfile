@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:3.13-slim AS check
+FROM python:3.15-slim AS check
 
 WORKDIR /check
 COPY requirements.txt requirements-check.txt ./
@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir --disable-pip-version-check \
 COPY ruff.toml server.py ./
 RUN mypy --strict server.py && ruff check server.py
 
-FROM python:3.13-slim
+FROM python:3.15-slim
 
 WORKDIR /app
 

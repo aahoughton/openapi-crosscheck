@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM ruby:3.4 AS check
+FROM ruby:4.0 AS check
 
 WORKDIR /check
 COPY Gemfile ./Gemfile
@@ -7,7 +7,7 @@ RUN bundle install
 COPY .rubocop.yml server.rb ./
 RUN ruby -c server.rb && bundle exec rubocop --fail-level convention
 
-FROM ruby:3.4
+FROM ruby:4.0
 
 WORKDIR /app
 COPY Gemfile ./Gemfile

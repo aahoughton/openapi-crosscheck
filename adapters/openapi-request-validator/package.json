@@ -4,7 +4,7 @@
   "type": "module",
   "description": "container serving openapi-request-validator over the container protocol",
   "dependencies": {
-    "@types/node": "latest",
+    "@types/node": "^24",
     "openapi-request-validator": "latest",
     "oxlint": "latest",
     "tsx": "latest",

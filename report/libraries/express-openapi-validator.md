@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/cdimascio/express-openapi
 
 Built from: `adapters/express-openapi-validator/`
 
-Image: `sha256:625d6a2de73e803e8de95ce211dd4614e13c3accfec59ad2134f95058a07de20`
+Image: `sha256:47f806959dfcb5000bd240d625cc383b8b2f89b46632efec9e5ec7f8c8171616`
 
 Configuration `middleware-validate-requests`: OpenApiValidator.middleware({ apiSpec, validateRequests: true }) mounted on an express app, exactly as the published usage shows, with a handler that echoes the request it received and an error handler that reports the thrown status alongside the same request fields. Query and header splitting are the host stack's: express (version in options) parses the query string with its default parser and Node joins repeated header lines with a comma and a space before the middleware reads either. Cookies reach it the way the published usage expects, as req.cookies: a middleware ahead of the validator installs the harness's cookie pairs there, in the place a cookie parser would. A repeated cookie name or a crumb with no `=` has no spelling in that record and is answered as a case it cannot carry. Reading its values: on an accepted request they are what the handler was handed. On a rejected one they are what the middleware had coerced onto the request before it stopped, so they are partial and stop at the first failure.
 

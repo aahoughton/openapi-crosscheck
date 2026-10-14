@@ -4,7 +4,7 @@
   "type": "module",
   "description": "container serving openapi-backend over the container protocol",
   "dependencies": {
-    "@types/node": "latest",
+    "@types/node": "^24",
     "openapi-backend": "latest",
     "oxlint": "latest",
     "tsx": "latest",
