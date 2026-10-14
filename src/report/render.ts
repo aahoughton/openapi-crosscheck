@@ -942,9 +942,12 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("spelling they can still differ in meaning: `exclusiveMinimum` and");
   lines.push("`exclusiveMaximum` are booleans modifying `minimum` and `maximum` in 3.0 and");
   lines.push("standalone numbers in 2020-12, so a row shared by name is a different");
-  lines.push("question per version. Annotations (`title`, `description`, `format`,");
-  lines.push("`default` and their siblings) have rows in neither dialect: they change no");
-  lines.push("verdict, the same reason the stage table has no `valueExposure` row.");
+  lines.push("question per version. Annotations (`title`, `description`, `default` and");
+  lines.push("their siblings) have rows in neither dialect: they change no verdict, the");
+  lines.push("same reason the stage table has no `valueExposure` row. `format` is an");
+  lines.push("annotation by default in both dialects and has a row anyway, because a library");
+  lines.push("asserting it by default changes a verdict the specification says it should");
+  lines.push("not.");
   lines.push("");
   lines.push("A zero row is a case nobody has written.");
   lines.push("[bowtie](https://github.com/bowtie-json-schema/bowtie) measures standalone");

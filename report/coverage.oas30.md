@@ -344,9 +344,12 @@ assertion and applicator vocabulary, `const` included and `nullable` not:
 spelling they can still differ in meaning: `exclusiveMinimum` and
 `exclusiveMaximum` are booleans modifying `minimum` and `maximum` in 3.0 and
 standalone numbers in 2020-12, so a row shared by name is a different
-question per version. Annotations (`title`, `description`, `format`,
-`default` and their siblings) have rows in neither dialect: they change no
-verdict, the same reason the stage table has no `valueExposure` row.
+question per version. Annotations (`title`, `description`, `default` and
+their siblings) have rows in neither dialect: they change no verdict, the
+same reason the stage table has no `valueExposure` row. `format` is an
+annotation by default in both dialects and has a row anyway, because a library
+asserting it by default changes a verdict the specification says it should
+not.
 
 A zero row is a case nobody has written.
 [bowtie](https://github.com/bowtie-json-schema/bowtie) measures standalone
@@ -363,6 +366,7 @@ rows are that surface, unfilled.
 | enum | 0 |
 | exclusiveMaximum | 0 |
 | exclusiveMinimum | 0 |
+| format | 0 |
 | items | 26 |
 | maxItems | 0 |
 | maxLength | 0 |
