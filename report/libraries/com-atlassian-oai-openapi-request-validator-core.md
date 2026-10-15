@@ -9,7 +9,7 @@ Source, as its container states it: https://bitbucket.org/atlassian/swagger-requ
 
 Built from: `adapters/com-atlassian-oai-openapi-request-validator-core/`
 
-Image: `sha256:8c27756cc267b33bebb457988f385ca21c1fc87021ba253be5a7ecb462f2c5c4`
+Image: `sha256:a8120d5986b4ea148e60491fe96e186991afed1955ee25486d7a6db06d1db43d`
 
 Configuration `inline-spec-simple-request`: OpenApiInteractionValidator.createForInlineApiSpecification(document).build(), driven through validateRequest with a SimpleRequest built from the raw path. Raw query name/value pairs come from the harness preparse with no percent decoding: the builder takes a name and values and there is no API accepting a query string, so the split into pairs is the caller's and is recorded on every cell. Each pair is added in wire order, and a pair with no `=` is added with a null value list, the builder's documented spelling of a name with no value. The two-argument Builder constructor is used, whose default matches query parameter names case-insensitively. Values are permanently unexposed: ValidationReport carries hasErrors and getMessages and no channel for what was deserialized. Cookies reach the library as the `Cookie` header, which the builder does take: it has no cookie API, and the library reads cookie parameters out of that header itself, so the split is the library's and is declared as such.
 

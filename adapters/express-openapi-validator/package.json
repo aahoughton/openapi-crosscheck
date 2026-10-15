@@ -5,7 +5,7 @@
   "description": "container serving express-openapi-validator over the container protocol",
   "dependencies": {
     "@types/express": "latest",
-    "@types/node": "latest",
+    "@types/node": "^24",
     "express": "latest",
     "express-openapi-validator": "latest",
     "oxlint": "latest",

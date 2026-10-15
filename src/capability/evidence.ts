@@ -9,6 +9,7 @@ import type { Outcome, Preparse, ValueVantage } from "../types/result";
 import type { CapabilityProbe, VersionProbe } from "./probes";
 import { CAPABILITY_PROBES, VERSION_PROBES } from "./probes";
 import { describePreparse, preparse, suppliedAnything } from "../wire/preparse";
+import { InexactNumber } from "../wire/exactJson";
 import type { PreparsedRequest } from "../wire/preparse";
 
 /**
@@ -416,6 +417,7 @@ async function runSide(
       raw: result.outcome === "unsupported" ? null : result.raw,
     };
   } catch (error) {
+    if (error instanceof InexactNumber) throw error;
     // An adapter that throws is ours, and is recorded as ours. A probe cannot
     // report a harness fault as a library's failure to demonstrate a stage.
     return {

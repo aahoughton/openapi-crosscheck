@@ -181,7 +181,7 @@ yourself.
 Three checks, cheapest first. Each one says something different, and the first
 two say nothing about whether the measurements are still true.
 
-You need Node 22 and pnpm, both pinned in `mise.toml`, so `mise install`
+You need Node 24 and pnpm, both pinned in `mise.toml`, so `mise install`
 provides them. Docker is needed only where a check below says so, and for
 measuring.
 

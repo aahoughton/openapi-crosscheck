@@ -942,9 +942,12 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("spelling they can still differ in meaning: `exclusiveMinimum` and");
   lines.push("`exclusiveMaximum` are booleans modifying `minimum` and `maximum` in 3.0 and");
   lines.push("standalone numbers in 2020-12, so a row shared by name is a different");
-  lines.push("question per version. Annotations (`title`, `description`, `format`,");
-  lines.push("`default` and their siblings) have rows in neither dialect: they change no");
-  lines.push("verdict, the same reason the stage table has no `valueExposure` row.");
+  lines.push("question per version. Annotations (`title`, `description`, `default` and");
+  lines.push("their siblings) have rows in neither dialect: they change no verdict, the");
+  lines.push("same reason the stage table has no `valueExposure` row. `format` is an");
+  lines.push("annotation by default in both dialects and has a row anyway, because a library");
+  lines.push("asserting it by default changes a verdict the specification says it should");
+  lines.push("not.");
   lines.push("");
   lines.push("A zero row is a case nobody has written.");
   lines.push("[bowtie](https://github.com/bowtie-json-schema/bowtie) measures standalone");
@@ -992,6 +995,16 @@ function renderCoverage(version: OasVersion, cases: readonly Case[]): string {
   lines.push("- Wire bytes: every request target and header value is printable ASCII. No");
   lines.push("  percent triple is malformed or lowercase, and none encodes an octet above");
   lines.push("  0x7F, so no value carries UTF-8.");
+  lines.push(
+    `- Numbers: every numeral on the wire is one of ${wireNumerals(cases)
+      .map((numeral) => `\`${numeral}\``)
+      .join(", ")},`,
+  );
+  lines.push("  and no document or expected value writes a number. Nothing sends a sign, an");
+  lines.push("  exponent, a leading zero, a trailing zero after a decimal point, or a value");
+  lines.push("  within one of the bounds of a 32- or 64-bit integer, encoded or not. A");
+  lines.push("  number a double cannot hold is outside what the harness can measure at all:");
+  lines.push("  a container answer carrying one stops the run.");
   const declarations = cases.flatMap((testCase) =>
     Object.values(testCase.document.paths).flatMap((pathItem) =>
       [pathItem.get, pathItem.post].flatMap((operation) => operation?.parameters ?? []),
@@ -2015,4 +2028,26 @@ function splitsWholeTarget(capabilities: { stages: { splitting: Record<string, b
 
 function yesNo(value: boolean): string {
   return value ? "yes" : "no";
+}
+
+/**
+ * The distinct numerals the corpus's request targets and header values carry
+ * once percent triples are decoded, in numeric order.
+ */
+function wireNumerals(cases: readonly Case[]): string[] {
+  const texts = cases.flatMap((testCase) => [
+    testCase.request.target,
+    ...testCase.request.headers.map(([, value]) => value),
+  ]);
+  const numerals = texts.flatMap((text) =>
+    [...decodeTriples(text).matchAll(/\d+(?:\.\d+)?/g)].map((match) => match[0]),
+  );
+  return [...new Set(numerals)].sort((a, b) => Number(a) - Number(b));
+}
+
+/** Each percent triple replaced by the octet it encodes, read as Latin-1. */
+function decodeTriples(text: string): string {
+  return text.replace(/%([0-9A-Fa-f]{2})/g, (_triple, hex: string) =>
+    String.fromCharCode(parseInt(hex, 16)),
+  );
 }

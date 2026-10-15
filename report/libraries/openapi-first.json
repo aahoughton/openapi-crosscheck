@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "library": "openapi_first",
-  "libraryVersion": "4.0.0",
+  "libraryVersion": "4.2.0",
   "librarySource": "https://github.com/ahx/openapi_first",
   "libraryResolution": {
     "kind": "registry",
@@ -720,7 +720,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-first",
-    "imageId": "sha256:ebdbed6952936f97de4ed90271e2ca5cb7e177f96b5383c6761154f27b61a167",
+    "imageId": "sha256:b1a24f3b481ad4a750f1868d604638654f9e4feb7915887ddd4e689b31e6be2f",
     "ecosystem": "rubygems"
   },
   "answers": [
@@ -728,7 +728,7 @@
       "caseId": "cookie-cookie-array-canonical-explode-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -740,7 +740,7 @@
       "caseId": "cookie-cookie-array-no-explode-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -752,7 +752,7 @@
       "caseId": "cookie-cookie-object-canonical-explode-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -764,7 +764,7 @@
       "caseId": "cookie-cookie-object-no-explode-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -776,7 +776,7 @@
       "caseId": "cookie-cookie-scalar-canonical-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -788,7 +788,7 @@
       "caseId": "cookie-cookie-scalar-no-explode-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -800,7 +800,7 @@
       "caseId": "cookie-cookie-scalar-percent-triple-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -812,7 +812,7 @@
       "caseId": "cookie-form-array-canonical-no-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -843,7 +843,7 @@
       "caseId": "cookie-form-array-canonical-no-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -874,7 +874,7 @@
       "caseId": "cookie-form-array-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -904,7 +904,7 @@
       "caseId": "cookie-form-array-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -934,7 +934,7 @@
       "caseId": "cookie-form-array-explode-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -946,7 +946,7 @@
       "caseId": "cookie-form-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -977,7 +977,7 @@
       "caseId": "cookie-form-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1008,7 +1008,7 @@
       "caseId": "cookie-form-object-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -1035,7 +1035,7 @@
       "caseId": "cookie-form-object-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -1062,7 +1062,7 @@
       "caseId": "cookie-form-scalar-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1090,7 +1090,7 @@
       "caseId": "cookie-form-scalar-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1118,7 +1118,7 @@
       "caseId": "cookie-form-scalar-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1146,7 +1146,7 @@
       "caseId": "cookie-form-scalar-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1174,7 +1174,7 @@
       "caseId": "header-content-json-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1205,7 +1205,7 @@
       "caseId": "header-content-json-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1236,7 +1236,7 @@
       "caseId": "header-reserved-name-accept-present-wrong-type-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1260,7 +1260,7 @@
       "caseId": "header-reserved-name-accept-present-wrong-type-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1284,7 +1284,7 @@
       "caseId": "header-reserved-name-accept-required-absent-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1308,7 +1308,7 @@
       "caseId": "header-reserved-name-accept-required-absent-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1332,7 +1332,7 @@
       "caseId": "header-simple-array-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1363,7 +1363,7 @@
       "caseId": "header-simple-array-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1394,7 +1394,7 @@
       "caseId": "header-simple-array-case-variant-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1425,7 +1425,7 @@
       "caseId": "header-simple-array-case-variant-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1456,7 +1456,7 @@
       "caseId": "header-simple-array-duplicate-name-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1487,7 +1487,7 @@
       "caseId": "header-simple-array-duplicate-name-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1518,7 +1518,7 @@
       "caseId": "header-simple-array-explicit-style-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1549,7 +1549,7 @@
       "caseId": "header-simple-array-explicit-style-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1580,7 +1580,7 @@
       "caseId": "header-simple-array-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1611,7 +1611,7 @@
       "caseId": "header-simple-array-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1642,7 +1642,7 @@
       "caseId": "header-simple-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1673,7 +1673,7 @@
       "caseId": "header-simple-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1704,7 +1704,7 @@
       "caseId": "header-simple-object-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1735,7 +1735,7 @@
       "caseId": "header-simple-object-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1766,7 +1766,7 @@
       "caseId": "header-simple-scalar-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1794,7 +1794,7 @@
       "caseId": "header-simple-scalar-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1822,7 +1822,7 @@
       "caseId": "header-simple-scalar-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1850,7 +1850,7 @@
       "caseId": "header-simple-scalar-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1878,7 +1878,7 @@
       "caseId": "path-content-json-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -1909,7 +1909,7 @@
       "caseId": "path-content-json-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -1940,7 +1940,7 @@
       "caseId": "path-label-array-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -1970,7 +1970,7 @@
       "caseId": "path-label-array-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2000,7 +2000,7 @@
       "caseId": "path-label-array-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2031,7 +2031,7 @@
       "caseId": "path-label-array-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2062,7 +2062,7 @@
       "caseId": "path-label-array-foreign-shape-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2092,7 +2092,7 @@
       "caseId": "path-label-array-foreign-shape-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2122,7 +2122,7 @@
       "caseId": "path-label-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -2153,7 +2153,7 @@
       "caseId": "path-label-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -2184,7 +2184,7 @@
       "caseId": "path-label-object-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2214,7 +2214,7 @@
       "caseId": "path-label-object-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2244,7 +2244,7 @@
       "caseId": "path-label-scalar-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2272,7 +2272,7 @@
       "caseId": "path-label-scalar-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2300,7 +2300,7 @@
       "caseId": "path-label-scalar-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2328,7 +2328,7 @@
       "caseId": "path-label-scalar-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2356,7 +2356,7 @@
       "caseId": "path-matrix-array-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2387,7 +2387,7 @@
       "caseId": "path-matrix-array-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2418,7 +2418,7 @@
       "caseId": "path-matrix-array-empty-after-parse-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2446,7 +2446,7 @@
       "caseId": "path-matrix-array-empty-after-parse-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2474,7 +2474,7 @@
       "caseId": "path-matrix-array-foreign-shape-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2502,7 +2502,7 @@
       "caseId": "path-matrix-array-foreign-shape-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2530,7 +2530,7 @@
       "caseId": "path-matrix-array-no-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2561,7 +2561,7 @@
       "caseId": "path-matrix-array-no-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2592,7 +2592,7 @@
       "caseId": "path-matrix-competing-parameters-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2622,7 +2622,7 @@
       "caseId": "path-matrix-competing-parameters-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2652,7 +2652,7 @@
       "caseId": "path-matrix-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2683,7 +2683,7 @@
       "caseId": "path-matrix-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2714,7 +2714,7 @@
       "caseId": "path-matrix-object-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2744,7 +2744,7 @@
       "caseId": "path-matrix-object-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2774,7 +2774,7 @@
       "caseId": "path-matrix-scalar-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2802,7 +2802,7 @@
       "caseId": "path-matrix-scalar-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2830,7 +2830,7 @@
       "caseId": "path-matrix-scalar-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2858,7 +2858,7 @@
       "caseId": "path-matrix-scalar-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2886,7 +2886,7 @@
       "caseId": "path-matrix-scalar-foreign-name-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2914,7 +2914,7 @@
       "caseId": "path-matrix-scalar-foreign-name-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -2942,7 +2942,7 @@
       "caseId": "path-matrix-scalar-wrong-type-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -2973,7 +2973,7 @@
       "caseId": "path-matrix-scalar-wrong-type-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -3004,7 +3004,7 @@
       "caseId": "path-routing-ambiguous-templates-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3032,7 +3032,7 @@
       "caseId": "path-routing-ambiguous-templates-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3060,7 +3060,7 @@
       "caseId": "path-routing-concrete-before-templated-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -3087,7 +3087,7 @@
       "caseId": "path-routing-concrete-before-templated-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -3114,7 +3114,7 @@
       "caseId": "path-routing-concrete-before-templated-template-first-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -3141,7 +3141,7 @@
       "caseId": "path-routing-concrete-before-templated-template-first-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -3168,7 +3168,7 @@
       "caseId": "path-routing-concrete-before-templated-template-first-valid-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3196,7 +3196,7 @@
       "caseId": "path-routing-concrete-before-templated-template-first-valid-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3224,7 +3224,7 @@
       "caseId": "path-routing-concrete-before-templated-valid-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3252,7 +3252,7 @@
       "caseId": "path-routing-concrete-before-templated-valid-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3280,7 +3280,7 @@
       "caseId": "path-routing-identical-templates-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3308,7 +3308,7 @@
       "caseId": "path-routing-identical-templates-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3336,7 +3336,7 @@
       "caseId": "path-simple-array-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3367,7 +3367,7 @@
       "caseId": "path-simple-array-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3398,7 +3398,7 @@
       "caseId": "path-simple-array-encoded-delimiter-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3428,7 +3428,7 @@
       "caseId": "path-simple-array-encoded-delimiter-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3458,7 +3458,7 @@
       "caseId": "path-simple-array-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3489,7 +3489,7 @@
       "caseId": "path-simple-array-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3520,7 +3520,7 @@
       "caseId": "path-simple-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3551,7 +3551,7 @@
       "caseId": "path-simple-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3582,7 +3582,7 @@
       "caseId": "path-simple-object-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3613,7 +3613,7 @@
       "caseId": "path-simple-object-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3644,7 +3644,7 @@
       "caseId": "path-simple-scalar-allow-reserved-declared-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -3656,7 +3656,7 @@
       "caseId": "path-simple-scalar-allow-reserved-unset-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -3668,7 +3668,7 @@
       "caseId": "path-simple-scalar-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3696,7 +3696,7 @@
       "caseId": "path-simple-scalar-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3724,7 +3724,7 @@
       "caseId": "path-simple-scalar-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3752,7 +3752,7 @@
       "caseId": "path-simple-scalar-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3780,7 +3780,7 @@
       "caseId": "path-simple-scalar-required-false-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3808,7 +3808,7 @@
       "caseId": "path-simple-scalar-required-false-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3836,7 +3836,7 @@
       "caseId": "path-simple-scalar-unset-style-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3864,7 +3864,7 @@
       "caseId": "path-simple-scalar-unset-style-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3892,7 +3892,7 @@
       "caseId": "path-simple-scalar-wrong-type-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -3923,7 +3923,7 @@
       "caseId": "path-simple-scalar-wrong-type-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -3954,7 +3954,7 @@
       "caseId": "query-content-and-schema-declared-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -3985,7 +3985,7 @@
       "caseId": "query-content-and-schema-declared-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4016,7 +4016,7 @@
       "caseId": "query-content-json-boolean-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4044,7 +4044,7 @@
       "caseId": "query-content-json-boolean-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4072,7 +4072,7 @@
       "caseId": "query-content-json-boolean-wrong-type-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -4103,7 +4103,7 @@
       "caseId": "query-content-json-boolean-wrong-type-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -4134,7 +4134,7 @@
       "caseId": "query-content-json-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4165,7 +4165,7 @@
       "caseId": "query-content-json-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4196,7 +4196,7 @@
       "caseId": "query-content-json-object-malformed-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -4227,7 +4227,7 @@
       "caseId": "query-content-json-object-malformed-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -4258,7 +4258,7 @@
       "caseId": "query-content-json-scalar-nullable-literal-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4286,7 +4286,7 @@
       "caseId": "query-content-json-scalar-nullable-literal-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -4317,7 +4317,7 @@
       "caseId": "query-content-json-scalar-type-array-literal-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4345,7 +4345,7 @@
       "caseId": "query-content-two-media-types-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4376,7 +4376,7 @@
       "caseId": "query-content-two-media-types-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4407,7 +4407,7 @@
       "caseId": "query-deep-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4438,7 +4438,7 @@
       "caseId": "query-deep-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4469,7 +4469,7 @@
       "caseId": "query-deep-object-canonical-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -4481,7 +4481,7 @@
       "caseId": "query-deep-object-no-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4512,7 +4512,7 @@
       "caseId": "query-deep-object-no-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4543,7 +4543,7 @@
       "caseId": "query-deep-object-no-explode-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -4555,7 +4555,7 @@
       "caseId": "query-form-array-canonical-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4586,7 +4586,7 @@
       "caseId": "query-form-array-canonical-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4617,7 +4617,7 @@
       "caseId": "query-form-array-canonical-no-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4648,7 +4648,7 @@
       "caseId": "query-form-array-canonical-no-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4679,7 +4679,7 @@
       "caseId": "query-form-array-duplicate-name-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4710,7 +4710,7 @@
       "caseId": "query-form-array-duplicate-name-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4741,7 +4741,7 @@
       "caseId": "query-form-array-empty-value-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4769,7 +4769,7 @@
       "caseId": "query-form-array-empty-value-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4797,7 +4797,7 @@
       "caseId": "query-form-array-integer-items-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4828,7 +4828,7 @@
       "caseId": "query-form-array-integer-items-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4859,7 +4859,7 @@
       "caseId": "query-form-array-unset-style-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4890,7 +4890,7 @@
       "caseId": "query-form-array-unset-style-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4921,7 +4921,7 @@
       "caseId": "query-form-boolean-literal-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4949,7 +4949,7 @@
       "caseId": "query-form-boolean-literal-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -4977,7 +4977,7 @@
       "caseId": "query-form-boolean-wrong-type-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5008,7 +5008,7 @@
       "caseId": "query-form-boolean-wrong-type-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5039,7 +5039,7 @@
       "caseId": "query-form-object-canonical-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5066,7 +5066,7 @@
       "caseId": "query-form-object-canonical-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5093,7 +5093,7 @@
       "caseId": "query-form-object-canonical-no-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5124,7 +5124,7 @@
       "caseId": "query-form-object-canonical-no-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5155,7 +5155,7 @@
       "caseId": "query-form-object-integer-properties-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5186,7 +5186,7 @@
       "caseId": "query-form-object-integer-properties-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5217,7 +5217,7 @@
       "caseId": "query-form-object-missing-name-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5244,7 +5244,7 @@
       "caseId": "query-form-object-missing-name-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5271,7 +5271,7 @@
       "caseId": "query-form-object-wrong-type-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5298,7 +5298,7 @@
       "caseId": "query-form-object-wrong-type-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5325,7 +5325,7 @@
       "caseId": "query-form-scalar-allow-empty-value-declared-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5353,7 +5353,7 @@
       "caseId": "query-form-scalar-allow-empty-value-declared-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5381,7 +5381,7 @@
       "caseId": "query-form-scalar-allow-reserved-declared-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5409,7 +5409,7 @@
       "caseId": "query-form-scalar-allow-reserved-declared-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5437,7 +5437,7 @@
       "caseId": "query-form-scalar-allow-reserved-percent-triple-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5465,7 +5465,7 @@
       "caseId": "query-form-scalar-allow-reserved-percent-triple-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5493,7 +5493,7 @@
       "caseId": "query-form-scalar-allow-reserved-unset-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5521,7 +5521,7 @@
       "caseId": "query-form-scalar-allow-reserved-unset-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5549,7 +5549,7 @@
       "caseId": "query-form-scalar-encoded-plus-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5577,7 +5577,7 @@
       "caseId": "query-form-scalar-encoded-plus-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5605,7 +5605,7 @@
       "caseId": "query-form-scalar-encoded-plus-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -5617,7 +5617,7 @@
       "caseId": "query-form-scalar-integer-fractional-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5648,7 +5648,7 @@
       "caseId": "query-form-scalar-integer-fractional-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5679,7 +5679,7 @@
       "caseId": "query-form-scalar-integer-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5707,7 +5707,7 @@
       "caseId": "query-form-scalar-integer-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5735,7 +5735,7 @@
       "caseId": "query-form-scalar-missing-name-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5762,7 +5762,7 @@
       "caseId": "query-form-scalar-missing-name-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5789,7 +5789,7 @@
       "caseId": "query-form-scalar-name-without-value-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5820,7 +5820,7 @@
       "caseId": "query-form-scalar-name-without-value-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5851,7 +5851,7 @@
       "caseId": "query-form-scalar-nullable-absent-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5878,7 +5878,7 @@
       "caseId": "query-form-scalar-nullable-absent-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -5905,7 +5905,7 @@
       "caseId": "query-form-scalar-nullable-empty-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5933,7 +5933,7 @@
       "caseId": "query-form-scalar-nullable-empty-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5961,7 +5961,7 @@
       "caseId": "query-form-scalar-nullable-literal-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -5989,7 +5989,7 @@
       "caseId": "query-form-scalar-nullable-literal-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6017,7 +6017,7 @@
       "caseId": "query-form-scalar-optional-absent-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6041,7 +6041,7 @@
       "caseId": "query-form-scalar-optional-absent-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6065,7 +6065,7 @@
       "caseId": "query-form-scalar-optional-default-absent-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6093,7 +6093,7 @@
       "caseId": "query-form-scalar-optional-default-absent-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6121,7 +6121,7 @@
       "caseId": "query-form-scalar-pattern-mismatch-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -6152,7 +6152,7 @@
       "caseId": "query-form-scalar-pattern-mismatch-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "rejected",
@@ -6183,7 +6183,7 @@
       "caseId": "query-form-scalar-type-array-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6211,7 +6211,7 @@
       "caseId": "query-form-scalar-unencoded-plus-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6239,7 +6239,7 @@
       "caseId": "query-form-scalar-unencoded-plus-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6267,7 +6267,7 @@
       "caseId": "query-form-scalar-unencoded-plus-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6279,7 +6279,7 @@
       "caseId": "query-form-scalar-unset-style-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6307,7 +6307,7 @@
       "caseId": "query-form-scalar-unset-style-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6335,7 +6335,7 @@
       "caseId": "query-pipe-delimited-array-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6366,7 +6366,7 @@
       "caseId": "query-pipe-delimited-array-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6397,7 +6397,7 @@
       "caseId": "query-pipe-delimited-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6428,7 +6428,7 @@
       "caseId": "query-pipe-delimited-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6459,7 +6459,7 @@
       "caseId": "query-space-delimited-array-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6490,7 +6490,7 @@
       "caseId": "query-space-delimited-array-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6521,7 +6521,7 @@
       "caseId": "query-space-delimited-array-explode-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6552,7 +6552,7 @@
       "caseId": "query-space-delimited-array-explode-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6583,7 +6583,7 @@
       "caseId": "query-space-delimited-object-canonical-oas30",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6614,7 +6614,7 @@
       "caseId": "query-space-delimited-object-canonical-oas31",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "accepted",
@@ -6645,7 +6645,7 @@
       "caseId": "querystring-absent-no-question-mark-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6657,7 +6657,7 @@
       "caseId": "querystring-beside-query-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6669,7 +6669,7 @@
       "caseId": "querystring-content-with-style-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6681,7 +6681,7 @@
       "caseId": "querystring-declared-twice-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6693,7 +6693,7 @@
       "caseId": "querystring-declared-with-schema-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6705,7 +6705,7 @@
       "caseId": "querystring-empty-after-question-mark-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6717,7 +6717,7 @@
       "caseId": "querystring-form-urlencoded-object-canonical-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6729,7 +6729,7 @@
       "caseId": "querystring-form-urlencoded-object-wrong-type-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6741,7 +6741,7 @@
       "caseId": "querystring-json-object-canonical-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6753,7 +6753,7 @@
       "caseId": "querystring-json-object-malformed-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",
@@ -6765,7 +6765,7 @@
       "caseId": "querystring-json-object-wrong-type-oas32",
       "result": {
         "library": "openapi_first",
-        "libraryVersion": "4.0.0",
+        "libraryVersion": "4.2.0",
         "configurationId": "validate-request-rack",
         "preparse": null,
         "outcome": "unsupported",

@@ -247,6 +247,10 @@ file parses.
   every file tracked.
 - `test/report/render.test.ts`: the committed markdown is what the renderer
   produces from the committed measurements.
+- Every measure run, outside any test file: a number in an answer, `raw`
+  included, that a double cannot hold exactly stops the run. Write what your
+  library produced; the container protocol's "Numbers the harness cannot hold"
+  says why rounding it in the container is the wrong fix.
 
 The two-sided control is worth understanding before passing. The failure it
 exists to catch looks like success: an adapter that reads a verdict off a

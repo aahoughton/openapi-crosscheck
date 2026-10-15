@@ -6,6 +6,7 @@ import { MEASUREMENT_SCHEMA_VERSION } from "../types/measurement";
 import { delegatedSplits } from "../types/adapter";
 import { canBeAsked, probedStage, withheldOverQueryDecoding } from "../types/pipeline";
 import { describePreparse, preparse, suppliedAnything } from "../wire/preparse";
+import { InexactNumber } from "../wire/exactJson";
 import { runCapabilityEvidence, runVersionEvidence } from "../capability/evidence";
 import { corpusDigest } from "../corpus/digest";
 
@@ -141,6 +142,9 @@ async function runOne(testCase: Case, adapter: Adapter): Promise<AdapterResult> 
     const result = await adapter.run(testCase, testCase.request, preparsed);
     return { ...result, preparse: supplied ? describePreparse(preparsed) : null };
   } catch (error) {
+    // A cell would misstate this one: the answer exists and the harness cannot
+    // hold it. The run stops rather than publish a measurement missing a case.
+    if (error instanceof InexactNumber) throw error;
     // An adapter that throws is our defect, never the library's.
     return {
       library: adapter.library,

@@ -9,7 +9,7 @@ Source, as its container states it: https://github.com/kogosoftwarellc/open-api/
 
 Built from: `adapters/openapi-request-validator/`
 
-Image: `sha256:d0cc55e18094086bf3bffbeec210ba3055cb7d2e12f74c9138ddf11d5384cad2`
+Image: `sha256:8306d6fa1c6848af4d3b5eea4040f52657b7e6dd88e3b2b9d7b696d114082700`
 
 Configuration `parameters-only`: new OpenAPIRequestValidator({ parameters }) with the operation's parameters, called with { params, query, headers }. Query arrives from the harness as raw name/value pairs with no percent decoding, then this adapter collapses duplicate raw names into the object shape validateRequest accepts. That shape holds a string per name, so a query pair that arrived with no `=` is answered as a case this shape cannot represent, rather than as an empty value. It is told which operation applies, because it has no routing of its own. A case declaring a cookie parameter is answered as one this shape cannot represent, because validateRequest has no cookie input. Values are read from a write-back channel: validateRequest returns errors only, and its schema engine writes coerced values and schema defaults onto the params, query and headers object it is handed. This adapter reports the declared parameters whose values changed across the call, at vantage parsedBeforeValidation. An input the library left unchanged reports no values.
 

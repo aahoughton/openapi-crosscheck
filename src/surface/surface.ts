@@ -94,10 +94,10 @@ export const PROBE_AXES: readonly ProbeAxis[] = Object.keys(PROBE_AXIS_LISTED) a
  * surface: rows a case can fill by writing the keyword against a parameter and
  * probing whether it is applied.
  *
- * Assertions and applicators only. Annotations (`title`, `description`,
- * `format`, `default`, `example` and their siblings) change no verdict, so a
- * row for one would advertise work that cannot move the coverage, the same
- * reason the stage table carries no `valueExposure` row.
+ * Assertions and applicators, and `format`, below. Annotations (`title`,
+ * `description`, `default`, `example` and their siblings) change no verdict,
+ * so a row for one would advertise work that cannot move the coverage, the
+ * same reason the stage table carries no `valueExposure` row.
  *
  * Two lists rather than one, because the dialects are different sets. 3.0's
  * Schema Object is "an extended subset of the JSON Schema Specification Draft
@@ -113,6 +113,12 @@ export const PROBE_AXES: readonly ProbeAxis[] = Object.keys(PROBE_AXIS_LISTED) a
  * their rows are 2020-12's assertion and applicator keywords. `nullable` is
  * not among them: 2020-12 reads an unknown keyword as an annotation, which is
  * itself a probeable fact but a different row than a constraint.
+ *
+ * `format` is a row in both. Each dialect makes it an annotation by default:
+ * 3.0.4 says it "is treated as a non-validating annotation by default", and
+ * 2020-12 lets an implementation assert it only behind an option that "MUST be
+ * disabled by default". A library asserting it unasked changes a verdict, so a
+ * case writing it asks a question, and the row is where that case would count.
  */
 const OAS30_CONSTRAINT_KEYWORDS: readonly string[] = [
   "additionalProperties",
@@ -121,6 +127,7 @@ const OAS30_CONSTRAINT_KEYWORDS: readonly string[] = [
   "enum",
   "exclusiveMaximum",
   "exclusiveMinimum",
+  "format",
   "items",
   "maxItems",
   "maxLength",
@@ -153,6 +160,7 @@ const DRAFT_2020_12_CONSTRAINT_KEYWORDS: readonly string[] = [
   "enum",
   "exclusiveMaximum",
   "exclusiveMinimum",
+  "format",
   "if",
   "items",
   "maxContains",

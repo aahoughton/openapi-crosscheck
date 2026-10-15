@@ -998,7 +998,7 @@
   "provenance": {
     "kind": "container",
     "slug": "openapi-request-validator",
-    "imageId": "sha256:d0cc55e18094086bf3bffbeec210ba3055cb7d2e12f74c9138ddf11d5384cad2",
+    "imageId": "sha256:8306d6fa1c6848af4d3b5eea4040f52657b7e6dd88e3b2b9d7b696d114082700",
     "ecosystem": "npm"
   },
   "answers": [

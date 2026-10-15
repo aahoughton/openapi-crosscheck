@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM php:8.4-cli AS check
+FROM php:8.5-cli AS check
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends git unzip \
@@ -12,7 +12,7 @@ RUN composer install --no-interaction --no-progress
 COPY phpstan.neon server.php ./
 RUN php -l server.php && vendor/bin/phpstan analyse --no-progress
 
-FROM php:8.4-cli
+FROM php:8.5-cli
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends git unzip \
